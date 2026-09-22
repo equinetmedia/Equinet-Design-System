@@ -6,6 +6,42 @@ the Equinet Module Development project, for import into Claude Design's
 Design System" (org default), rather than adding a new one. See the note
 below on why that distinction matters.
 
+## How this stays in sync
+
+Nothing here updates automatically. Every link in this chain is a deliberate,
+manual step — this section is the actual recipe, confirmed working as of
+2026-09-22.
+
+1. New development work happens in the Equinet Module Development Claude.ai
+   Project — a module ships, a token gets promoted, a directive gets
+   resolved, an open decision gets settled.
+2. In that Project, ask Claude to reconcile the change into `tokens.css` and
+   `README.md`, the same way this system was built and rebuilt.
+3. Drop the updated files into your local clone of this repo and push:
+
+   ```bash
+   git add -A
+   git commit -m "describe what changed"
+   git push
+   ```
+
+   Use the HTTPS remote — `https://github.com/equinetmedia/Equinet-Design-System.git`
+   — not SSH. SSH fails on this machine with `Permission denied (publickey)`;
+   no key is registered. Push through an editor's signed-in GitHub session
+   (VS Code's Source Control panel worked) or a scoped personal access token.
+   Ordinary pushes shouldn't need `--force` — that was only required once, to
+   overwrite the repo's original unrelated history.
+4. Add an entry to `CHANGELOG.md`, following the template at its bottom, so
+   drift between this repo and the live doctrine stays traceable.
+5. If a native Claude Design design system is linked to this repo, re-run its
+   GitHub import to refresh it, or run `/design-sync` from Claude Code in a
+   local clone to pull the update into the canvas.
+
+**Why step 2 can't be skipped.** This repo is private by decision — see
+`CHANGELOG.md`, 2026-09-22 — so nothing can fetch its current state directly
+in a future session. The current file has to be handed back into the Project
+chat each time, not pulled automatically.
+
 ## What's in this folder
 
 | File | What it is | Use it for |

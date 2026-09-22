@@ -132,24 +132,44 @@ desktop rule at `(0,2,0)` regardless of source order.
 
 ## Motion
 
-Two durations are the whole system: **0.3s ease-in-out** for anything that
-scales, **200ms ease** for colour, shadow and small icon shifts. Do not introduce
-a third.
+Two durations anchor the system: **0.3s ease-in-out** for anything that
+scales or moves, **200ms ease** for colour, shadow and small icon shifts.
+Two more exist for specific effects: **0.6s** for a card or image settling
+back after a hover ends, and **0.45s** for the one reveal-wipe transition in
+`sector-three-column-case-study`. Don't introduce a fifth without promoting
+it to a token.
 
 | Effect | Value |
 | --- | --- |
 | Primary button grow | `scale(1.03)`, origin centre |
 | Primary button press | `scale(0.99)` |
 | Button radius on hover | 7px → 8px |
-| Textual button arrow | `translateX(8px)` |
-| Card emphasis grow | `scale(1.04)` |
+| Card hover lift | `translateY(-6px)` — **canonical**, per `cagr-four-column`'s own code comment, attributed to `growth_cards` |
+| Card image zoom + desaturate | `scale(1.06)`, `grayscale(0%)` |
+| Textual button arrow | `translateX(8px)` in most modules; `translateX(16px)` in `sector-three-column-case-study` — **unreconciled**, pick one |
+| Card emphasis grow | `scale(1.04)` — `cim-methodology` only, a pinned "elevated" state, not a hover default |
 
 The button grow is capped at 1.03 so it cannot reflow neighbours or overflow a
 grid cell. The radius grows with it — both Figma hover exports show this.
 
-Every shipped module declares its motion unconditionally and withdraws it inside
-`@media (prefers-reduced-motion: reduce)`. The reduced-motion rendering is a
-complete design, not a degraded one.
+**Reduced motion: do both halves.** The correct pattern, confirmed by the two
+most disciplined modules read so far (`cagr-four-column`,
+`sector-three-column-case-study`), is to declare entrance motion inside
+`@media (prefers-reduced-motion: no-preference)` *and* back it with an
+unconditional `@media (prefers-reduced-motion: reduce)` block that force-kills
+any transition or transform left running. `cim-methodology` and
+`plain_hero_banner` only carry the second half — that's a gap in those two
+modules, not a second valid pattern to choose between.
+
+```css
+@media (prefers-reduced-motion: no-preference) {
+  .eq-card:hover { transform: translateY(-6px); transition: transform 0.3s ease-in-out; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .eq-card { transition: none !important; }
+  .eq-card:hover { transform: none; }
+}
+```
 
 Motion values are not tokenised. The durations and the button scale are; the
 arrow travel, press and card grow are not yet.
@@ -221,10 +241,42 @@ Where cards sit in a row and must share baselines, the gap is held by a
 absorb one wrapped line. At mobile the zones collapse to `0` and an explicit
 margin takes over; a fixed zone in a single-column stack just leaves a hole.
 
-Two hover treatments are currently shipping — a `translateY(-6px)` lift in one
-module family and a border-and-shadow elevate in another. This is unresolved.
-Match whichever pattern the module's own family already uses, and say which you
-matched.
+**Hover is a lift.** `translateY(-6px)` is canonical — `cagr-four-column`
+names it as such in its own code comment, tracing it back to `growth_cards`.
+`cim-methodology`'s border-and-shadow "elevate," with no movement, is the
+outlier: it's how one module happens to work, not an equally valid second
+pattern to choose between.
+
+**Card shadow blur is 5px, not 10px.** `tokens.css` and `cagr-four-column`
+both use `1px 1px 5px 0px rgba(0,0,0,.13)`, correctly bound through
+`var(--equinet-shadow-card, …)`. `cim-methodology`'s `10px` blur is a
+hardcoded literal, not a token reference — it drifted, rather than
+representing a second correct value. Fix it to reference the token.
+
+**Where a card carries a photo, the image does the moving, not always the
+card.** `cagr-four-column`: the image zooms and desaturates-to-colour on
+hover, layered on top of the card's own lift. `sector-three-column-case-study`
+takes this further: two accent-bar pseudo-elements cross-fade colour (navy at
+rest, orange on hover) with **no transform at all** — deliberately, per its
+own comment, because lateral movement over a photo pulls the eye away from
+the content, and three of these firing in a grid reads as restless. Whether
+this card's root also lifts alongside the crossfade is still open — worth
+checking against the module directly rather than assuming either way.
+
+**Zero-specificity reset, declared first.** Both of the properly-tokenized
+modules read so far open with a `:where()` block resetting margins, list
+styles and media sizing at zero specificity, before anything else:
+
+```css
+:where(.your-module) :where(p, h1, h2, h3, h4, h5, h6, ul, ol, dl, dt, dd, figure, blockquote) { margin: 0; }
+:where(.your-module) :where(ul, ol) { padding: 0; list-style: none; }
+:where(.your-module) :where(img, picture, svg) { max-width: 100%; }
+```
+
+This lets every subsequent measured value win outright, with no specificity
+arithmetic against a theme's element rules. `cim-methodology` and
+`plain_hero_banner` predate this pattern and don't have it — worth retrofitting
+rather than treating as optional going forward.
 
 ## Backgrounds and parallax
 
@@ -333,15 +385,67 @@ components that do the same job:
 · `5_column_block_process` · `growth_cards` · `EQ Workshop Hero Banner` ·
 `cim-methodology` (Commercial Intelligence Methodology)
 
+**Verified against actual CSS, as of 2026-09-22:** `cim-methodology`,
+`plain_hero_banner`, `sector-three-column-case-study`, `cagr-four-column`,
+`pencil_testimonial`, `workshop_one_column`, `2_column_intelligence_engine_steps`
+(confirmed intentionally empty). The remaining seven are named from build
+history only — nobody has read their CSS. `growth_cards` in particular is
+cited by name as the origin of the card-lift pattern without its file ever
+having been seen directly.
+
+**Two integrity problems, not new modules:**
+- A file uploaded as `5-column-block-process.css` is a byte-for-byte
+  duplicate of `cim-methodology`'s CSS. The actual five-column module's
+  styling has never been provided under any filename.
+- `new_header_module_2026_v3.css` doesn't conform to this system at all — an
+  off-brand green palette, its own `:root` block, FontAwesome glyphs, no
+  `--equinet-*` token usage anywhere. Excluded from this compilation rather
+  than treated as a fifteenth module; worth confirming whether it's meant to
+  be on-brand before it ships.
+
+**Also surfaced, out of scope for this system:** `single_narrow_text_column`
+is an ESCATEC module (`--escatec-*` prefix), structurally near-identical to
+`plain_hero_banner`'s button pattern with the client swapped. Good sign the
+patterns generalize past Equinet; its tokens don't belong in this file.
+
+## Resolved (2026-09-22)
+
+Confirmed against `cagr-four-column.css` and `sector-three-column-case-study.css`
+— the first properly-tokenized module CSS read directly, rather than quoted
+secondhand in `tokens.css` comments:
+
+- **Card hover is a lift**, `translateY(-6px)`, per `cagr-four-column`'s own
+  comment naming it canonical. `cim-methodology`'s elevate is the outlier.
+- **Reduced motion needs both halves** — `no-preference` wrapper for entrance
+  motion, plus an unconditional `reduce` block as a safety net. `cim-methodology`
+  and `plain_hero_banner` are missing the first half, not following a
+  different valid pattern.
+- **Card shadow blur is 5px.** `cim-methodology`'s 10px is a hardcoded literal
+  that drifted from the token, not a second correct value.
+- **The primary-button shadow wasn't transposed in the token file.**
+  `cagr-four-column` references `var(--equinet-shadow-btn--primary, …)`
+  correctly. `cim-methodology` and `plain_hero_banner` hardcode a literal
+  value instead of using the variable, and that literal doesn't match
+  `tokens.css`. Fix those two modules to reference the token; leave the token
+  itself alone.
+
 ## Open decisions
 
 - Whether the primary button's universal-inclusion rule should stay absolute
-  or narrow to modules whose design includes a CTA.
-- Which card hover is the system behaviour: lift or elevate.
-- Whether reduced motion is gated with a `no-preference` wrapper or a `reduce`
-  override. Every module does the latter; the written doctrine says the former.
-- Card shadow blur: 5px or 10px.
-- Whether the two primary-button shadow tokens are transposed.
+  or narrow to modules whose design includes a CTA. `cagr-four-column` ships
+  `.btn-primary` styling with **no button layer anywhere in its Figma comp**,
+  specifically so a future rich-text-inserted button inherits the component —
+  a deliberate case for keeping the rule absolute, not just an oversight.
+- **New: arrow travel distance disagrees.** `translateX(8px)` in most modules,
+  `translateX(16px)` in `sector-three-column-case-study`, on the same pattern.
+- **New: two button class families coexist.** `.btn-primary` throughout, but
+  `sector-three-column-case-study` also carries `.button_primary_large` and
+  `.button_textual` as parallel selectors on the same rules. Worth deciding
+  whether these are sanctioned aliases or naming drift to retire.
+- **New: heading weight and family are inconsistent.** `cagr-four-column` uses
+  `--equinet-fontweight-display` (800) via `--equinet-font-heading`.
+  `sector-three-column-case-study` hardcodes `font-weight: 900 !important`
+  and `font-family: "Open Sans" !important` directly, bypassing both tokens.
 - Whether Playfair Display is a system face or a per-module accent.
 - Line heights below `lead`, which are currently untokenised.
 - Whether `equinet-color-heading` and `equinet-color-text` should merge.

@@ -145,4 +145,21 @@
   --equinet-space-3xl: 56px;   /* mobile section padding clamp — decided 2026-09-21
                                    (DUP VALUE: --equinet-btn-height)  · plain_hero_banner */
   --equinet-space-4xl: 96px;   /* desktop section padding             · cim-methodology, plain_hero_banner */
+
+  /* ================================ MOTION EXTRAS · 2026-09-22 --
+     Surfaced by cagr-four-column and sector-three-column-case-study, which
+     were not previously read. Both already reference these as var() calls
+     with fallbacks; promoting them makes that explicit rather than implicit. */
+  --equinet-motion-duration--slow: 0.6s;   /* card/image return timing (fast-in, slow-out) · cagr-four-column, sector-three-column-case-study */
+  --equinet-motion-duration--wipe: 0.45s;  /* customerStudy reveal wipe            · sector-three-column-case-study */
+
+  /* ------------------------------------------------------ LETTERSPACING --
+     A whole missing category: every module hardcodes 0.1em/0.2em/-0.05em
+     tracking inline rather than through a token. sector-three-column-case-study
+     references --equinet-letterspacing-kicker and --equinet-letterspacing-display
+     (both commented out in-file, falling through to hardcoded values) —
+     these are promotion candidates, not yet real tokens. */
+  /* --equinet-letterspacing-kicker: 0.2em;   -- promotion candidate, unconfirmed */
+  /* --equinet-letterspacing-display: -0.03em; -- promotion candidate, conflicts with
+       plain_hero_banner's -0.05em on the same role; needs reconciling before promotion */
 }
