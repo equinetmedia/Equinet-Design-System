@@ -76,8 +76,9 @@ Rebuilt in full from:
   customization, primary button styling & mapping, primary button interactive
   animation, primary button SVG hover theming.
 - `/modules/tokens.css`, the real production token file.
-- The CSS of three shipped modules: `cim-methodology`, `plain_hero_banner`,
-  `cagr-four-column`.
+- The CSS of two shipped modules — the only two with real CSS available at
+  this point: `cim-methodology`, `plain_hero_banner` — plus confirmation that
+  `2_column_intelligence_engine_steps` is intentionally empty.
 - The fourteen-module build history recorded in project memory.
 - The anti-drift colour rule, added after Claude Design introduced
   off-palette purple and teal accents on a categorical infographic.

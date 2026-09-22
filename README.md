@@ -1,11 +1,14 @@
 # Equinet
 
-A design system for HubSpot CMS modules, rebuilt in full on 2026-09-22 from
-everything gathered across the Equinet Module Development project: six
-standing directive documents, `/modules/tokens.css`, the CSS of three delivered
-modules (`cim-methodology`, `plain_hero_banner`, `cagr-four-column`), and the
-build history of fourteen shipped modules. Every value is traced to a Figma
-export, a directive, or a shipped module — nothing here is approximated.
+A design system for HubSpot CMS modules, first built on 2026-09-22 from six
+standing directive documents, `/modules/tokens.css`, and the CSS of
+`cim-methodology` and `plain_hero_banner` (the only two modules with real CSS
+available at that point). It was extended the same day once `cagr-four-column`,
+`sector-three-column-case-study`, `pencil_testimonial` and `workshop_one_column`
+were read in full — see **Component inventory** for exactly which of the
+fourteen shipped modules are verified against real CSS versus named from
+build history only. Every value here is traced to a Figma export, a
+directive, or a shipped module — nothing is approximated.
 
 The system serves one thing: drag-and-drop modules an editor can place, restyle
 and reorder without breaking the design. That constraint — and the fact that
@@ -225,6 +228,14 @@ The focus ring is never removed. `:focus-visible` is styled separately from
 `:hover` so keyboard users get an indicator pointer users do not see, and it is
 drawn in navy — an orange ring on an orange fill is invisible.
 
+**The "transposed shadow tokens" question is resolved, and it wasn't a token
+problem.** `cagr-four-column` correctly references
+`var(--equinet-shadow-btn--primary, …)`. `cim-methodology` and
+`plain_hero_banner` hardcode a literal `box-shadow` value instead of using the
+variable at all, and that literal doesn't match what's in `tokens.css`. Fix
+those two modules to reference the token; the token itself is correct as
+written.
+
 ## Cards
 
 Cards clip with `overflow: clip`, never `overflow: hidden`: `clip` does not
@@ -415,27 +426,6 @@ having been seen directly.
 is an ESCATEC module (`--escatec-*` prefix), structurally near-identical to
 `plain_hero_banner`'s button pattern with the client swapped. Good sign the
 patterns generalize past Equinet; its tokens don't belong in this file.
-
-## Resolved (2026-09-22)
-
-Confirmed against `cagr-four-column.css` and `sector-three-column-case-study.css`
-— the first properly-tokenized module CSS read directly, rather than quoted
-secondhand in `tokens.css` comments:
-
-- **Card hover is a lift**, `translateY(-6px)`, per `cagr-four-column`'s own
-  comment naming it canonical. `cim-methodology`'s elevate is the outlier.
-- **Reduced motion needs both halves** — `no-preference` wrapper for entrance
-  motion, plus an unconditional `reduce` block as a safety net. `cim-methodology`
-  and `plain_hero_banner` are missing the first half, not following a
-  different valid pattern.
-- **Card shadow blur is 5px.** `cim-methodology`'s 10px is a hardcoded literal
-  that drifted from the token, not a second correct value.
-- **The primary-button shadow wasn't transposed in the token file.**
-  `cagr-four-column` references `var(--equinet-shadow-btn--primary, …)`
-  correctly. `cim-methodology` and `plain_hero_banner` hardcode a literal
-  value instead of using the variable, and that literal doesn't match
-  `tokens.css`. Fix those two modules to reference the token; leave the token
-  itself alone.
 
 ## Open decisions
 

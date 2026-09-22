@@ -49,6 +49,8 @@ chat each time, not pulled automatically.
 | `tokens.css` | The real, production token file — the original `/modules/tokens.css` with the finalized spacing scale appended (dated 2026-09-22) | A codebase-style or raw-file import; the closest thing to ground truth |
 | `tokens.json` | The same values, reshaped into the `{"tokens":[{"name","value","usage"}]}` format Claude Design's own Design System schema reads | If the import flow asks for this shape instead of CSS |
 | `README.md` | The full brand book: consumption pattern, colour, type, spacing, breakpoints, motion, buttons, cards, backgrounds/parallax, editor-controlled styling, icons, accessibility, the engineering contract, component inventory, and open decisions | Read first — everything else assumes it |
+| `CHANGELOG.md` | Dated log of every reconciliation pass, what it resolved, and what it newly surfaced | Tracing when and why a value or decision changed |
+| `assets/icons/README.md` | Inventory of icons referenced across module CSS (size, colour, hover behaviour) — no real SVG files yet | Understanding what's blocking icon centralization before assuming it's done |
 
 ## Why this isn't already in Claude Design
 
@@ -61,30 +63,64 @@ files above — which on some plans requires the Claude Design Admin role.
 
 ## Before importing: known open items
 
-These are unresolved, not oversights. Whoever imports this should decide them
-rather than have Claude Design silently pick a side:
+Updated 2026-09-22, after a reconciliation pass against `cagr-four-column`
+and `sector-three-column-case-study` resolved four of the items originally
+listed here. What's left is genuinely open — whoever imports this should
+decide these rather than have Claude Design silently pick a side:
 
-- **Card hover**: two treatments currently ship — a `translateY(-6px)` lift
-  and a border/shadow "elevate." Neither is yet the system default.
-- **Reduced motion**: the written rule says wrap motion in
-  `prefers-reduced-motion: no-preference`; every shipped module instead
-  declares motion unconditionally and withdraws it under `reduce`. Pick one.
-- **Card shadow blur**: 5px in `tokens.css`, 10px in a shipped module. Needs
-  checking against the Figma filter.
-- **Primary button shadow tokens** may be transposed between the default and
-  dark-hover states — both shipped modules use them the other way round.
+- **Arrow travel distance disagrees.** `translateX(8px)` in most modules,
+  `translateX(16px)` in `sector-three-column-case-study`, on the same
+  textual-button hover pattern.
+- **Two button class families coexist.** `.btn-primary` throughout, but
+  `sector-three-column-case-study` also carries `.button_primary_large` and
+  `.button_textual` as parallel selectors on the same rules — sanctioned
+  aliases, or drift to retire?
+- **Heading weight and family are inconsistent.** `cagr-four-column` uses the
+  `--equinet-fontweight-display` token (800) via `--equinet-font-heading`.
+  `sector-three-column-case-study` hardcodes `font-weight: 900 !important`
+  and `font-family: "Open Sans" !important` directly, bypassing both tokens.
 - **Playfair Display** is used in two modules now but isn't in `tokens.css` —
   worth promoting to a system font if it's staying.
+- **A `letterspacing` token category doesn't exist.** Every module hardcodes
+  tracking values (`0.1em`, `0.2em`, `-0.05em`) inline.
+- **Icon centralization is blocked on missing source.** `assets/icons/`
+  exists with an inventory of what's known from CSS (sizes, colours, hover
+  behaviour) but no real SVG markup — that lives in each module's
+  `module.html`, none of which has been shared. See that folder's own
+  `README.md`.
+- **`5-column-block-process.css`, as uploaded, is a duplicate of
+  `cim-methodology`'s CSS**, not the real five-column module. Its actual
+  styling has never been provided under any filename.
+- **`new_header_module_2026_v3.css` doesn't conform to this system** — an
+  off-brand green palette, its own `:root` block, FontAwesome glyphs, no
+  `--equinet-*` usage. Excluded from this system rather than treated as a
+  fifteenth module; worth confirming whether it's meant to be on-brand.
+
+**Resolved in the same pass, no longer open:** card hover pattern (a
+`translateY(-6px)` lift is canonical; `cim-methodology`'s border/shadow
+elevate is the outlier), reduced-motion gating (needs both a `no-preference`
+wrapper and a `reduce` fallback — `cim-methodology` and `plain_hero_banner`
+are missing the first half), card shadow blur (5px is correct; `10px` in
+`cim-methodology` is a hardcoded drift), and the primary-button shadow
+"transposition" (not a token problem — two modules hardcode a literal instead
+of referencing the variable). Full detail in `README.md`.
+
+**Still standing from the original commit:**
 - **Primary button contrast**: white on the orange fills fails AA at 16px
   (3.4:1 default, 2.5:1 light hover, 4.4:1 dark hover). The client accepted
-  this exception on 2026-09-21 — it's documented in `README.md`, not silently
-  fixed, and it should stay a deliberate exception rather than spread to other
-  components.
+  this exception on 2026-09-21 — documented in `README.md`, not silently
+  fixed, and it should stay a deliberate exception rather than spread to
+  other components.
 
 ## Provenance
 
 Built from: the six standing directives (parallax, padding, background,
 button mapping, button interactive animation, button SVG hover theming),
-`/modules/tokens.css`, the CSS of `cim-methodology`, `plain_hero_banner` and
-`cagr-four-column`, and the fourteen-module build history recorded in the
-Equinet Module Development project.
+`/modules/tokens.css`, and the fourteen-module build history recorded in the
+Equinet Module Development project. CSS verified directly, as of 2026-09-22:
+`cim-methodology`, `plain_hero_banner`, `cagr-four-column`,
+`sector-three-column-case-study`, `pencil_testimonial`, `workshop_one_column`,
+and `2_column_intelligence_engine_steps` (confirmed intentionally empty). The
+remaining seven modules are named from build history only — see `README.md`,
+"Component inventory," for the full breakdown including two file-integrity
+problems that aren't real modules at all.
