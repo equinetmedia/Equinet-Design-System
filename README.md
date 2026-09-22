@@ -341,6 +341,15 @@ markup. It's empty of real SVGs as of 2026-09-22: see its own `README.md` for
 the inventory of what's known and why the arrow specifically needs a decision
 before it can be centralized — it isn't one shape today.
 
+## Brand mark
+
+`assets/brand/` holds the Equinet Media wordmark, two ready-made variants —
+`wordmark-light.svg` (white fill, for navy or dark grounds) and
+`wordmark-dark.svg` (`equinet-color-text` fill, for light grounds). Same
+artwork, same light/dark toggle logic already used for button hover states,
+picked by background contrast rather than habit. Full usage rules in that
+folder's own `README.md`.
+
 ## Accessibility
 
 WCAG 2.1 AA is the floor, and conformance is measured rather than assumed.

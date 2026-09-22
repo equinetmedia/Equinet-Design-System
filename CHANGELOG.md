@@ -5,6 +5,19 @@ Project. Every entry below represents a manual reconciliation pass — someone
 asked Claude, in that Project, to fold new development work into
 `tokens.css` / `README.md`, then committed the result here.
 
+## 2026-09-22 — Brand wordmark added
+
+`assets/brand/` now holds real SVG files — `wordmark-light.svg` and
+`wordmark-dark.svg`, provided directly, not reconstructed. Identical
+geometry, differing only by fill: white for dark grounds, `equinet-color-text`
+(`#242530`) for light ones. Same light/dark selection logic as the button
+hover toggle already in the system.
+
+Noted in passing: the dark variant's fill matches `equinet-color-text`
+specifically, not `equinet-color-heading`. Doesn't resolve the open question
+of whether those two near-identical tokens should merge, but it's now on
+record which one the brand mark itself was built against.
+
 ## 2026-09-22 — Icon inventory started, no real assets yet
 
 Added `assets/icons/README.md`: an inventory of every icon referenced across
