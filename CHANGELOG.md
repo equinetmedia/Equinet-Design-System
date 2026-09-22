@@ -5,6 +5,21 @@ Project. Every entry below represents a manual reconciliation pass — someone
 asked Claude, in that Project, to fold new development work into
 `tokens.css` / `README.md`, then committed the result here.
 
+## 2026-09-22 — Icon inventory started, no real assets yet
+
+Added `assets/icons/README.md`: an inventory of every icon referenced across
+module CSS (arrow, checkmark, close, external-link, play), each with its
+known size and colour behaviour. No actual SVG markup exists yet — CSS only
+describes how an icon behaves, not its geometry, and no `module.html` has
+been shared in this project to source real paths from.
+
+Surfaced a real design decision in the process: the "arrow" used across CTAs
+is not one shape. At least three distinct geometries exist (~15×13 filled,
+14–16px stroke variants with different cap styles, a 20px version), on top
+of the already-open 8px/16px hover-travel disagreement. Centralizing it
+requires choosing a canonical arrow first — this can't be resolved from CSS,
+it needs a decision the same way card-hover and reduced-motion did.
+
 ## 2026-09-22 — Reconciled against real module CSS, not secondhand values
 
 Nine files uploaded; two were integrity problems rather than new modules —

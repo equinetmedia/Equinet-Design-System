@@ -322,6 +322,14 @@ design allows, so one state change recolours text and icon together.
 Nothing is invented. If an element is not in the source comp, it does not appear
 in the build.
 
+**Shared assets: `assets/icons/`.** Every module currently carries its own
+copy of the icons it uses — the arrow, the checkmark, the close glyph — inline
+in its own `module.html`. That folder is the intended shared home for them
+instead, so a module references one canonical file rather than repeating
+markup. It's empty of real SVGs as of 2026-09-22: see its own `README.md` for
+the inventory of what's known and why the arrow specifically needs a decision
+before it can be centralized — it isn't one shape today.
+
 ## Accessibility
 
 WCAG 2.1 AA is the floor, and conformance is measured rather than assumed.
