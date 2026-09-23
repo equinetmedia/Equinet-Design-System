@@ -28,7 +28,7 @@
      is the substitute; Myriad Pro stays first in the stack so a licensed embed is
      picked up automatically if one is ever added to the theme. */
   --equinet-font-heading: 'Open Sans', sans-serif;                              /* 2-column-hero-banner · 2026-08-07 */
-  --equinet-font-body: 'Myriad Pro', 'Source Sans 3', sans-serif;               /* 2-column-hero-banner · 2026-08-07 */
+  --equinet-font-body: 'Source Sans 3', sans-serif;                              /* Myriad Pro dropped 2026-09-23 — no licensed font file exists, confirmed by Claude Design's own build hitting the same wall and falling back permanently; see CHANGELOG */
 
   --equinet-fontsize-display: 60px;      /* h1Heading text font-size            · 2-column-hero-banner · 2026-08-07 */
   --equinet-fontsize-lead: 20px;         /* Lead-Text-Color font-size           · 2-column-hero-banner · 2026-08-07 */
@@ -59,6 +59,22 @@
 
   --equinet-color-surface: #FFFFFF;          /* module gradient start stop                     · 2026-08-07 */
   --equinet-color-surface--alt: #F6F5F5;     /* module gradient end stop                       · 2026-08-07 */
+
+  /* ---------------------------------------------------------- DATA VIZ --
+     Sanctioned 2026-09-23, sourced from a published marketing infographic
+     ("Equinet-Media-ABM-underpinned-by-Loop-Marketing-in-HubSpot"), not from
+     a shipped module. Distinct from --equinet-color-navy on purpose — this
+     is a chart/gradient scale, not a UI colour, and should not be used for
+     buttons, text, or any interactive element. */
+  --equinet-color-chart-blue-light: #81ACD7;   /* three-stop chart gradient, lightest · infographic · 2026-09-23 */
+  --equinet-color-chart-blue-mid: #5688BA;     /* three-stop chart gradient, middle   · infographic · 2026-09-23 */
+  --equinet-color-chart-blue-dark: #3D71A5;    /* three-stop chart gradient, darkest  · infographic · 2026-09-23 */
+
+  /* DISCREPANCY, unresolved: the same infographic uses #ECEAEA for a panel
+     background — close to but NOT identical to --equinet-color-surface--alt
+     (#F6F5F5). Not promoted as its own token; flagged here so it isn't lost.
+     Needs a decision: a deliberate second, more muted grey, or drift that
+     should just use the existing surface--alt token instead. */
 
   /* -------------------------------------------------------------- BUTTONS --
      Semantic button roles ALIAS the palette above rather than repeating hexes,

@@ -53,27 +53,66 @@ stop of a subtle module gradient.
 Choose by role, never by appearance. A card background takes the surface token
 even where it happens to match the page.
 
-**This is the complete palette. Nothing outside it — ever.** Where content
-needs several items visually told apart — categories in an infographic, series
-in a chart, states in a comparison — the distinction comes from position,
-iconography, typographic weight, or a tint pairing already in the system
-(navy fill against orange fill, or a pale/surface tint against a full-strength
-one), never from an invented hue. A generated layout using a colour not listed
-above is a defect, not a stylistic choice, however well it reads.
+**This is the complete palette for UI. Nothing outside it — ever.** Where
+content needs several items visually told apart — categories in a card grid,
+states in a comparison, anything editors will place and restyle — the
+distinction comes from position, iconography, typographic weight, or a tint
+pairing already in the system (navy fill against orange fill, or a pale/surface
+tint against a full-strength one), never from an invented hue. A generated
+module using a UI colour not listed above is a defect, not a stylistic
+choice, however well it reads.
+
+**One narrow, named exception: data visualization.** See below. It exists
+because real marketing content already used it, not because the rule above
+loosened — the exception is scoped to charts specifically and does not
+license a designer or an AI reaching for a new hue anywhere else.
 
 **Anchor colours need pinning.** A theme-level anchor rule will win on at least
 one state unless the override is applied with `!important` across base, `:hover`,
 `:focus-visible`, `:active` and `:visited`. Half-pinned links flicker colour
 between states.
 
+## Data visualization
+
+A separate, small palette for charts and data graphics only — never for UI,
+buttons, text, or anything a content editor places in a module. Sanctioned
+2026-09-23, sourced from a published marketing infographic
+("Equinet-Media-ABM-underpinned-by-Loop-Marketing-in-HubSpot"), not from a
+shipped module — the first token category in this system to come from
+marketing collateral rather than product code.
+
+| Token | Value | Role |
+| --- | --- | --- |
+| `equinet-color-chart-blue-light` | `#81ACD7` | Gradient, lightest stop |
+| `equinet-color-chart-blue-mid` | `#5688BA` | Gradient, middle stop |
+| `equinet-color-chart-blue-dark` | `#3D71A5` | Gradient, darkest stop |
+
+This is a genuinely different blue family from `equinet-color-navy` — lighter,
+more muted, not a tint or shade of it. Deliberately so: navy is a UI colour
+with jobs (navigation, borders, focus rings), and mixing the two families in
+the same element would blur what's chart versus what's interface.
+
+**Unresolved discrepancy, logged not fixed:** the same infographic uses
+`#ECEAEA` for a panel background — close to but not identical to
+`equinet-color-surface--alt` (`#F6F5F5`). Not promoted as its own token.
+Could be a deliberate second, more muted grey for data-viz contexts
+specifically, or could just be drift that should use the existing surface
+token instead. Needs a decision, not an assumption either way.
+
 ## Type
 
 Three families, each with a fixed job. Open Sans sets headings. Source Sans 3
-sets body, UI text and button labels — it stands in for Myriad Pro, which is an
-Adobe face and will not render in a browser. Myriad Pro stays first in the stack
-so a licensed embed added to the theme later is picked up automatically. Playfair
-Display is an optional italic accent line, used to offset a heavy Open Sans
-heading beneath it.
+sets body, UI text and button labels. Playfair Display is an optional italic
+accent line, used to offset a heavy Open Sans heading beneath it.
+
+**Myriad Pro is gone from the stack as of 2026-09-23**, not just deprioritized.
+It was originally kept first as a placeholder for a licensed embed that never
+arrived — Myriad Pro is an Adobe face and never rendered in a browser. Claude
+Design hit this same wall independently while building from this system,
+asked for a font file, got none, and fell back to Source Sans 3 permanently.
+`tokens.css` now matches that: `'Source Sans 3', sans-serif`, no Myriad Pro
+reference at all. If a licensed embed ever does arrive, it goes back in as a
+deliberate re-addition, not a silent restoration of dead weight.
 
 All three load from Google Fonts. There are no font files in this system.
 

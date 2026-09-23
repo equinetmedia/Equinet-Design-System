@@ -5,6 +5,27 @@ Project. Every entry below represents a manual reconciliation pass — someone
 asked Claude, in that Project, to fold new development work into
 `tokens.css` / `README.md`, then committed the result here.
 
+## 2026-09-23 — Font stack corrected; a data-viz exception added to the colour rule
+
+**Myriad Pro removed from `--equinet-font-body`, not just deprioritized.**
+Confirmed dropped in Claude Design's own build (it hit the same
+no-licensed-font-file wall independently and fell back to Source Sans 3
+permanently) — `tokens.css` was still listing Myriad Pro first, so it had
+drifted behind the system it's supposed to be the source of truth for.
+
+**New sanctioned category: `equinet-color-chart-blue-*`** (three stops:
+`#81ACD7`, `#5688BA`, `#3D71A5`), sourced from a published marketing
+infographic rather than a shipped module — the first token category to come
+from marketing collateral instead of product code. Scoped explicitly to
+charts and data visualization; the "nothing outside the palette" rule in
+`README.md` was amended to carry a narrow, named exception for this
+category rather than being silently loosened.
+
+Also logged, not resolved: the same infographic uses `#ECEAEA` for a panel
+background, close to but distinct from `equinet-color-surface--alt`
+(`#F6F5F5`). Not promoted to a token — flagged so it isn't lost before
+someone decides whether it's deliberate or drift.
+
 ## 2026-09-22 — Brand wordmark added
 
 `assets/brand/` now holds real SVG files — `wordmark-light.svg` and
