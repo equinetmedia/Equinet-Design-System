@@ -70,11 +70,29 @@
   --equinet-color-chart-blue-mid: #5688BA;     /* three-stop chart gradient, middle   · infographic · 2026-09-23 */
   --equinet-color-chart-blue-dark: #3D71A5;    /* three-stop chart gradient, darkest  · infographic · 2026-09-23 */
 
-  /* DISCREPANCY, unresolved: the same infographic uses #ECEAEA for a panel
-     background — close to but NOT identical to --equinet-color-surface--alt
-     (#F6F5F5). Not promoted as its own token; flagged here so it isn't lost.
-     Needs a decision: a deliberate second, more muted grey, or drift that
-     should just use the existing surface--alt token instead. */
+  /* ------------------------------------------------------- DIAGRAM GREYS --
+     Sanctioned 2026-09-23. Same marketing-collateral exception as DATA VIZ
+     above, but stronger evidence: all three values appear across a batch of
+     seven infographics, not one. --diagram-line is used as both fill and
+     stroke throughout — the default illustration line colour, not a UI text
+     colour. Not for buttons, body copy, or anything module-facing. */
+  --equinet-color-diagram-line: #68728F;        /* illustration line/icon colour, 7 of 7 files · marketing batch · 2026-09-23 */
+  --equinet-color-diagram-line--neutral: #6C7074; /* neutral-grey variant of diagram-line, no blue cast — fill+stroke across 5 of 17 marketing files · 2026-09-23 */
+  --equinet-color-diagram-tint: #D6D8E1;        /* light panel/shape tint, 3 of 7 files         · marketing batch · 2026-09-23 */
+  --equinet-color-diagram-tint--pale: #ECEDF2;  /* palest background tint, 7 of 7 files         · marketing batch · 2026-09-23 */
+
+  /* RESOLVED 2026-09-23: #FFE6DB (seen across 3 marketing files, 7 occurrences
+     — matching --equinet-color-orange--pale's own usage count exactly) is
+     folded into --equinet-color-orange--pale rather than kept as a separate
+     token. Treat any future #FFE6DB sighting as that token, not a new value. */
+
+  /* DISCREPANCY, still unresolved: the ABM infographic separately uses #ECEAEA
+     and #F3F2F2 for panel backgrounds — both close to but NOT identical to
+     --equinet-color-surface--alt (#F6F5F5) or to each other. A third close
+     value, #F3F3F4, appears once in The-Brand-Ops-Agent.svg. Three near-white
+     values, no two identical: reads as nobody having one settled near-white
+     to reach for, not three independent one-offs. Not promoted; needs a
+     decision, not an assumption. */
 
   /* -------------------------------------------------------------- BUTTONS --
      Semantic button roles ALIAS the palette above rather than repeating hexes,

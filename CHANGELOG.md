@@ -5,6 +5,51 @@ Project. Every entry below represents a manual reconciliation pass — someone
 asked Claude, in that Project, to fold new development work into
 `tokens.css` / `README.md`, then committed the result here.
 
+## 2026-09-23 — Second marketing batch (9 files); two decisions resolved, one correction to prior work
+
+Batch of nine smaller marketing SVGs audited, bringing the cumulative total
+to seventeen files. Two escalations from single-file to cross-file evidence
+were resolved rather than left logged:
+
+- **`#FFE6DB` folded into `equinet-color-orange--pale`.** Grew from one file
+  to three (7 occurrences total — matching `orange--pale`'s own usage count
+  exactly), which settled it as the same colour rather than a parallel one.
+- **New token: `equinet-color-diagram-line--neutral` (`#6C7074`).** A
+  neutral-grey variant of `diagram-line` with no blue cast, confirmed fill
+  and stroke across 5 of 17 files.
+
+**Correction to the original ABM audit:** re-checking that file during this
+batch's cross-referencing turned up `#F3F2F2` (3 occurrences), missed
+entirely in its first pass. It joins `#ECEAEA` (same file) and a newly-found
+`#F3F3F4` (`The-Brand-Ops-Agent.svg`) as a cluster of three near-identical,
+unresolved near-whites — reframed as one open decision rather than isolated
+footnotes, since none matches `tokens.css` or each other exactly.
+
+**New kind of evidence:** eight of the nine files in this batch have real
+`<text>` elements declaring `font-family="Myriad Pro"` — the first
+marketing files audited where text wasn't outlined to paths. Confirms Myriad
+Pro as the genuine brand-intended typeface at the design level; doesn't
+reverse dropping it from `tokens.css`, which was about browser-rendering
+without a licensed embed, a separate and still-true problem.
+
+Also logged, still too weak to act on: `#F49E78` (now 2 of 17 files),
+and single-file values `#FF4800`, `#FBDDD2`, `#A4A4A4`, `#343330`,
+`#F6F7F9`, `#8790A9`. Full per-file breakdown in `assets/marketing/README.md`.
+
+## 2026-09-23 — Diagram greyscale sanctioned from a seven-file marketing batch
+
+Three new tokens: `equinet-color-diagram-line` (`#68728F`), `-tint`
+(`#D6D8E1`), `-tint--pale` (`#ECEDF2`). Same marketing-collateral exception
+as the data-viz palette, but on stronger evidence — `-line` and `-tint--pale`
+appear in all seven files audited, `-tint` in three of seven, not just one
+file using one odd colour once.
+
+Also logged, deliberately not promoted: five colours appearing in only one
+file each (`#444A60`, `#E3EFFC`, `#CFE0F4`, `#F49E78`, `#6C7074`), and a
+second near-miss discrepancy — `#FFE6DB` in one file, close to but distinct
+from `equinet-color-orange--pale`. Full per-file breakdown in
+`assets/marketing/README.md`.
+
 ## 2026-09-23 — Font stack corrected; a data-viz exception added to the colour rule
 
 **Myriad Pro removed from `--equinet-font-body`, not just deprioritized.**

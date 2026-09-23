@@ -99,6 +99,54 @@ Could be a deliberate second, more muted grey for data-viz contexts
 specifically, or could just be drift that should use the existing surface
 token instead. Needs a decision, not an assumption either way.
 
+**Source: `assets/marketing/`.** Reference material — infographics and
+marketing graphics, not reusable module assets — kept for exactly this kind
+of audit trail. Every file in it is checked for real colour/font values
+against this file before anything from it is trusted; see that folder's own
+`README.md` for the process and its index of what's contributed what.
+
+## Diagram illustration
+
+A second, small marketing-only palette — illustration line colours and
+background tints used across diagram-style infographics. Sanctioned
+2026-09-23 from an initial batch of seven marketing graphics, then extended
+the same day once a second batch of nine brought the total to seventeen
+files audited.
+
+| Token | Value | Role | Evidence |
+| --- | --- | --- | --- |
+| `equinet-color-diagram-line` | `#68728F` | Illustration line and icon colour, blue-tinted — used as both `fill` and `stroke` | 7 of 7 files (first batch) |
+| `equinet-color-diagram-line--neutral` | `#6C7074` | Same role, neutral-grey variant with no blue cast | 5 of 17 files, fill and stroke both |
+| `equinet-color-diagram-tint` | `#D6D8E1` | Light panel/shape tint | 3 of 7 files |
+| `equinet-color-diagram-tint--pale` | `#ECEDF2` | Palest background tint | 7 of 7 files |
+
+Same boundary as data-viz: marketing illustration only, never UI, never a
+module. Neither `diagram-line` variant is a tint of `equinet-color-body` or
+`equinet-color-border` — they're distinct mid-tones that exist to be a
+diagram's default ink colour, one with a blue cast and one without.
+
+**Resolved 2026-09-23: `#FFE6DB` is `equinet-color-orange--pale`, not a
+separate colour.** It showed up in 3 files (7 occurrences total — matching
+`orange--pale`'s own usage count exactly), which moved it from "near-miss
+worth logging" to "used as deliberately as an actual token." Folded in
+rather than kept as a parallel value; any future sighting of `#FFE6DB` should
+be treated as this token.
+
+**Still unresolved — a cluster, not a one-off:** `#ECEAEA` and `#F3F2F2`
+(both in the ABM infographic — the latter missed in that file's first audit
+pass) and `#F3F3F4` (`The-Brand-Ops-Agent.svg`) are three near-identical,
+very pale, cool-toned near-whites. None matches `equinet-color-surface--alt`
+or `equinet-color-diagram-tint--pale` exactly, and none matches each other
+exactly either. Reads less like three isolated choices and more like nobody
+has one settled near-white to reach for. Not promoted; needs a decision
+rather than a guess at which (if any) should become the real value.
+
+**Still logged, not promoted — too weak a signal so far:** `#444A60`,
+`#E3EFFC`, `#CFE0F4` (single file each, first batch); `#FF4800`, `#FBDDD2`,
+`#A4A4A4`, `#343330`, `#F6F7F9`, `#8790A9` (single file each, second batch);
+`#F49E78` (now 2 of 17 files — climbing, still not strong enough to sanction
+on its own).
+
 ## Type
 
 Three families, each with a fixed job. Open Sans sets headings. Source Sans 3
@@ -113,6 +161,13 @@ asked for a font file, got none, and fell back to Source Sans 3 permanently.
 `tokens.css` now matches that: `'Source Sans 3', sans-serif`, no Myriad Pro
 reference at all. If a licensed embed ever does arrive, it goes back in as a
 deliberate re-addition, not a silent restoration of dead weight.
+
+This is a web-rendering fact, not a claim about brand intent — the second
+marketing batch (nine files, same day) has real `<text>` elements explicitly
+declaring `font-family="Myriad Pro"`, unlike every other marketing SVG
+audited, where text is outlined to paths with nothing recoverable. Myriad Pro
+is genuinely the brand's intended typeface at the design level; it just can't
+ship in a browser without a licence the system doesn't have.
 
 All three load from Google Fonts. There are no font files in this system.
 
