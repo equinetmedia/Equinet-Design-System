@@ -176,6 +176,29 @@ eyebrow runs the other way, at `0.1em` to `0.2em` tracking, uppercase, with a
 matching `text-indent` so the trailing letter-space does not push the label off
 centre inside its pill.
 
+**h2 is a firm requirement, confirmed 2026-09-23: uppercase, with the heading
+drop shadow.** `text-transform: uppercase` (`--equinet-text-transform-h2`)
+and `text-shadow: -2px 2px 4px rgba(0, 0, 0, 0.15)` (`--equinet-shadow-heading`
+— the same token display headings already use) apply to every h2, no
+exceptions. Both tokens existed already from the Figma import; this makes
+them mandatory rather than descriptive metadata sitting unused. Note the
+separate, still-open discrepancy: canonical Figma specifies h2 at 48px, but
+`cagr-four-column` ships it at 36px — the uppercase/shadow requirement holds
+regardless of which size wins that argument.
+
+**Lead text has a real gap, found 2026-09-23: no colour token at all.**
+The shipped module (`plain_hero_banner`) sets colour via an editor-controlled
+inline field with no CSS fallback whatsoever — unlike padding, which always
+carries a `var(--token, fallback)` even while being editor-controllable. If
+that field is ever unset, lead text renders with no colour applied, which on
+a navy background is functionally invisible. `equinet-color-lead` (aliasing
+`equinet-color-body`) now exists as that missing fallback. Also caught in the
+same pass: `font-style: italic` was hardcoded in the module but absent from
+`tokens.json` entirely — `equinet-fontstyle-lead` now covers it — and the
+`equinet-fontsize-lead` token (20px) doesn't match what `plain_hero_banner`
+actually ships (22px desktop) — sourced from a different module, not
+reconciled.
+
 `text-wrap` is split by role: `pretty` on body copy and card descriptions to pull
 down single-word orphans, `balance` on display headings and short accent lines
 where an even two-line wrap matters more than the exact break.
@@ -478,7 +501,8 @@ of them, just the mandate to use them.
 **Typography — the two families, the real scale, nothing else.**
 Open Sans for headings, Source Sans 3 for body, Playfair Display only as the
 already-established optional accent (see **Type**). No third typeface. No
-size outside `equinet-fontsize-*`.
+size outside `equinet-fontsize-*`. Every h2 is uppercase with the heading
+drop shadow, no exceptions — see **Type** for the exact values.
 
 **Where tokens don't dictate an answer, general UI practice fills the gap —
 it doesn't license invention:**

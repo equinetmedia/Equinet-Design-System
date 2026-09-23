@@ -5,6 +5,43 @@ Project. Every entry below represents a manual reconciliation pass — someone
 asked Claude, in that Project, to fold new development work into
 `tokens.css` / `README.md`, then committed the result here.
 
+## 2026-09-23 — tokens.css rebuilt from a real Figma file; two live issues fixed
+
+**tokens.css changed substantially outside this Project** — discovered when
+the person uploaded "current" root files and it no longer matched what this
+Project last produced. It now cites an actual Figma file
+(`A3XMvWX47Tf1191jomeEmH`), its variable collections, local text styles, and
+local effect styles, and layers a full primitive scale (`equinet-scale-*`)
+and colour ramps (blue, amber, teal, night, charade, surface) underneath the
+semantic tokens this Project already established — which it preserves and
+correctly cross-references, including quoting back this repo's own
+resolution language for the data-viz and diagram categories. Almost
+certainly produced through Claude Design's Figma integration, not a person
+hand-editing the file.
+
+**`tokens.json` did not change and is now meaningfully behind `tokens.css`.**
+The new primitives, colour ramps, canonical Figma type scale, real
+letter-spacing values, paragraph-spacing category, and text-transform
+category exist only in the CSS. Partial catch-up done in this pass (the
+lead and h2 entries below); a full parity pass is still outstanding and
+not done here.
+
+**Fixed: lead text has no colour token and never did.** The shipped
+module (`plain_hero_banner`) sets it via an editor-controlled inline field
+with no CSS fallback — unlike padding, which always has one. Added
+`equinet-color-lead` (aliasing `equinet-color-body`, per that token's own
+long-standing "Lead-Text-Color" comment) as the missing default. Also added:
+`equinet-fontstyle-lead` (italic — hardcoded in the module, absent from
+`tokens.json` entirely) and a flagged, unreconciled discrepancy on
+`equinet-fontsize-lead` (20px token vs. 22px actually shipped, sourced from
+a different module than the one it's meant to describe).
+
+**Confirmed: h2 uppercase + heading shadow.** Both tokens
+(`equinet-text-transform-h2`, `equinet-shadow-heading`) already existed from
+the Figma import. Marked as a firm requirement rather than descriptive
+metadata, and added to `tokens.json`'s h2 style entry, which had neither
+field.
+
 ## 2026-09-23 — Instructions for AI-generated design added; icon placeholder policy decided
 
 New section in `README.md`, placed after **Brand mark**: a consolidated
