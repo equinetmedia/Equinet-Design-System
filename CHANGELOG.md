@@ -5,6 +5,22 @@ Project. Every entry below represents a manual reconciliation pass — someone
 asked Claude, in that Project, to fold new development work into
 `tokens.css` / `README.md`, then committed the result here.
 
+## 2026-09-23 — Instructions for AI-generated design added; icon placeholder policy decided
+
+New section in `README.md`, placed after **Brand mark**: a consolidated
+mandate for any tool (Claude Design specifically) generating a mockup, page,
+or component from this system — real assets only, token values only for
+spacing/frame/type, general UI practice filling gaps rather than licensing
+invention where tokens don't dictate an answer. Cross-references the
+sections that already define the values rather than restating them.
+
+**Icon placeholder policy resolved**, the open question from the earlier
+Lucide-substitution finding: a neutral icon set is an acceptable stand-in
+until real icons are sourced, provided it reads as a placeholder rather than
+being presented as a real Equinet icon. Reflected in both `README.md` and
+`assets/icons/README.md` so it's visible whether someone reads the brand
+book or lands in that folder directly.
+
 ## 2026-09-23 — Second marketing batch (9 files); two decisions resolved, one correction to prior work
 
 Batch of nine smaller marketing SVGs audited, bringing the cumulative total

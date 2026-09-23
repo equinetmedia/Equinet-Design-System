@@ -15,185 +15,404 @@
    This file owns the ONLY :root block in the system. Modules consume tokens as
    var(--equinet-…, <fallback>) and never redeclare them.
 
-   Load path: /modules/tokens.css   (answered 2026-08-07)
+   Sources:
+     Figma file ............ A3XMvWX47Tf1191jomeEmH
+     Variable collections .. brand, alias, mapped, responsive
+     Local text styles ..... heading/h1–h6, body/sm–lg
+     Local effect styles ... Passive Card Shadow, Active Card Shadow, Blue Label Shadow
+     Module SVG audits ..... 2-column-hero-banner, cagr-four-column,
+                             cim-methodology, plain_hero_banner,
+                             pencil_testimonial, sector-three-column-case-study
 
-   All tokens below are net-new — the previous file carried no declarations.
-   Every value is traced to its source module and Figma coordinate.
+   Convention: Figma variable paths map to CSS names with / → -
+               e.g. color/blue/400 → --equinet-color-blue-400
+
+   Load path: /modules/tokens.css
    ========================================================================== */
 
 :root {
 
-  /* ---------------------------------------------------------- TYPOGRAPHY --
-     Myriad Pro is an Adobe face and will not render in the browser. Source Sans 3
-     is the substitute; Myriad Pro stays first in the stack so a licensed embed is
-     picked up automatically if one is ever added to the theme. */
-  --equinet-font-heading: 'Open Sans', sans-serif;                              /* 2-column-hero-banner · 2026-08-07 */
-  --equinet-font-body: 'Source Sans 3', sans-serif;                              /* Myriad Pro dropped 2026-09-23 — no licensed font file exists, confirmed by Claude Design's own build hitting the same wall and falling back permanently; see CHANGELOG */
+  /* ==========================================================================
+     PRIMITIVE SCALE                                    [Figma: brand/scale/*]
+     4px base grid. Every spacing, border-width and border-radius token aliases
+     into this scale. Module one-offs (9px, 15px, 22px …) stay literal.
+     ========================================================================== */
+  --equinet-scale-0:    0px;
+  --equinet-scale-25:   1px;
+  --equinet-scale-50:   2px;
+  --equinet-scale-100:  4px;
+  --equinet-scale-150:  6px;
+  --equinet-scale-200:  8px;
+  --equinet-scale-300:  12px;
+  --equinet-scale-400:  16px;
+  --equinet-scale-500:  20px;
+  --equinet-scale-600:  24px;
+  --equinet-scale-700:  28px;
+  --equinet-scale-800:  32px;
+  --equinet-scale-900:  36px;
+  --equinet-scale-1000: 40px;
+  --equinet-scale-1100: 44px;
+  --equinet-scale-1200: 48px;
+  --equinet-scale-1600: 64px;
 
-  --equinet-fontsize-display: 60px;      /* h1Heading text font-size            · 2-column-hero-banner · 2026-08-07 */
-  --equinet-fontsize-lead: 20px;         /* Lead-Text-Color font-size           · 2-column-hero-banner · 2026-08-07 */
-  --equinet-fontsize-btn: 16px;          /* button label font-size              · 2-column-hero-banner · 2026-08-07 */
-  --equinet-fontsize-kicker: 12px;       /* pencilBar label-Text font-size      · 2-column-hero-banner · 2026-08-07 */
-  --equinet-fontsize-h4: 24px;           /* h4-Toggle > label-Text font-size    · pencil_testimonial · 2026-08-19 */
-  --equinet-fontsize-small: 14px;        /* section-Author role font-size       · pencil_testimonial · 2026-08-19 */
 
-  --equinet-fontweight-display: 800;     /* Open Sans ExtraBold                 · 2-column-hero-banner · 2026-08-07 */
-  --equinet-fontweight-btn: 600;         /* button label font-weight            · 2-column-hero-banner · 2026-08-07 */
-  --equinet-fontweight-kicker: 700;      /* SVG font-weight="bold"              · 2-column-hero-banner · 2026-08-07 */
-  --equinet-fontweight-body: 400;        /* quote / role, no font-weight attr   · pencil_testimonial · 2026-08-19 */
+  /* ==========================================================================
+     COLOUR — BLUE (primary brand)                [Figma: brand/color/blue/*]
+     ========================================================================== */
+  --equinet-color-blue-50:      #F0F7FD;
+  --equinet-color-blue-100:     #E3EFFC;
+  --equinet-color-blue-200:     #CFE0F4;
+  --equinet-color-blue-300:     #A7C8E8;
+  --equinet-color-blue-400:     #81ACD7;
+  --equinet-color-blue-500:     #5688BA;
+  --equinet-color-blue-600:     #3D71A5;
+  --equinet-color-blue-700:     #265D94;
+  --equinet-color-blue-default: #00426C;
+  --equinet-color-blue-900:     #002E4A;
+  --equinet-color-blue-950:     #011420;
 
-  --equinet-lineheight-display: 0.91667; /* baselines y207.082→y262.082 = 55px on 60px · 2026-08-07 */
-  --equinet-lineheight-lead: 1.3;        /* baselines y414.25→y440.25 = 26px on 20px   · 2026-08-07 */
+  /* ==========================================================================
+     COLOUR — AMBER (accent / CTA)               [Figma: brand/color/amber/*]
+     ========================================================================== */
+  --equinet-color-amber-100:     #FCE9E0;
+  --equinet-color-amber-400:     #F5844D;
+  --equinet-color-amber-default: #E06730;
+  --equinet-color-amber-600:     #D04F14;
+  --equinet-color-amber-bright:  #FA6632;
 
-  /* --------------------------------------------------------------- COLOUR -- */
-  --equinet-color-navy: #00426C;             /* button_navigation_solid_default rect fill      · 2026-08-07 */
-  --equinet-color-navy--dark: #002E4A;       /* button_navigation_solid-Hover rect fill        · 2026-08-07 */
-  --equinet-color-orange: #E06730;           /* button_primary_default fill / kicker label     · 2026-08-07 */
-  --equinet-color-orange--light: #F5844D;    /* button_primary_light-Hover fill                · 2026-08-07 */
-  --equinet-color-orange--dark: #D04F14;     /* button_primary_dark-Hover fill                 · 2026-08-07 */
-  --equinet-color-orange--pale: #FCE9E0;     /* pencilBar-Toggle rect fill                     · 2026-08-07 */
+  /* ==========================================================================
+     COLOUR — TEAL (secondary accent)             [Figma: brand/color/teal/*]
+     ========================================================================== */
+  --equinet-color-teal-50:      #F1FAFA;
+  --equinet-color-teal-100:     #DAF2F3;
+  --equinet-color-teal-200:     #BAE4E7;
+  --equinet-color-teal-300:     #8AD1D6;
+  --equinet-color-teal-default: #6BBFC6;
+  --equinet-color-teal-500:     #4691A0;
+  --equinet-color-teal-600:     #2A7989;
+  --equinet-color-teal-700:     #135C6B;
+  --equinet-color-teal-800:     #004754;
+  --equinet-color-teal-900:     #012B33;
+  --equinet-color-teal-950:     #002126;
 
-  --equinet-color-heading: #242630;          /* h1Heading text fill                            · 2026-08-07 */
-  --equinet-color-text: #242530;             /* button_textual_default label fill              · 2026-08-07 */
-  --equinet-color-body: #3B3F51;             /* Lead-Text-Color text fill                      · 2026-08-07 */
+  /* ==========================================================================
+     COLOUR — NIGHT (dark neutrals)               [Figma: brand/color/night/*]
+     ========================================================================== */
+  --equinet-color-night-100:     #F6F7F9;
+  --equinet-color-night-200:     #E8EAED;
+  --equinet-color-night-300:     #D7D9E0;
+  --equinet-color-night-400:     #C7C9D2;
+  --equinet-color-night-500:     #9DA3B5;
+  --equinet-color-night-600:     #616579;
+  --equinet-color-night-700:     #3B3F51;
+  --equinet-color-night-default: #242630;
 
-  --equinet-color-surface: #FFFFFF;          /* module gradient start stop                     · 2026-08-07 */
-  --equinet-color-surface--alt: #F6F5F5;     /* module gradient end stop                       · 2026-08-07 */
+  /* ==========================================================================
+     COLOUR — CHARADE (cool neutrals, blue cast) [Figma: brand/color/charade/*]
+     ========================================================================== */
+  --equinet-color-charade-50:  #F6F7F9;
+  --equinet-color-charade-100: #ECEDF2;
+  --equinet-color-charade-200: #D6D8E1;
+  --equinet-color-charade-300: #B1B7C8;
+  --equinet-color-charade-400: #8790A9;
+  --equinet-color-charade-500: #68728F;
 
-  /* ---------------------------------------------------------- DATA VIZ --
-     Sanctioned 2026-09-23, sourced from a published marketing infographic
-     ("Equinet-Media-ABM-underpinned-by-Loop-Marketing-in-HubSpot"), not from
-     a shipped module. Distinct from --equinet-color-navy on purpose — this
-     is a chart/gradient scale, not a UI colour, and should not be used for
-     buttons, text, or any interactive element. */
-  --equinet-color-chart-blue-light: #81ACD7;   /* three-stop chart gradient, lightest · infographic · 2026-09-23 */
-  --equinet-color-chart-blue-mid: #5688BA;     /* three-stop chart gradient, middle   · infographic · 2026-09-23 */
-  --equinet-color-chart-blue-dark: #3D71A5;    /* three-stop chart gradient, darkest  · infographic · 2026-09-23 */
+  /* ==========================================================================
+     COLOUR — SURFACE (page/card backgrounds)   [Figma: brand/color/surface/*]
+     ========================================================================== */
+  --equinet-color-surface-100: #FFFFFF;
+  --equinet-color-surface-200: #F6F5F5;
+  --equinet-color-surface-300: #EEEEEE;
+  --equinet-color-surface-400: #E6E6E6;
 
-  /* ------------------------------------------------------- DIAGRAM GREYS --
-     Sanctioned 2026-09-23. Same marketing-collateral exception as DATA VIZ
-     above, but stronger evidence: all three values appear across a batch of
-     seven infographics, not one. --diagram-line is used as both fill and
-     stroke throughout — the default illustration line colour, not a UI text
-     colour. Not for buttons, body copy, or anything module-facing. */
-  --equinet-color-diagram-line: #68728F;        /* illustration line/icon colour, 7 of 7 files · marketing batch · 2026-09-23 */
-  --equinet-color-diagram-line--neutral: #6C7074; /* neutral-grey variant of diagram-line, no blue cast — fill+stroke across 5 of 17 marketing files · 2026-09-23 */
-  --equinet-color-diagram-tint: #D6D8E1;        /* light panel/shape tint, 3 of 7 files         · marketing batch · 2026-09-23 */
-  --equinet-color-diagram-tint--pale: #ECEDF2;  /* palest background tint, 7 of 7 files         · marketing batch · 2026-09-23 */
 
-  /* RESOLVED 2026-09-23: #FFE6DB (seen across 3 marketing files, 7 occurrences
-     — matching --equinet-color-orange--pale's own usage count exactly) is
-     folded into --equinet-color-orange--pale rather than kept as a separate
-     token. Treat any future #FFE6DB sighting as that token, not a new value. */
+  /* ==========================================================================
+     COLOUR — SEMANTIC UI
+     Role-based aliases. These are the tokens modules consume; the ramps above
+     are the primitives they resolve to. A colour value is defined once.
+     ========================================================================== */
 
-  /* DISCREPANCY, still unresolved: the ABM infographic separately uses #ECEAEA
-     and #F3F2F2 for panel backgrounds — both close to but NOT identical to
-     --equinet-color-surface--alt (#F6F5F5) or to each other. A third close
-     value, #F3F3F4, appears once in The-Brand-Ops-Agent.svg. Three near-white
-     values, no two identical: reads as nobody having one settled near-white
-     to reach for, not three independent one-offs. Not promoted; needs a
-     decision, not an assumption. */
+  /* -- brand roles (carried forward from original tokens.css) -- */
+  --equinet-color-navy:          var(--equinet-color-blue-default); /* #00426C */
+  --equinet-color-navy--dark:    var(--equinet-color-blue-900);     /* #002E4A */
+  --equinet-color-orange:        var(--equinet-color-amber-default); /* #E06730 */
+  --equinet-color-orange--light: var(--equinet-color-amber-400);    /* #F5844D */
+  --equinet-color-orange--dark:  var(--equinet-color-amber-600);    /* #D04F14 */
+  --equinet-color-orange--pale:  var(--equinet-color-amber-100);    /* #FCE9E0 */
 
-  /* -------------------------------------------------------------- BUTTONS --
-     Semantic button roles ALIAS the palette above rather than repeating hexes,
-     so each colour value is defined in exactly one place. */
-  --equinet-btn-height: 56px;                /* button rect height (desktop)                   · 2026-08-07 */
-  --equinet-btn-radius: 7px;                 /* button rect rx, default state                  · 2026-08-07 */
-  --equinet-btn-radius--hover: 8px;          /* button rect rx, both hover exports             · 2026-08-07 */
+  /* -- text -- */
+  --equinet-color-heading: #242630;      /* h1Heading text fill · night/default · 2026-08-07 */
+  --equinet-color-text:    #242530;      /* button_textual_default label fill · 2026-08-07
+                                            NOTE: 1-digit green-channel difference from heading (#242630).
+                                            Figma only has night/default (#242630); the SVG-measured #242530
+                                            may be an export artefact. Whether to merge is an open decision
+                                            — see README.md. */
+  --equinet-color-body:    var(--equinet-color-night-700); /* #3B3F51 */
+  --equinet-color-black:   #000000;      /* card h3 fill · cagr-four-column · 2026-09-18 */
 
-  --equinet-btn-fill--navigation: var(--equinet-color-navy);              /* button_navigation_solid_default      · 2026-08-07 */
-  --equinet-btn-fill--navigation--hover: var(--equinet-color-navy--dark);       /* button_navigation_solid-Hover        · 2026-08-07 */
-  --equinet-btn-fill--primary: var(--equinet-color-orange);                 /* button_primary_default               · 2026-08-07 */
-  --equinet-btn-fill--primary--hover-light: var(--equinet-color-orange--light);    /* button_primary_light-Hover           · 2026-08-07 */
-  --equinet-btn-fill--primary--hover-dark: var(--equinet-color-orange--dark);     /* button_primary_dark-Hover            · 2026-08-07 */
+  /* -- surfaces -- */
+  --equinet-color-surface:      var(--equinet-color-surface-100); /* #FFFFFF */
+  --equinet-color-surface--alt: var(--equinet-color-surface-200); /* #F6F5F5 */
 
-  --equinet-btn-label: var(--equinet-color-surface);                         /* filled button label fill             · 2026-08-07 */
-  --equinet-btn-label--navigation--hover: var(--equinet-color-orange--light);      /* button_navigation_solid-Hover label  · 2026-08-07 */
-  --equinet-btn-label--textual: var(--equinet-color-text);                /* button_textual_default label fill    · 2026-08-07 */
-  --equinet-btn-icon--textual--hover: var(--equinet-color-orange);          /* button_textual-Hover arrow stroke    · 2026-08-07 */
+  /* -- border -- */
+  --equinet-color-border: var(--equinet-color-charade-300); /* #B1B7C8 · sectorStats 1px rule · cagr-four-column */
 
-  /* -------------------------------------------------------------- SHADOWS --
-     Transcribed from Figma feDropShadow filters: offset = feOffset dx/dy,
-     CSS blur = 2 x feGaussianBlur stdDeviation, colour/alpha = feColorMatrix. */
-  --equinet-shadow-heading: -2px 2px 4px rgba(0, 0, 0, 0.15);
-                             /* filter0_d: dx-2 dy2 std2, alpha .15                             · 2026-08-07 */
-  --equinet-shadow-btn--navigation: -6.88px 7.76px 19.53px rgba(61, 113, 165, 0.3);
-                             /* filter1_d: dx-6.88 dy7.76 std9.765, rgb(.239,.443,.647) a.3     · 2026-08-07 */
-  --equinet-shadow-btn--primary: -6.88px 7.76px 19.53px rgba(208, 79, 20, 0.22);
-                             /* button_primary_default filter0_d, rgb(.816,.310,.078) a.22      · 2026-08-07 */
-  --equinet-shadow-btn--primary--hover-dark: -6.88px 7.76px 19.53px rgba(208, 79, 20, 0.2);
-                             /* button_primary_dark-Hover filter0_d, a.2                        · 2026-08-07 */
+
+  /* ==========================================================================
+     COLOUR — SEMANTIC (Figma alias & mapped collections)
+     New tokens surfaced from the Figma variable system. These complement,
+     not replace, the brand roles above.
+     ========================================================================== */
+
+  /* -- CTA aliases [Figma: alias/cta/*] -- */
+  --equinet-cta-50:  var(--equinet-color-amber-100);     /* #FCE9E0 */
+  --equinet-cta-400: var(--equinet-color-amber-400);     /* #F5844D */
+  --equinet-cta-500: var(--equinet-color-amber-default); /* #E06730 */
+  --equinet-cta-600: var(--equinet-color-amber-600);     /* #D04F14 */
+
+  /* -- neutral aliases [Figma: alias/neutral/*] -- */
+  --equinet-neutral-600: var(--equinet-color-night-600);     /* #616579 */
+  --equinet-neutral-700: var(--equinet-color-night-700);     /* #3B3F51 */
+  --equinet-neutral-800: var(--equinet-color-night-default); /* #242630 */
+
+  /* -- mapped roles [Figma: mapped/*] -- */
+  --equinet-text-action:       var(--equinet-color-orange);      /* #E06730 */
+  --equinet-text-action-hover: var(--equinet-color-orange--dark); /* #D04F14 */
+  --equinet-surface-page:      var(--equinet-color-surface-200); /* #F6F5F5 */
+  --equinet-icon-primary:      var(--equinet-neutral-800);       /* #242630 */
+
+
+  /* ==========================================================================
+     COLOUR — DATA VIZ (chart/gradient scale, NOT for UI)
+     Sanctioned 2026-09-23 from a published marketing infographic. Now mapped
+     to the blue variable ramp. See README.md "Data visualization."
+     ========================================================================== */
+  --equinet-color-chart-blue-light: var(--equinet-color-blue-400); /* #81ACD7 */
+  --equinet-color-chart-blue-mid:   var(--equinet-color-blue-500); /* #5688BA */
+  --equinet-color-chart-blue-dark:  var(--equinet-color-blue-600); /* #3D71A5 */
+
+  /* ==========================================================================
+     COLOUR — DIAGRAM ILLUSTRATION (marketing only, NOT for UI)
+     Sanctioned 2026-09-23 from 7-file and 17-file marketing batches. Now
+     mapped to the charade variable ramp where applicable.
+     ========================================================================== */
+  --equinet-color-diagram-line:          var(--equinet-color-charade-500); /* #68728F · 7/7 files */
+  --equinet-color-diagram-line--neutral: #6C7074;  /* neutral-grey, no blue cast · 5/17 files */
+  --equinet-color-diagram-tint:          var(--equinet-color-charade-200); /* #D6D8E1 · 3/7 files */
+  --equinet-color-diagram-tint--pale:    var(--equinet-color-charade-100); /* #ECEDF2 · 7/7 files */
+
+  /* RESOLVED: #FFE6DB folds into --equinet-color-amber-100 (#FCE9E0). */
+  /* UNRESOLVED: #ECEAEA, #F3F2F2, #F3F3F4 — three near-whites, no two
+     identical, none matching surface/200–400. Needs a decision. */
+
+
+  /* ==========================================================================
+     BORDER                                       [Figma: alias/border width/*]
+                                                  [Figma: alias/border radius/*]
+     ========================================================================== */
+  --equinet-border-width-none: var(--equinet-scale-0);    /* 0px */
+  --equinet-border-width-sm:   var(--equinet-scale-25);   /* 1px */
+  --equinet-border-width-md:   var(--equinet-scale-50);   /* 2px */
+  --equinet-border-width-lg:   var(--equinet-scale-100);  /* 4px */
+
+  --equinet-border-radius-none: var(--equinet-scale-0);   /* 0px */
+  --equinet-border-radius-sm:   var(--equinet-scale-100); /* 4px */
+  --equinet-border-radius-md:   var(--equinet-scale-150); /* 6px */
+  --equinet-border-radius-lg:   var(--equinet-scale-200); /* 8px */
+
+
+  /* ==========================================================================
+     SPACING                              [Module-derived, on 4px grid]
+     Rhythm scale confirmed across cim-methodology, plain_hero_banner and
+     cagr-four-column. Module internals off-grid (9, 15, 22, 26 …) stay
+     literal — see README.md "Spacing." Mobile clamping is per-module via
+     min(), not a media query on these tokens.
+
+     NAMING NOTE: Figma's "responsive" variable collection uses different
+     labels for the same values — its spacing/xs = 8px (our 2xs), its
+     spacing/md = 16px (our sm), its spacing/lg = 24px (our md), etc.
+     The module-derived names below are what shipped modules consume.
+     ========================================================================== */
+  --equinet-space-2xs: var(--equinet-scale-200);  /* 8px  · heading accent-line gap */
+  --equinet-space-xs:  var(--equinet-scale-300);  /* 12px · modal close inset */
+  --equinet-space-sm:  var(--equinet-scale-400);  /* 16px · laptop card gap; icon box */
+  --equinet-space-md:  var(--equinet-scale-600);  /* 24px · gutter, grid gap, card padding — the workhorse */
+  --equinet-space-lg:  var(--equinet-scale-800);  /* 32px · inter-CTA gap; heading-to-lead */
+  --equinet-space-xl:  var(--equinet-scale-1000); /* 40px · eyebrow-to-heading gap */
+  --equinet-space-2xl: var(--equinet-scale-1200); /* 48px · cards-to-CTA gap */
+  --equinet-space-3xl: 56px;                      /* mobile section padding clamp (off-scale) */
+  --equinet-space-4xl: 96px;                      /* desktop section padding (off-scale) */
+
+
+  /* ==========================================================================
+     TYPOGRAPHY — FONT FAMILIES          [Figma: brand/type/font family/*]
+
+     Myriad Pro is the Figma-canonical body/heading face but has no licensed
+     web embed and was removed from the stack 2026-09-23. Source Sans 3 is
+     the permanent browser substitute. Open Sans sets display headings.
+     See README.md "Type" for full history.
+     ========================================================================== */
+  --equinet-font-heading:       'Open Sans', sans-serif;
+  --equinet-font-body:          'Source Sans 3', sans-serif;
+  --equinet-font-heading-light: 'Source Sans 3', sans-serif;
+
+  /* ==========================================================================
+     TYPOGRAPHY — FONT WEIGHTS            [Figma: brand/type/font weight/*]
+     ========================================================================== */
+  --equinet-fontweight-light:    300;
+  --equinet-fontweight-body:     400;
+  --equinet-fontweight-btn:      600;
+  --equinet-fontweight-semibold: 600;
+  --equinet-fontweight-kicker:   700;
+  --equinet-fontweight-bold:     700;
+  --equinet-fontweight-display:  800;
+  --equinet-fontweight-black:    900;
+
+  /* ==========================================================================
+     TYPOGRAPHY — TYPE SCALE           [Figma: responsive/font size/*]
+
+     Two parallel sets: the canonical Figma scale (h1–h6, body sm/md/lg) and
+     the module-measured values where shipped code diverges. Modules should
+     migrate to the canonical values; the overrides document what ships today.
+     ========================================================================== */
+
+  /* -- body -- */
+  --equinet-fontsize-body-sm: 12px;    /* Figma font size/body/sm */
+  --equinet-fontsize-body:    16px;    /* Figma font size/body/md */
+  --equinet-fontsize-body-lg: 20px;    /* Figma font size/body/lg */
+
+  /* -- headings (Figma canonical) -- */
+  --equinet-fontsize-h1: 56px;        /* Figma font size/heading/h1 */
+  --equinet-fontsize-h2: 48px;        /* Figma font size/heading/h2 */
+  --equinet-fontsize-h3: 32px;        /* Figma font size/heading/h3 */
+  --equinet-fontsize-h4: 24px;        /* Figma font size/heading/h4 */
+  --equinet-fontsize-h5: 20px;        /* Figma font size/heading/h5 */
+  --equinet-fontsize-h6: 18px;        /* Figma font size/heading/h6 */
+
+  /* -- module overrides (diverge from the Figma scale) -- */
+  --equinet-fontsize-display: 60px;   /* SVG-measured h1 · 2-column-hero-banner (Figma: 56px) · 2026-08-07 */
+  --equinet-fontsize-lead:    20px;   /* Lead-Text-Color · 2-column-hero-banner · 2026-08-07 */
+  --equinet-fontsize-btn:     16px;   /* button label · 2-column-hero-banner · 2026-08-07 */
+  --equinet-fontsize-kicker:  12px;   /* pencilBar label · 2-column-hero-banner · 2026-08-07 */
+  --equinet-fontsize-stat:    18px;   /* sectorStats value · cagr-four-column · 2026-09-18 */
+  --equinet-fontsize-small:   14px;   /* section-Author role · pencil_testimonial · 2026-08-19 */
+  --equinet-fontsize-caption: 11px;   /* pill-Link label · cagr-four-column · 2026-09-18 */
+
+  /* DISCREPANCY: cagr-four-column ships h2 at 36px and h3 at 24px; Figma
+     variables say 48px and 32px respectively. Modules may have been built
+     from an older spec. The canonical Figma values above are authoritative. */
+
+  /* ==========================================================================
+     TYPOGRAPHY — LINE HEIGHTS          [Figma: responsive/line height/*]
+     ========================================================================== */
+  --equinet-lineheight-body-sm: 20px;
+  --equinet-lineheight-body:    24px;
+  --equinet-lineheight-body-lg: 32px;
+  --equinet-lineheight-h1:      56px;
+  --equinet-lineheight-h2:      48px;
+  --equinet-lineheight-h3:      32px;
+  --equinet-lineheight-h4:      24px;
+  --equinet-lineheight-h5:      20px;
+  --equinet-lineheight-h6:      16px;
+
+  /* -- module overrides -- */
+  --equinet-lineheight-display: 0.91667; /* 55/60 baseline ratio · 2-column-hero-banner · 2026-08-07 */
+  --equinet-lineheight-lead:    1.3;     /* 26/20 · 2-column-hero-banner · 2026-08-07 */
+
+  /* ==========================================================================
+     TYPOGRAPHY — LETTER SPACING       [Figma: text styles]
+
+     Figma text styles define h1/h2 at -2px; body at 0%.
+     Note: the Figma "letter spacing" responsive variables for body carry
+     values of 16/20 — these appear to be paragraph-spacing values stored
+     under the wrong variable name. The text styles (0%) are authoritative.
+     ========================================================================== */
+  --equinet-letterspacing-h1: -2px;   /* Figma text style heading/h1 */
+  --equinet-letterspacing-h2: -2px;   /* Figma text style heading/h2 */
+
+  /* -- promotion candidates (referenced in modules, not yet canonical) -- */
+  /* --equinet-letterspacing-kicker: 0.2em;    — sector-three-column-case-study, unconfirmed */
+  /* --equinet-letterspacing-display: -0.03em; — conflicts with plain_hero_banner's -0.05em;
+     Figma says -2px on 56px ≈ -0.036em. Needs reconciling before promotion. */
+
+  /* ==========================================================================
+     TYPOGRAPHY — PARAGRAPH SPACING    [Figma: responsive/paragraph spacing/*]
+     ========================================================================== */
+  --equinet-paraspacing-body-sm: 16px;
+  --equinet-paraspacing-body:    16px;
+  --equinet-paraspacing-body-lg: 20px;
+  --equinet-paraspacing-h1:      48px;
+  --equinet-paraspacing-h2:      40px;
+  --equinet-paraspacing-h3:      36px;
+  --equinet-paraspacing-h4:      32px;
+  --equinet-paraspacing-h5:      28px;
+  --equinet-paraspacing-h6:      24px;
+
+  /* ==========================================================================
+     TYPOGRAPHY — TEXT TRANSFORMS      [Figma: text styles textCase]
+     ========================================================================== */
+  --equinet-text-transform-h1: uppercase;  /* heading/h1 · UPPER */
+  --equinet-text-transform-h2: uppercase;  /* heading/h2 · UPPER */
+  --equinet-text-transform-h3: none;       /* heading/h3 · ORIGINAL */
+  --equinet-text-transform-h4: none;       /* heading/h4 · ORIGINAL */
+  --equinet-text-transform-h5: uppercase;  /* heading/h5 · UPPER */
+  --equinet-text-transform-h6: uppercase;  /* heading/h6 · UPPER */
+
+
+  /* ==========================================================================
+     BUTTONS                              [Module: 2-column-hero-banner]
+     Semantic button roles ALIAS the palette — each colour defined once.
+     ========================================================================== */
+  --equinet-btn-height: 56px;                /* min-height, not height — labels can wrap */
+  --equinet-btn-radius: 7px;                 /* default state rx */
+  --equinet-btn-radius--hover: 8px;          /* both hover exports */
+
+  --equinet-btn-fill--navigation:              var(--equinet-color-navy);
+  --equinet-btn-fill--navigation--hover:       var(--equinet-color-navy--dark);
+  --equinet-btn-fill--primary:                 var(--equinet-color-orange);
+  --equinet-btn-fill--primary--hover-light:    var(--equinet-color-orange--light);
+  --equinet-btn-fill--primary--hover-dark:     var(--equinet-color-orange--dark);
+
+  --equinet-btn-label:                         var(--equinet-color-surface);
+  --equinet-btn-label--navigation--hover:      var(--equinet-color-orange--light);
+  --equinet-btn-label--textual:                var(--equinet-color-text);
+  --equinet-btn-icon--textual--hover:          var(--equinet-color-orange);
+
+  /* ==========================================================================
+     RADII                                [Module: various]
+     ========================================================================== */
+  --equinet-radius-pill: 8px;             /* pencilBar-Toggle rect rx · 2026-08-07 */
+  --equinet-radius-card: 7px;             /* Card rect rx · cagr-four-column · 2026-09-18 */
+
+  /* ==========================================================================
+     SHADOWS
+     Transcribed from Figma feDropShadow filters (SVG): offset = feOffset dx/dy,
+     CSS blur = 2 × feGaussianBlur stdDeviation, colour/alpha = feColorMatrix.
+     ========================================================================== */
+  --equinet-shadow-heading:     -2px 2px 4px rgba(0, 0, 0, 0.15);
+  --equinet-shadow-heading--sm: -0.5px 0.5px 2px rgba(0, 0, 0, 0.25);  /* card h3 · cagr-four-column */
+
+  --equinet-shadow-btn--navigation:           -6.88px 7.76px 19.53px rgba(61, 113, 165, 0.3);
+  --equinet-shadow-btn--primary:              -6.88px 7.76px 19.53px rgba(208, 79, 20, 0.22);
+  --equinet-shadow-btn--primary--hover-dark:  -6.88px 7.76px 19.53px rgba(208, 79, 20, 0.2);
   --equinet-shadow-btn--primary--hover-light: -6.88px 7.76px 19.53px rgba(224, 103, 48, 0.2);
-                             /* button_primary_light-Hover filter0_d, rgb(.878,.404,.188) a.2   · 2026-08-07 */
 
-  /* ---------------------------------------------------------------- RADII -- */
-  --equinet-radius-pill: 8px;                /* pencilBar-Toggle rect rx                        · 2026-08-07 */
-
-  /* --------------------------------------------------------------- MOTION -- */
-  --equinet-motion-duration: 0.3s;           /* primary button interaction spec                 · 2026-08-07 */
-  --equinet-motion-ease: ease-in-out;        /* primary button interaction spec                 · 2026-08-07 */
-  --equinet-btn-scale--hover: 1.03;          /* primary button hover grow — value established by
-                                                Commercial Intelligence Methodology, shared across
-                                                the set                                        · 2026-08-07 */
-  --equinet-motion-duration--ui: 200ms;      /* colour / chrome transitions                    · 2026-08-07 */
-  --equinet-motion-ease--ui: ease;           /* colour / chrome transitions                    · 2026-08-07 */
-
-  /* ================================================== cagr-four-column · 2026-09-18 --
-     Net-new tokens promoted from the cagr-four-column build. Entries marked
-     DUP VALUE share a literal with an existing token; they are kept as separate
-     semantic roles so a button re-skin never moves card/body typography. */
-
-  /* -- typography -- */
-  --equinet-fontsize-h2: 36px;               /* h2-Toggle label-Text font-size            · cagr-four-column · 2026-09-18 */
-  --equinet-fontsize-h3: 24px;               /* card h3-Text — client-revised from the 20px comp (DUP VALUE: --equinet-fontsize-h4) · cagr-four-column · 2026-09-18 */
-  --equinet-fontsize-body: 16px;             /* sectorStats label font-size (DUP VALUE: --equinet-fontsize-btn) · cagr-four-column · 2026-09-18 */
-  --equinet-fontsize-stat: 18px;             /* sectorStats value font-size               · cagr-four-column · 2026-09-18 */
-  --equinet-fontsize-caption: 11px;          /* pill-Link label font-size                 · cagr-four-column · 2026-09-18 */
-  --equinet-fontweight-semibold: 600;        /* h3 / stat value weight (DUP VALUE: --equinet-fontweight-btn) · cagr-four-column · 2026-09-18 */
-
-  /* -- colour -- */
-  --equinet-color-black: #000000;            /* card h3-Text fill (PNG-confirmed)          · cagr-four-column · 2026-09-18 */
-  --equinet-color-border: #B1B7C8;           /* sectorStats 1px bottom rule               · cagr-four-column · 2026-09-18 */
-
-  /* -- radii / shadows -- */
-  --equinet-radius-card: 7px;                /* Card rect rx (DUP VALUE: --equinet-btn-radius) · cagr-four-column · 2026-09-18 */
-  --equinet-shadow-card: 1px 1px 5px 0px rgba(0, 0, 0, 0.13);
-                             /* card default drop shadow — client spec                          · cagr-four-column · 2026-09-18 */
+  --equinet-shadow-card:        1px 1px 5px 0px rgba(0, 0, 0, 0.13);
   --equinet-shadow-card--hover: -4px 34px 34px rgba(0, 0, 0, 0.07);
-                             /* card-Hover filter0_d: dx-4 dy34 std17, alpha .07                · cagr-four-column · 2026-09-18 */
-  --equinet-shadow-heading--sm: -0.5px 0.5px 2px rgba(0, 0, 0, 0.25);
-                             /* card h3 filter: dx-.5 dy.5 std1, alpha .25                      · cagr-four-column · 2026-09-18 */
-  /* ================================ SPACING · 2026-09-22 --
-     Rhythm scale on a 4px grid, derived from spacing literals shared across
-     cim-methodology, plain_hero_banner and cagr-four-column. SVG-measured
-     component internals (9, 15, 22, 26, 27, 30, 44, 68, 94px, etc.) stay
-     literal in their modules — see the Equinet design system README,
-     "Spacing" section, for the full rationale. */
-  --equinet-space-2xs: 8px;    /* heading accent-line gap             · cim-methodology */
-  --equinet-space-xs: 12px;    /* modal close inset                   · cim-methodology */
-  --equinet-space-sm: 16px;    /* laptop card gap; icon box           · cim-methodology, plain_hero_banner */
-  --equinet-space-md: 24px;    /* gutter, grid gap, card padding      · all three read modules */
-  --equinet-space-lg: 32px;    /* inter-CTA gap; heading-to-lead      · cim-methodology, plain_hero_banner */
-  --equinet-space-xl: 40px;    /* eyebrow-to-heading gap              · cim-methodology */
-  --equinet-space-2xl: 48px;   /* cards-to-CTA gap                    · cim-methodology */
-  --equinet-space-3xl: 56px;   /* mobile section padding clamp — decided 2026-09-21
-                                   (DUP VALUE: --equinet-btn-height)  · plain_hero_banner */
-  --equinet-space-4xl: 96px;   /* desktop section padding             · cim-methodology, plain_hero_banner */
+  /* NOTE: Figma effect style "Passive Card Shadow" specifies blur 10px;
+     module SVG measures 5px (stdDeviation 2.5). Module value retained as it
+     matches what ships — see README.md "Cards." */
 
-  /* ================================ MOTION EXTRAS · 2026-09-22 --
-     Surfaced by cagr-four-column and sector-three-column-case-study, which
-     were not previously read. Both already reference these as var() calls
-     with fallbacks; promoting them makes that explicit rather than implicit. */
-  --equinet-motion-duration--slow: 0.6s;   /* card/image return timing (fast-in, slow-out) · cagr-four-column, sector-three-column-case-study */
-  --equinet-motion-duration--wipe: 0.45s;  /* customerStudy reveal wipe            · sector-three-column-case-study */
+  --equinet-shadow-blue-label: -6.88px 7.76px 32.53px rgba(94, 140, 187, 0.4); /* Figma effect style */
 
-  /* ------------------------------------------------------ LETTERSPACING --
-     A whole missing category: every module hardcodes 0.1em/0.2em/-0.05em
-     tracking inline rather than through a token. sector-three-column-case-study
-     references --equinet-letterspacing-kicker and --equinet-letterspacing-display
-     (both commented out in-file, falling through to hardcoded values) —
-     these are promotion candidates, not yet real tokens. */
-  /* --equinet-letterspacing-kicker: 0.2em;   -- promotion candidate, unconfirmed */
-  /* --equinet-letterspacing-display: -0.03em; -- promotion candidate, conflicts with
-       plain_hero_banner's -0.05em on the same role; needs reconciling before promotion */
+  /* ==========================================================================
+     MOTION                               [Module: various]
+     ========================================================================== */
+  --equinet-motion-duration:       0.3s;          /* scale/move transitions */
+  --equinet-motion-ease:           ease-in-out;
+  --equinet-btn-scale--hover:      1.03;          /* capped so it can't reflow neighbours */
+  --equinet-motion-duration--ui:   200ms;         /* colour / chrome transitions */
+  --equinet-motion-ease--ui:       ease;
+  --equinet-motion-duration--slow: 0.6s;          /* card/image settle-back · cagr-four-column */
+  --equinet-motion-duration--wipe: 0.45s;         /* reveal wipe · sector-three-column-case-study */
 }

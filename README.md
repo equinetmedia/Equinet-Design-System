@@ -444,6 +444,55 @@ artwork, same light/dark toggle logic already used for button hover states,
 picked by background contrast rather than habit. Full usage rules in that
 folder's own `README.md`.
 
+## Instructions for AI-generated design
+
+For Claude Design, or any other tool generating a mockup, page, or component
+from this system. Every rule below is a requirement, not a preference — the
+same standard the colour rule already holds generated output to. Each links
+back to the section that defines the actual values, so this isn't a restatement
+of them, just the mandate to use them.
+
+**Assets — use what's real, never invent what isn't.**
+- Wordmark: `assets/brand/wordmark-light.svg` or `wordmark-dark.svg`, picked
+  by background contrast (see **Brand mark**). Never render the name as
+  styled text standing in for the logo.
+- Icons: `assets/icons/` has no real SVGs yet — see that folder's own
+  `README.md` for exactly which icons are known and why the arrow needs a
+  decision before it can be centralized. Until real geometry exists, **a
+  neutral icon set (Lucide or similar) is an acceptable placeholder** —
+  decided 2026-09-23 — but it must read as a placeholder, not be presented
+  as if it were a real Equinet icon. Don't fabricate a plausible-looking
+  custom arrow or checkmark from scratch; that's exactly the kind of
+  invented shape the system's no-hallucination principle exists to prevent.
+
+**Spacing and frame — token values only, nothing arbitrary.**
+- Padding and gaps: the `equinet-space-*` scale (see **Spacing**). A raw
+  pixel value not on that scale is a promotion candidate, not a free choice.
+- Corners: `equinet-radius-card` or `equinet-btn-radius` (see **Surface**).
+- Elevation: `equinet-shadow-*`, matched to the resolved card-lift pattern
+  (see **Cards**) — not a new shadow invented to taste.
+- Borders and dividers: `equinet-color-border` for UI; the `diagram-line`
+  tokens only for marketing/illustration content, never for UI (see
+  **Diagram illustration**).
+
+**Typography — the two families, the real scale, nothing else.**
+Open Sans for headings, Source Sans 3 for body, Playfair Display only as the
+already-established optional accent (see **Type**). No third typeface. No
+size outside `equinet-fontsize-*`.
+
+**Where tokens don't dictate an answer, general UI practice fills the gap —
+it doesn't license invention:**
+- Contrast: WCAG 2.1 AA, measured rather than eyeballed (see
+  **Accessibility**) — except the one signed-off exception already on
+  record for the primary button.
+- Alignment: repeated elements — cards in a row, icons in a list — share a
+  baseline or edge, not independently placed.
+- Hierarchy: one clear focal point per section; heading level follows
+  document order, never chosen for its visual size (see **Type**).
+- Density: the button's 56px height and the spacing scale's rhythm exist so
+  interactive targets and gaps don't need re-deriving per design — use them
+  rather than judging by eye whether something looks crowded.
+
 ## Accessibility
 
 WCAG 2.1 AA is the floor, and conformance is measured rather than assumed.

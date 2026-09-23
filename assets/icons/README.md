@@ -34,6 +34,16 @@ Centralizing "the arrow" means picking one canonical shape first, the same
 way card-hover and reduced-motion needed picking one pattern. That's a design
 decision, not something resolvable from CSS alone.
 
+## In the meantime: placeholder policy
+
+Decided 2026-09-23. A neutral icon set (Lucide or similar) is an acceptable
+stand-in where a design calls for an icon that isn't listed above yet — but
+it must read as a placeholder, not be presented as a real Equinet icon.
+Don't fabricate a plausible-looking custom shape instead; that's the same
+invention this file's whole approach exists to avoid, just committed by hand
+rather than by guessing at path data. See `README.md`, "Instructions for
+AI-generated design," for the full rule.
+
 ## What's needed to fill this folder in
 
 For each icon above: the module's `module.html` (or just the inline `<svg>…
