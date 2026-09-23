@@ -1,0 +1,58 @@
+<svg width="320" height="180" viewBox="0 0 320 180" fill="none" xmlns="http://www.w3.org/2000/svg">
+<g clip-path="url(#clip0_467_6039)">
+<rect width="320" height="180" fill="url(#paint0_linear_467_6039)"/>
+<g filter="url(#filter0_d_467_6039)">
+<rect x="54" y="18" width="122.187" height="80.0907" rx="5.78464" fill="white" shape-rendering="crispEdges"/>
+<text fill="#242530" style="white-space: pre" xml:space="preserve" font-family="Myriad Pro" font-size="9.01738" font-weight="600" letter-spacing="0em"><tspan x="71.3539" y="45.1228">Current Score</tspan></text>
+<path d="M151.319 43.4942C151.664 43.4942 151.945 43.2138 151.945 42.8679C151.945 42.5221 151.664 42.2417 151.319 42.2417C150.973 42.2417 150.692 42.5221 150.692 42.8679C150.692 43.2138 150.973 43.4942 151.319 43.4942Z" stroke="#6C7074" stroke-width="1.25241" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M155.701 43.4942C156.047 43.4942 156.328 43.2138 156.328 42.8679C156.328 42.5221 156.047 42.2417 155.701 42.2417C155.356 42.2417 155.075 42.5221 155.075 42.8679C155.075 43.2138 155.356 43.4942 155.701 43.4942Z" stroke="#6C7074" stroke-width="1.25241" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M146.934 43.4942C147.28 43.4942 147.56 43.2138 147.56 42.8679C147.56 42.5221 147.28 42.2417 146.934 42.2417C146.588 42.2417 146.308 42.5221 146.308 42.8679C146.308 43.2138 146.588 43.4942 146.934 43.4942Z" stroke="#6C7074" stroke-width="1.25241" stroke-linecap="round" stroke-linejoin="round"/>
+<text fill="#242530" style="white-space: pre" xml:space="preserve" font-family="Myriad Pro" font-size="19.9134" font-weight="bold" letter-spacing="-0.05em"><tspan x="71.3539" y="81.1584">82</tspan></text>
+</g>
+<g filter="url(#filter1_d_467_6039)">
+<rect x="127.502" y="59.8999" width="137.628" height="102.889" rx="5.78464" fill="white" shape-rendering="crispEdges"/>
+<text fill="#242530" style="white-space: pre" xml:space="preserve" font-family="Myriad Pro" font-size="9.01738" font-weight="600" letter-spacing="0em"><tspan x="144.856" y="87.0227">AI Predictive Score</tspan></text>
+<path d="M240.264 85.3942C240.609 85.3942 240.89 85.1138 240.89 84.768C240.89 84.4221 240.609 84.1418 240.264 84.1418C239.918 84.1418 239.637 84.4221 239.637 84.768C239.637 85.1138 239.918 85.3942 240.264 85.3942Z" stroke="#6C7074" stroke-width="1.25241" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M244.644 85.3943C244.99 85.3943 245.271 85.1139 245.271 84.7681C245.271 84.4222 244.99 84.1419 244.644 84.1419C244.299 84.1419 244.018 84.4222 244.018 84.7681C244.018 85.1139 244.299 85.3943 244.644 85.3943Z" stroke="#6C7074" stroke-width="1.25241" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M235.877 85.3942C236.223 85.3942 236.503 85.1138 236.503 84.768C236.503 84.4221 236.223 84.1418 235.877 84.1418C235.531 84.1418 235.251 84.4221 235.251 84.768C235.251 85.1138 235.531 85.3942 235.877 85.3942Z" stroke="#6C7074" stroke-width="1.25241" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M156.286 111.8C155.45 110.709 153.806 110.709 152.97 111.8L147.432 119.023C146.378 120.398 147.358 122.384 149.09 122.384L160.166 122.384C161.898 122.384 162.877 120.398 161.824 119.023L156.286 111.8Z" fill="#E06730"/>
+<path d="M156.286 123.325C155.45 122.234 153.806 122.234 152.97 123.325L147.432 130.549C146.378 131.923 147.358 133.909 149.09 133.909L160.166 133.909C161.898 133.909 162.877 131.923 161.824 130.549L156.286 123.325Z" fill="#F49E78"/>
+<path d="M156.286 134.851C155.45 133.76 153.806 133.76 152.97 134.851L147.432 142.074C146.378 143.449 147.358 145.435 149.09 145.435L160.166 145.435C161.898 145.435 162.877 143.449 161.824 142.074L156.286 134.851Z" fill="#FFE6DB"/>
+<text fill="#242530" style="white-space: pre" xml:space="preserve" font-family="Myriad Pro" font-size="19.9134" font-weight="bold" letter-spacing="-0.05em"><tspan x="170.241" y="123.634">62%</tspan></text>
+<text fill="#6C7074" style="white-space: pre" xml:space="preserve" font-family="Myriad Pro" font-size="5.11875" font-weight="600" letter-spacing="0em"><tspan x="170.241" y="131.249">Chance to Convert</tspan></text>
+<rect x="170.241" y="134.848" width="35.4535" height="10.0116" rx="5.00579" fill="#FFE6DB"/>
+<path d="M177.877 138.702C177.648 138.403 177.199 138.403 176.97 138.702L175.454 140.678C175.166 141.054 175.434 141.598 175.908 141.598L178.939 141.598C179.413 141.598 179.681 141.054 179.393 140.678L177.877 138.702Z" fill="#E06730"/>
+<text fill="#E06730" style="white-space: pre" xml:space="preserve" font-family="Myriad Pro" font-size="6.17564" font-weight="bold" letter-spacing="-0.01em"><tspan x="183.186" y="142.016">96.4%</tspan></text>
+<text fill="#6C7074" style="white-space: pre" xml:space="preserve" font-family="Myriad Pro" font-size="5.11875" font-weight="600" letter-spacing="0em"><tspan x="207.776" y="141.134">Vs. Previous Week</tspan></text>
+</g>
+</g>
+<defs>
+<filter id="filter0_d_467_6039" x="24.075" y="18" width="175.737" height="133.641" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+<feFlood flood-opacity="0" result="BackgroundImageFix"/>
+<feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" result="hardAlpha"/>
+<feOffset dx="-3.15" dy="26.775"/>
+<feGaussianBlur stdDeviation="13.3875"/>
+<feComposite in2="hardAlpha" operator="out"/>
+<feColorMatrix type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.07 0"/>
+<feBlend mode="normal" in2="BackgroundImageFix" result="effect1_dropShadow_467_6039"/>
+<feBlend mode="normal" in="SourceGraphic" in2="effect1_dropShadow_467_6039" result="shape"/>
+</filter>
+<filter id="filter1_d_467_6039" x="97.577" y="59.8999" width="191.178" height="156.439" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+<feFlood flood-opacity="0" result="BackgroundImageFix"/>
+<feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" result="hardAlpha"/>
+<feOffset dx="-3.15" dy="26.775"/>
+<feGaussianBlur stdDeviation="13.3875"/>
+<feComposite in2="hardAlpha" operator="out"/>
+<feColorMatrix type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.07 0"/>
+<feBlend mode="normal" in2="BackgroundImageFix" result="effect1_dropShadow_467_6039"/>
+<feBlend mode="normal" in="SourceGraphic" in2="effect1_dropShadow_467_6039" result="shape"/>
+</filter>
+<linearGradient id="paint0_linear_467_6039" x1="160" y1="0" x2="160" y2="180" gradientUnits="userSpaceOnUse">
+<stop stop-color="#F6F5F5"/>
+<stop offset="1" stop-color="white"/>
+</linearGradient>
+<clipPath id="clip0_467_6039">
+<rect width="320" height="180" fill="white"/>
+</clipPath>
+</defs>
+</svg>
