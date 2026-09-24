@@ -1,0 +1,284 @@
+/* ============================================================================
+   EQUINET — COMPONENT STYLESHEET
+   Pure CSS. No build step, no preprocessor, no JavaScript.
+   Loaded AFTER tokens.css; every value resolves to a token with the
+   SVG-measured literal as its fallback.
+
+   Geometry below is measured from the Figma button exports (2026-09-23):
+     button_primary_large_default / _light-Hover / _dark-Hover
+     button_primary_video_default / _light-Hover / _dark-Hover
+     button_navigation_solid_default / -Hover
+     button_textual_default / -Hover
+
+   Scope note: these are UNSCOPED component classes, for Claude Design
+   previews and for reference. Inside a HubSpot module every selector is
+   namespaced under that module's root class — see README.md, "Module
+   anatomy."
+   ========================================================================== */
+
+
+/* ---------------------------------------------------------------- SHARED -- */
+
+.btn-primary,
+.btn-navigation,
+.btn-textual {
+  display: inline-flex;
+  align-items: center;
+  justify-content: flex-start;
+  box-sizing: border-box;
+  font-family: var(--equinet-font-body, 'Source Sans 3', sans-serif);
+  font-size: var(--equinet-fontsize-btn, 16px);
+  font-weight: var(--equinet-fontweight-btn, 600);
+  line-height: 1.1;
+  text-decoration: none;
+  white-space: nowrap;      /* label stays on one line, never wraps mid-phrase */
+  flex: 0 0 auto;           /* never shrink to min-content inside a flex row */
+  cursor: pointer;
+  border: 0;
+  transform-origin: center;
+}
+
+/* Theme isolation: a portal `a {}` rule will repaint an unstyled state
+   otherwise. Every state is claimed explicitly. */
+.btn-primary:link,    .btn-primary:visited,
+.btn-navigation:link, .btn-navigation:visited,
+.btn-textual:link,    .btn-textual:visited {
+  text-decoration: none;
+}
+
+/* Icons inherit ink from the button, so one colour change moves both. */
+.btn-primary__icon,
+.btn-navigation__icon,
+.btn-textual__icon {
+  display: inline-flex;
+  flex: 0 0 auto;
+  color: inherit;
+}
+.btn-primary__icon svg,
+.btn-navigation__icon svg,
+.btn-textual__icon svg {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+
+/* --------------------------------------------------- PRIMARY (filled) ----- */
+/* Figma: button_primary_large_default — rect 232x56, rx 7, fill #E06730.
+   Padding: label x59.87 - rect x26.41 = 33.46 -> 32px left (matches the
+   shipped module); rect right 258.41 - arrow right 232.23 = 26.18 -> 26px. */
+
+.btn-primary {
+  min-height: var(--equinet-btn-height, 56px);   /* min-, not fixed: labels wrap */
+  padding: 0 26px 0 32px;
+  gap: 9px;                                      /* label right -> arrow left */
+  border-radius: var(--equinet-btn-radius, 7px);
+  background-color: var(--equinet-btn-fill--primary, #E06730);
+  color: var(--equinet-btn-label, #FFFFFF);
+  box-shadow: var(--equinet-shadow-btn--primary,
+               -6.88px 7.76px 19.53px rgba(208, 79, 20, 0.22));
+  transition:
+    background-color var(--equinet-motion-duration--ui, 200ms) var(--equinet-motion-ease--ui, ease),
+    box-shadow       var(--equinet-motion-duration--ui, 200ms) var(--equinet-motion-ease--ui, ease);
+}
+
+.btn-primary:link,
+.btn-primary:visited {
+  background-color: var(--equinet-btn-fill--primary, #E06730);
+  color: var(--equinet-btn-label, #FFFFFF);
+}
+
+/* The solid arrow: 15.627 x 13.129, measured from the export. */
+.btn-primary__icon {
+  width: 15.63px;
+  height: 13.13px;
+}
+
+/* Video variant — same shell, a 26x26 play glyph and a wider gap.
+   Figma: button_primary_video_default, rect 235x56. */
+.btn-primary--video .btn-primary__icon {
+  width: 26px;
+  height: 26px;
+}
+.btn-primary--video {
+  padding: 0 27px;
+  gap: 15px;
+}
+
+/* -- Light-hover variant: for a DARK module background -- */
+.btn-primary--hover-light:hover,
+.btn-primary--hover-light:focus-visible {
+  background-color: var(--equinet-btn-fill--primary--hover-light, #F5844D);
+  border-radius: var(--equinet-btn-radius--hover, 8px);
+  box-shadow: var(--equinet-shadow-btn--primary--hover-light,
+               -6.88px 7.76px 19.53px rgba(224, 103, 48, 0.2));
+}
+
+/* -- Dark-hover variant: for a LIGHT module background -- */
+.btn-primary--hover-dark:hover,
+.btn-primary--hover-dark:focus-visible {
+  background-color: var(--equinet-btn-fill--primary--hover-dark, #D04F14);
+  border-radius: var(--equinet-btn-radius--hover, 8px);
+  box-shadow: var(--equinet-shadow-btn--primary--hover-dark,
+               -6.88px 7.76px 19.53px rgba(208, 79, 20, 0.2));
+}
+
+/* Navy ring: an orange ring on an orange fill is invisible. */
+.btn-primary:focus-visible {
+  outline: 2px solid var(--equinet-color-navy, #00426C);
+  outline-offset: 2px;
+}
+
+
+/* ------------------------------------------------ NAVIGATION (filled) ----- */
+/* Figma: button_navigation_solid_default — rect 243x54, rx 7, fill #00426C.
+   NOTE the 54px height, and that the radius does NOT grow on hover: both
+   exports carry rx 7, unlike the primary's 7 -> 8. */
+
+.btn-navigation {
+  min-height: var(--equinet-btn-height--navigation, 54px);
+  padding: 0 26px 0 32px;
+  gap: 12px;
+  border-radius: var(--equinet-btn-radius, 7px);
+  background-color: var(--equinet-btn-fill--navigation, #00426C);
+  color: var(--equinet-btn-label, #FFFFFF);
+  box-shadow: var(--equinet-shadow-btn--navigation,
+               -6.88px 7.76px 19.53px rgba(61, 113, 165, 0.3));
+  transition:
+    background-color var(--equinet-motion-duration--ui, 200ms) var(--equinet-motion-ease--ui, ease),
+    color            var(--equinet-motion-duration--ui, 200ms) var(--equinet-motion-ease--ui, ease);
+}
+
+.btn-navigation:link,
+.btn-navigation:visited {
+  background-color: var(--equinet-btn-fill--navigation, #00426C);
+  color: var(--equinet-btn-label, #FFFFFF);
+}
+
+/* Label AND chevron both turn orange on hover — 5.6:1 on the hover fill. */
+.btn-navigation:hover,
+.btn-navigation:focus-visible {
+  background-color: var(--equinet-btn-fill--navigation--hover, #002E4A);
+  color: var(--equinet-btn-label--navigation--hover, #F5844D);
+}
+
+.btn-navigation__icon {
+  width: 24px;
+  height: 24px;
+}
+
+.btn-navigation:focus-visible {
+  outline: 2px solid var(--equinet-btn-label--navigation--hover, #F5844D);
+  outline-offset: 2px;
+}
+
+
+/* --------------------------------------------------- TEXTUAL (no fill) ---- */
+/* Figma: button_textual_default / -Hover, 24px tall, chevron arrow.
+   The arrow travels 16px on hover: the default export places its line at
+   x190, the hover export at x206, and the artboard widens by exactly 16.  */
+
+.btn-textual {
+  padding: 0;
+  gap: 10px;
+  background: none;
+  color: var(--equinet-btn-label--textual, #242630);
+  transition: color var(--equinet-motion-duration--ui, 200ms) var(--equinet-motion-ease--ui, ease);
+}
+
+.btn-textual:link,
+.btn-textual:visited {
+  color: var(--equinet-btn-label--textual, #242630);
+}
+
+.btn-textual__icon {
+  width: 24px;
+  height: 24px;
+  transition: transform var(--equinet-motion-duration, 0.3s) var(--equinet-motion-ease, ease-in-out);
+}
+
+/* Only the arrow recolours on hover — the label stays put. */
+.btn-textual:hover,
+.btn-textual:focus-visible {
+  color: var(--equinet-btn-icon--textual--hover, #E06730);
+}
+
+.btn-textual:focus-visible {
+  outline: 2px solid currentColor;
+  outline-offset: 3px;
+  border-radius: 2px;
+}
+
+
+/* ------------------------------------------------------------- MOTION ----- */
+/* Declared inside a no-preference wrapper AND withdrawn under reduce — the
+   resolved pattern, per README.md "Motion". */
+
+@media (prefers-reduced-motion: no-preference) {
+  .btn-primary,
+  .btn-navigation {
+    transition:
+      transform        var(--equinet-motion-duration, 0.3s) var(--equinet-motion-ease, ease-in-out),
+      border-radius    var(--equinet-motion-duration, 0.3s) var(--equinet-motion-ease, ease-in-out),
+      background-color var(--equinet-motion-duration--ui, 200ms) var(--equinet-motion-ease--ui, ease),
+      color            var(--equinet-motion-duration--ui, 200ms) var(--equinet-motion-ease--ui, ease),
+      box-shadow       var(--equinet-motion-duration--ui, 200ms) var(--equinet-motion-ease--ui, ease);
+  }
+
+  .btn-primary:hover,
+  .btn-primary:focus-visible,
+  .btn-navigation:hover,
+  .btn-navigation:focus-visible {
+    transform: scale(var(--equinet-btn-scale--hover, 1.03));
+  }
+
+  .btn-primary:active,
+  .btn-navigation:active,
+  .btn-textual:active {
+    transform: scale(var(--equinet-btn-scale--active, 0.99));
+  }
+
+  .btn-textual:hover .btn-textual__icon,
+  .btn-textual:focus-visible .btn-textual__icon {
+    transform: translateX(var(--equinet-motion-travel--arrow, 16px));
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .btn-primary,
+  .btn-navigation,
+  .btn-textual,
+  .btn-textual__icon {
+    transition: none;
+  }
+  .btn-primary:hover,
+  .btn-primary:focus-visible,
+  .btn-primary:active,
+  .btn-navigation:hover,
+  .btn-navigation:focus-visible,
+  .btn-navigation:active,
+  .btn-textual:active {
+    transform: none;
+  }
+  .btn-textual:hover .btn-textual__icon,
+  .btn-textual:focus-visible .btn-textual__icon {
+    transform: none;
+  }
+}
+
+
+/* ------------------------------------------------------------- MOBILE ----- */
+/* Filled buttons go full-width and centre their content; the textual link
+   stays at its natural width. */
+
+@media (max-width: 767px) {
+  .btn-primary,
+  .btn-navigation {
+    width: 100%;
+    justify-content: center;
+  }
+  .btn-textual {
+    width: auto;
+    align-self: center;
+  }
+}

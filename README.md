@@ -275,7 +275,7 @@ it to a token.
 | Button radius on hover | 7px → 8px |
 | Card hover lift | `translateY(-6px)` — **canonical**, per `cagr-four-column`'s own code comment, attributed to `growth_cards` |
 | Card image zoom + desaturate | `scale(1.06)`, `grayscale(0%)` |
-| Textual button arrow | `translateX(8px)` in most modules; `translateX(16px)` in `sector-three-column-case-study` — **unreconciled**, pick one |
+| Textual button arrow | `translateX(16px)` — **resolved 2026-09-23** from the Figma exports |
 | Card emphasis grow | `scale(1.04)` — `cim-methodology` only, a pinned "elevated" state, not a hover default |
 
 The button grow is capped at 1.03 so it cannot reflow neighbours or overflow a
@@ -467,6 +467,32 @@ markup. It's empty of real SVGs as of 2026-09-22: see its own `README.md` for
 the inventory of what's known and why the arrow specifically needs a decision
 before it can be centralized — it isn't one shape today.
 
+## Component CSS
+
+`components/bundle.css` is the pure-CSS component layer — no build step, no
+preprocessor, no JavaScript. It loads after `tokens.css`, and every value
+resolves to a token with its SVG-measured literal as the fallback, so a module
+renders correctly even if the token file is unreachable.
+
+It covers all three button variants in every state, measured from the Figma
+exports on 2026-09-23:
+
+| Variant | Geometry | Radius on hover | Icon |
+| --- | --- | --- | --- |
+| `.btn-primary` | 232 × 56, `rx 7` | 7 → 8 | `arrow-solid` (15.63 × 13.13) |
+| `.btn-primary--video` | 235 × 56, `rx 7` | 7 → 8 | `play-circle` (26 × 26) |
+| `.btn-navigation` | 243 × **54**, `rx 7` | **stays 7** | `arrow-chevron` (24 × 24) |
+| `.btn-textual` | 24 tall, no fill | — | `arrow-chevron` (24 × 24) |
+
+Two things the exports corrected. The navigation button is **54px tall, not
+56** — it does not share `--equinet-btn-height` — and its radius does **not**
+grow on hover, unlike the primary's 7 → 8. Both were assumed uniform before
+the real exports existed.
+
+The classes there are unscoped, for Claude Design previews and reference.
+Inside a HubSpot module every selector is namespaced under that module's root
+class — see **Module anatomy**.
+
 ## Brand mark
 
 `assets/brand/` holds the Equinet Media wordmark, two ready-made variants —
@@ -619,8 +645,12 @@ patterns generalize past Equinet; its tokens don't belong in this file.
   `.btn-primary` styling with **no button layer anywhere in its Figma comp**,
   specifically so a future rich-text-inserted button inherits the component —
   a deliberate case for keeping the rule absolute, not just an oversight.
-- **New: arrow travel distance disagrees.** `translateX(8px)` in most modules,
-  `translateX(16px)` in `sector-three-column-case-study`, on the same pattern.
+- **Resolved 2026-09-23: arrow travel is 16px.** The Figma exports settle it —
+  `button_textual_default.svg` places the chevron at x190,
+  `button_textual-Hover.svg` at x206, and the artboard widens by exactly 16.
+  `sector-three-column-case-study` was right; `plain_hero_banner` and
+  `cim-methodology` ship 8px and have drifted. Token:
+  `--equinet-motion-travel--arrow`.
 - **New: two button class families coexist.** `.btn-primary` throughout, but
   `sector-three-column-case-study` also carries `.button_primary_large` and
   `.button_textual` as parallel selectors on the same rules. Worth deciding

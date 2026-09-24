@@ -148,6 +148,17 @@
                                             may be an export artefact. Whether to merge is an open decision
                                             — see README.md. */
   --equinet-color-body:    var(--equinet-color-night-700); /* #3B3F51 */
+  --equinet-color-lead:    var(--equinet-color-body);      /* NEW 2026-09-23: lead text has no colour token
+                                                               anywhere in the shipped module — the source
+                                                               comment literally says "colour is the editable
+                                                               lead_color field (inline)", with no var()
+                                                               fallback at all, unlike padding. If the field is
+                                                               ever unset (a fresh Claude Design reconstruction,
+                                                               a missing fields.json default), lead text
+                                                               renders with no colour applied — on
+                                                               plain_hero_banner's navy background that's
+                                                               functionally invisible. This alias exists so a
+                                                               reconstruction has something to fall back to. */
   --equinet-color-black:   #000000;      /* card h3 fill · cagr-four-column · 2026-09-18 */
 
   /* -- surfaces -- */
@@ -207,24 +218,6 @@
 
 
   /* ==========================================================================
-     COLOUR — PAINT STYLES (Figma local)
-     Foundation blue palette used in component state layering. These do NOT
-     map directly to the brand/color/blue variable ramp — they are a separate
-     interaction-state palette for UI chrome and pictograph backgrounds.
-     ========================================================================== */
-  --equinet-foundation-blue-light:         #E6ECEF;
-  --equinet-foundation-blue-light-hover:   #D9E3E9;
-  --equinet-foundation-blue-light-active:  #B0C4D1;
-  --equinet-foundation-blue-normal:        var(--equinet-color-blue-default); /* #00426C */
-  --equinet-foundation-blue-normal-hover:  #003B61;
-  --equinet-foundation-blue-normal-active: #003556;
-  --equinet-foundation-blue-dark:          #003251;
-  --equinet-foundation-blue-dark-hover:    #002841;
-  --equinet-foundation-blue-dark-active:   #001E31;
-  --equinet-foundation-blue-darker:        #001726;
-
-
-  /* ==========================================================================
      BORDER                                       [Figma: alias/border width/*]
                                                   [Figma: alias/border radius/*]
      ========================================================================== */
@@ -250,10 +243,6 @@
      labels for the same values — its spacing/xs = 8px (our 2xs), its
      spacing/md = 16px (our sm), its spacing/lg = 24px (our md), etc.
      The module-derived names below are what shipped modules consume.
-
-     Figma responsive spacing (for reference, NOT used as token names):
-       3xs=2px, 2xs=4px, xs=8px, sm=12px, md=16px, lg=24px(D)/12px(M),
-       xl=32px(D)/16px(M), 2xl=48px, 3xl=64px
      ========================================================================== */
   --equinet-space-2xs: var(--equinet-scale-200);  /* 8px  · heading accent-line gap */
   --equinet-space-xs:  var(--equinet-scale-300);  /* 12px · modal close inset */
@@ -269,10 +258,9 @@
   /* ==========================================================================
      TYPOGRAPHY — FONT FAMILIES          [Figma: brand/type/font family/*]
 
-     Figma's brand variables store "Myriad Pro" for body/heading/heading light,
-     and "Open Sans" for heading black. Myriad Pro has no licensed web embed
-     and was removed from the CSS stack 2026-09-23. Source Sans 3 is the
-     permanent browser substitute. Open Sans sets display headings.
+     Myriad Pro is the Figma-canonical body/heading face but has no licensed
+     web embed and was removed from the stack 2026-09-23. Source Sans 3 is
+     the permanent browser substitute. Open Sans sets display headings.
      See README.md "Type" for full history.
      ========================================================================== */
   --equinet-font-heading:       'Open Sans', sans-serif;
@@ -314,15 +302,15 @@
 
   /* -- module overrides (diverge from the Figma scale) -- */
   --equinet-fontsize-display: 60px;   /* SVG-measured h1 · 2-column-hero-banner (Figma: 56px) · 2026-08-07 */
-  --equinet-fontsize-lead:    20px;   /* Lead-Text-Color · 2-column-hero-banner · 2026-08-07 */
+  --equinet-fontsize-lead:    20px;   /* Lead-Text-Color · 2-column-hero-banner · 2026-08-07
+                                          DISCREPANCY: plain_hero_banner ships this at 22px desktop
+                                          (20px tablet, 18px mobile) — this token was sourced from a
+                                          different module. Not reconciled; flagged 2026-09-23. */
   --equinet-fontsize-btn:     16px;   /* button label · 2-column-hero-banner · 2026-08-07 */
   --equinet-fontsize-kicker:  12px;   /* pencilBar label · 2-column-hero-banner · 2026-08-07 */
   --equinet-fontsize-stat:    18px;   /* sectorStats value · cagr-four-column · 2026-09-18 */
   --equinet-fontsize-small:   14px;   /* section-Author role · pencil_testimonial · 2026-08-19 */
   --equinet-fontsize-caption: 11px;   /* pill-Link label · cagr-four-column · 2026-09-18 */
-
-  /* -- link/button body style -- */
-  --equinet-fontsize-btn-link: 20px;  /* Figma text style body/button-md-link */
 
   /* DISCREPANCY: cagr-four-column ships h2 at 36px and h3 at 24px; Figma
      variables say 48px and 32px respectively. Modules may have been built
@@ -344,6 +332,10 @@
   /* -- module overrides -- */
   --equinet-lineheight-display: 0.91667; /* 55/60 baseline ratio · 2-column-hero-banner · 2026-08-07 */
   --equinet-lineheight-lead:    1.3;     /* 26/20 · 2-column-hero-banner · 2026-08-07 */
+  --equinet-fontstyle-lead: italic;      /* NEW 2026-09-23: hardcoded in plain_hero_banner's CSS
+                                             (font-style: italic) but was never a token anywhere —
+                                             absent from tokens.json entirely. A pipeline reading only
+                                             the JSON shape has no way to know lead text is italic. */
 
   /* ==========================================================================
      TYPOGRAPHY — LETTER SPACING       [Figma: text styles]
@@ -378,19 +370,12 @@
      TYPOGRAPHY — TEXT TRANSFORMS      [Figma: text styles textCase]
      ========================================================================== */
   --equinet-text-transform-h1: uppercase;  /* heading/h1 · UPPER */
-  --equinet-text-transform-h2: uppercase;  /* heading/h2 · UPPER */
+  --equinet-text-transform-h2: uppercase;  /* heading/h2 · UPPER — CONFIRMED REQUIREMENT 2026-09-23,
+                                               paired with --equinet-shadow-heading. Not optional. */
   --equinet-text-transform-h3: none;       /* heading/h3 · ORIGINAL */
   --equinet-text-transform-h4: none;       /* heading/h4 · ORIGINAL */
   --equinet-text-transform-h5: uppercase;  /* heading/h5 · UPPER */
   --equinet-text-transform-h6: uppercase;  /* heading/h6 · UPPER */
-
-  /* ==========================================================================
-     TYPOGRAPHY — TEXT STYLE FONT MAPPING
-     Records which Figma text style uses which font family, for build reference.
-     h1 = Open Sans ExtraBold; h2 = Myriad Pro Black (→ Source Sans 3 in CSS);
-     h3 = Myriad Pro Bold (→ Source Sans 3 in CSS); h4–h6 = Source Sans Pro SemiBold;
-     body = Source Sans Pro Regular; body/lg = Source Sans Pro Regular.
-     ========================================================================== */
 
 
   /* ==========================================================================
@@ -399,7 +384,21 @@
      ========================================================================== */
   --equinet-btn-height: 56px;                /* min-height, not height — labels can wrap */
   --equinet-btn-radius: 7px;                 /* default state rx */
-  --equinet-btn-radius--hover: 8px;          /* both hover exports */
+  --equinet-btn-radius--hover: 8px;          /* both hover exports — PRIMARY ONLY.
+                                                 Navigation keeps rx 7 in both its
+                                                 exports; don't apply this there.
+                                                 · button SVG audit · 2026-09-23 */
+  --equinet-btn-height--navigation: 54px;    /* button_navigation_solid rect height — 54,
+                                                 NOT the 56 of primary/video · 2026-09-23 */
+  --equinet-btn-scale--active: 0.99;         /* press state, shipped in plain_hero_banner
+                                                 and single_narrow_text_column · 2026-09-23 */
+  --equinet-motion-travel--arrow: 16px;      /* textual-button arrow travel on hover.
+                                                 RESOLVED 2026-09-23 from the Figma exports:
+                                                 default places the arrow at x190, hover at
+                                                 x206, and the artboard widens by exactly 16.
+                                                 sector-three-column-case-study (16px) was
+                                                 right; plain_hero_banner and cim-methodology
+                                                 ship 8px and have drifted. */
 
   --equinet-btn-fill--navigation:              var(--equinet-color-navy);
   --equinet-btn-fill--navigation--hover:       var(--equinet-color-navy--dark);
@@ -410,6 +409,13 @@
   --equinet-btn-label:                         var(--equinet-color-surface);
   --equinet-btn-label--navigation--hover:      var(--equinet-color-orange--light);
   --equinet-btn-label--textual:                var(--equinet-color-text);
+  /* DISCREPANCY 2026-09-23: button_textual_default.svg fills its label #242630
+     (= --equinet-color-heading), not #242530 (= --equinet-color-text) which this
+     token resolves to and which the original 2026-08-07 measurement recorded.
+     The two differ by one green-channel digit and are indistinguishable on screen,
+     so nothing looks broken either way. Left pointing at -text pending the open
+     heading/text merge decision — but note the fresh export is evidence that the
+     two were never meant to be distinct. See README.md, "Open decisions." */
   --equinet-btn-icon--textual--hover:          var(--equinet-color-orange);
 
   /* ==========================================================================
@@ -438,10 +444,6 @@
      matches what ships — see README.md "Cards." */
 
   --equinet-shadow-blue-label: -6.88px 7.76px 32.53px rgba(94, 140, 187, 0.4); /* Figma effect style */
-
-  --equinet-shadow-node-drop: -4.76px 40.46px 40.46px rgba(0, 0, 0, 0.07); /* Figma effect style "Node Drop Shadow" */
-
-  --equinet-shadow-circle-bg: -20.56px 12.34px 30.85px rgba(0, 46, 74, 0.6); /* Figma effect style "circle node background blur" */
 
   /* ==========================================================================
      MOTION                               [Module: various]

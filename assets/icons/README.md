@@ -1,53 +1,49 @@
-# Icon inventory
+# Icons
 
-This folder is the shared home for Equinet's icon SVGs — one file per icon,
-referenced by every module instead of each one carrying its own copy.
+Three real icons, extracted from the Figma button exports on 2026-09-23 —
+verbatim path data, with viewBoxes computed from true bounding boxes using a
+path parser, not retyped coordinates. Each takes `currentColor`, so the
+button's own colour change moves the icon with it.
 
-**Nothing is in here yet.** Every icon below is known only from what its
-module's CSS says about it — size, colour behaviour, hover transform. None
-of it is the actual `<svg>` markup, because that lives in each module's
-`module.html`, which hasn't been shared in this project. Adding a real file
-here means pasting in that module's actual inline SVG, not a plausible
-recreation of it.
+| File | Size | Used by | Source export |
+| --- | --- | --- | --- |
+| `arrow-chevron.svg` | 24 × 24 | Textual button, navigation button | `button_textual_default.svg` |
+| `arrow-solid.svg` | 15.627 × 13.129 | Primary button | `button_primary_large_default.svg` |
+| `play-circle.svg` | 26 × 26 | Primary button, video variant | `button_primary_video_default.svg` |
 
-## Known icons, by evidence in CSS
+The two arrows are genuinely different shapes, not one icon at two sizes:
+the chevron is a 2px round-capped stroke pair, the solid arrow is a filled
+path. That's what made "centralize the arrow" unanswerable before real source
+existed — there was nothing to centralize *to*. Both now have a canonical
+file; a module picks the one its button variant uses.
 
-| Icon | Seen in | Size | Colour | Hover |
-| --- | --- | --- | --- | --- |
-| Arrow (primary CTA) | `plain_hero_banner` | 15.63×13.13px | fixed white on fill | none |
-| Arrow (textual CTA) | `plain_hero_banner` | 16×16px, stroke | `currentColor` | `translateX(8px)` |
-| Arrow (textual CTA) | `sector-three-column-case-study` | unspecified | `currentColor` | `translateX(16px)` |
-| Arrow (primary CTA) | `workshop_one_column` | 20×20px | `currentColor` | none noted |
-| Arrow (textual CTA) | `single_narrow_text_column` (ESCATEC) | 14×14px, stroke-width 2, round caps | `currentColor` | `translateX(4px)` |
-| Checkmark / check-circle | `workshop_one_column` bullet list | 26×26px | `currentColor` | none |
-| Close (X) | `cim-methodology` video modal | 20×20px icon in a 44×44px circle | `currentColor`, stroke | none |
-| External-link (pill) | `cagr-four-column` | 16×16px | `currentColor` | colour shift on parent hover |
-| Play | `single_narrow_text_column` (ESCATEC) | 26×26px | — | — |
+Sizes confirmed against two independent sources: `plain_hero_banner`'s CSS
+comment records the solid arrow as "15.63 x 13.13", and
+`single_narrow_text_column` sizes its play icon 26 × 26. The measured
+bounding boxes match both.
 
-## A real problem, not just a gap
+## Usage
 
-**The arrow isn't one icon.** Across five sightings it has three different
-geometries — a small filled arrow (~15×13), a couple of stroke-based arrows
-at different sizes and cap styles (14–16px), and a distinct 20px version —
-plus the already-open disagreement on hover travel distance (8px vs. 16px).
-Centralizing "the arrow" means picking one canonical shape first, the same
-way card-hover and reduced-motion needed picking one pattern. That's a design
-decision, not something resolvable from CSS alone.
+Inline the markup in `module.html` rather than linking the file — HubSpot
+modules embed SVG directly, and `currentColor` only inherits from an inline
+element. These files are the canonical copy to paste from.
 
-## In the meantime: placeholder policy
+Decorative icons carry `aria-hidden="true"` and `focusable="false"`; an icon
+carrying meaning on its own needs an accessible name instead.
+
+## Still missing
+
+`close` (from `cim-methodology`'s video modal, 20 × 20 in a 44 × 44 circle),
+`checkmark` / check-circle (from `workshop_one_column`'s bullet list, 26 × 26)
+and `external-link` (from `cagr-four-column`'s pill, 16 × 16). Known from
+their modules' CSS — size and colour behaviour — but no geometry, because no
+`module.html` carrying them has been shared. The placeholder policy below
+still applies to these three.
+
+## Placeholder policy
 
 Decided 2026-09-23. A neutral icon set (Lucide or similar) is an acceptable
-stand-in where a design calls for an icon that isn't listed above yet — but
-it must read as a placeholder, not be presented as a real Equinet icon.
-Don't fabricate a plausible-looking custom shape instead; that's the same
-invention this file's whole approach exists to avoid, just committed by hand
-rather than by guessing at path data. See `README.md`, "Instructions for
-AI-generated design," for the full rule.
-
-## What's needed to fill this folder in
-
-For each icon above: the module's `module.html` (or just the inline `<svg>…
-</svg>` block for that one icon, pasted directly). Once real markup exists
-for at least the arrow, checkmark and close icon, this file gets replaced by
-the actual `.svg` files plus a short index describing which module used to
-own each one.
+stand-in where a design calls for an icon not listed above — but it must read
+as a placeholder, not be presented as a real Equinet icon. Don't fabricate a
+plausible-looking custom shape instead; the three icons above exist precisely
+because real geometry was measured rather than guessed.

@@ -5,6 +5,49 @@ Project. Every entry below represents a manual reconciliation pass — someone
 asked Claude, in that Project, to fold new development work into
 `tokens.css` / `README.md`, then committed the result here.
 
+## 2026-09-23 — Button SVGs audited; pure-CSS component layer added; two open items resolved
+
+Ten Figma button exports audited (primary large ×3, primary video ×3,
+navigation ×2, textual ×2). First real button source the system has had.
+
+**Resolved: arrow travel is 16px, not 8.** The default export places the
+chevron at x190, the hover export at x206, and the artboard widens by exactly
+16. `sector-three-column-case-study` was right all along;
+`plain_hero_banner` and `cim-methodology` ship 8px and have drifted. Token
+added: `--equinet-motion-travel--arrow`.
+
+**Resolved: icon centralization, partly.** Three real icons extracted with
+verbatim path data and bounding boxes computed by a path parser, not retyped:
+`arrow-chevron` (24 × 24), `arrow-solid` (15.627 × 13.129) and `play-circle`
+(26 × 26), now in `assets/icons/`. The measured sizes independently match
+comments in two shipped modules' CSS. Confirms the earlier finding that the
+chevron and the solid arrow are genuinely different shapes, not one icon at
+two sizes — which is why this couldn't be settled without real source.
+`close`, `checkmark` and `external-link` still have no geometry.
+
+**Corrected two assumptions the exports disproved.** The navigation button is
+**54px tall, not 56** — it does not share `--equinet-btn-height`, and a new
+`--equinet-btn-height--navigation` token now carries it. Its radius also does
+**not** grow on hover: both navigation exports carry `rx 7`, unlike the
+primary's 7 → 8. Both had been treated as uniform across variants.
+
+**New: `components/bundle.css`** — the pure-CSS component layer. All three
+button variants, every state (`:link`, `:visited`, `:hover`, `:focus-visible`,
+`:active`), both reduced-motion halves, and the mobile full-width rule. No
+build step, no preprocessor, no JavaScript; every value resolves to a token
+with its measured literal as fallback.
+
+**Flagged, not fixed:** `button_textual_default.svg` fills its label `#242630`
+(= `--equinet-color-heading`), but `--equinet-btn-label--textual` resolves to
+`#242530` (= `--equinet-color-text`), which is what the original 2026-08-07
+measurement recorded. One green-channel digit apart and indistinguishable on
+screen. Left as-is pending the open heading/text merge decision — but the
+fresh export is evidence the two were never meant to be distinct.
+
+**Schema re-audited** after the additions: no errors. No duplicate names, no
+broken aliases, no unsupported fields on type styles, and every family is one
+the page actually reads.
+
 ## 2026-09-23 — Uploaded files were a stale snapshot; tokens.json audited against Claude Design's real schema
 
 **Four files uploaded, described as "the complete set of files from Figma,"
