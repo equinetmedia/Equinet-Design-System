@@ -5,6 +5,49 @@ Project. Every entry below represents a manual reconciliation pass — someone
 asked Claude, in that Project, to fold new development work into
 `tokens.css` / `README.md`, then committed the result here.
 
+## 2026-09-24 — Illustrations reclassified as reference; a wrong rule corrected
+
+**Correcting a rule I inferred wrongly.** Across several files the
+illustrations had been written up as sealed, delivered artwork —
+`INDEX.md` rule 5 read "Never recolour. These are delivered artwork",
+`bundle.css` pinned `object-fit: contain` on the reasoning that "cropping one
+cuts off deliberate composition", and the illustrations README said to place
+via `<img>` only. That was inferred from audit evidence, not from any
+instruction, and it was stricter than intended.
+
+**The actual model is kit-of-parts.** Illustrations are artistic and styling
+reference. A file may be placed whole, cropped, scaled, overlapped or
+rearranged, and its elements may be pulled out and recombined into entirely
+new compositions. Arrangement carries no authority.
+
+Three things do, and must survive any recomposition: **colour** (token values
+only), **typography** (the `tokens.css` scale and families) and
+**iconography** (`assets/icons/`). Rearranging is licence to compose, never
+licence to invent a hue, a typeface or a glyph.
+
+Recorded in `INDEX.md` (a full "Recomposing" section plus revised selection
+rules), the illustrations README, the main README's AI-generation
+instructions, and `bundle.css`, where `object-fit` is now
+`var(--media-fit, contain)` so cropping is a per-instance choice rather than
+forbidden.
+
+**Two traps the reclassification creates, both documented:**
+
+- *Elements lose the ground they were drawn against.* `scenes/` elements are
+  navy and orange drawn for a mid-blue gradient; `systems/` and `sectors/`
+  elements are near-black for a light ground. Relocating one changes its
+  contrast, and the source file's background does not travel with it.
+- *Not every colour in these files is sanctioned.* `#292D32`, `#F3F2F2`,
+  `#ECEAEA`, `#F3F3F4`, `#444A60`, `#E3EFFC`, `#CFE0F4` and `#F49E78` are all
+  logged but never promoted. Sampling from artwork rather than from
+  `tokens.css` would propagate an open question into new work.
+
+**One deliberate exception kept.** `assets/icons/service-tiles/` still may not
+be recoloured or taken apart — those are finished brand marks whose gradient,
+glyph and white ink are the asset itself, not reference material. Stated
+explicitly in that folder's README so the difference doesn't read as an
+inconsistency.
+
 ## 2026-09-24 — Live-text comps settle four open questions; letter-spacing category finally filled
 
 The three comps filed yesterday were re-exported with live `<text>` elements

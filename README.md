@@ -620,6 +620,18 @@ nothing fits.**
 - The 12 files in `scenes/` have an opaque navy gradient baked into the full
   artboard. They are media panels and card headers, not transparent spot art;
   dropping one on a white surface leaves a hard dark rectangle.
+- **Illustrations are artistic and styling reference, not sealed artwork.**
+  Place a file whole, crop into a detail, scale it, overlap it, or pull
+  elements out and recombine them into a new composition — arrangement and
+  formation are free. Three things are not, and must survive any
+  recomposition: **colour** (token values only, and the illustration-side
+  categories at that), **typography** (the `tokens.css` scale and families),
+  and **iconography** (`assets/icons/`, with `ICON-REFERENCE.md` for a
+  substitute). Rearranging is licence to compose, never licence to invent a
+  hue, a typeface or a glyph. Two traps when extracting: an element loses the
+  ground it was drawn against, so re-check contrast; and several colours in
+  these files are logged-but-unsanctioned, so sample from `tokens.css` rather
+  than from the artwork. Full rules in `assets/illustrations/INDEX.md`.
 - Wordmark: `assets/brand/wordmark-light.svg` or `wordmark-dark.svg`, picked
   by background contrast (see **Brand mark**). Never render the name as
   styled text standing in for the logo.

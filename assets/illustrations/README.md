@@ -144,15 +144,31 @@ noise. Render at or near 118px.
 
 ## Usage, all groups
 
-Place via `<img>`, not inlined. There's no `currentColor` to inherit, so
-inlining buys nothing, and at 1–6 KB each, repeating the markup across modules
-is wasteful.
+**These are reference, not sealed artwork.** A file can be placed whole,
+cropped into, scaled, overlapped or rearranged, and its elements can be pulled
+out and recombined into new compositions. Arrangement carries no authority.
+
+What does carry authority, and survives any recomposition unchanged: **colour**
+(every value a token from `tokens.css`), **typography** (the type scale and
+families there — never the comp's own text treatment), and **iconography**
+(`assets/icons/`, with `ICON-REFERENCE.md` for a substitute). A shape lifted
+out of an illustration is not a licence to invent an icon.
+
+`INDEX.md` carries the full rules, including the two that bite in practice:
+extracted elements lose the ground they were drawn against, and several
+colours in these files are logged-but-unsanctioned values that shouldn't be
+propagated forward.
+
+**Placing a whole file:** use `<img>`. There's no `currentColor` to inherit, so
+inlining buys nothing, and at 1–6 KB each, repeating markup across modules is
+wasteful. **Extracting elements:** inline the SVG, so the parts are addressable.
 
 An illustration carrying meaning needs an accessible name. One that's purely
 decorative, beside text that already says the same thing, takes `alt=""`.
 
-`scenes/` and `sectors/` are 16:9 — they fit a standard media frame without
-cropping. `pictonodes/` are square and don't; don't mix the two in one row.
+`scenes/`, `sectors/` and `systems/` are 16:9 and interchangeable in a standard
+media frame. `pictonodes/` are square; don't mix them into a 16:9 row. A
+recomposed graphic sets its own frame and isn't bound by either.
 
 ## Naming
 

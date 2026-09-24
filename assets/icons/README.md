@@ -74,6 +74,11 @@ artwork, the glyph is hardcoded white, and neither responds to
 `currentColor` — correctly so, since a white-on-navy tile only works on its own
 ground. Place them as `<img>`; don't inline and don't try to recolour.
 
+Note this is a genuine exception to how `assets/illustrations/` works. Those
+are reference material and may be recomposed; a service tile is a finished
+brand mark whose gradient, glyph and white ink are the asset itself. Nothing
+to extract from, nothing to rearrange.
+
 Three of the eight overlap in subject with `illustrations/scenes/`
 (`ideal-customer-profile`, `positioning-strategy`, and
 `sales-enablement-alignment` against the scenes' `sales-enablement` material).

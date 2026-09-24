@@ -4,25 +4,57 @@ For agents choosing artwork. One row per file: what it depicts, the topics it
 suits, and how it can be placed. Read this before picking an illustration;
 don't select on filename alone.
 
+## These are reference, not sealed artifacts
+
+The illustrations are **artistic and styling reference**. A file can be placed
+whole, cropped, scaled, overlapped or rearranged — and its elements can be
+pulled out and recombined into new compositions. Layout and formation are
+free.
+
+What is **not** free is the design language. Typography, iconography and
+colour come from the source of truth regardless of how the graphics are
+arranged:
+
+| Free to change | Must follow source of truth |
+| --- | --- |
+| Arrangement, position, overlap | Colour — every value from `tokens.css` |
+| Crop, scale, aspect ratio | Typography — `tokens.css` type scale, never the comp's own text |
+| Which elements are used, and how many | Iconography — `assets/icons/`, and `ICON-REFERENCE.md` for substitutes |
+| Combining elements across files | Spacing rhythm — the `equinet-space-*` scale |
+
 ## Selection rules
 
-1. **Match on subject, not vibe.** Every row below has a Topics column. If the
-   page's subject isn't in one, the illustration doesn't fit.
+1. **Match on subject, not vibe.** Every row below has a Topics column. A file
+   is a candidate when the page's subject is in one — whether you're placing
+   it whole or taking parts from it.
 2. **If nothing fits, use nothing.** This set covers Equinet's own service
    lines and sectors. A page about a topic outside that — general technology
    commentary, consumer trends, third-party products — has no matching
    illustration here, and the correct output is a layout with no illustration
-   rather than a loosely-related one. A mismatched graphic reads as filler and
-   undermines the page.
-3. **Respect the background constraint.** `scenes/` are **opaque**, with a
-   baked-in navy-to-blue gradient covering the full artboard. They work as
-   media panels, hero blocks and card headers. They do **not** work dropped on
-   a white surface as if transparent — there'll be a hard dark rectangle. Every
-   other group is transparent and sits on any background.
-4. **Don't mix aspect ratios in one row.** `scenes/`, `sectors/` and `systems/`
-   are all 16:9 and interchangeable. `pictonodes/` are square.
-5. **Never recolour.** These are delivered artwork. If the palette clashes with
-   the section, change the section, not the file.
+   rather than a loosely-related one. Recomposition doesn't rescue a subject
+   mismatch: rearranged parts of the wrong illustration are still the wrong
+   illustration.
+3. **Recolour only to a token.** Recomposition makes recolouring possible, and
+   that's where drift gets in. Any colour on an extracted element must resolve
+   to a token in `tokens.css`. Do not sample a colour out of the artwork and
+   assume it's canonical — several files carry values that are *not* tokens:
+   `#292D32` in the hero comp, and the unresolved near-white cluster
+   (`#ECEAEA`, `#F3F2F2`, `#F3F3F4`). Copying one of those forward propagates
+   an open question into new artwork.
+4. **Extracting from `scenes/` means separating the element from its ground.**
+   All 12 carry an opaque navy gradient across the full artboard. Pull an
+   element out and it loses that background — which may be exactly what you
+   want, but the element was drawn to read against dark. Check contrast
+   against whatever surface it lands on.
+5. **Don't extract from
+   `sectors/equinet-sector-build-environment-pictograph-1.svg`.** It carries an
+   embedded `2s linear infinite` animation with no `prefers-reduced-motion`
+   guard. Taking parts from it carries that defect into new work. Use its
+   static twin.
+6. **Whole files: don't mix aspect ratios in one row.** `scenes/`, `sectors/`
+   and `systems/` are all 16:9 and interchangeable. `pictonodes/` are square.
+   This applies to placing files as-is; a recomposed graphic sets its own
+   frame.
 
 ---
 

@@ -316,8 +316,12 @@
 .eq-stagger__row:nth-child(even) .eq-stagger__body  { grid-column: 1; grid-row: 1; }
 
 /* --- Media ---------------------------------------------------------------
-   16:9 frame. The illustration fills it; `contain` not `cover`, because
-   these are drawn artwork — cropping one cuts off deliberate composition. */
+   16:9 frame. Defaults to `contain` so a whole illustration is shown intact,
+   which is the common case. Illustrations are reference rather than sealed
+   artwork, though — cropping into a detail is allowed, so
+   `--media-fit: cover` switches this per instance without a new class. What
+   may NOT change is colour, typography or iconography; see
+   assets/illustrations/INDEX.md, "Recomposing". */
 .eq-stagger__media {
   position: relative;
   aspect-ratio: 16 / 9;
@@ -329,7 +333,8 @@
   display: block;
   width: 100%;
   height: 100%;
-  object-fit: contain;
+  object-fit: var(--media-fit, contain);
+  object-position: var(--media-position, center);
 }
 
 /* scenes/ carry their own opaque navy gradient across the full artboard.
