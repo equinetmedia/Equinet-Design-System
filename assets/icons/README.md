@@ -5,6 +5,14 @@ verbatim path data, with viewBoxes computed from true bounding boxes using a
 path parser, not retyped coordinates. Each takes `currentColor`, so the
 button's own colour change moves the icon with it.
 
+**What belongs here:** small, single-ink glyphs that sit inside a control
+beside a label, take `currentColor`, and read correctly at 16–26px. Anything
+multi-colour, detailed, or meant to stand alone as a graphic is an
+illustration — see `assets/illustrations/`, which holds the eight
+"pictonode" spot illustrations added 2026-09-23 for exactly this reason.
+The `currentColor` rule is the quick test: if flattening it to one ink would
+ruin it, it isn't an icon.
+
 | File | Size | Used by | Source export |
 | --- | --- | --- | --- |
 | `arrow-chevron.svg` | 24 × 24 | Textual button, navigation button | `button_textual_default.svg` |

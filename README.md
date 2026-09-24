@@ -493,6 +493,27 @@ The classes there are unscoped, for Claude Design previews and reference.
 Inside a HubSpot module every selector is namespaced under that module's root
 class — see **Module anatomy**.
 
+## Illustrations
+
+`assets/illustrations/` holds 24 standalone graphics in three subgroups:
+`pictonodes/` (8, square 118 × 118), `scenes/` (12, 16:9 service and process
+illustrations) and `sectors/` (4, 16:9 vertical pictographs). All are
+multi-colour and stand alone, distinct from the single-ink glyphs in
+`assets/icons/`. Every colour across all 24 resolves to an existing token —
+but to the marketing and chart palettes, not the UI one, which is itself the
+clue that they're collateral rather than interface. Full per-group breakdown,
+palette mapping and usage rules in that folder's own `README.md`.
+
+**One file there has an accessibility defect:**
+`sectors/equinet-sector-build-environment-pictograph-1.svg` carries an
+embedded `2s linear infinite` CSS animation with no `prefers-reduced-motion`
+guard — the one thing the motion rule above exists to prevent. Use its static
+twin until that's fixed.
+
+The dividing line, since it will come up again: if flattening a graphic to one
+ink would ruin it, it's an illustration, not an icon. Icons inherit
+`currentColor` from the control around them; illustrations can't.
+
 ## Brand mark
 
 `assets/brand/` holds the Equinet Media wordmark, two ready-made variants —

@@ -55,6 +55,7 @@ chat each time, not pulled automatically.
 | `assets/buttons/` | The ten Figma button exports, kept as the measurement source of record | Verifying a geometry claim against its origin |
 | `assets/brand/` | Wordmark, light and dark variants | Any use of the logo |
 | `assets/marketing/` | Seventeen infographics, with a per-file audit index | Provenance for the chart and diagram token categories |
+| `assets/illustrations/` | 24 standalone graphics in three subgroups: `pictonodes/` (8 square), `scenes/` (12 16:9), `sectors/` (4 16:9) | Standalone graphics — not icons; one file has an unguarded infinite animation, see that folder's README |
 
 ## Why this isn't already in Claude Design
 

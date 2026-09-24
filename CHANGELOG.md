@@ -5,6 +5,60 @@ Project. Every entry below represents a manual reconciliation pass — someone
 asked Claude, in that Project, to fold new development work into
 `tokens.css` / `README.md`, then committed the result here.
 
+## 2026-09-23 — Sixteen illustrations filed into subgroups; an animated file flagged
+
+Sixteen SVGs audited and filed under `assets/illustrations/`, which now has
+three subgroups and 24 files: `scenes/` (12), `sectors/` (4) and the existing
+`pictonodes/` (8, moved into their own folder).
+
+**`scenes/`** — 641 × 360, three service-line families: `brand-development-*`
+(3), `create-*` (3), `website-design-*` (6). 4–10 paths each.
+
+**`sectors/`** — 641 × 361, four vertical pictographs.
+
+**Two palettes, not one, and it may be intentional.** `scenes/` uses
+`#002E4A` (blue-900) and `#81ACD7` (blue-400); `sectors/` uses `#00426C`
+(blue-default) and `#68728F` (charade-500 — which is also
+`equinet-color-diagram-line`, already sanctioned for marketing illustration).
+Both share `#F5844D`. Every value resolves to an existing token, so this is
+not drift into new colour — but whether sector work is *meant* to read
+differently from service work is an open question, recorded rather than
+normalized away.
+
+**Caught: an accessibility defect in delivered artwork.**
+`equinet-sector-build-environment-pictograph-1.svg` looked like a duplicate of
+`equinet-sector-build-environment-pictograph.svg` — different MD5, same
+subject. It's the animated variant: an embedded `<style>` block running
+`animation: kf_Vector_transform_0 2s linear infinite` with **no
+`prefers-reduced-motion` guard**. The only animated file in the entire asset
+set, and an indefinite loop with no way to stop it is precisely what this
+system's motion rule exists to catch. Flagged in both READMEs with the fix,
+not edited — altering delivered artwork is the designer's call.
+
+## 2026-09-23 — Eight illustrations filed; new assets/illustrations group
+
+Eight "pictonode" SVGs were added to `assets/icons/` locally. Audited and
+**moved to a new `assets/illustrations/` group** — they aren't icons, and
+leaving them in that folder would have broken its stated convention.
+
+The evidence: 118 × 118 with 9–24 paths each (icons are 24 × 24 and 15 × 13
+with 2–3), multi-colour by design, and a 1.84px stroke tuned to that size.
+Decisively, none can take `currentColor` — the convention every icon in this
+system follows so a control's hover state recolours text and glyph together.
+Flattening these to a single ink would destroy them.
+
+Their palette independently confirms the filing: all four colours resolve to
+existing tokens, but two of them are the **chart-blue** values, sanctioned
+for data-viz and marketing and explicitly ruled out for UI. No new colours,
+no drift.
+
+Both READMEs now carry the dividing line — if flattening a graphic to one ink
+would ruin it, it's an illustration — so this filing decision doesn't have to
+be re-derived next time.
+
+Noted for later: six are 118 × 118 but `pictonode-thecde` is 119 × 117 and
+`pictonode-website` 121 × 116. Worth normalizing if they ever share a grid.
+
 ## 2026-09-23 — Button SVGs audited; pure-CSS component layer added; two open items resolved
 
 Ten Figma button exports audited (primary large ×3, primary video ×3,
