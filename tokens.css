@@ -217,11 +217,21 @@
 
   /* RESOLVED: #FFE6DB folds into --equinet-color-amber-100 (#FCE9E0). */
   /* RESOLVED 2026-09-23: #F1F1F1 promoted above on 5-file evidence. */
+  /* LOGGED, not promoted: #292D32 — 8 occurrences, stroke on fine line-art in
+     module__2-column-hero-banner.svg (embedded illustration, not UI chrome).
+     L .0258, between color-heading (.0197) and color-body (.0508). Single
+     file, so held back by the same standard that held #8790A9 until it
+     reached five. · 2026-09-23 */
+
   /* UNRESOLVED: #ECEAEA (L .826), #F3F2F2 (L .890), #F3F3F4 (L .897) — three
      near-whites, no two identical, all falling BETWEEN two real tokens
      (surface-200 L .915, charade-100 L .848). Each is single- or
      low-occurrence, so none has earned promotion the way #F1F1F1 did. Reads
-     as nobody having one settled near-white to reach for. Needs a decision. */
+     as nobody having one settled near-white to reach for. Needs a decision.
+     UPDATE 2026-09-23: #F3F2F2 has now been seen in a second context —
+     module__2-column-hero-banner.svg, as a stroke on small rounded rects in
+     the hero's embedded illustration. Still not promoted, but no longer a
+     single-file value. */
 
 
   /* ==========================================================================
@@ -285,6 +295,13 @@
   --equinet-fontweight-bold:     700;
   --equinet-fontweight-display:  800;
   --equinet-fontweight-black:    900;
+  /* RESOLVED 2026-09-24 — heading weight is FAMILY-DEPENDENT, not drift.
+     The live-text comps are unambiguous:
+       Open Sans headings  -> 800  (hero 60px, methodology 56px)
+       Myriad Pro headings -> 900  (comparison 36px, sector 36px)
+     The long-standing "cagr-four-column uses 800 but sector hardcodes 900"
+     open item was comparing two different families. Use -display with
+     --equinet-font-heading, -black with --equinet-font-body. */
 
   /* ==========================================================================
      TYPOGRAPHY — TYPE SCALE           [Figma: responsive/font size/*]
@@ -299,13 +316,29 @@
   --equinet-fontsize-body:    16px;    /* Figma font size/body/md */
   --equinet-fontsize-body-lg: 20px;    /* Figma font size/body/lg */
 
-  /* -- headings (Figma canonical) -- */
+  /* -- headings (Figma canonical) --
+     These are the Figma variable definitions. Where a comp actually applies a
+     different size, the applied value gets its own token below rather than
+     overwriting these — decided 2026-09-24. */
   --equinet-fontsize-h1: 56px;        /* Figma font size/heading/h1 */
-  --equinet-fontsize-h2: 48px;        /* Figma font size/heading/h2 */
+  --equinet-fontsize-h2: 48px;        /* Figma font size/heading/h2 — canonical, but
+                                          unused in all four live-text comps */
   --equinet-fontsize-h3: 32px;        /* Figma font size/heading/h3 */
   --equinet-fontsize-h4: 24px;        /* Figma font size/heading/h4 */
   --equinet-fontsize-h5: 20px;        /* Figma font size/heading/h5 */
   --equinet-fontsize-h6: 18px;        /* Figma font size/heading/h6 */
+
+  /* -- headings (applied) --
+     What the artwork actually sets, read from live <text> declarations in the
+     comps rather than estimated from outlined glyphs. */
+  --equinet-fontsize-section-heading: 36px;  /* the real h2 in practice — 2-column-comparison
+                                                 and sector-three-column-case-study, both at
+                                                 weight 900; matches cagr-four-column's shipped
+                                                 36px. Use this for a section heading; reach for
+                                                 --equinet-fontsize-h2 only if a design genuinely
+                                                 calls for the 48px canonical size. · 2026-09-24 */
+  --equinet-fontsize-card-heading: 24px;     /* card / column headings at weight 600 —
+                                                 methodology and sector comps · 2026-09-24 */
 
   /* -- module overrides (diverge from the Figma scale) -- */
   --equinet-fontsize-display: 60px;   /* SVG-measured h1 · 2-column-hero-banner (Figma: 56px) · 2026-08-07 */
@@ -355,10 +388,30 @@
   --equinet-letterspacing-h1: -2px;   /* Figma text style heading/h1 */
   --equinet-letterspacing-h2: -2px;   /* Figma text style heading/h2 */
 
-  /* -- promotion candidates (referenced in modules, not yet canonical) -- */
-  /* --equinet-letterspacing-kicker: 0.2em;    — sector-three-column-case-study, unconfirmed */
-  /* --equinet-letterspacing-display: -0.03em; — conflicts with plain_hero_banner's -0.05em;
-     Figma says -2px on 56px ≈ -0.036em. Needs reconciling before promotion. */
+  /* -- PROMOTED 2026-09-24, confirmed from live-text module comps --
+     Four comps re-exported with <text> elements rather than outlined paths
+     finally made these readable. Values are what the comps declare, not
+     estimates from glyph geometry. */
+  --equinet-letterspacing-kicker: 0.2em;      /* 12px bold eyebrow — 2-column-comparison,
+                                                  2-column-hero-banner, sector-three-column-
+                                                  case-study (3 of 4 comps) · 2026-09-24 */
+  --equinet-letterspacing-kicker--lg: 0.1em;  /* 16px bold eyebrow, and the 16/600 step
+                                                  numerals — 5_column_block_methodology · 2026-09-24 */
+  --equinet-letterspacing-display: -0.05em;   /* 56px Open Sans display —
+                                                  5_column_block_methodology, matching
+                                                  plain_hero_banner's shipped -0.05em · 2026-09-24 */
+  --equinet-letterspacing-display--tight: -0.07em; /* 60px Open Sans display —
+                                                  2-column-hero-banner only · 2026-09-24 */
+  --equinet-letterspacing-h2--tight: -0.03em; /* 36px/900 h2 — sector-three-column-case-study.
+                                                  NOTE 2-column-comparison sets the same
+                                                  36px/900 h2 at 0em, so this is not uniform;
+                                                  both are live-text declarations, not
+                                                  inferences. Unreconciled. · 2026-09-24 */
+
+  /* The Figma text styles say -2px for h1 and h2. At the sizes actually used
+     that is ≈ -0.033em on 60px and ≈ -0.056em on 36px — close to neither
+     comp value. The em-based declarations above are what the artwork carries;
+     the px-based Figma variables are kept for provenance, not for use. */
 
   /* ==========================================================================
      TYPOGRAPHY — PARAGRAPH SPACING    [Figma: responsive/paragraph spacing/*]

@@ -171,10 +171,13 @@ ship in a browser without a licence the system doesn't have.
 
 All three load from Google Fonts. There are no font files in this system.
 
-Display headings run at `line-height: 1` with `letter-spacing: -0.05em`. The
-eyebrow runs the other way, at `0.1em` to `0.2em` tracking, uppercase, with a
-matching `text-indent` so the trailing letter-space does not push the label off
-centre inside its pill.
+Display headings run at `line-height: 1` with negative tracking —
+`-0.05em` at 56px, `-0.07em` at 60px, both now tokens. The eyebrow runs the
+other way: `0.2em` at 12px, `0.1em` at 16px, uppercase, with a matching
+`text-indent` so the trailing letter-space does not push the label off centre
+inside its pill. All four values were read from live-text comps on
+2026-09-24; before that the category had no tokens at all and every module
+hardcoded its own.
 
 **h2 is a firm requirement, confirmed 2026-09-23: uppercase, with the heading
 drop shadow.** `text-transform: uppercase` (`--equinet-text-transform-h2`)
@@ -185,6 +188,18 @@ them mandatory rather than descriptive metadata sitting unused. Note the
 separate, still-open discrepancy: canonical Figma specifies h2 at 48px, but
 `cagr-four-column` ships it at 36px — the uppercase/shadow requirement holds
 regardless of which size wins that argument.
+
+**Size resolved 2026-09-24: use `--equinet-fontsize-section-heading` (36px),
+not `--equinet-fontsize-h2` (48px).** The live-text comps settled it — both
+comps carrying a section heading set 36px at weight 900, matching what
+`cagr-four-column` ships. The 48px Figma variable is kept as the canonical
+definition but is applied nowhere, so it's the exception, not the default.
+
+**Weight is family-dependent, and always was.** Open Sans headings take 800
+(`--equinet-fontweight-display`), Myriad Pro / Source Sans 3 headings take 900
+(`--equinet-fontweight-black`). The long-standing "cagr uses 800 but sector
+hardcodes 900" open item was comparing two different families, not catching
+drift.
 
 **This requirement can't be fully expressed in `tokens.json`.** Claude
 Design's actual token schema has no `textTransform` or `textShadow` field on
@@ -556,6 +571,25 @@ in a single column reads as a mistake rather than rhythm.
 Choosing *which* illustration is a separate question — see
 `assets/illustrations/INDEX.md`, and its rule that if nothing matches the
 subject, the right output is a layout with no illustration.
+
+## Module comps
+
+`assets/comps/` holds three Figma exports of complete modules —
+`2-column-hero-banner`, `5_column_block_methodology` and
+`sector-three-column-case-study`, all 1920px wide. They are the design source
+of record those modules were built from.
+
+**Never place one in a layout.** Each is a picture of a whole rendered module,
+its own headings and buttons included; using one as page artwork would embed a
+fake module as a flat image. They exist to be compared against — parity QA,
+token provenance, and settling disputes between a shipped module and a token,
+the way the button exports settled the arrow-travel distance.
+
+Re-exported 2026-09-24 with live `<text>` elements rather than outlined paths,
+and a fourth comp added. Between them they declare 60 text runs with real
+family, size, weight and tracking — which settled the h2 size, the heading
+weight question, and the whole letter-spacing token category that had been
+flagged missing since the first reconciliation.
 
 ## Brand mark
 

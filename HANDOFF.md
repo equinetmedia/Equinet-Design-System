@@ -54,6 +54,7 @@ chat each time, not pulled automatically.
 | `assets/icons/` | 16 files in three groups, plus `ICON-REFERENCE.md` — the measured house style and how to match a Lucide or Phosphor substitute to it | Inlining an icon into a module |
 | `assets/buttons/` | The ten Figma button exports, kept as the measurement source of record | Verifying a geometry claim against its origin |
 | `assets/brand/` | Wordmark, light and dark variants | Any use of the logo |
+| `assets/comps/` | Three 1920px Figma module comps — reference for parity QA, never page artwork |
 | `assets/marketing/` | Seventeen infographics, with a per-file audit index | Provenance for the chart and diagram token categories |
 | `assets/illustrations/` | 29 standalone graphics in four subgroups, plus `INDEX.md` — the per-file subject index an agent reads to choose artwork | Standalone graphics — not icons; one file has an unguarded infinite animation, see that folder's README |
 
@@ -80,14 +81,18 @@ decide these rather than have Claude Design silently pick a side:
   `sector-three-column-case-study` also carries `.button_primary_large` and
   `.button_textual` as parallel selectors on the same rules — sanctioned
   aliases, or drift to retire?
-- **Heading weight and family are inconsistent.** `cagr-four-column` uses the
-  `--equinet-fontweight-display` token (800) via `--equinet-font-heading`.
-  `sector-three-column-case-study` hardcodes `font-weight: 900 !important`
-  and `font-family: "Open Sans" !important` directly, bypassing both tokens.
+- ~~Heading weight inconsistent~~ **Resolved 2026-09-24:** weight is
+  family-dependent. Open Sans headings are 800, Myriad Pro / Source Sans 3
+  headings are 900. The two modules were using different families, not
+  drifting. (`sector-three-column-case-study` hardcoding
+  `font-family: "Open Sans" !important` alongside weight 900 is still worth
+  a look — that pairing contradicts the rule.)
 - **Playfair Display** is used in two modules now but isn't in `tokens.css` —
   worth promoting to a system font if it's staying.
-- **A `letterspacing` token category doesn't exist.** Every module hardcodes
-  tracking values (`0.1em`, `0.2em`, `-0.05em`) inline.
+- ~~No `letterspacing` token category~~ **Resolved 2026-09-24:** six tokens
+  promoted from live-text comps — kicker `0.2em` / `0.1em`, display
+  `-0.05em` / `-0.07em`, h2 `-0.03em`. One conflict remains: both comps set a
+  36px/900 section heading, but one tracks it `-0.03em` and the other `0em`.
 
 - **`5-column-block-process.css`, as uploaded, is a duplicate of
   `cim-methodology`'s CSS**, not the real five-column module. Its actual

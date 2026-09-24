@@ -357,8 +357,8 @@
   font-family: var(--equinet-font-body, 'Source Sans 3', sans-serif);
   font-size: var(--equinet-fontsize-kicker, 12px);
   font-weight: var(--equinet-fontweight-kicker, 700);
-  letter-spacing: 0.1em;
-  text-indent: 0.1em;        /* absorbs the trailing letter-space */
+  letter-spacing: var(--equinet-letterspacing-kicker, 0.2em);
+  text-indent: var(--equinet-letterspacing-kicker, 0.2em); /* absorbs the trailing letter-space */
   line-height: 1;
   text-transform: uppercase;
   color: var(--equinet-color-orange, #E06730);
@@ -367,10 +367,14 @@
 .eq-stagger__heading {
   margin: 0;
   font-family: var(--equinet-font-heading, 'Open Sans', sans-serif);
-  font-size: var(--equinet-fontsize-h2, 36px);
-  font-weight: var(--equinet-fontweight-display, 800);
+  /* section-heading, not h2: the Figma h2 variable is 48px and unused in
+     every comp, while both comps that carry a section heading set 36px.
+     Weight 900 because this is the body family — an Open Sans heading
+     takes 800. See tokens.css, "headings (applied)". */
+  font-size: var(--equinet-fontsize-section-heading, 36px);
+  font-weight: var(--equinet-fontweight-black, 900);
   line-height: 1.1;
-  letter-spacing: -0.03em;
+  letter-spacing: var(--equinet-letterspacing-h2--tight, -0.03em);
   text-transform: uppercase;                                  /* h2 rule */
   text-shadow: var(--equinet-shadow-heading, -2px 2px 4px rgba(0, 0, 0, 0.15));
   color: var(--equinet-color-heading, #242630);

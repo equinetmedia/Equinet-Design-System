@@ -100,6 +100,13 @@ for a media panel.
 
 ---
 
+## Not selectable: `assets/comps/`
+
+Three 1920px module comps live in `assets/comps/`. They are **never** a
+choice here — each pictures an entire rendered module, headings and buttons
+included, so placing one in a page embeds a fake module as a flat image. They
+are reference for parity QA only.
+
 ## Subject coverage, and what it excludes
 
 This set covers Equinet's own service lines (brand development, website

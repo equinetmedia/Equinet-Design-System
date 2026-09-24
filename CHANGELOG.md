@@ -5,6 +5,92 @@ Project. Every entry below represents a manual reconciliation pass — someone
 asked Claude, in that Project, to fold new development work into
 `tokens.css` / `README.md`, then committed the result here.
 
+## 2026-09-24 — Live-text comps settle four open questions; letter-spacing category finally filled
+
+The three comps filed yesterday were re-exported with live `<text>` elements
+instead of outlined paths, and a fourth added
+(`module__2-column-comparison.svg`, 1920 × 612). 60 text runs now carry real
+family, size, weight and tracking. Yesterday's note that these files "cannot
+settle the h2 question" is superseded — with live text, they can.
+
+**Heading weight: resolved, and it was never drift.** Open Sans headings are
+800 (hero 60px, methodology 56px); Myriad Pro headings are 900 (comparison
+36px, sector 36px). The open item comparing `cagr-four-column`'s 800 against
+`sector-three-column-case-study`'s hardcoded 900 was comparing two different
+families. Recorded on both `--equinet-fontweight-display` and
+`--equinet-fontweight-black`.
+
+**Letter-spacing: the category is real now.** Flagged as missing entirely
+since the first reconciliation — every module hardcoding its own tracking —
+because outlined text made the values unreadable. Six tokens promoted from
+declared values: kicker `0.2em` (12px, 3 of 4 comps) and `0.1em` (16px),
+display `-0.05em` (56px, matching `plain_hero_banner`) and `-0.07em` (60px),
+and h2 `-0.03em`. The Figma text styles' `-2px` works out to neither comp
+value at the sizes actually used, so the px variables are kept for provenance
+and the em declarations are what to use.
+
+**h2 size: kept both, per decision.** `--equinet-fontsize-h2` stays 48px as
+the canonical Figma variable; new `--equinet-fontsize-section-heading` (36px)
+carries what every comp actually applies, matching `cagr-four-column`. Also
+added `--equinet-fontsize-card-heading` (24px/600), the column heading in two
+comps.
+
+**Caught a live bug while wiring this up.** `components/bundle.css` set the
+stagger heading to `var(--equinet-fontsize-h2, 36px)` — the fallback was 36
+but the token is 48, so the heading would have rendered 12px larger than
+intended whenever `tokens.css` loaded, and correct only when it didn't. Now
+points at `--equinet-fontsize-section-heading`, with weight corrected to 900
+and tracking tokenised. The eyebrow's hardcoded `0.1em` was also swapped for
+the confirmed `0.2em` kicker token.
+
+**Still unreconciled:** both comps set a 36px/900 section heading, but
+`sector-three-column-case-study` tracks it `-0.03em` and
+`2-column-comparison` sets `0em`. Both are live declarations, not
+inferences — so this is a real inconsistency in the artwork, not a
+measurement artefact.
+
+**Myriad Pro confirmed again**, now in all four comps as declared
+`font-family`. Design-level intent, unchanged conclusion: it can't ship in a
+browser without a licence, so the Source Sans 3 substitution stands.
+
+## 2026-09-23 — Module comps filed as a new category; one new colour logged
+
+Three Figma module comps added as `assets/comps/` — `2-column-hero-banner`
+(1920 × 714), `5_column_block_methodology` (1920 × 805) and
+`sector-three-column-case-study` (1920 × 1276). A seventh asset category,
+distinct from illustrations because they aren't page artwork: each pictures a
+complete rendered module, headings and buttons included, so placing one in a
+layout would embed a fake module as a flat image. Marked non-selectable in
+`assets/illustrations/INDEX.md` for exactly that reason.
+
+Their value is as reference — parity QA, token provenance (the
+`2-column-hero-banner` entries in `tokens.css` date to 2026-08-07 and comp
+is what they were measured from), and as a tiebreaker when a shipped module
+and a token disagree.
+
+**They cannot settle the h2 size question.** All text is outlined — zero
+`<text>` elements across all three — so no font size is readable. Measuring an
+outlined glyph's cap height would estimate a value, not read one, and this
+system's whole measurement discipline exists to avoid exactly that. Recorded
+explicitly so nobody assumes the comps closed a question they can't.
+
+**`#292D32` logged, not promoted.** Eight occurrences in the hero comp, all as
+stroke on fine line-art (0.69–1.38px) in an embedded illustration rather than
+UI chrome. Single file, so held back by the same standard that kept `#8790A9`
+logged until it reached five files.
+
+**Two existing values got more complicated.** `#F1F1F1` — tokenised the same
+day as `--equinet-color-diagram-surface` and scoped "marketing illustration
+only, not UI" — also appears in the hero comp, as does `#F3F2F2`, one of the
+unresolved near-whites. Both sit in the hero's embedded graphic rather than
+its chrome, so the scoping isn't strictly wrong, but it's less clean than
+recorded. The `diagram-surface` usage note now says so, and `#F3F2F2` is no
+longer a single-file value. Neither promoted or re-scoped unilaterally.
+
+Also confirmed: `5_column_block_methodology` carries a radial `white` →
+`#F6F5F5` background, matching the module gradient `tokens.css` has described
+since 2026-08-07.
+
 ## 2026-09-23 — Icon substitution reference; staggered content blocks
 
 **New: `assets/icons/ICON-REFERENCE.md`.** The house icon style, measured
