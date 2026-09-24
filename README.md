@@ -515,6 +515,48 @@ The dividing line, since it will come up again: if flattening a graphic to one
 ink would ruin it, it's an illustration, not an icon. Icons inherit
 `currentColor` from the control around them; illustrations can't.
 
+## Staggered content blocks
+
+`components/bundle.css` carries `.eq-stagger`, an alternating media/text row
+pattern built to the real illustration ratios. Media leads on odd rows, text
+on even ones, driven by `:nth-child` rather than a modifier class — an editor
+adding a row can't break the rhythm, and the DOM order stays the reading order
+for screen readers and keyboard focus.
+
+```html
+<div class="eq-stagger">
+  <div class="eq-stagger__row">
+    <div class="eq-stagger__media eq-stagger__media--scene">
+      <img src="assets/illustrations/scenes/…-wireframing-v1.svg" alt="">
+    </div>
+    <div class="eq-stagger__body">
+      <p class="eq-stagger__eyebrow">Website design</p>
+      <h2 class="eq-stagger__heading">Wireframing</h2>
+      <p class="eq-stagger__text">…</p>
+    </div>
+  </div>
+</div>
+```
+
+**Pick the media modifier by folder — this is the part that goes wrong
+silently:**
+
+| Folder | Modifier | Why |
+| --- | --- | --- |
+| `scenes/` | `--scene` | Opaque navy gradient, full artboard. Fills the frame edge to edge; adding padding would expose page colour around a hard dark rectangle |
+| `sectors/`, `systems/` | `--transparent` | Line work with no background — needs a surface behind it or it floats on the page |
+| `pictonodes/` | use `__row--compact` | 118 × 118 is too small to hold half a row; it sits inline beside the text at native size |
+
+The three 16:9 groups are interchangeable in one row (1.776–1.781, the same
+ratio within rounding). `pictonodes/` are square and are not — don't mix them.
+
+Below 768px every row stacks media-first, including the even ones: alternation
+in a single column reads as a mistake rather than rhythm.
+
+Choosing *which* illustration is a separate question — see
+`assets/illustrations/INDEX.md`, and its rule that if nothing matches the
+subject, the right output is a layout with no illustration.
+
 ## Brand mark
 
 `assets/brand/` holds the Equinet Media wordmark, two ready-made variants —
@@ -547,14 +589,21 @@ nothing fits.**
 - Wordmark: `assets/brand/wordmark-light.svg` or `wordmark-dark.svg`, picked
   by background contrast (see **Brand mark**). Never render the name as
   styled text standing in for the logo.
-- Icons: `assets/icons/` has no real SVGs yet — see that folder's own
-  `README.md` for exactly which icons are known and why the arrow needs a
-  decision before it can be centralized. Until real geometry exists, **a
-  neutral icon set (Lucide or similar) is an acceptable placeholder** —
-  decided 2026-09-23 — but it must read as a placeholder, not be presented
-  as if it were a real Equinet icon. Don't fabricate a plausible-looking
-  custom arrow or checkmark from scratch; that's exactly the kind of
-  invented shape the system's no-hallucination principle exists to prevent.
+- Icons: `assets/icons/` holds 16 files in three groups — three control icons
+  that take `currentColor`, five 43 × 43 concept marks (`nodes/`) and eight
+  65 × 65 service tiles (`service-tiles/`). Read that folder's `README.md`
+  first: only the three root icons recolour with their control; the nodes
+  hardcode their ink and the tiles are self-contained white-on-navy artwork
+  that must not be recoloured at all. Three icons are still missing
+  geometry (`close`, `checkmark`, `external-link`); for those, **a neutral
+  icon set (Lucide or similar) is an acceptable placeholder** — decided
+  2026-09-23 — but it must read as a placeholder, not be presented as a real
+  Equinet icon — and match it to the house style using
+  `assets/icons/ICON-REFERENCE.md`, which specifies the 24 × 24 / 2px /
+  round-cap grid and shows that the house arrow is literally Lucide's
+  `arrow-right`. Don't fabricate a plausible-looking custom shape; that's
+  exactly the kind of invented geometry the no-hallucination principle exists
+  to prevent.
 
 **Spacing and frame — token values only, nothing arbitrary.**
 - Padding and gaps: the `equinet-space-*` scale (see **Spacing**). A raw

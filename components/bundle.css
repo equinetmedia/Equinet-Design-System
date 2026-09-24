@@ -282,3 +282,155 @@
     align-self: center;
   }
 }
+
+
+/* ============================================================================
+   STAGGERED CONTENT BLOCKS
+   Alternating media/text rows, sized to the illustration groups in
+   assets/illustrations/. Pure CSS: the alternation is :nth-child, not a
+   modifier class, so an editor adding a row can't break the rhythm.
+
+   Ratios are real: scenes 641x360 (1.781), sectors 641x361 and systems
+   460x259 (both 1.776) — the same 16:9 within rounding, so all three are
+   interchangeable in one row. pictonodes are 1:1 and are NOT; they belong
+   in the compact variant below.
+   ========================================================================== */
+
+.eq-stagger {
+  display: flex;
+  flex-direction: column;
+  gap: var(--equinet-space-4xl, 96px);
+}
+
+.eq-stagger__row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--equinet-space-2xl, 48px);
+  align-items: center;
+}
+
+/* The stagger itself. Media leads on odd rows, text on even ones.
+   grid-column ordering, not `direction` or `order`, so the DOM sequence
+   stays the reading sequence for a screen reader and for keyboard focus. */
+.eq-stagger__row:nth-child(even) .eq-stagger__media { grid-column: 2; grid-row: 1; }
+.eq-stagger__row:nth-child(even) .eq-stagger__body  { grid-column: 1; grid-row: 1; }
+
+/* --- Media ---------------------------------------------------------------
+   16:9 frame. The illustration fills it; `contain` not `cover`, because
+   these are drawn artwork — cropping one cuts off deliberate composition. */
+.eq-stagger__media {
+  position: relative;
+  aspect-ratio: 16 / 9;
+  border-radius: var(--equinet-radius-card, 7px);
+  overflow: clip;
+}
+
+.eq-stagger__media img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+/* scenes/ carry their own opaque navy gradient across the full artboard.
+   They need no surface behind them and must NOT be padded — padding would
+   reveal the page colour around a hard-edged dark rectangle. */
+.eq-stagger__media--scene img { object-fit: cover; }
+
+/* sectors/, systems/ and pictonodes are transparent. They need a surface to
+   sit on, or the line work floats on the page background. */
+.eq-stagger__media--transparent {
+  background: var(--equinet-color-surface--alt, #F6F5F5);
+  padding: var(--equinet-space-xl, 40px);
+}
+
+/* Where a transparent illustration sits on a dark section instead. */
+.eq-stagger__media--on-dark {
+  background: var(--equinet-color-diagram-surface, #F1F1F1);
+}
+
+/* --- Body ---------------------------------------------------------------- */
+.eq-stagger__body > * + * { margin-top: var(--equinet-space-md, 24px); }
+
+.eq-stagger__eyebrow {
+  margin: 0;
+  font-family: var(--equinet-font-body, 'Source Sans 3', sans-serif);
+  font-size: var(--equinet-fontsize-kicker, 12px);
+  font-weight: var(--equinet-fontweight-kicker, 700);
+  letter-spacing: 0.1em;
+  text-indent: 0.1em;        /* absorbs the trailing letter-space */
+  line-height: 1;
+  text-transform: uppercase;
+  color: var(--equinet-color-orange, #E06730);
+}
+
+.eq-stagger__heading {
+  margin: 0;
+  font-family: var(--equinet-font-heading, 'Open Sans', sans-serif);
+  font-size: var(--equinet-fontsize-h2, 36px);
+  font-weight: var(--equinet-fontweight-display, 800);
+  line-height: 1.1;
+  letter-spacing: -0.03em;
+  text-transform: uppercase;                                  /* h2 rule */
+  text-shadow: var(--equinet-shadow-heading, -2px 2px 4px rgba(0, 0, 0, 0.15));
+  color: var(--equinet-color-heading, #242630);
+  text-wrap: balance;
+}
+
+.eq-stagger__text {
+  margin: 0;
+  font-family: var(--equinet-font-body, 'Source Sans 3', sans-serif);
+  font-size: var(--equinet-fontsize-body, 16px);
+  font-weight: var(--equinet-fontweight-body, 400);
+  line-height: 1.375;
+  color: var(--equinet-color-body, #3B3F51);
+  text-wrap: pretty;
+}
+
+/* --- Compact variant: square pictonodes beside text ----------------------
+   A 118x118 spot graphic is too small to hold half a row. It sits inline
+   with the text instead, at its native size. */
+.eq-stagger__row--compact {
+  grid-template-columns: 118px 1fr;
+  gap: var(--equinet-space-lg, 32px);
+  align-items: start;
+}
+.eq-stagger__row--compact .eq-stagger__media {
+  aspect-ratio: 1 / 1;
+  background: none;
+  padding: 0;
+  border-radius: 0;
+}
+.eq-stagger__row--compact:nth-child(even) .eq-stagger__media { grid-column: 1; }
+.eq-stagger__row--compact:nth-child(even) .eq-stagger__body  { grid-column: 2; }
+
+/* --- Responsive ----------------------------------------------------------
+   Below 768px every row stacks media-first, including the even ones: a
+   stagger that alternates in a single column reads as a mistake, not rhythm. */
+@media (max-width: 1023px) {
+  .eq-stagger { gap: var(--equinet-space-3xl, 56px); }
+  .eq-stagger__row { gap: var(--equinet-space-xl, 40px); }
+}
+
+@media (max-width: 767px) {
+  .eq-stagger__row,
+  .eq-stagger__row--compact {
+    grid-template-columns: 1fr;
+    gap: var(--equinet-space-md, 24px);
+  }
+  .eq-stagger__row:nth-child(even) .eq-stagger__media,
+  .eq-stagger__row--compact:nth-child(even) .eq-stagger__media {
+    grid-column: 1;
+    grid-row: 1;
+  }
+  .eq-stagger__row:nth-child(even) .eq-stagger__body,
+  .eq-stagger__row--compact:nth-child(even) .eq-stagger__body {
+    grid-column: 1;
+    grid-row: 2;
+  }
+  .eq-stagger__row--compact .eq-stagger__media {
+    width: 118px;
+  }
+  .eq-stagger__heading { font-size: var(--equinet-fontsize-h3, 24px); }
+  .eq-stagger__media--transparent { padding: var(--equinet-space-md, 24px); }
+}

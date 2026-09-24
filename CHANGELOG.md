@@ -5,6 +5,73 @@ Project. Every entry below represents a manual reconciliation pass — someone
 asked Claude, in that Project, to fold new development work into
 `tokens.css` / `README.md`, then committed the result here.
 
+## 2026-09-23 — Icon substitution reference; staggered content blocks
+
+**New: `assets/icons/ICON-REFERENCE.md`.** The house icon style, measured
+from `arrow-chevron.svg` rather than asserted: 24 × 24, 2px stroke, round
+caps and joins, `fill="none"`, `stroke="currentColor"`.
+
+That turned out to match Lucide's published design rules on every property —
+and the match is literal, not stylistic. Lucide stores `arrow-right` as
+`M5 12h14m-7-7l7 7l-7 7`; the chevron extracted from
+`button_textual_default.svg` is `M5 12H19` plus `M12 5L19 12L12 19`. Same
+path, different notation. The house arrow **is** Lucide's, which settles the
+substitution library on evidence rather than preference.
+
+Phosphor is documented as the fallback with its real cost stated: a 256 × 256
+filled-path canvas in six weights, none of which is a 2px stroke on a 24
+grid, so it needs rescaling and an optical check rather than trusting
+numbers. The file also names a Lucide substitute for each of the three icons
+still missing geometry (`close` → `x`, `checkmark` → `circle-check`,
+`external-link` → `external-link`), and rules out substituting for `nodes/`
+or `service-tiles/` at all — those are brand marks, not utility glyphs, and a
+generic stand-in would misrepresent rather than fill a gap.
+
+**New: `.eq-stagger` in `components/bundle.css`** — alternating media/text
+rows built to the measured illustration ratios. Alternation is `:nth-child`,
+not a modifier, so an editor adding a row can't break the rhythm; it reorders
+by `grid-column` rather than `order` or `direction`, so DOM order stays the
+reading order for assistive tech.
+
+The part that would otherwise go wrong silently is encoded as three media
+modifiers: `--scene` for the 12 opaque scenes (fills edge to edge; padding
+would expose page colour around a hard dark rectangle), `--transparent` for
+sectors and systems (needs a surface or the line work floats), and
+`__row--compact` for the square pictonodes, which are too small to hold half
+a row. Below 768px every row stacks media-first including the even ones —
+alternation in one column reads as a bug, not rhythm.
+
+## 2026-09-23 — Fourteen icon-scale files filed; a true duplicate dropped
+
+Fourteen SVGs audited and filed under `assets/icons/`, not illustrations —
+both families are icon-scale (43 × 43 and 65 × 65), far below the 118–641px
+illustration range. That folder now has three groups and 16 files.
+
+**`nodes/`** — five 43 × 43 concept marks (attract, connect, growth, hubspot,
+verified). Two findings: the filenames say "black" but the ink is `#242630`
+(`equinet-color-heading`), not true black — `equinet-color-black` (`#000000`)
+exists separately, so the names shouldn't be read as a colour spec. And they
+**hardcode that fill instead of using `currentColor`**, unlike the three root
+icons, so as delivered they can't follow a control's hover or dark variant.
+Flagged, not edited.
+
+**`service-tiles/`** — eight 65 × 65 rounded tiles, white line glyph on a
+`#265D94` → `#002E4A` gradient (both existing tokens). These are correctly
+self-contained: the background is part of the artwork and `currentColor`
+would be wrong for them. Added to `assets/illustrations/INDEX.md` so they're
+selectable on subject alongside the illustrations — three overlap with
+`scenes/` topics, differing by scale rather than subject.
+
+**Dropped one file as a true duplicate.** `node-black-hubspot-1.svg` was
+geometrically identical to `node-black-hubspot.svg`, differing only by
+sub-0.001px floating-point rounding in the exported path. Unlike the animated
+sector pictograph — which looked like a duplicate but carried real extra
+behaviour — there was nothing here to preserve.
+
+**Also corrected:** the main README's icon guidance still claimed
+`assets/icons/` "has no real SVGs yet", which stopped being true two batches
+ago when the button icons were extracted.
+
 ## 2026-09-23 — Illustration selection index added; opaque-background constraint found
 
 **New file: `assets/illustrations/INDEX.md`** — a per-file subject and topic

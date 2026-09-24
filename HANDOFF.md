@@ -50,8 +50,8 @@ chat each time, not pulled automatically.
 | `tokens.json` | The same values, reshaped into the `{"tokens":[{"name","value","usage"}]}` format Claude Design's own Design System schema reads | If the import flow asks for this shape instead of CSS |
 | `README.md` | The full brand book: consumption pattern, colour, type, spacing, breakpoints, motion, buttons, cards, backgrounds/parallax, editor-controlled styling, icons, accessibility, the engineering contract, component inventory, and open decisions | Read first — everything else assumes it |
 | `CHANGELOG.md` | Dated log of every reconciliation pass, what it resolved, and what it newly surfaced | Tracing when and why a value or decision changed |
-| `components/bundle.css` | The pure-CSS component layer — all three button variants, every state, token-driven with measured fallbacks | The actual CSS; loads after `tokens.css` |
-| `assets/icons/` | Three real icons (`arrow-chevron`, `arrow-solid`, `play-circle`) extracted from the Figma button exports, plus an inventory of what's still missing | Inlining an icon into a module |
+| `components/bundle.css` | The pure-CSS component layer — three button variants with every state, plus `.eq-stagger` alternating content rows sized to the illustration ratios | The actual CSS; loads after `tokens.css` |
+| `assets/icons/` | 16 files in three groups, plus `ICON-REFERENCE.md` — the measured house style and how to match a Lucide or Phosphor substitute to it | Inlining an icon into a module |
 | `assets/buttons/` | The ten Figma button exports, kept as the measurement source of record | Verifying a geometry claim against its origin |
 | `assets/brand/` | Wordmark, light and dark variants | Any use of the logo |
 | `assets/marketing/` | Seventeen infographics, with a per-file audit index | Provenance for the chart and diagram token categories |

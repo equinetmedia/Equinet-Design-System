@@ -77,6 +77,27 @@ Small spot graphics. Use beside a heading or list item, not as a hero.
 | `pictonode-thecde` | The CDE | CDE, common data environment, shared data |
 | `pictonode-website` | Website / browser frame | website, web page, online presence |
 
+## Also selectable: `assets/icons/service-tiles/`
+
+Eight 65 × 65 white-on-navy tiles, one per service. Smaller and more compact
+than a scene — use in a service list, a card row or beside a heading, where a
+641 × 360 scene would dominate. Same selection rules apply.
+
+| File | Topics |
+| --- | --- |
+| `services-commercial-narritive` | narrative, story, commercial messaging |
+| `services-competitor-analysis` | competitors, benchmarking, landscape |
+| `services-digital-experience-alignment` | digital experience, UX alignment |
+| `services-ideal-customer-profile` | ICP, targeting, audience |
+| `services-positioning-audit` | positioning, audit, assessment |
+| `services-positioning-strategy` | positioning, strategy, differentiation |
+| `services-sales-enablement-alignment` | sales enablement, alignment |
+| `services-value-architecture` | value, pricing, architecture, offer design |
+
+Three overlap in subject with `scenes/` (ICP, positioning strategy, sales
+enablement). Pick by scale, not by preference: a tile for a list item, a scene
+for a media panel.
+
 ---
 
 ## Subject coverage, and what it excludes
