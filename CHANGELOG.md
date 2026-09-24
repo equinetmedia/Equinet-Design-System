@@ -5,6 +5,32 @@ Project. Every entry below represents a manual reconciliation pass — someone
 asked Claude, in that Project, to fold new development work into
 `tokens.css` / `README.md`, then committed the result here.
 
+## 2026-09-23 — Commercial-systems batch filed; a near-white finally earns a token
+
+Five 460 × 259 process diagrams filed as a new `assets/illustrations/systems/`
+subgroup, bringing that folder to 29 files across four groups. Static, no
+animation, no text elements.
+
+**`#F1F1F1` sanctioned as `--equinet-color-diagram-surface`.** It appears in
+all five files of this batch and in no token. That makes it the first of the
+long-running near-white cluster to earn promotion on cross-file evidence —
+the same standard `diagram-line` and the chart-blues were held to.
+
+**`#8790A9` question closed.** Logged as "single-file, too weak to sanction"
+in the earlier marketing batch; it's in all five of these plus two marketing
+files, and was already a real token (`charade-400`) from the Figma import.
+
+**The remaining near-whites stay unresolved, but are now better characterised.**
+Plotting the cluster by relative luminance shows `#ECEAEA` (.826), `#F3F2F2`
+(.890) and `#F3F3F4` (.897) all fall *between* two real tokens — `surface-200`
+at .915 and `charade-100` at .848 — spanning just 0.07 total. Visually
+indistinguishable, no two identical. Each is still single- or low-occurrence,
+so none has earned what `#F1F1F1` did.
+
+Also noted: the three 16:9 groups (`scenes` 1.781, `sectors` 1.776, `systems`
+1.776) are the same ratio within rounding and interchangeable in one frame,
+despite three different pixel sizes. `pictonodes` is square and is not.
+
 ## 2026-09-23 — Sixteen illustrations filed into subgroups; an animated file flagged
 
 Sixteen SVGs audited and filed under `assets/illustrations/`, which now has

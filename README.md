@@ -495,9 +495,10 @@ class — see **Module anatomy**.
 
 ## Illustrations
 
-`assets/illustrations/` holds 24 standalone graphics in three subgroups:
+`assets/illustrations/` holds 29 standalone graphics in four subgroups:
 `pictonodes/` (8, square 118 × 118), `scenes/` (12, 16:9 service and process
-illustrations) and `sectors/` (4, 16:9 vertical pictographs). All are
+illustrations), `sectors/` (4, 16:9 vertical pictographs) and `systems/`
+(5, 16:9 commercial-systems process diagrams). All are
 multi-colour and stand alone, distinct from the single-ink glyphs in
 `assets/icons/`. Every colour across all 24 resolves to an existing token —
 but to the marketing and chart palettes, not the UI one, which is itself the

@@ -211,10 +211,17 @@
   --equinet-color-diagram-line--neutral: #6C7074;  /* neutral-grey, no blue cast · 5/17 files */
   --equinet-color-diagram-tint:          var(--equinet-color-charade-200); /* #D6D8E1 · 3/7 files */
   --equinet-color-diagram-tint--pale:    var(--equinet-color-charade-100); /* #ECEDF2 · 7/7 files */
+  --equinet-color-diagram-surface:       #F1F1F1;  /* panel/background fill in system diagrams —
+                                                       5/5 of the commercial-systems batch
+                                                       · SANCTIONED 2026-09-23 */
 
   /* RESOLVED: #FFE6DB folds into --equinet-color-amber-100 (#FCE9E0). */
-  /* UNRESOLVED: #ECEAEA, #F3F2F2, #F3F3F4 — three near-whites, no two
-     identical, none matching surface/200–400. Needs a decision. */
+  /* RESOLVED 2026-09-23: #F1F1F1 promoted above on 5-file evidence. */
+  /* UNRESOLVED: #ECEAEA (L .826), #F3F2F2 (L .890), #F3F3F4 (L .897) — three
+     near-whites, no two identical, all falling BETWEEN two real tokens
+     (surface-200 L .915, charade-100 L .848). Each is single- or
+     low-occurrence, so none has earned promotion the way #F1F1F1 did. Reads
+     as nobody having one settled near-white to reach for. Needs a decision. */
 
 
   /* ==========================================================================

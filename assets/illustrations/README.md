@@ -9,9 +9,14 @@ Three subgroups, 24 files:
 
 | Group | Count | Artboard | Palette | Role |
 | --- | --- | --- | --- | --- |
-| `pictonodes/` | 8 | 118 × 118 (square) | Night, chart-blue, amber | Spot graphics beside a heading or list item |
-| `scenes/` | 12 | 641 × 360 (16:9) | Blue-900, blue-400, amber | Service and process illustrations |
-| `sectors/` | 4 | 641 × 361 (16:9) | Blue-default, charade-500, amber | Sector/vertical pictographs |
+| `pictonodes/` | 8 | 118 × 118 (1.000) | Night, chart-blue, amber | Spot graphics beside a heading or list item |
+| `scenes/` | 12 | 641 × 360 (1.781) | Blue-900, blue-400, amber | Service and process illustrations |
+| `sectors/` | 4 | 641 × 361 (1.776) | Blue-default, charade-500, amber | Sector/vertical pictographs |
+| `systems/` | 5 | 460 × 259 (1.776) | Night, charade, blue-400, amber | Commercial-systems process diagrams |
+
+The three 16:9 groups are interchangeable in one frame — 1.776 and 1.781 are
+the same ratio within rounding, despite the different pixel dimensions.
+`pictonodes/` is square and is not.
 
 ---
 
@@ -80,6 +85,36 @@ added:
 
 Flagged rather than edited: changing delivered artwork is the designer's call,
 not something to do silently.
+
+## `systems/` — commercial-systems process diagrams
+
+Five 460 × 259 diagrams, added 2026-09-23: account management & expansion
+enablement, commercial data health & enrichment, commercial insight and
+feedback loops, CRM/ERP integration, sales enablement & execution support.
+
+22–36 paths each — the densest group in the set, and unlike the others they
+lean on grey structure rather than colour, with `#8790A9`
+(`--equinet-color-charade-400`) carrying most of the line work and orange
+appearing once or twice per file as an accent.
+
+Palette, all resolving to tokens:
+
+| Value | Token |
+| --- | --- |
+| `#242630` | `--equinet-color-night-default` |
+| `#8790A9` | `--equinet-color-charade-400` |
+| `#81ACD7` | `--equinet-color-blue-400` |
+| `#D6D8E1` | `--equinet-color-charade-200` |
+| `#3B3F51` | `--equinet-color-night-700` (CRM/ERP only) |
+| `#F5844D` | `--equinet-color-amber-400` |
+| `#F1F1F1` | `--equinet-color-diagram-surface` — **new, sanctioned from this batch** |
+
+Two escalations came out of this group. `#8790A9` had been logged as
+"single-file, too weak to sanction" in an earlier marketing batch; it appears
+in all five of these plus two marketing files, and was already a real token
+from the Figma import, so that question is closed. `#F1F1F1` was genuinely
+new — in all five files, in no token — and earned its own token on that
+cross-file evidence.
 
 ## `pictonodes/` — square spot graphics
 
