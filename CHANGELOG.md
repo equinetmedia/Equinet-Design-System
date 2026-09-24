@@ -5,6 +5,32 @@ Project. Every entry below represents a manual reconciliation pass — someone
 asked Claude, in that Project, to fold new development work into
 `tokens.css` / `README.md`, then committed the result here.
 
+## 2026-09-23 — Illustration selection index added; opaque-background constraint found
+
+**New file: `assets/illustrations/INDEX.md`** — a per-file subject and topic
+table for all 29 illustrations, written so an agent can choose artwork on
+subject rather than on how a filename sounds. Linked from both the main
+README's AI-generation instructions and the illustrations README, so it's
+reachable without being pointed at.
+
+Its load-bearing rule is the negative one: **if nothing matches the page's
+subject, use no illustration.** The set covers Equinet's own service lines,
+sectors and generic business-process concepts, and nothing else. The index
+states the exclusions explicitly (consumer tech, social platforms, AI ethics,
+psychology, wellbeing, news, third-party products) so "nearest available" is
+never mistaken for "suitable".
+
+**Found while indexing: all 12 `scenes/` files are opaque.** Each has a
+navy-to-blue gradient rect covering the full 641 × 360 artboard. Earlier
+batches were audited for palette and dimensions but not for background, so
+this had been missed. It's a real placement constraint — a scene dropped on a
+white card leaves a hard dark rectangle — and it's now recorded in the index,
+both READMEs and the selection rules. All 17 files in the other three groups
+are transparent.
+
+Also corrected a stale count in the illustrations README ("three subgroups,
+24 files") left behind when `systems/` was added.
+
 ## 2026-09-23 — Commercial-systems batch filed; a near-white finally earns a token
 
 Five 460 × 259 process diagrams filed as a new `assets/illustrations/systems/`

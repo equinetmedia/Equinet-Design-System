@@ -5,7 +5,16 @@ to stand on its own belongs here. The quick test: if flattening a graphic to a
 single ink would ruin it, it's an illustration. Icons inherit `currentColor`
 from the control around them; none of these can.
 
-Three subgroups, 24 files:
+Four subgroups, 29 files:
+
+**Choosing one? Read `INDEX.md` first** — it lists every file's subject and
+topics, and carries the selection rules, including the one that matters most:
+if nothing matches the page's subject, use no illustration rather than the
+nearest-looking file.
+
+**`scenes/` are opaque.** All 12 have a navy-to-blue gradient covering the
+full artboard. They work as media panels and card headers, not as transparent
+spot art. Every other group is transparent.
 
 | Group | Count | Artboard | Palette | Role |
 | --- | --- | --- | --- | --- |

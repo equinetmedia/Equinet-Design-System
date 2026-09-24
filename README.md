@@ -532,7 +532,18 @@ same standard the colour rule already holds generated output to. Each links
 back to the section that defines the actual values, so this isn't a restatement
 of them, just the mandate to use them.
 
-**Assets — use what's real, never invent what isn't.**
+**Assets — use what's real, never invent what isn't, and leave it out if
+nothing fits.**
+- Illustrations: read `assets/illustrations/INDEX.md` before choosing one. It
+  lists every file's subject and topics, and says which are opaque. Match on
+  subject, not on how a filename sounds. **If no illustration matches the
+  page's subject, use none** — the set covers Equinet's own service lines and
+  sectors, so a page about anything outside that has no fit here, and the
+  nearest-looking file is still the wrong file. A mismatched graphic reads as
+  filler.
+- The 12 files in `scenes/` have an opaque navy gradient baked into the full
+  artboard. They are media panels and card headers, not transparent spot art;
+  dropping one on a white surface leaves a hard dark rectangle.
 - Wordmark: `assets/brand/wordmark-light.svg` or `wordmark-dark.svg`, picked
   by background contrast (see **Brand mark**). Never render the name as
   styled text standing in for the logo.
