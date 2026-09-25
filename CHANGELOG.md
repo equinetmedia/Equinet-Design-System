@@ -5,6 +5,85 @@ Project. Every entry below represents a manual reconciliation pass — someone
 asked Claude, in that Project, to fold new development work into
 `tokens.css` / `README.md`, then committed the result here.
 
+## 2026-09-24 — Removed a `---` that would have marked the brand book as regenerable
+
+Checked the design-system format spec to answer whether the prompt could be
+built in, and found a bug introduced an hour earlier by the rules digest.
+
+**The format treats the first `---` in `README.md` as the boundary between
+author text and generated sections, and rewrites everything below it on
+save.** The digest ended with a `---` separator before the introduction —
+the only horizontal rule in the file — which marked the entire 815-line brand
+book as regenerable content. A save from the page, or a `make.ts` build,
+could have replaced all of it with generated "Consuming this system" and
+"Index" sections.
+
+Replaced with an `## About this system` heading, and added a warning in the
+file itself so the rule isn't reintroduced. Zero horizontal rules in
+`README.md` now.
+
+Other docs carry `---` rules (`PROMPT-TEMPLATE.md`, two asset READMEs,
+`INDEX.md`) and are unaffected — only `README.md` is parsed for that
+boundary.
+
+Also confirmed from the same spec, which answers the original question:
+agents **read `README.md` first**, so design-system rules genuinely are
+built in rather than needing restatement each session. What can't be is
+brief-level direction — the AEO structure and `{CONTEXT}` — which describes
+a page, not the brand.
+
+## 2026-09-24 — Minimum viable prompt recorded
+
+Checked the original four-line Claude Design prompt against the system line by
+line rather than answering in general terms. Three of the four substantive
+lines are already encoded — asset usage (with the use-none fallback and the
+1px/48px icon rule), UI/UX practice (contrast, alignment, hierarchy, density),
+and layout reordering (kit-of-parts plus the `.eq-stagger` pointer). Only the
+AEO guidance isn't, and that's deliberate: it's editorial, not design.
+
+The fourth line, "pull the updated repo from [URL]", works neither as a rule
+nor as a prompt — the repo is private and read through a configured import, so
+refreshing is a setup action taken beforehand.
+
+`PROMPT-TEMPLATE.md` now carries a **minimum viable prompt**: the subject plus
+the AEO brief plus the escalation rule, nothing else. The full template is
+reframed as a fallback for when output drifts, not the default.
+
+Recorded with one honest caveat: a rule in the repo is *available* to the
+model, a rule in the prompt is *in front of* it, and those aren't the same.
+That gap is what the README digest narrows, but doesn't close. The guidance is
+to restate a single rule when it drifts rather than revert to pasting
+everything.
+
+## 2026-09-24 — Rules digest hoisted to the top of README; DESIGN.md declined
+
+Asked whether a `DESIGN.md` would improve accuracy. Measured rather than
+assumed, and the measurement pointed elsewhere: the operative rules
+("Instructions for AI-generated design") sat at **line 604 of an 816-line,
+6,400-word README, behind 23 section headings** — 74% of the way in. An agent
+reading the design system reads the README, and the rules it must follow were
+at the back.
+
+**Declined the new file.** This system already carries 11 markdown documents,
+and drift between them is a demonstrated failure mode here, not a theoretical
+one — the `cagr-four-column` provenance error propagated across three files
+before being caught, and the "assets/icons has no real SVGs yet" line went
+stale for two batches. A twelfth file restating the rules would be a new
+surface for exactly that.
+
+**Did the cheaper, stronger thing instead:** a 13-row rules digest at the very
+top of `README.md`, above the introduction. Same single source of truth, no
+duplication, read first rather than last. Each row is one binding rule —
+tokens only, no invented hues, three typefaces, section-heading spec,
+editor-owned padding and background, parallax, both reduced-motion halves,
+icon stroke and ceiling, illustrations as reference, subject-matched
+selection with the use-none fallback, the opaque/transparent/square split,
+measured AA, and the escalation rule.
+
+Every factual claim in the digest was verified against `tokens.css` and the
+folder structure before committing — a wrong summary at the top of the file
+would be worse than no summary at all. All 13 checks passed.
+
 ## 2026-09-24 — Substituted icons set to 1px stroke, 48px ceiling
 
 Rule: every Lucide or otherwise substituted icon declares

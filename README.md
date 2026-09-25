@@ -1,5 +1,35 @@
 # Equinet
 
+## Rules at a glance
+
+The binding rules, in one place. Each links to the section that explains it.
+If you read nothing else here, read this. Full detail in **Instructions for
+AI-generated design**.
+
+| # | Rule |
+| --- | --- |
+| 1 | **Tokens only.** Every colour, size, weight, tracking, spacing, radius and shadow comes from `tokens.css`. A value not in there is a defect, not a choice. |
+| 2 | **No invented hues.** The palette is complete for UI. Distinguish items by position, weight, icon or an existing tint pairing — never a new colour. Two named exceptions: the chart and diagram categories, for marketing artwork only. |
+| 3 | **Three typefaces, no fourth.** Open Sans headings, Source Sans 3 body, Playfair Display as an optional accent. |
+| 4 | **Section headings**: `--equinet-fontsize-section-heading` (36px), uppercase, with `--equinet-shadow-heading`. Weight follows family — 800 Open Sans, 900 body family. Not `--equinet-fontsize-h2` (48px, canonical but applied nowhere). |
+| 5 | **Padding and background are the editor's.** Never hardcoded past override. Exposed in Module Style settings, injected at render. |
+| 6 | **Full-bleed background image ⇒ parallax**, via `IntersectionObserver` + `requestAnimationFrame`. Never `background-attachment: fixed`. |
+| 7 | **Motion needs both halves**: declared inside `prefers-reduced-motion: no-preference`, withdrawn inside `reduce`. |
+| 8 | **Icons**: inline SVG only. Equinet's own are 2px stroke; a Lucide substitute declares **1px** and is marked as a placeholder. Nothing over **48px**. Never fabricate a glyph. |
+| 9 | **Illustrations are reference, not sealed artwork.** Recompose freely — crop, scale, overlap, extract, rearrange. Colour, typography and iconography still follow the system. |
+| 10 | **Choose illustrations on subject** via `assets/illustrations/INDEX.md`. **If nothing matches, use none.** A near-miss reads as filler. |
+| 11 | **`scenes/` are opaque**; `sectors/`, `systems/`, `flows/` are transparent and need a surface; `pictonodes/` are square and never sit in a 16:9 row. |
+| 12 | **WCAG 2.1 AA**, measured not estimated. One signed-off exception: the primary button's white label. |
+| 13 | **Say so rather than approximate.** If a rule can't be met — no matching illustration, no icon geometry, no token for a value — state it plainly instead of filling the gap with something plausible. |
+
+> **Do not add a `---` horizontal rule to this file.** The design-system
+> format treats the first `---` as the boundary between author text and
+> generated sections, and rewrites everything below it on save. A stray rule
+> would mark the whole brand book as regenerable. Use a heading to separate
+> sections instead.
+
+## About this system
+
 A design system for HubSpot CMS modules, first built on 2026-09-22 from six
 standing directive documents, `/modules/tokens.css`, and the CSS of
 `cim-methodology` and `plain_hero_banner` (the only two modules with real CSS

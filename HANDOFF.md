@@ -48,7 +48,7 @@ chat each time, not pulled automatically.
 | --- | --- | --- |
 | `tokens.css` | The real, production token file — the original `/modules/tokens.css` with the finalized spacing scale appended (dated 2026-09-22) | A codebase-style or raw-file import; the closest thing to ground truth |
 | `tokens.json` | The same values, reshaped into the `{"tokens":[{"name","value","usage"}]}` format Claude Design's own Design System schema reads | If the import flow asks for this shape instead of CSS |
-| `README.md` | The full brand book: consumption pattern, colour, type, spacing, breakpoints, motion, buttons, cards, backgrounds/parallax, editor-controlled styling, icons, accessibility, the engineering contract, component inventory, and open decisions | Read first — everything else assumes it |
+| `README.md` | Opens with a 13-rule digest — the binding rules in one scannable table — then the full brand book: consumption pattern, colour, type, spacing, breakpoints, motion, buttons, cards, backgrounds/parallax, editor-controlled styling, icons, accessibility, the engineering contract, component inventory, and open decisions | Read first — everything else assumes it |
 | `CHANGELOG.md` | Dated log of every reconciliation pass, what it resolved, and what it newly surfaced | Tracing when and why a value or decision changed |
 | `PROMPT-TEMPLATE.md` | A ready prompt for generating pages in Claude Design, with the reasoning behind each constraint | Starting a new page; adapting the wording for a different brief |
 | `components/bundle.css` | The pure-CSS component layer — three button variants with every state, plus `.eq-stagger` alternating content rows sized to the illustration ratios | The actual CSS; loads after `tokens.css` |

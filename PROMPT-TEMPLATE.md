@@ -86,6 +86,25 @@ clone) *before* starting, then prompt normally.
 
 ---
 
+## Does this need pasting every session?
+
+**Mostly no.** The design-system format specifies that an agent reads
+`README.md` first, and this system's rules now sit in a 13-row digest at the
+very top of it. Tokens, icons, illustrations, spacing, motion and the
+escalation rule are genuinely built in — Claude Design gets them from the
+system itself.
+
+**What can't be built in, and always needs stating:** `{CONTEXT}` — the page
+subject — and the AEO section. Answer-engine structure describes how a page
+is written and organised, not how the brand looks. It belongs to the brief,
+not the design system, and putting it in `tokens.css` or the README would
+blur what the system is for.
+
+So the practical shape of a session prompt is short: name the subject, name
+the structure you want, and let the system carry the rest. The long version
+below is for a first run, an audit, or when you want the rules restated in
+front of the model at generation time rather than trusting they were read.
+
 ## What's already built in, and what isn't
 
 Most of this prompt restates rules that live in the repo — `README.md`'s
@@ -116,6 +135,42 @@ should say.
 | "Sample from `tokens.css`, not artwork" | Eight colours across the illustration set are logged but unsanctioned; extraction propagates them silently. |
 | Lucide named specifically | The house chevron *is* Lucide's `arrow-right` — same path, different notation. Any other library needs rework to match. |
 | "Tell me plainly if it can't be satisfied" | Otherwise gaps get filled with something plausible instead of surfaced. |
+
+## Minimum viable prompt
+
+Once the design system is loaded, most of the long prompt is redundant —
+the rules live in the repo and Claude Design reads them. Checked line by line
+against the system on 2026-09-24:
+
+| Your line | Status |
+| --- | --- |
+| "Pull updated GitRep from [URL]" | **Can't work either way.** Private repo, read through a configured import. Refresh before prompting; the line does nothing in a prompt and can't be a rule. |
+| "Enhance layout with assets in illustrations and icons" | **Built in** — rules 8–11 of the README digest, plus `INDEX.md` and `ICON-REFERENCE.md`. Includes the use-none fallback and the 1px/48px icon rule. |
+| "Best practice UI/UX methodologies" | **Built in** — contrast, alignment, hierarchy and density are all in the instructions section. |
+| "Reorder graphical layouts…" | **Built in** — the kit-of-parts rule plus the `.eq-stagger` pointer. |
+| "AEO principles" | **Not built in, on purpose.** Editorial, not design. Must be in the prompt. |
+
+So the per-session prompt reduces to the subject plus the editorial brief:
+
+> Build a **{CONTEXT}** pillar page using the Equinet Design System, following
+> its rules.
+>
+> Structure it for answer engines: question-shaped H2s that match how someone
+> would actually ask; each section opening with a direct, self-contained
+> answer in 1–2 sentences before expanding; terms defined on first use; tables
+> and lists only where content is genuinely enumerable; entities named
+> explicitly rather than "it" or "this approach"; one idea per section so a
+> chunk stands alone as a citation.
+>
+> Tell me plainly if anything can't be satisfied rather than approximating.
+
+**One honest caveat.** A rule in the repo is *available* to the model; a rule
+in the prompt is *in front of* it at generation time. Those aren't the same,
+and a long README is not guaranteed to be read end to end — which is why the
+13-rule digest was hoisted to the top of `README.md`. If output drifts on a
+specific rule, restate that one rule in the prompt rather than reverting to
+pasting everything. Treat the full template as a fallback for when something
+goes wrong, not the default.
 
 ## Short version
 
