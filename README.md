@@ -649,9 +649,11 @@ nothing fits.**
   icon set (Lucide or similar) is an acceptable placeholder** — decided
   2026-09-23 — but it must read as a placeholder, not be presented as a real
   Equinet icon — and match it to the house style using
-  `assets/icons/ICON-REFERENCE.md`, which specifies the 24 × 24 / 2px /
-  round-cap grid and shows that the house arrow is literally Lucide's
-  `arrow-right`. Don't fabricate a plausible-looking custom shape; that's
+  `assets/icons/ICON-REFERENCE.md`. Note the substitution rule set
+  2026-09-24: a Lucide icon declares `stroke-width="1"`, not Lucide's native
+  2, and no icon — substituted or Equinet's own — exceeds 48px. Substitutes
+  are deliberately finer than real Equinet artwork, which makes a placeholder
+  visible on sight; don't scale the stroke up to match. Don't fabricate a plausible-looking custom shape; that's
   exactly the kind of invented geometry the no-hallucination principle exists
   to prevent.
 

@@ -18,11 +18,16 @@ Taken from `arrow-chevron.svg`, extracted verbatim from
 | Fill | `none` |
 | Stroke | `currentColor` |
 
-## Use Lucide. It is an exact match, not an approximation.
+## Use Lucide. Its geometry matches exactly; its stroke is set finer on purpose.
 
 Lucide's own design rules specify a 24 × 24 canvas, 2px stroke, round joins,
 round caps and centred strokes, with `fill="none"` and
-`stroke="currentColor"` on the root element. Every property above matches.
+`stroke="currentColor"` on the root element. Canvas, caps, joins and colour
+handling all match the house style exactly.
+
+**Stroke is the one deliberate exception.** Equinet overrides Lucide's native
+2 down to 1 — see the next section. Everything else about a Lucide icon is
+used as shipped.
 
 The match is literal, not stylistic. Lucide's `arrow-right` is stored as:
 
@@ -49,6 +54,35 @@ exists only in Phosphor, use the **Regular** weight, rescale to a 24 × 24
 viewBox, and expect to check it optically against a real icon rather than
 trusting the numbers.
 
+## Substituted icons are 1px, and never exceed 48px
+
+**Rule set 2026-09-24.** Every Lucide (or other substituted) icon declares
+`stroke-width="1"`, not Lucide's native 2, and renders at 48px or smaller.
+
+This is a deliberate divergence from the house style, not a match to it.
+Equinet's own icons are 2px on a 24 canvas; a substitute at 1px renders half
+that weight at the same size. Two consequences, both intended:
+
+- Substitutes read as visibly finer than real Equinet artwork, which makes a
+  placeholder identifiable on sight rather than only in a code comment.
+- **Never scale the declared stroke up to "correct" the difference.** At 48px
+  a 1px declaration happens to render 2px, matching the house weight exactly —
+  that's arithmetic, not the goal. Keep the declaration at 1 at every size.
+
+| | Equinet's own | Substituted |
+| --- | --- | --- |
+| Declared stroke | `2` | `1` |
+| Canvas | 24 × 24 | 24 × 24 |
+| Caps / joins | round | round |
+| Max display size | 48px | 48px |
+
+The 48px ceiling applies to both. Above it an icon stops reading as an icon
+and starts reading as an illustration — at which point use
+`assets/illustrations/`, which is built for that job.
+
+Tokens: `--equinet-icon-stroke` (2), `--equinet-icon-stroke--substitute` (1),
+`--equinet-icon-size-max` (48px).
+
 ## Picking a substitute
 
 1. Search Lucide first, by what the icon *does*, not by name.
@@ -64,7 +98,7 @@ trusting the numbers.
 <!-- PLACEHOLDER: lucide/x — no Equinet geometry for `close` yet -->
 <span class="eq-icon" aria-hidden="true">
   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none"
-       stroke="currentColor" stroke-width="2"
+       stroke="currentColor" stroke-width="1"
        stroke-linecap="round" stroke-linejoin="round">
     <path d="M18 6 6 18M6 6l12 12"/>
   </svg>
@@ -108,15 +142,20 @@ Lucide's `arrow-right`.
 | --- | --- |
 | Source | Lucide, current version |
 | Canvas | 24 × 24, placed in a ~27px box centred in the 65px tile |
-| Stroke | `2`, `white` |
+| Stroke | `1`, `white` — the substitute weight, not the tile's original 2 |
 | Caps / joins | `round` / `round` |
 | Fill | `none` |
 | Tile | Untouched — same rect, gradient, radius |
 
-Two tiles currently deviate: `services-positioning-strategy` has a
-`1.15385` stroke on one path and `services-value-architecture` uses
-`1.92308`. Normalise both to 2 when replacing, rather than preserving the
-inconsistency.
+**A replaced tile glyph will be finer than an unreplaced one.** The delivered
+tiles carry 2px glyphs; a Lucide substitute declares 1. That's the
+substitution rule applying consistently, and it means a part-replaced set
+will look mixed. Replace the whole set or none of it.
+
+(The delivered tiles also aren't internally consistent:
+`services-positioning-strategy` has a `1.15385` stroke on one path and
+`services-value-architecture` uses `1.92308`, where the rest are 2. That
+inconsistency disappears if the set is replaced wholesale.)
 
 ### Mapping, by service context
 

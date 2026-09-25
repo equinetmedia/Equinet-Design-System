@@ -48,14 +48,16 @@ clone) *before* starting, then prompt normally.
 > 16:9 row.
 >
 > **Icons — `assets/icons/`.** Only the three root icons take `currentColor`.
-> For anything with no Equinet geometry, use Lucide (24×24, 2px stroke, round
-> caps and joins — an exact match to the house style, see
-> `ICON-REFERENCE.md`) and mark it in a comment as a placeholder. Never
-> fabricate a glyph. `nodes/` are brand marks — place them, don't take them
+> For anything with no Equinet geometry, use Lucide on a 24×24 canvas with
+> round caps and joins, `stroke-width="1"` — deliberately finer than
+> Equinet's own 2px icons, so a substitute is visible as one — and no icon
+> over 48px. Mark it in a comment as a placeholder. Never fabricate a glyph.
+> See `ICON-REFERENCE.md`. `nodes/` are brand marks — place them, don't take them
 > apart. For `service-tiles/`, the tile is the brand asset but the white glyph
 > inside it is iconography: swap it for a context-appropriate Lucide icon
-> (2px stroke, round caps, white, ~27px box) and leave the rect, gradient and
-> radius untouched.
+> (1px stroke, round caps, white, ~27px box) and leave the rect, gradient and
+> radius untouched. Replace the whole set or none of it — a 1px substitute
+> next to a delivered 2px glyph looks mixed.
 >
 > **Layout.** Use `.eq-stagger` from `components/bundle.css` for alternating
 > media/text rows. Vary the rhythm where it serves the content — reorder,

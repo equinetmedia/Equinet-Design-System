@@ -5,6 +5,36 @@ Project. Every entry below represents a manual reconciliation pass — someone
 asked Claude, in that Project, to fold new development work into
 `tokens.css` / `README.md`, then committed the result here.
 
+## 2026-09-24 — Substituted icons set to 1px stroke, 48px ceiling
+
+Rule: every Lucide or otherwise substituted icon declares
+`stroke-width="1"`, and no icon — substituted or Equinet's own — renders
+above 48px. New tokens: `--equinet-icon-stroke` (2),
+`--equinet-icon-stroke--substitute` (1), `--equinet-icon-size-max` (48px).
+
+**This is a deliberate divergence, recorded as one.** Equinet's own icons are
+2px on a 24 canvas — measured from the button exports — and Lucide ships 2px
+natively, so 1px is not a match to the house style but an override of it.
+Substitutes therefore read visibly finer than real Equinet artwork, which has
+the useful effect of making a placeholder identifiable on sight rather than
+only in a code comment.
+
+Worked through the arithmetic before writing it, because the two constraints
+interact: a 1px declaration renders 1.00px at 24, 1.33px at 32 and 2.00px at
+48. At the 48px ceiling it coincidentally lands on the house 2px weight. The
+rule says explicitly **not** to treat that as the target or scale the
+declaration up at smaller sizes — the finer weight is the point.
+
+**Corrected yesterday's service-tile contract**, which specified a 2px white
+glyph. Substituted tile glyphs are 1px like any other substitute, so a
+part-replaced set will look mixed against the delivered 2px glyphs — the
+rule now says replace the whole set or none of it.
+
+Also qualified the "Lucide is an exact match" heading in
+`ICON-REFERENCE.md`. Canvas, caps, joins and colour handling still match
+exactly; stroke no longer does, and saying otherwise would have been stale
+the moment this rule landed.
+
 ## 2026-09-24 — Flows subgroup added; illustrations found to reuse a real UI token
 
 Three 1209 × 675 step-flow diagrams filed as `assets/illustrations/flows/`,

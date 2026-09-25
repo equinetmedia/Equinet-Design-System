@@ -448,6 +448,20 @@
                                                  Navigation keeps rx 7 in both its
                                                  exports; don't apply this there.
                                                  · button SVG audit · 2026-09-23 */
+  /* ---------------------------------------------------------- ICONOGRAPHY --
+     Substituted icons (Lucide) are DELIBERATELY finer than Equinet's own.
+     Decided 2026-09-24. The three real icons and the service-tile glyphs are
+     2px on a 24 canvas; a Lucide substitute declares 1. At equal display size
+     that renders half the weight — intentional, not a mismatch, and it has
+     the useful side effect of making a substitute visually identifiable as
+     one. Never scale the declared value up to "correct" it. */
+  --equinet-icon-stroke: 2;                  /* Equinet's own icons — measured from
+                                                 button_textual_default.svg · 2026-09-23 */
+  --equinet-icon-stroke--substitute: 1;      /* Lucide and any other substituted icon · 2026-09-24 */
+  --equinet-icon-size-max: 48px;             /* hard ceiling for any icon, substituted or not.
+                                                 Above this an icon reads as an illustration;
+                                                 use assets/illustrations/ instead · 2026-09-24 */
+
   --equinet-btn-height--navigation: 54px;    /* button_navigation_solid rect height — 54,
                                                  NOT the 56 of primary/video · 2026-09-23 */
   --equinet-btn-scale--active: 0.99;         /* press state, shipped in plain_hero_banner

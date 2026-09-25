@@ -102,6 +102,14 @@ card, a scene as a media panel. See `assets/illustrations/INDEX.md`.
 CSS — size and colour behaviour — but no geometry, because no `module.html`
 carrying them has been shared.
 
+## Substituted icons: 1px, max 48px
+
+Rule set 2026-09-24. A Lucide or other substituted icon declares
+`stroke-width="1"` — half the weight of Equinet's own 2px icons, on purpose,
+so a substitute is identifiable on sight. No icon exceeds 48px, substituted
+or not; past that it reads as an illustration. Full rationale and the
+per-size arithmetic in `ICON-REFERENCE.md`.
+
 ## Placeholder policy
 
 **Matching a substitute: see `ICON-REFERENCE.md`.** It records the measured
