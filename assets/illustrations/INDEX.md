@@ -94,6 +94,22 @@ arranged:
 | `CRM-ERP-integration-d` | Systems integration | CRM, ERP, integration, HubSpot, architecture |
 | `Sales-enablement-execution-support-c` | Supporting sales execution | sales enablement, execution, sales ops |
 
+## `flows/` — 1209 × 675, transparent
+
+Horizontal four-step sequences. Use where content genuinely has an ordered
+progression; the form implies sequence, so don't use one for a set of
+unordered items.
+
+| File | Depicts | Topics |
+| --- | --- | --- |
+| `turning-your-commercial-data-into-an-uncorrupted-source-of-truth` | Data cleaned into a single trusted source | data quality, source of truth, CRM data, governance |
+| `make-your-technical-expertise-machine-readable` | Expertise structured for machines to parse | machine-readable, structured data, AEO, technical content |
+| `smarter-content-operations-for-manufacturing-growth` | Content operations for manufacturers | content ops, manufacturing, publishing workflow |
+
+These three suit AEO and structured-content subjects better than anything
+else in the set — `make-your-technical-expertise-machine-readable` in
+particular is the only illustration that directly depicts machine-readability.
+
 ## `pictonodes/` — 118 × 118 square, transparent
 
 Small spot graphics. Use beside a heading or list item, not as a hero.

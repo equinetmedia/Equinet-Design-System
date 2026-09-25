@@ -5,6 +5,38 @@ Project. Every entry below represents a manual reconciliation pass — someone
 asked Claude, in that Project, to fold new development work into
 `tokens.css` / `README.md`, then committed the result here.
 
+## 2026-09-24 — Flows subgroup added; illustrations found to reuse a real UI token
+
+Three 1209 × 675 step-flow diagrams filed as `assets/illustrations/flows/`,
+bringing that folder to five subgroups and 32 files. Transparent, static, no
+text. The most templated group in the set: all three share one composition
+exactly — four 170.389px cards joined by arrows, terminating in an orange
+accent box — differing only in glyphs.
+
+**Zero new colours.** All five values are existing tokens, which is a first
+for a new batch; every previous one surfaced at least a logged candidate.
+
+**The interesting find: these are drawn from UI primitives.** Each card's
+drop shadow is `-4.616px 39.236px 39.236px rgba(0,0,0,0.07)`. That is
+`--equinet-shadow-card--hover` (`-4px 34px 34px`, same alpha) scaled by
+exactly 1.154 on dx, dy and blur alike. Combined with the cards' gradient
+being the module background gradient reversed, and their border being
+`--equinet-color-border`, these illustrations were composed from the real
+card pattern rather than drawn freehand.
+
+That matters for the kit-of-parts model: a card lifted from one of these can
+be rebuilt as a genuine `.eq-card` with live tokens instead of pasted as
+artwork, because it already is the card pattern at a different scale.
+
+Two palette distinctions recorded: `flows/` uses `#E06730` (primary orange)
+where every other group uses `#F5844D` (amber-400), and it's the only group
+where `--equinet-color-border`, a UI token, does illustration line work.
+
+Also noted in `INDEX.md`: `make-your-technical-expertise-machine-readable` is
+the only illustration in the entire set that directly depicts
+machine-readability, so it's the one real match for an AEO or structured-data
+subject — a gap the earlier AI-topic test exposed.
+
 ## 2026-09-24 — Service-tile glyphs made substitutable; earlier rule reversed
 
 **Reverses a rule I wrote the day before.** `ICON-REFERENCE.md` had listed

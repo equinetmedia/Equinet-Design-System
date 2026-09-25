@@ -5,7 +5,7 @@ to stand on its own belongs here. The quick test: if flattening a graphic to a
 single ink would ruin it, it's an illustration. Icons inherit `currentColor`
 from the control around them; none of these can.
 
-Four subgroups, 29 files:
+Five subgroups, 32 files:
 
 **Choosing one? Read `INDEX.md` first** — it lists every file's subject and
 topics, and carries the selection rules, including the one that matters most:
@@ -22,9 +22,10 @@ spot art. Every other group is transparent.
 | `scenes/` | 12 | 641 × 360 (1.781) | Blue-900, blue-400, amber | Service and process illustrations |
 | `sectors/` | 4 | 641 × 361 (1.776) | Blue-default, charade-500, amber | Sector/vertical pictographs |
 | `systems/` | 5 | 460 × 259 (1.776) | Night, charade, blue-400, amber | Commercial-systems process diagrams |
+| `flows/` | 3 | 1209 × 675 (1.791) | Night, charade-500, border, orange | Horizontal step-flow diagrams |
 
-The three 16:9 groups are interchangeable in one frame — 1.776 and 1.781 are
-the same ratio within rounding, despite the different pixel dimensions.
+The four 16:9 groups are interchangeable in one frame — 1.776 to 1.791, the
+same ratio within rounding, despite four different pixel sizes.
 `pictonodes/` is square and is not.
 
 ---
@@ -124,6 +125,45 @@ in all five of these plus two marketing files, and was already a real token
 from the Figma import, so that question is closed. `#F1F1F1` was genuinely
 new — in all five files, in no token — and earned its own token on that
 cross-file evidence.
+
+## `flows/` — horizontal step-flow diagrams
+
+Three 1209 × 675 diagrams, added 2026-09-24: turning commercial data into an
+uncorrupted source of truth, making technical expertise machine-readable, and
+smarter content operations for manufacturing growth.
+
+All three share one composition exactly — a left-to-right sequence of four
+170.389 × 170.389 cards joined by arrows, each card holding a single dark
+glyph, the row terminating in an orange-accented box. 15–16 paths each.
+They are the most templated group in the set: same geometry, same palette,
+same counts, differing only in the glyphs and the final accent.
+
+**They're built from UI primitives, not free-drawn.** The cards carry
+`rx 18.0784` corners, a 4px `#B1B7C8` border, and a vertical
+`#F6F5F5` → `white` gradient — the module background gradient, reversed. Their
+drop shadow is `-4.616px 39.236px 39.236px rgba(0,0,0,0.07)`, which is
+`--equinet-shadow-card--hover` (`-4px 34px 34px rgba(0,0,0,0.07)`) scaled by
+exactly 1.154 on every component, alpha unchanged. That's the real card token
+enlarged for the artboard, not a lookalike.
+
+Useful consequence for recomposition: a card lifted out of one of these can
+be rebuilt as an actual `.eq-card` with real tokens rather than pasted as
+artwork, because it already *is* the card pattern.
+
+Palette, all existing tokens:
+
+| Value | Token | Role here |
+| --- | --- | --- |
+| `#242630` | `--equinet-color-heading` | The glyph inside each card |
+| `#68728F` | `--equinet-color-diagram-line` | Connector nodes and stubs |
+| `#B1B7C8` | `--equinet-color-border` | Card borders and the flow arrows |
+| `#F6F5F5` | `--equinet-color-surface--alt` | Card gradient start |
+| `#E06730` | `--equinet-color-orange` | The terminal accent box |
+
+One palette distinction worth noting: these use `#E06730`, the primary
+orange, where every other illustration group reaches for `#F5844D`
+(`amber-400`). And `#B1B7C8` is a UI border token doing illustration line
+work — the only group where that happens.
 
 ## `pictonodes/` — square spot graphics
 

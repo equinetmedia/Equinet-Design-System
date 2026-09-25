@@ -57,7 +57,7 @@ chat each time, not pulled automatically.
 | `assets/brand/` | Wordmark, light and dark variants | Any use of the logo |
 | `assets/comps/` | Three 1920px Figma module comps — reference for parity QA, never page artwork |
 | `assets/marketing/` | Seventeen infographics, with a per-file audit index | Provenance for the chart and diagram token categories |
-| `assets/illustrations/` | 29 standalone graphics in four subgroups, plus `INDEX.md` — the per-file subject index an agent reads to choose artwork | Standalone graphics — not icons; one file has an unguarded infinite animation, see that folder's README |
+| `assets/illustrations/` | 32 standalone graphics in five subgroups, plus `INDEX.md` — the per-file subject index an agent reads to choose artwork | Standalone graphics — not icons; one file has an unguarded infinite animation, see that folder's README |
 
 ## Why this isn't already in Claude Design
 
