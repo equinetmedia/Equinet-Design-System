@@ -5,6 +5,26 @@ Project. Every entry below represents a manual reconciliation pass — someone
 asked Claude, in that Project, to fold new development work into
 `tokens.css` / `README.md`, then committed the result here.
 
+## 2026-09-24 — Prompt template added
+
+`PROMPT-TEMPLATE.md`: a reusable Claude Design prompt with `{CONTEXT}` as the
+page subject, plus a table explaining why each constraint exists — most of
+them trace to a specific failure found during these audits.
+
+Two corrections to the draft it was built from. **"Pull the updated repo from
+[URL]" was removed**: the repo is private and Claude Design reads it through a
+configured import, so that instruction can only no-op or produce a false claim
+that it succeeded. Refreshing is a setup step taken before prompting, and the
+template says so. **"Enhance layout with assets" gained its negative rule**,
+because as written it reads as an instruction to use an illustration, which is
+how a near-miss gets chosen — exactly the failure mode the AI-addiction test
+page would have produced.
+
+The AEO section was made concrete rather than named: question-shaped H2s,
+answer-first sections, terms defined on first use, genuinely enumerable
+content in tables, explicit entity naming, one idea per section so a chunk
+stands alone as an answer.
+
 ## 2026-09-24 — Illustrations reclassified as reference; a wrong rule corrected
 
 **Correcting a rule I inferred wrongly.** Across several files the

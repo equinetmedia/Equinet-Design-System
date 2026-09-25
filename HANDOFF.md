@@ -50,6 +50,7 @@ chat each time, not pulled automatically.
 | `tokens.json` | The same values, reshaped into the `{"tokens":[{"name","value","usage"}]}` format Claude Design's own Design System schema reads | If the import flow asks for this shape instead of CSS |
 | `README.md` | The full brand book: consumption pattern, colour, type, spacing, breakpoints, motion, buttons, cards, backgrounds/parallax, editor-controlled styling, icons, accessibility, the engineering contract, component inventory, and open decisions | Read first — everything else assumes it |
 | `CHANGELOG.md` | Dated log of every reconciliation pass, what it resolved, and what it newly surfaced | Tracing when and why a value or decision changed |
+| `PROMPT-TEMPLATE.md` | A ready prompt for generating pages in Claude Design, with the reasoning behind each constraint | Starting a new page; adapting the wording for a different brief |
 | `components/bundle.css` | The pure-CSS component layer — three button variants with every state, plus `.eq-stagger` alternating content rows sized to the illustration ratios | The actual CSS; loads after `tokens.css` |
 | `assets/icons/` | 16 files in three groups, plus `ICON-REFERENCE.md` — the measured house style and how to match a Lucide or Phosphor substitute to it | Inlining an icon into a module |
 | `assets/buttons/` | The ten Figma button exports, kept as the measurement source of record | Verifying a geometry claim against its origin |
