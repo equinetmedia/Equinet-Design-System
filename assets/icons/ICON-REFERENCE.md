@@ -87,10 +87,68 @@ artwork permanently. If the real Figma geometry turns up, it replaces the
 substitute — the same way `arrow-chevron`, `arrow-solid` and `play-circle`
 replaced guesswork once the button exports arrived.
 
-## What not to substitute
+## Service tiles: glyphs ARE substitutable — rule set 2026-09-24
 
-`nodes/` and `service-tiles/` are Equinet-specific marks — concept nodes and
-branded service tiles. There is no Lucide or Phosphor equivalent, and a
-generic icon in their place would misrepresent a brand asset rather than
-stand in for a missing utility glyph. If one is needed and doesn't exist,
-that's a request for the designer.
+**This reverses an earlier rule in this file.** The tiles were previously
+listed as un-substitutable brand marks. They aren't: the *tile* is the brand
+asset — the 65 × 65 rounded rect, its `#265D94` → `#002E4A` gradient, the
+`rx 10.3409` corner — and the white glyph inside it is iconography, which
+follows the same rules as any other icon here.
+
+Substitution is clean because the geometry already matches. Measured across
+all eight tiles: **2px stroke, round caps, round joins**, white, with the
+glyph occupying roughly a 27px box inside the 65px tile. Lucide is 2px on a
+24 canvas with the same caps and joins — so a Lucide icon scaled into that
+box needs no restyling, the same way the house chevron turned out to *be*
+Lucide's `arrow-right`.
+
+### Contract for a replaced glyph
+
+| Property | Value |
+| --- | --- |
+| Source | Lucide, current version |
+| Canvas | 24 × 24, placed in a ~27px box centred in the 65px tile |
+| Stroke | `2`, `white` |
+| Caps / joins | `round` / `round` |
+| Fill | `none` |
+| Tile | Untouched — same rect, gradient, radius |
+
+Two tiles currently deviate: `services-positioning-strategy` has a
+`1.15385` stroke on one path and `services-value-architecture` uses
+`1.92308`. Normalise both to 2 when replacing, rather than preserving the
+inconsistency.
+
+### Mapping, by service context
+
+| Tile | Lucide icon | Why |
+| --- | --- | --- |
+| `services-positioning-audit` | `search-check` | An audit is an inspection that reaches a verdict |
+| `services-positioning-strategy` | `target` | A chosen position to aim at |
+| `services-competitor-analysis` | `chart-no-axes-column` | Comparing performance across players |
+| `services-ideal-customer-profile` | `user-round-search` | Identifying a specific customer type |
+| `services-commercial-narritive` | `message-square-quote` | A told story, not a document |
+| `services-value-architecture` | `layers` | Structure built up in layers |
+| `services-sales-enablement-alignment` | `handshake` | Two functions brought into agreement |
+| `services-digital-experience-alignment` | `monitor-check` | A digital surface, verified |
+
+These are proposals based on what each service means, not decisions — a
+designer may well prefer a different glyph, and the mapping should be edited
+rather than treated as fixed. What is fixed is the contract above.
+
+### Path data comes from Lucide, never from memory
+
+Do not transcribe a Lucide path from recall when building a replacement.
+Fetch it from the library — `lucide.dev`, the npm package, or a
+`lucide-react` import — and keep its root attributes rather than restating
+`fill` or `stroke` on inner paths. A remembered path is a fabricated path,
+which is the failure this whole file exists to prevent. The three root icons
+here were extracted from real exports with a parser precisely because
+estimates weren't good enough.
+
+## `nodes/` — still not substitutable
+
+The five 43 × 43 concept marks are a different case. They have no enclosing
+brand container to preserve; the mark *is* the whole asset, and there's no
+Lucide equivalent for an Equinet concept node. Replacing one wouldn't be
+substituting a glyph inside a brand asset, it would be replacing the brand
+asset. If a new node is needed, that's a request for the designer.

@@ -5,6 +5,69 @@ Project. Every entry below represents a manual reconciliation pass — someone
 asked Claude, in that Project, to fold new development work into
 `tokens.css` / `README.md`, then committed the result here.
 
+## 2026-09-24 — Service-tile glyphs made substitutable; earlier rule reversed
+
+**Reverses a rule I wrote the day before.** `ICON-REFERENCE.md` had listed
+`service-tiles/` alongside `nodes/` as un-substitutable brand marks, on the
+reasoning that "the gradient, glyph and white ink are the asset itself". That
+conflated two things. The *tile* is the brand asset — 65 × 65, `rx 10.3409`,
+`#265D94` → `#002E4A` gradient. The white glyph inside it is iconography, and
+follows the same rules as every other icon here.
+
+**Substitution is clean because the geometry already matches.** Measured
+across all eight tiles: 2px stroke, round caps, round joins, white, glyph
+occupying roughly a 27px box inside the 65px tile. Lucide draws 2px on a 24
+canvas with the same caps and joins — so a Lucide icon scaled into that box
+needs no restyling. Second time this system's house style has turned out to
+be Lucide's grid exactly; the first was the chevron that *is* `arrow-right`.
+
+Recorded: the replacement contract (source, canvas, stroke, caps, fill, tile
+untouched), a per-service mapping for all eight tiles, and two deviations to
+normalise — `services-positioning-strategy` carries a `1.15385` stroke on one
+path and `services-value-architecture` a `1.92308`, where the rest are 2.
+
+**Path data is explicitly not to be transcribed from memory.** The rule says
+to fetch each icon from Lucide itself and keep its root attributes. A
+remembered path is a fabricated path — the exact failure the three root icons
+were extracted with a parser to avoid.
+
+**`nodes/` stay un-substitutable**, and the distinction is now stated rather
+than assumed: a node has no enclosing brand container, so the mark *is* the
+whole asset. Replacing one wouldn't swap a glyph inside a brand asset, it
+would replace the brand asset.
+
+Updated in four places so the system doesn't contradict itself:
+`ICON-REFERENCE.md`, `assets/icons/README.md`, the main README's
+AI-generation instructions, and `PROMPT-TEMPLATE.md`.
+
+## 2026-09-24 — Prompt rules folded into the design system where they belong
+
+Checked the prompt template against `README.md`'s AI-generation instructions
+rather than assuming a gap. Most of it was already built in — illustrations,
+icons, spacing, typography, contrast and hierarchy all had coverage. Three
+things genuinely didn't, now added:
+
+- **Section-heading size.** The instructions said "every h2 is uppercase with
+  the heading shadow" but never which size token — the exact thing that caused
+  the `bundle.css` 48px/36px bug. Now names
+  `--equinet-fontsize-section-heading` and the family-dependent weight.
+- **Layout.** No pointer to `.eq-stagger` existed in the instructions, so an
+  agent had no reason to find it. Added, with permission to vary the rhythm
+  and the two constraints that stay fixed.
+- **"Say so rather than approximate."** The single most load-bearing rule in
+  the prompt, and it wasn't in the system at all. A near-miss illustration, an
+  invented hue or a fabricated glyph is worse than an honest omission because
+  it looks finished and hides the problem. Now applies to every rule in the
+  section.
+
+**Deliberately kept out: the AEO guidance.** Answer-engine structure is
+editorial — how a page is written and organised, not how the brand looks or
+behaves. It doesn't belong in `tokens.css`, a component, or the design
+system's instructions, and putting it there would blur what the system is
+for. Same for anything subject-specific. Both stay in the prompt, which is
+where brief-level direction belongs. Recorded in `PROMPT-TEMPLATE.md` so the
+split is deliberate rather than an omission someone later "fixes".
+
 ## 2026-09-24 — Prompt template added
 
 `PROMPT-TEMPLATE.md`: a reusable Claude Design prompt with `{CONTEXT}` as the

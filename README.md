@@ -639,8 +639,11 @@ nothing fits.**
   that take `currentColor`, five 43 × 43 concept marks (`nodes/`) and eight
   65 × 65 service tiles (`service-tiles/`). Read that folder's `README.md`
   first: only the three root icons recolour with their control; the nodes
-  hardcode their ink and the tiles are self-contained white-on-navy artwork
-  that must not be recoloured at all. Three icons are still missing
+  hardcode their ink; and the tiles are white-on-navy artwork that must not be
+  recoloured — though the **glyph inside a tile is substitutable**, and may be
+  swapped for a context-appropriate Lucide icon keeping the rect, gradient and
+  radius untouched (rule set 2026-09-24; `ICON-REFERENCE.md` has the contract
+  and a per-service mapping). Three icons are still missing
   geometry (`close`, `checkmark`, `external-link`); for those, **a neutral
   icon set (Lucide or similar) is an acceptable placeholder** — decided
   2026-09-23 — but it must read as a placeholder, not be presented as a real
@@ -664,8 +667,11 @@ nothing fits.**
 **Typography — the two families, the real scale, nothing else.**
 Open Sans for headings, Source Sans 3 for body, Playfair Display only as the
 already-established optional accent (see **Type**). No third typeface. No
-size outside `equinet-fontsize-*`. Every h2 is uppercase with the heading
-drop shadow, no exceptions — see **Type** for the exact values.
+size outside `equinet-fontsize-*`. Section headings are
+`--equinet-fontsize-section-heading` (36px), not `--equinet-fontsize-h2`
+(48px, the canonical Figma variable, applied in no comp). Weight follows the
+family: 800 for Open Sans, 900 for the body family. Every h2 is uppercase with
+the heading drop shadow, no exceptions — see **Type** for the exact values.
 
 **Where tokens don't dictate an answer, general UI practice fills the gap —
 it doesn't license invention:**
@@ -679,6 +685,21 @@ it doesn't license invention:**
 - Density: the button's 56px height and the spacing scale's rhythm exist so
   interactive targets and gaps don't need re-deriving per design — use them
   rather than judging by eye whether something looks crowded.
+
+**Layout — start from the pattern, then vary it.**
+`.eq-stagger` in `components/bundle.css` handles alternating media/text rows,
+sized to the real illustration ratios and already carrying the right media
+modifier per folder. Vary the rhythm where the content earns it — regroup,
+break the alternation for a full-width moment — but keep spacing on the
+`--equinet-space-*` scale, and don't put square `pictonodes/` in a 16:9 row.
+
+**Say so rather than approximate.**
+If something here can't be satisfied — no illustration matches the subject, a
+needed icon has no geometry, a token doesn't exist for a value the design
+wants — state that plainly in the output instead of filling the gap with
+something plausible. A near-miss illustration, an invented hue or a fabricated
+glyph is worse than an honest omission, because it looks finished and hides
+the problem. This applies to every rule above.
 
 ## Accessibility
 

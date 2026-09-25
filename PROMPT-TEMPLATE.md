@@ -51,8 +51,11 @@ clone) *before* starting, then prompt normally.
 > For anything with no Equinet geometry, use Lucide (24×24, 2px stroke, round
 > caps and joins — an exact match to the house style, see
 > `ICON-REFERENCE.md`) and mark it in a comment as a placeholder. Never
-> fabricate a glyph. `nodes/` and `service-tiles/` are brand marks: place
-> them, don't recolour or take them apart.
+> fabricate a glyph. `nodes/` are brand marks — place them, don't take them
+> apart. For `service-tiles/`, the tile is the brand asset but the white glyph
+> inside it is iconography: swap it for a context-appropriate Lucide icon
+> (2px stroke, round caps, white, ~27px box) and leave the rect, gradient and
+> radius untouched.
 >
 > **Layout.** Use `.eq-stagger` from `components/bundle.css` for alternating
 > media/text rows. Vary the rhythm where it serves the content — reorder,
@@ -80,6 +83,26 @@ clone) *before* starting, then prompt normally.
 > than approximating.
 
 ---
+
+## What's already built in, and what isn't
+
+Most of this prompt restates rules that live in the repo — `README.md`'s
+"Instructions for AI-generated design" section, `assets/illustrations/INDEX.md`,
+and the per-folder READMEs. Claude Design reads those when it reads the design
+system, so the prompt is reinforcement, not the only place the rules exist.
+Restating them is still worth doing: a rule in a prompt is in front of the
+model at generation time, a rule in a README may or may not be.
+
+**Deliberately not built into the design system: the AEO section.** Answer-engine
+structure is editorial guidance about how a page is written and organised —
+question-shaped headings, answer-first sections, self-contained chunks. None
+of it is a design decision, none of it belongs in `tokens.css` or a component,
+and putting it in the design system would blur what that system is for. It
+stays in the prompt, where it applies to the brief rather than to the brand.
+
+The same goes for `{CONTEXT}` itself and any subject-specific direction: the
+design system describes how Equinet looks and behaves, not what a given page
+should say.
 
 ## Why each constraint is there
 

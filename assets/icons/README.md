@@ -72,12 +72,19 @@ tokens; nothing new.
 These are **self-contained tiles, not glyphs**. The background is part of the
 artwork, the glyph is hardcoded white, and neither responds to
 `currentColor` — correctly so, since a white-on-navy tile only works on its own
-ground. Place them as `<img>`; don't inline and don't try to recolour.
+ground. Place them as `<img>` when using one as delivered.
 
-Note this is a genuine exception to how `assets/illustrations/` works. Those
-are reference material and may be recomposed; a service tile is a finished
-brand mark whose gradient, glyph and white ink are the asset itself. Nothing
-to extract from, nothing to rearrange.
+**The glyph inside a tile is substitutable; the tile is not** — rule set
+2026-09-24, reversing an earlier note here. The brand asset is the 65 × 65
+rounded rect with its navy gradient; the white glyph inside it is
+iconography and follows the same rules as any other icon. Swapping one for a
+context-appropriate Lucide icon is sanctioned, and the geometry already
+matches: the tile glyphs are 2px stroke with round caps and joins, the same
+grid Lucide draws on. `ICON-REFERENCE.md` carries the contract and a
+per-service mapping. Inline the SVG when replacing, so the glyph paths are
+addressable; keep the rect, gradient and radius untouched.
+
+Recolouring a tile is still out — the white-on-navy pairing is the asset.
 
 Three of the eight overlap in subject with `illustrations/scenes/`
 (`ideal-customer-profile`, `positioning-strategy`, and
