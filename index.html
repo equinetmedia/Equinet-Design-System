@@ -1,0 +1,1282 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Equinet Design System</title>
+  <meta name="description" content="Production design tokens, pure-CSS component bundle, SVG illustration and iconography library, and layout system for Equinet Media HubSpot CMS modules." />
+  <meta property="og:title" content="Equinet Design System" />
+  <meta property="og:description" content="Production design tokens, pure-CSS component bundle, SVG illustration and iconography library, and layout system for Equinet Media HubSpot CMS modules." />
+  <link rel="stylesheet" href="/tokens.css" />
+  <link rel="stylesheet" href="/components/bundle.css" />
+  <style>
+    /* Zero-specificity reset per Equinet README "Cards" */
+    :where(.eq-sys) :where(p, h1, h2, h3, h4, h5, h6, ul, ol, dl, dt, dd, figure, blockquote) { margin: 0; }
+    :where(.eq-sys) :where(ul, ol) { padding: 0; list-style: none; }
+    :where(.eq-sys) :where(img, picture, svg) { max-width: 100%; }
+
+    body {
+      margin: 0;
+      font-family: var(--equinet-font-body, 'Source Sans 3', sans-serif);
+      font-size: var(--equinet-fontsize-body, 16px);
+      line-height: var(--equinet-lineheight-body, 24px);
+      color: var(--equinet-color-body, #3B3F51);
+      background-color: var(--equinet-color-surface, #FFFFFF);
+    }
+
+    /* Header Bar */
+    .eq-header {
+      background-color: var(--equinet-color-navy--dark, #002E4A);
+      color: var(--equinet-color-surface, #FFFFFF);
+      padding: var(--equinet-space-md, 24px) var(--equinet-space-2xl, 48px);
+      border-bottom: var(--equinet-border-width-md, 2px) solid var(--equinet-color-navy, #00426C);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+
+    .eq-header__inner {
+      max-width: 1440px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: var(--equinet-space-md, 24px);
+    }
+
+    .eq-header__brand {
+      display: flex;
+      align-items: center;
+      gap: var(--equinet-space-md, 24px);
+    }
+
+    .eq-header__logo {
+      height: 36px;
+      width: auto;
+      display: block;
+    }
+
+    .eq-header__badge {
+      font-family: var(--equinet-font-body, 'Source Sans 3', sans-serif);
+      font-size: var(--equinet-fontsize-kicker, 12px);
+      font-weight: var(--equinet-fontweight-kicker, 700);
+      letter-spacing: var(--equinet-letterspacing-kicker, 0.2em);
+      text-indent: var(--equinet-letterspacing-kicker, 0.2em);
+      text-transform: uppercase;
+      color: var(--equinet-color-orange--light, #F5844D);
+      background-color: var(--equinet-color-navy, #00426C);
+      padding: var(--equinet-space-2xs, 8px) var(--equinet-space-sm, 16px);
+      border-radius: var(--equinet-radius-pill, 8px);
+    }
+
+    .eq-nav {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--equinet-space-2xs, 8px);
+    }
+
+    .eq-nav__tab {
+      font-family: var(--equinet-font-body, 'Source Sans 3', sans-serif);
+      font-size: var(--equinet-fontsize-small, 14px);
+      font-weight: var(--equinet-fontweight-semibold, 600);
+      color: var(--equinet-color-surface, #FFFFFF);
+      background: transparent;
+      border: var(--equinet-border-width-sm, 1px) solid transparent;
+      border-radius: var(--equinet-btn-radius, 7px);
+      padding: var(--equinet-space-2xs, 8px) var(--equinet-space-sm, 16px);
+      cursor: pointer;
+      transition: background-color var(--equinet-motion-duration--ui, 200ms) var(--equinet-motion-ease--ui, ease),
+                  color var(--equinet-motion-duration--ui, 200ms) var(--equinet-motion-ease--ui, ease);
+    }
+
+    .eq-nav__tab:hover,
+    .eq-nav__tab:focus-visible {
+      background-color: var(--equinet-color-navy, #00426C);
+      color: var(--equinet-color-orange--light, #F5844D);
+      outline: none;
+    }
+
+    .eq-nav__tab[aria-selected="true"] {
+      background-color: var(--equinet-color-orange, #E06730);
+      color: var(--equinet-color-surface, #FFFFFF);
+    }
+
+    /* Hero Section */
+    .eq-hero {
+      background: linear-gradient(135deg, var(--equinet-color-navy--dark, #002E4A) 0%, var(--equinet-color-navy, #00426C) 100%);
+      color: var(--equinet-color-surface, #FFFFFF);
+      padding: var(--equinet-space-3xl, 56px) var(--equinet-space-2xl, 48px);
+    }
+
+    .eq-hero__inner {
+      max-width: 1440px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1.15fr 0.85fr;
+      gap: var(--equinet-space-2xl, 48px);
+      align-items: center;
+    }
+
+    .eq-eyebrow-pill {
+      display: inline-block;
+      font-family: var(--equinet-font-body, 'Source Sans 3', sans-serif);
+      font-size: var(--equinet-fontsize-kicker, 12px);
+      font-weight: var(--equinet-fontweight-kicker, 700);
+      letter-spacing: var(--equinet-letterspacing-kicker, 0.2em);
+      text-indent: var(--equinet-letterspacing-kicker, 0.2em);
+      text-transform: uppercase;
+      color: var(--equinet-color-orange, #E06730);
+      background-color: var(--equinet-color-orange--pale, #FCE9E0);
+      padding: var(--equinet-space-2xs, 8px) var(--equinet-space-sm, 16px);
+      border-radius: var(--equinet-radius-pill, 8px);
+      margin-bottom: var(--equinet-space-md, 24px);
+    }
+
+    .eq-display-title {
+      font-family: var(--equinet-font-heading, 'Open Sans', sans-serif);
+      font-size: var(--equinet-fontsize-h1, 56px);
+      font-weight: var(--equinet-fontweight-display, 800);
+      line-height: 1;
+      letter-spacing: var(--equinet-letterspacing-display, -0.05em);
+      text-transform: var(--equinet-text-transform-h1, uppercase);
+      text-shadow: var(--equinet-shadow-heading, -2px 2px 4px rgba(0, 0, 0, 0.15));
+      color: var(--equinet-color-surface, #FFFFFF);
+      margin-bottom: var(--equinet-space-md, 24px);
+      text-wrap: balance;
+    }
+
+    .eq-lead {
+      font-family: var(--equinet-font-body, 'Source Sans 3', sans-serif);
+      font-size: var(--equinet-fontsize-lead, 20px);
+      line-height: var(--equinet-lineheight-lead, 1.3);
+      font-style: var(--equinet-fontstyle-lead, italic);
+      color: var(--equinet-color-surface--alt, #F6F5F5);
+      margin-bottom: var(--equinet-space-lg, 32px);
+      text-wrap: pretty;
+    }
+
+    .eq-cta-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--equinet-space-md, 24px);
+      align-items: center;
+    }
+
+    .eq-hero__stats {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: var(--equinet-space-md, 24px);
+    }
+
+    .eq-stat-card {
+      background-color: var(--equinet-color-surface, #FFFFFF);
+      color: var(--equinet-color-body, #3B3F51);
+      padding: var(--equinet-space-md, 24px);
+      border-radius: var(--equinet-radius-card, 7px);
+      border-left: var(--equinet-border-width-lg, 4px) solid var(--equinet-color-orange, #E06730);
+      box-shadow: var(--equinet-shadow-card, 1px 1px 5px 0px rgba(0, 0, 0, 0.13));
+    }
+
+    .eq-stat-card__val {
+      font-family: var(--equinet-font-heading, 'Open Sans', sans-serif);
+      font-size: var(--equinet-fontsize-section-heading, 36px);
+      font-weight: var(--equinet-fontweight-display, 800);
+      color: var(--equinet-color-heading, #242630);
+      line-height: 1.1;
+    }
+
+    .eq-stat-card__label {
+      font-size: var(--equinet-fontsize-small, 14px);
+      font-weight: var(--equinet-fontweight-semibold, 600);
+      color: var(--equinet-color-body, #3B3F51);
+      margin-top: var(--equinet-space-2xs, 8px);
+    }
+
+    /* Main Content Layout */
+    .eq-main {
+      max-width: 1440px;
+      margin: 0 auto;
+      padding: var(--equinet-space-3xl, 56px) var(--equinet-space-2xl, 48px);
+    }
+
+    .eq-panel {
+      display: none;
+    }
+
+    .eq-panel.is-active {
+      display: block;
+    }
+
+    .eq-section {
+      margin-bottom: var(--equinet-space-4xl, 96px);
+    }
+
+    .eq-section-header {
+      margin-bottom: var(--equinet-space-xl, 40px);
+    }
+
+    .eq-eyebrow {
+      font-family: var(--equinet-font-body, 'Source Sans 3', sans-serif);
+      font-size: var(--equinet-fontsize-kicker, 12px);
+      font-weight: var(--equinet-fontweight-kicker, 700);
+      letter-spacing: var(--equinet-letterspacing-kicker, 0.2em);
+      text-indent: var(--equinet-letterspacing-kicker, 0.2em);
+      line-height: 1;
+      text-transform: uppercase;
+      color: var(--equinet-color-orange, #E06730);
+      margin-bottom: var(--equinet-space-xs, 12px);
+    }
+
+    /* Rule 4: Section headings: --equinet-fontsize-section-heading (36px), uppercase, with --equinet-shadow-heading */
+    .eq-h2 {
+      font-family: var(--equinet-font-body, 'Source Sans 3', sans-serif);
+      font-size: var(--equinet-fontsize-section-heading, 36px);
+      font-weight: var(--equinet-fontweight-black, 900);
+      line-height: 1.1;
+      letter-spacing: var(--equinet-letterspacing-h2--tight, -0.03em);
+      text-transform: var(--equinet-text-transform-h2, uppercase);
+      text-shadow: var(--equinet-shadow-heading, -2px 2px 4px rgba(0, 0, 0, 0.15));
+      color: var(--equinet-color-heading, #242630);
+      margin-bottom: var(--equinet-space-sm, 16px);
+    }
+
+    .eq-section-desc {
+      font-size: var(--equinet-fontsize-body-lg, 20px);
+      line-height: var(--equinet-lineheight-body-lg, 32px);
+      color: var(--equinet-color-body, #3B3F51);
+      max-width: 840px;
+    }
+
+    /* Cards & Grids */
+    .eq-grid-3 {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+      gap: var(--equinet-space-md, 24px);
+    }
+
+    .eq-grid-4 {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+      gap: var(--equinet-space-md, 24px);
+    }
+
+    .eq-card {
+      background-color: var(--equinet-color-surface, #FFFFFF);
+      border: var(--equinet-border-width-sm, 1px) solid var(--equinet-color-border, #B1B7C8);
+      border-radius: var(--equinet-radius-card, 7px);
+      box-shadow: var(--equinet-shadow-card, 1px 1px 5px 0px rgba(0, 0, 0, 0.13));
+      padding: var(--equinet-space-md, 24px);
+      overflow: clip;
+    }
+
+    @media (prefers-reduced-motion: no-preference) {
+      .eq-card {
+        transition: transform var(--equinet-motion-duration, 0.3s) var(--equinet-motion-ease, ease-in-out),
+                    box-shadow var(--equinet-motion-duration--ui, 200ms) var(--equinet-motion-ease--ui, ease);
+      }
+      .eq-card:hover {
+        transform: translateY(-6px);
+        box-shadow: var(--equinet-shadow-card--hover, -4px 34px 34px rgba(0, 0, 0, 0.07));
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .eq-card { transition: none !important; }
+      .eq-card:hover { transform: none; }
+    }
+
+    .eq-card__title {
+      font-family: var(--equinet-font-body, 'Source Sans 3', sans-serif);
+      font-size: var(--equinet-fontsize-card-heading, 24px);
+      font-weight: var(--equinet-fontweight-semibold, 600);
+      color: var(--equinet-color-heading, #242630);
+      margin-bottom: var(--equinet-space-xs, 12px);
+    }
+
+    .eq-card__code {
+      display: inline-block;
+      font-family: monospace;
+      font-size: var(--equinet-fontsize-body-sm, 12px);
+      background-color: var(--equinet-color-surface--alt, #F6F5F5);
+      color: var(--equinet-color-navy, #00426C);
+      padding: var(--equinet-scale-100, 4px) var(--equinet-space-2xs, 8px);
+      border-radius: var(--equinet-border-radius-sm, 4px);
+      margin-bottom: var(--equinet-space-xs, 12px);
+      word-break: break-all;
+    }
+
+    /* Rules Table */
+    .eq-table-wrap {
+      overflow-x: auto;
+      border: var(--equinet-border-width-sm, 1px) solid var(--equinet-color-border, #B1B7C8);
+      border-radius: var(--equinet-radius-card, 7px);
+      box-shadow: var(--equinet-shadow-card, 1px 1px 5px 0px rgba(0, 0, 0, 0.13));
+    }
+
+    .eq-table {
+      width: 100%;
+      border-collapse: collapse;
+      background-color: var(--equinet-color-surface, #FFFFFF);
+      text-align: left;
+    }
+
+    .eq-table th {
+      background-color: var(--equinet-color-navy, #00426C);
+      color: var(--equinet-color-surface, #FFFFFF);
+      font-weight: var(--equinet-fontweight-bold, 700);
+      padding: var(--equinet-space-sm, 16px) var(--equinet-space-md, 24px);
+      font-size: var(--equinet-fontsize-small, 14px);
+      text-transform: uppercase;
+      letter-spacing: var(--equinet-letterspacing-kicker--lg, 0.1em);
+    }
+
+    .eq-table td {
+      padding: var(--equinet-space-sm, 16px) var(--equinet-space-md, 24px);
+      border-bottom: var(--equinet-border-width-sm, 1px) solid var(--equinet-color-border, #B1B7C8);
+      vertical-align: top;
+    }
+
+    .eq-table tr:nth-child(even) td {
+      background-color: var(--equinet-color-surface--alt, #F6F5F5);
+    }
+
+    /* Colour Swatch */
+    .eq-swatch {
+      height: 88px;
+      border-radius: var(--equinet-border-radius-sm, 4px);
+      border: var(--equinet-border-width-sm, 1px) solid var(--equinet-color-border, #B1B7C8);
+      margin-bottom: var(--equinet-space-sm, 16px);
+      display: flex;
+      align-items: flex-end;
+      justify-content: flex-end;
+      padding: var(--equinet-space-2xs, 8px);
+    }
+
+    .eq-swatch__hex {
+      font-family: monospace;
+      font-size: var(--equinet-fontsize-body-sm, 12px);
+      background-color: var(--equinet-color-surface, #FFFFFF);
+      color: var(--equinet-color-heading, #242630);
+      padding: 2px 6px;
+      border-radius: var(--equinet-border-radius-sm, 4px);
+      box-shadow: var(--equinet-shadow-card, 1px 1px 5px 0px rgba(0, 0, 0, 0.13));
+    }
+
+    /* Button Showcase Ground */
+    .eq-ground-light {
+      background-color: var(--equinet-color-surface--alt, #F6F5F5);
+      padding: var(--equinet-space-xl, 40px);
+      border-radius: var(--equinet-radius-card, 7px);
+      border: var(--equinet-border-width-sm, 1px) solid var(--equinet-color-border, #B1B7C8);
+      margin-bottom: var(--equinet-space-md, 24px);
+    }
+
+    .eq-ground-dark {
+      background-color: var(--equinet-color-navy--dark, #002E4A);
+      color: var(--equinet-color-surface, #FFFFFF);
+      padding: var(--equinet-space-xl, 40px);
+      border-radius: var(--equinet-radius-card, 7px);
+      margin-bottom: var(--equinet-space-md, 24px);
+    }
+
+    /* Asset Preview Containers */
+    .eq-asset-frame {
+      aspect-ratio: 16 / 9;
+      border-radius: var(--equinet-border-radius-sm, 4px);
+      margin-bottom: var(--equinet-space-sm, 16px);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: clip;
+    }
+
+    .eq-asset-frame--scene {
+      background-color: var(--equinet-color-navy--dark, #002E4A);
+    }
+
+    .eq-asset-frame--transparent {
+      background-color: var(--equinet-color-surface--alt, #F6F5F5);
+      padding: var(--equinet-space-sm, 16px);
+    }
+
+    .eq-asset-frame img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+    }
+
+    .eq-asset-frame--scene img {
+      object-fit: cover;
+    }
+
+    /* Doc Viewer */
+    .eq-doc-layout {
+      display: grid;
+      grid-template-columns: 260px 1fr;
+      gap: var(--equinet-space-lg, 32px);
+      align-items: start;
+    }
+
+    .eq-doc-sidebar {
+      display: flex;
+      flex-direction: column;
+      gap: var(--equinet-space-2xs, 8px);
+      background-color: var(--equinet-color-surface--alt, #F6F5F5);
+      padding: var(--equinet-space-md, 24px);
+      border-radius: var(--equinet-radius-card, 7px);
+      border: var(--equinet-border-width-sm, 1px) solid var(--equinet-color-border, #B1B7C8);
+    }
+
+    .eq-doc-btn {
+      text-align: left;
+      font-family: var(--equinet-font-body, 'Source Sans 3', sans-serif);
+      font-size: var(--equinet-fontsize-body, 16px);
+      font-weight: var(--equinet-fontweight-semibold, 600);
+      padding: var(--equinet-space-xs, 12px) var(--equinet-space-sm, 16px);
+      border-radius: var(--equinet-border-radius-sm, 4px);
+      border: none;
+      background: transparent;
+      color: var(--equinet-color-heading, #242630);
+      cursor: pointer;
+    }
+
+    .eq-doc-btn:hover {
+      background-color: var(--equinet-color-surface, #FFFFFF);
+      color: var(--equinet-color-orange, #E06730);
+    }
+
+    .eq-doc-btn[aria-current="true"] {
+      background-color: var(--equinet-color-navy, #00426C);
+      color: var(--equinet-color-surface, #FFFFFF);
+    }
+
+    .eq-doc-content {
+      background-color: var(--equinet-color-surface, #FFFFFF);
+      border: var(--equinet-border-width-sm, 1px) solid var(--equinet-color-border, #B1B7C8);
+      border-radius: var(--equinet-radius-card, 7px);
+      padding: var(--equinet-space-xl, 40px);
+      box-shadow: var(--equinet-shadow-card, 1px 1px 5px 0px rgba(0, 0, 0, 0.13));
+      white-space: pre-wrap;
+      font-family: monospace;
+      font-size: var(--equinet-fontsize-small, 14px);
+      line-height: 1.6;
+      overflow-x: auto;
+      max-height: 800px;
+      overflow-y: auto;
+    }
+
+    @media (max-width: 1023px) {
+      .eq-hero__inner {
+        grid-template-columns: 1fr;
+      }
+      .eq-doc-layout {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 767px) {
+      .eq-header, .eq-hero, .eq-main {
+        padding-left: var(--equinet-space-md, 24px);
+        padding-right: var(--equinet-space-md, 24px);
+      }
+      .eq-display-title {
+        font-size: var(--equinet-fontsize-section-heading, 36px);
+      }
+      .eq-hero__stats {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body class="eq-sys">
+
+  <!-- Top Navigation -->
+  <header class="eq-header">
+    <div class="eq-header__inner">
+      <div class="eq-header__brand">
+        <img src="/assets/brand/wordmark-light.svg" alt="Equinet Media" class="eq-header__logo" />
+        <span class="eq-header__badge">Design System v1.0</span>
+      </div>
+      <nav class="eq-nav" role="tablist" aria-label="Design System Sections">
+        <button class="eq-nav__tab" role="tab" aria-selected="true" data-target="panel-overview">13 Rules &amp; Overview</button>
+        <button class="eq-nav__tab" role="tab" aria-selected="false" data-target="panel-tokens">Design Tokens</button>
+        <button class="eq-nav__tab" role="tab" aria-selected="false" data-target="panel-components">Buttons &amp; Stagger</button>
+        <button class="eq-nav__tab" role="tab" aria-selected="false" data-target="panel-illustrations">Illustrations (32)</button>
+        <button class="eq-nav__tab" role="tab" aria-selected="false" data-target="panel-icons">Icons &amp; Tiles (16)</button>
+        <button class="eq-nav__tab" role="tab" aria-selected="false" data-target="panel-comps">Comps &amp; Marketing</button>
+        <button class="eq-nav__tab" role="tab" aria-selected="false" data-target="panel-docs">Source Docs</button>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Hero Banner -->
+  <section class="eq-hero">
+    <div class="eq-hero__inner">
+      <div>
+        <span class="eq-eyebrow-pill">HubSpot CMS Module Architecture</span>
+        <h1 class="eq-display-title">Equinet Media Design System</h1>
+        <p class="eq-lead">
+          Single source of truth for Equinet brand tokens (<code>tokens.css</code>), pure-CSS interactive components (<code>components/bundle.css</code>), 32 illustrations, 16 icons, module layout blueprints, and the Equinet Layout Skill.
+        </p>
+        <div class="eq-cta-row">
+          <a href="#panel-components" class="btn-primary btn-primary--hover-light" data-jump="panel-components">
+            <span>Explore Live Components</span>
+            <span class="btn-primary__icon">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="216.598 33.204 15.627 13.129" fill="none" aria-hidden="true" focusable="false">
+                <path d="M231.948 40.4331L226.323 46.0581C226.147 46.2342 225.908 46.3331 225.659 46.3331C225.41 46.3331 225.171 46.2342 224.995 46.0581C224.819 45.882 224.72 45.6431 224.72 45.394C224.72 45.1449 224.819 44.9061 224.995 44.7299L229.019 40.7073H217.535C217.286 40.7073 217.048 40.6085 216.872 40.4327C216.696 40.2569 216.598 40.0184 216.598 39.7698C216.598 39.5212 216.696 39.2827 216.872 39.1069C217.048 38.9311 217.286 38.8323 217.535 38.8323H229.019L224.997 34.8073C224.821 34.6312 224.722 34.3923 224.722 34.1432C224.722 33.8942 224.821 33.6553 224.997 33.4792C225.173 33.303 225.412 33.2041 225.661 33.2041C225.91 33.2041 226.149 33.303 226.325 33.4792L231.95 39.1042C232.037 39.1914 232.107 39.295 232.154 39.4091C232.201 39.5232 232.225 39.6455 232.225 39.7689C232.225 39.8924 232.201 40.0147 232.153 40.1286C232.106 40.2426 232.036 40.3461 231.948 40.4331Z" fill="currentColor"/>
+              </svg>
+            </span>
+          </a>
+          <a href="/tokens.css" target="_blank" rel="noopener" class="btn-navigation">
+            <span>View Raw tokens.css</span>
+            <span class="btn-navigation__icon">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" aria-hidden="true" focusable="false">
+                <path d="M5 12H19" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                <path d="M12 5L19 12L12 19" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </span>
+          </a>
+        </div>
+      </div>
+      <div class="eq-hero__stats">
+        <div class="eq-stat-card">
+          <div class="eq-stat-card__val">13</div>
+          <div class="eq-stat-card__label">Binding Design Rules</div>
+        </div>
+        <div class="eq-stat-card">
+          <div class="eq-stat-card__val">32</div>
+          <div class="eq-stat-card__label">Vector Illustrations (5 Groups)</div>
+        </div>
+        <div class="eq-stat-card">
+          <div class="eq-stat-card__val">16</div>
+          <div class="eq-stat-card__label">Control Icons, Nodes &amp; Tiles</div>
+        </div>
+        <div class="eq-stat-card">
+          <div class="eq-stat-card__val">21</div>
+          <div class="eq-stat-card__label">Module Comps &amp; Infographics</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Main Tab Panels -->
+  <main class="eq-main">
+
+    <!-- PANEL 1: OVERVIEW & 13 RULES -->
+    <div id="panel-overview" class="eq-panel is-active">
+      <div class="eq-section">
+        <div class="eq-section-header">
+          <p class="eq-eyebrow">Doctrine Digest</p>
+          <h2 class="eq-h2">Rules at a Glance</h2>
+          <p class="eq-section-desc">
+            The 13 binding rules from <code>README.md</code> that govern every module, component, and AI-generated layout built on the Equinet Design System.
+          </p>
+        </div>
+        <div class="eq-table-wrap">
+          <table class="eq-table">
+            <thead>
+              <tr>
+                <th style="width: 64px;">#</th>
+                <th style="width: 260px;">Principle</th>
+                <th>Binding Specification</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>1</strong></td>
+                <td><strong>Tokens only</strong></td>
+                <td>Every colour, size, weight, tracking, spacing, radius and shadow comes from <code>tokens.css</code>. A value not in there is a defect, not a choice.</td>
+              </tr>
+              <tr>
+                <td><strong>2</strong></td>
+                <td><strong>No invented hues</strong></td>
+                <td>The palette is complete for UI. Distinguish items by position, weight, icon or an existing tint pairing — never a new colour. Two named exceptions: chart and diagram categories for marketing artwork only.</td>
+              </tr>
+              <tr>
+                <td><strong>3</strong></td>
+                <td><strong>Three typefaces, no fourth</strong></td>
+                <td>Open Sans headings, Source Sans 3 body, Playfair Display as an optional italic accent.</td>
+              </tr>
+              <tr>
+                <td><strong>4</strong></td>
+                <td><strong>Section headings</strong></td>
+                <td><code>--equinet-fontsize-section-heading</code> (36px), uppercase, with <code>--equinet-shadow-heading</code>. Weight follows family — 800 Open Sans, 900 body family. Not <code>--equinet-fontsize-h2</code> (48px).</td>
+              </tr>
+              <tr>
+                <td><strong>5</strong></td>
+                <td><strong>Editor-owned padding &amp; background</strong></td>
+                <td>Never hardcoded past override. Exposed in Module Style settings, injected at render.</td>
+              </tr>
+              <tr>
+                <td><strong>6</strong></td>
+                <td><strong>Full-bleed background parallax</strong></td>
+                <td>Via <code>IntersectionObserver</code> + <code>requestAnimationFrame</code>. Never <code>background-attachment: fixed</code>.</td>
+              </tr>
+              <tr>
+                <td><strong>7</strong></td>
+                <td><strong>Motion needs both halves</strong></td>
+                <td>Declared inside <code>prefers-reduced-motion: no-preference</code>, withdrawn inside <code>reduce</code>.</td>
+              </tr>
+              <tr>
+                <td><strong>8</strong></td>
+                <td><strong>Icons — use generously</strong></td>
+                <td>Inline SVG only. Equinet's own first (2px stroke); otherwise Lucide at <code>stroke-width="1"</code> with a <code>&lt;!-- lucide/name --&gt;</code> comment. Nothing over 48px.</td>
+              </tr>
+              <tr>
+                <td><strong>9</strong></td>
+                <td><strong>Illustrations are reference</strong></td>
+                <td>Recompose freely — crop, scale, overlap, extract, rearrange. Colour, typography and iconography still follow the system.</td>
+              </tr>
+              <tr>
+                <td><strong>10</strong></td>
+                <td><strong>Every section gets a visual</strong></td>
+                <td>Place a whole illustration when its subject matches (<code>assets/illustrations/INDEX.md</code>); otherwise compose a bespoke graphic from structural primitives.</td>
+              </tr>
+              <tr>
+                <td><strong>11</strong></td>
+                <td><strong>Ground &amp; ratio discipline</strong></td>
+                <td><code>scenes/</code> are opaque; <code>sectors/</code>, <code>systems/</code>, <code>flows/</code> are transparent and need a surface; <code>pictonodes/</code> are square and never sit in a 16:9 row.</td>
+              </tr>
+              <tr>
+                <td><strong>12</strong></td>
+                <td><strong>WCAG 2.1 AA</strong></td>
+                <td>Measured not estimated. One signed-off exception: the primary button's white label.</td>
+              </tr>
+              <tr>
+                <td><strong>13</strong></td>
+                <td><strong>Say so rather than approximate</strong></td>
+                <td>If a rule can't be met — no matching illustration, no icon geometry, no token for a value — state it plainly instead of filling the gap with something plausible.</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <div class="eq-section">
+        <div class="eq-section-header">
+          <p class="eq-eyebrow">Brand Identity</p>
+          <h2 class="eq-h2">Equinet Media Wordmarks</h2>
+          <p class="eq-section-desc">
+            Two ready-made variants in <code>assets/brand/</code> — picked by background contrast rather than habit. Never render the brand name as styled text standing in for the logo.
+          </p>
+        </div>
+        <div class="eq-grid-3">
+          <div class="eq-ground-light" style="margin-bottom:0;">
+            <img src="/assets/brand/wordmark-dark.svg" alt="Equinet Media dark wordmark" style="height: 48px; margin-bottom: var(--equinet-space-md, 24px);" />
+            <div class="eq-card__code">assets/brand/wordmark-dark.svg</div>
+            <p>Uses <code>--equinet-color-text</code> fill for light surfaces.</p>
+          </div>
+          <div class="eq-ground-dark" style="margin-bottom:0;">
+            <img src="/assets/brand/wordmark-light.svg" alt="Equinet Media light wordmark" style="height: 48px; margin-bottom: var(--equinet-space-md, 24px);" />
+            <div class="eq-card__code">assets/brand/wordmark-light.svg</div>
+            <p>Uses white (<code>#FFFFFF</code>) fill for navy or dark module grounds.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- PANEL 2: DESIGN TOKENS -->
+    <div id="panel-tokens" class="eq-panel">
+      <div class="eq-section">
+        <div class="eq-section-header">
+          <p class="eq-eyebrow">Semantic UI Palette</p>
+          <h2 class="eq-h2">Brand, Text &amp; Surface Tokens</h2>
+          <p class="eq-section-desc">
+            Every UI colour resolves through <code>tokens.css</code>. Navy is structural; orange marks interactive elements and eyebrows.
+          </p>
+        </div>
+        <div class="eq-grid-4" id="semantic-colors-grid"></div>
+      </div>
+
+      <div class="eq-section">
+        <div class="eq-section-header">
+          <p class="eq-eyebrow">Marketing &amp; Data-Viz Only</p>
+          <h2 class="eq-h2">Chart Blues &amp; Diagram Greys</h2>
+          <p class="eq-section-desc">
+            Sanctioned exclusively for charts and diagram illustrations. Never used for UI controls, buttons, or module text.
+          </p>
+        </div>
+        <div class="eq-grid-4" id="diagram-colors-grid"></div>
+      </div>
+
+      <div class="eq-section">
+        <div class="eq-section-header">
+          <p class="eq-eyebrow">Typography &amp; Rhythm</p>
+          <h2 class="eq-h2">Type Scale &amp; Spacing Tokens</h2>
+          <p class="eq-section-desc">
+            Open Sans at weight 800 for display headings; Source Sans 3 at weight 900 for 36px uppercase section headings and 400/600 for body and controls.
+          </p>
+        </div>
+        <div class="eq-table-wrap">
+          <table class="eq-table">
+            <thead>
+              <tr>
+                <th>Token Name</th>
+                <th>Resolved Value</th>
+                <th>Live Specimen / Usage</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><code>--equinet-fontsize-display</code></td>
+                <td>60px / lh 0.9167 / -0.07em</td>
+                <td><span style="font-family:var(--equinet-font-heading);font-weight:800;font-size:36px;letter-spacing:-0.07em;text-transform:uppercase;text-shadow:var(--equinet-shadow-heading);">HERO DISPLAY (800)</span></td>
+              </tr>
+              <tr>
+                <td><code>--equinet-fontsize-h1</code></td>
+                <td>56px / lh 56px / -0.05em</td>
+                <td><span style="font-family:var(--equinet-font-heading);font-weight:800;font-size:32px;letter-spacing:-0.05em;text-transform:uppercase;text-shadow:var(--equinet-shadow-heading);">METHODOLOGY H1 (800)</span></td>
+              </tr>
+              <tr>
+                <td><code>--equinet-fontsize-section-heading</code></td>
+                <td>36px / weight 900 / -0.03em</td>
+                <td><span style="font-family:var(--equinet-font-body);font-weight:900;font-size:28px;letter-spacing:-0.03em;text-transform:uppercase;text-shadow:var(--equinet-shadow-heading);">SECTION HEADING H2 (900)</span></td>
+              </tr>
+              <tr>
+                <td><code>--equinet-fontsize-card-heading</code></td>
+                <td>24px / weight 600</td>
+                <td><span style="font-family:var(--equinet-font-body);font-weight:600;font-size:24px;color:var(--equinet-color-heading);">Card / Column Heading (600)</span></td>
+              </tr>
+              <tr>
+                <td><code>--equinet-fontsize-lead</code></td>
+                <td>20px / lh 1.3 / italic</td>
+                <td><span style="font-family:var(--equinet-font-body);font-size:20px;font-style:italic;color:var(--equinet-color-lead);">Lead intro paragraph text with italic styling</span></td>
+              </tr>
+              <tr>
+                <td><code>--equinet-fontsize-kicker</code></td>
+                <td>12px / weight 700 / 0.2em</td>
+                <td><span class="eq-eyebrow" style="margin:0;">EYEBROW KICKER LABEL</span></td>
+              </tr>
+              <tr>
+                <td><code>--equinet-space-2xs</code> → <code>--equinet-space-4xl</code></td>
+                <td>8px, 12px, 16px, 24px, 32px, 40px, 48px, 56px, 96px</td>
+                <td>Module-derived 4px rhythm grid + 56px mobile / 96px desktop section clamps</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <!-- PANEL 3: LIVE COMPONENTS -->
+    <div id="panel-components" class="eq-panel">
+      <div class="eq-section">
+        <div class="eq-section-header">
+          <p class="eq-eyebrow">components/bundle.css</p>
+          <h2 class="eq-h2">Interactive Button Variants</h2>
+          <p class="eq-section-desc">
+            Measured from the ten Figma button exports. Hover scales filled buttons by <code>1.03</code>, grows primary border-radius from <code>7px</code> to <code>8px</code>, and translates the textual chevron by <code>16px</code>.
+          </p>
+        </div>
+
+        <div class="eq-ground-light">
+          <p class="eq-eyebrow">On Light Module Surface (.btn-primary--hover-dark)</p>
+          <div class="eq-cta-row" style="margin-top: var(--equinet-space-md, 24px);">
+            <a href="#buttons" class="btn-primary btn-primary--hover-dark" onclick="return false;">
+              <span>Primary Button</span>
+              <span class="btn-primary__icon">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="216.598 33.204 15.627 13.129" fill="none" aria-hidden="true" focusable="false">
+                  <path d="M231.948 40.4331L226.323 46.0581C226.147 46.2342 225.908 46.3331 225.659 46.3331C225.41 46.3331 225.171 46.2342 224.995 46.0581C224.819 45.882 224.72 45.6431 224.72 45.394C224.72 45.1449 224.819 44.9061 224.995 44.7299L229.019 40.7073H217.535C217.286 40.7073 217.048 40.6085 216.872 40.4327C216.696 40.2569 216.598 40.0184 216.598 39.7698C216.598 39.5212 216.696 39.2827 216.872 39.1069C217.048 38.9311 217.286 38.8323 217.535 38.8323H229.019L224.997 34.8073C224.821 34.6312 224.722 34.3923 224.722 34.1432C224.722 33.8942 224.821 33.6553 224.997 33.4792C225.173 33.303 225.412 33.2041 225.661 33.2041C225.91 33.2041 226.149 33.303 226.325 33.4792L231.95 39.1042C232.037 39.1914 232.107 39.295 232.154 39.4091C232.201 39.5232 232.225 39.6455 232.225 39.7689C232.225 39.8924 232.201 40.0147 232.153 40.1286C232.106 40.2426 232.036 40.3461 231.948 40.4331Z" fill="currentColor"/>
+                </svg>
+              </span>
+            </a>
+
+            <a href="#buttons" class="btn-primary btn-primary--video btn-primary--hover-dark" onclick="return false;">
+              <span class="btn-primary__icon">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="53.41 26.77 26.0 26.0" fill="none" aria-hidden="true" focusable="false">
+                  <path d="M66.41 26.77C63.8389 26.77 61.3255 27.5325 59.1876 28.9609C57.0498 30.3894 55.3835 32.4197 54.3996 34.7951C53.4157 37.1706 53.1582 39.7844 53.6598 42.3062C54.1614 44.8279 55.3996 47.1443 57.2177 48.9624C59.0357 50.7805 61.3521 52.0186 63.8739 52.5202C66.3956 53.0218 69.0095 52.7644 71.3849 51.7805C73.7604 50.7965 75.7907 49.1303 77.2191 46.9924C78.6476 44.8546 79.41 42.3412 79.41 39.77C79.4064 36.3233 78.0356 33.0188 75.5984 30.5817C73.1612 28.1445 69.8567 26.7737 66.41 26.77ZM66.41 50.77C64.2344 50.77 62.1077 50.1249 60.2988 48.9162C58.4898 47.7075 57.0799 45.9895 56.2474 43.9795C55.4148 41.9696 55.197 39.7578 55.6214 37.624C56.0458 35.4902 57.0935 33.5302 58.6319 31.9918C60.1702 30.4535 62.1303 29.4058 64.264 28.9814C66.3978 28.5569 68.6096 28.7748 70.6196 29.6073C72.6295 30.4399 74.3475 31.8498 75.5562 33.6587C76.7649 35.4677 77.41 37.5944 77.41 39.77C77.4067 42.6864 76.2467 45.4824 74.1846 47.5445C72.1224 49.6067 69.3264 50.7667 66.41 50.77ZM72.44 38.9225L64.44 33.9225C64.2887 33.8279 64.1148 33.7756 63.9364 33.7709C63.758 33.7662 63.5816 33.8093 63.4255 33.8958C63.2694 33.9822 63.1393 34.1089 63.0486 34.2626C62.958 34.4164 62.9101 34.5916 62.91 34.77V44.77C62.9101 44.9485 62.958 45.1237 63.0486 45.2774C63.1393 45.4311 63.2694 45.5578 63.4255 45.6443C63.5816 45.7308 63.758 45.7739 63.9364 45.7692C64.1148 45.7645 64.2887 45.7121 64.44 45.6175L72.44 40.6175C72.5836 40.5276 72.702 40.4026 72.7841 40.2544C72.8662 40.1061 72.9092 39.9395 72.9092 39.77C72.9092 39.6006 72.8662 39.4339 72.7841 39.2857C72.702 39.1374 72.5836 39.0125 72.44 38.9225ZM64.91 42.9663V36.5738L70.0238 39.77L64.91 42.9663Z" fill="currentColor"/>
+                </svg>
+              </span>
+              <span>Watch Overview</span>
+            </a>
+
+            <a href="#buttons" class="btn-navigation" onclick="return false;">
+              <span>Navigation Button (54px)</span>
+              <span class="btn-navigation__icon">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" aria-hidden="true" focusable="false">
+                  <path d="M5 12H19" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                  <path d="M12 5L19 12L12 19" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+              </span>
+            </a>
+
+            <a href="#buttons" class="btn-textual" onclick="return false;">
+              <span>Textual Link (+16px Arrow)</span>
+              <span class="btn-textual__icon">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" aria-hidden="true" focusable="false">
+                  <path d="M5 12H19" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                  <path d="M12 5L19 12L12 19" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+              </span>
+            </a>
+          </div>
+        </div>
+
+        <div class="eq-ground-dark">
+          <p class="eq-eyebrow" style="color: var(--equinet-color-orange--light, #F5844D);">On Dark Module Surface (.btn-primary--hover-light)</p>
+          <div class="eq-cta-row" style="margin-top: var(--equinet-space-md, 24px);">
+            <a href="#buttons" class="btn-primary btn-primary--hover-light" onclick="return false;">
+              <span>Primary Button (Light Hover)</span>
+              <span class="btn-primary__icon">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="216.598 33.204 15.627 13.129" fill="none" aria-hidden="true" focusable="false">
+                  <path d="M231.948 40.4331L226.323 46.0581C226.147 46.2342 225.908 46.3331 225.659 46.3331C225.41 46.3331 225.171 46.2342 224.995 46.0581C224.819 45.882 224.72 45.6431 224.72 45.394C224.72 45.1449 224.819 44.9061 224.995 44.7299L229.019 40.7073H217.535C217.286 40.7073 217.048 40.6085 216.872 40.4327C216.696 40.2569 216.598 40.0184 216.598 39.7698C216.598 39.5212 216.696 39.2827 216.872 39.1069C217.048 38.9311 217.286 38.8323 217.535 38.8323H229.019L224.997 34.8073C224.821 34.6312 224.722 34.3923 224.722 34.1432C224.722 33.8942 224.821 33.6553 224.997 33.4792C225.173 33.303 225.412 33.2041 225.661 33.2041C225.91 33.2041 226.149 33.303 226.325 33.4792L231.95 39.1042C232.037 39.1914 232.107 39.295 232.154 39.4091C232.201 39.5232 232.225 39.6455 232.225 39.7689C232.225 39.8924 232.201 40.0147 232.153 40.1286C232.106 40.2426 232.036 40.3461 231.948 40.4331Z" fill="currentColor"/>
+                </svg>
+              </span>
+            </a>
+
+            <a href="#buttons" class="btn-primary btn-primary--video btn-primary--hover-light" onclick="return false;">
+              <span class="btn-primary__icon">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="53.41 26.77 26.0 26.0" fill="none" aria-hidden="true" focusable="false">
+                  <path d="M66.41 26.77C63.8389 26.77 61.3255 27.5325 59.1876 28.9609C57.0498 30.3894 55.3835 32.4197 54.3996 34.7951C53.4157 37.1706 53.1582 39.7844 53.6598 42.3062C54.1614 44.8279 55.3996 47.1443 57.2177 48.9624C59.0357 50.7805 61.3521 52.0186 63.8739 52.5202C66.3956 53.0218 69.0095 52.7644 71.3849 51.7805C73.7604 50.7965 75.7907 49.1303 77.2191 46.9924C78.6476 44.8546 79.41 42.3412 79.41 39.77C79.4064 36.3233 78.0356 33.0188 75.5984 30.5817C73.1612 28.1445 69.8567 26.7737 66.41 26.77ZM66.41 50.77C64.2344 50.77 62.1077 50.1249 60.2988 48.9162C58.4898 47.7075 57.0799 45.9895 56.2474 43.9795C55.4148 41.9696 55.197 39.7578 55.6214 37.624C56.0458 35.4902 57.0935 33.5302 58.6319 31.9918C60.1702 30.4535 62.1303 29.4058 64.264 28.9814C66.3978 28.5569 68.6096 28.7748 70.6196 29.6073C72.6295 30.4399 74.3475 31.8498 75.5562 33.6587C76.7649 35.4677 77.41 37.5944 77.41 39.77C77.4067 42.6864 76.2467 45.4824 74.1846 47.5445C72.1224 49.6067 69.3264 50.7667 66.41 50.77ZM72.44 38.9225L64.44 33.9225C64.2887 33.8279 64.1148 33.7756 63.9364 33.7709C63.758 33.7662 63.5816 33.8093 63.4255 33.8958C63.2694 33.9822 63.1393 34.1089 63.0486 34.2626C62.958 34.4164 62.9101 34.5916 62.91 34.77V44.77C62.9101 44.9485 62.958 45.1237 63.0486 45.2774C63.1393 45.4311 63.2694 45.5578 63.4255 45.6443C63.5816 45.7308 63.758 45.7739 63.9364 45.7692C64.1148 45.7645 64.2887 45.7121 64.44 45.6175L72.44 40.6175C72.5836 40.5276 72.702 40.4026 72.7841 40.2544C72.8662 40.1061 72.9092 39.9395 72.9092 39.77C72.9092 39.6006 72.8662 39.4339 72.7841 39.2857C72.702 39.1374 72.5836 39.0125 72.44 38.9225ZM64.91 42.9663V36.5738L70.0238 39.77L64.91 42.9663Z" fill="currentColor"/>
+                </svg>
+              </span>
+              <span>Video Button (Light Hover)</span>
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <div class="eq-section">
+        <div class="eq-section-header">
+          <p class="eq-eyebrow">Staggered Content Pattern</p>
+          <h2 class="eq-h2">.eq-stagger Alternating Rows</h2>
+          <p class="eq-section-desc">
+            Built into <code>components/bundle.css</code>. Uses <code>:nth-child</code> grid ordering so DOM reading order stays intact while media alternates left and right.
+          </p>
+        </div>
+
+        <div class="eq-stagger">
+          <!-- Row 1: Scene modifier (opaque dark gradient) -->
+          <div class="eq-stagger__row">
+            <div class="eq-stagger__media eq-stagger__media--scene">
+              <img src="/assets/illustrations/scenes/Equinet-Media-create-a-clear-positioning-strategy-v1.svg" alt="Positioning strategy scene illustration" />
+            </div>
+            <div class="eq-stagger__body">
+              <p class="eq-stagger__eyebrow">Modifier: .eq-stagger__media--scene</p>
+              <h2 class="eq-stagger__heading">Opaque Scene Panels Fill Edge-to-Edge</h2>
+              <p class="eq-stagger__text">
+                The 12 illustrations in <code>assets/illustrations/scenes/</code> carry an opaque navy gradient across the full 641 × 360 artboard. Using <code>.eq-stagger__media--scene</code> ensures zero padding so no page surface leaks around the dark rectangle.
+              </p>
+              <div>
+                <a href="#illustrations" class="btn-textual" data-jump="panel-illustrations">
+                  <span>Browse All 12 Scene Illustrations</span>
+                  <span class="btn-textual__icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" aria-hidden="true" focusable="false">
+                      <path d="M5 12H19" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                      <path d="M12 5L19 12L12 19" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                  </span>
+                </a>
+              </div>
+            </div>
+          </div>
+
+          <!-- Row 2: Transparent modifier (systems / sectors / flows) -->
+          <div class="eq-stagger__row">
+            <div class="eq-stagger__media eq-stagger__media--transparent">
+              <img src="/assets/illustrations/systems/CRM-ERP-integration-d.svg" alt="CRM and ERP systems integration diagram" />
+            </div>
+            <div class="eq-stagger__body">
+              <p class="eq-stagger__eyebrow">Modifier: .eq-stagger__media--transparent</p>
+              <h2 class="eq-stagger__heading">Transparent Diagrams Sit on Surface-Alt</h2>
+              <p class="eq-stagger__text">
+                Files in <code>sectors/</code>, <code>systems/</code>, and <code>flows/</code> have transparent artboards. Applying <code>.eq-stagger__media--transparent</code> places them on <code>--equinet-color-surface--alt</code> (<code>#F6F5F5</code>) with <code>40px</code> tokenised padding.
+              </p>
+            </div>
+          </div>
+
+          <!-- Row 3: Compact modifier for square pictonodes -->
+          <div class="eq-stagger__row eq-stagger__row--compact">
+            <div class="eq-stagger__media">
+              <img src="/assets/illustrations/pictonodes/pictonode-stack.svg" alt="Layered architecture pictonode" />
+            </div>
+            <div class="eq-stagger__body">
+              <p class="eq-stagger__eyebrow">Modifier: .eq-stagger__row--compact</p>
+              <h2 class="eq-stagger__heading">Square 118 × 118 Pictonodes Pair Inline</h2>
+              <p class="eq-stagger__text">
+                Square spot graphics in <code>pictonodes/</code> never sit in a 16:9 media frame. The <code>.eq-stagger__row--compact</code> modifier sets a <code>118px 1fr</code> grid column template so the pictonode sits at native scale beside the copy.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- PANEL 4: ILLUSTRATIONS (32) -->
+    <div id="panel-illustrations" class="eq-panel">
+      <div class="eq-section">
+        <div class="eq-section-header">
+          <p class="eq-eyebrow">assets/illustrations/scenes/ (12 Files)</p>
+          <h2 class="eq-h2">Scenes — 641 × 360 Opaque Gradient</h2>
+          <p class="eq-section-desc">Full-artboard navy gradient illustrations for service lines and web design processes.</p>
+        </div>
+        <div class="eq-grid-3" id="grid-scenes"></div>
+      </div>
+
+      <div class="eq-section">
+        <div class="eq-section-header">
+          <p class="eq-eyebrow">assets/illustrations/flows/ (3 Files)</p>
+          <h2 class="eq-h2">Flows — 1209 × 675 Four-Step Sequences</h2>
+          <p class="eq-section-desc">Horizontal four-step sequences built from UI card primitives, terminating in an orange accent card.</p>
+        </div>
+        <div class="eq-grid-3" id="grid-flows"></div>
+      </div>
+
+      <div class="eq-section">
+        <div class="eq-section-header">
+          <p class="eq-eyebrow">assets/illustrations/systems/ (5 Files)</p>
+          <h2 class="eq-h2">Systems — 460 × 259 Commercial Diagrams</h2>
+          <p class="eq-section-desc">Transparent commercial-systems diagrams using <code>--equinet-color-diagram-surface</code> (<code>#F1F1F1</code>).</p>
+        </div>
+        <div class="eq-grid-3" id="grid-systems"></div>
+      </div>
+
+      <div class="eq-section">
+        <div class="eq-section-header">
+          <p class="eq-eyebrow">assets/illustrations/sectors/ (4 Files)</p>
+          <h2 class="eq-h2">Sectors — 641 × 361 Vertical Pictographs</h2>
+          <p class="eq-section-desc">Transparent sector pictographs. Note: <code>pictograph-1.svg</code> is flagged in <code>README.md</code> for an unguarded infinite CSS animation.</p>
+        </div>
+        <div class="eq-grid-4" id="grid-sectors"></div>
+      </div>
+
+      <div class="eq-section">
+        <div class="eq-section-header">
+          <p class="eq-eyebrow">assets/illustrations/pictonodes/ (8 Files)</p>
+          <h2 class="eq-h2">Pictonodes — 118 × 118 Spot Graphics</h2>
+          <p class="eq-section-desc">Square multi-colour spot graphics using the chart-blue and brand palettes.</p>
+        </div>
+        <div class="eq-grid-4" id="grid-pictonodes"></div>
+      </div>
+    </div>
+
+    <!-- PANEL 5: ICONS & TILES (16) -->
+    <div id="panel-icons" class="eq-panel">
+      <div class="eq-section">
+        <div class="eq-section-header">
+          <p class="eq-eyebrow">assets/icons/service-tiles/ (8 Files)</p>
+          <h2 class="eq-h2">Service Tiles — 65 × 65 White-on-Navy</h2>
+          <p class="eq-section-desc">
+            Self-contained 65 × 65 rounded tiles with a <code>#265D94</code> → <code>#002E4A</code> gradient. Per the 2026-09-24 rule, the inner white glyph is substitutable with a 1px-stroke Lucide icon if replaced as a complete set.
+          </p>
+        </div>
+        <div class="eq-grid-4" id="grid-service-tiles"></div>
+      </div>
+
+      <div class="eq-section">
+        <div class="eq-section-header">
+          <p class="eq-eyebrow">assets/icons/nodes/ (5 Files) &amp; Root Control Icons (3 Files)</p>
+          <h2 class="eq-h2">Concept Nodes &amp; Control Glyphs</h2>
+          <p class="eq-section-desc">
+            The 5 concept nodes (43 × 43) are un-substitutable brand marks inked in <code>#242630</code>. The 3 root control icons inherit <code>currentColor</code>.
+          </p>
+        </div>
+        <div class="eq-grid-4" id="grid-nodes-and-root"></div>
+      </div>
+    </div>
+
+    <!-- PANEL 6: COMPS & MARKETING -->
+    <div id="panel-comps" class="eq-panel">
+      <div class="eq-section">
+        <div class="eq-section-header">
+          <p class="eq-eyebrow">assets/comps/ (4 Files)</p>
+          <h2 class="eq-h2">1920px Figma Module Comps (Layout Blueprints)</h2>
+          <p class="eq-section-desc">
+            Re-exported with live <code>&lt;text&gt;</code> elements on 2026-09-24. Used as layout blueprints to rebuild structure and hierarchy with live components — never embedded as flat page artwork.
+          </p>
+        </div>
+        <div class="eq-grid-3" id="grid-comps"></div>
+      </div>
+
+      <div class="eq-section">
+        <div class="eq-section-header">
+          <p class="eq-eyebrow">assets/marketing/ (17 Files)</p>
+          <h2 class="eq-h2">Marketing Infographics (Provenance &amp; Style Reference)</h2>
+          <p class="eq-section-desc">
+            Published marketing infographics audited for the chart-blue and diagram-illustration token categories.
+          </p>
+        </div>
+        <div class="eq-grid-3" id="grid-marketing"></div>
+      </div>
+    </div>
+
+    <!-- PANEL 7: SOURCE DOCS -->
+    <div id="panel-docs" class="eq-panel">
+      <div class="eq-section">
+        <div class="eq-section-header">
+          <p class="eq-eyebrow">Repository Documentation</p>
+          <h2 class="eq-h2">Canonical Specifications &amp; Layout Skill</h2>
+          <p class="eq-section-desc">
+            Inspect the raw markdown documentation and skill files directly from the repository.
+          </p>
+        </div>
+        <div class="eq-doc-layout">
+          <div class="eq-doc-sidebar">
+            <button class="eq-doc-btn" aria-current="true" data-doc="readme">README.md (Brand Book)</button>
+            <button class="eq-doc-btn" aria-current="false" data-doc="handoff">HANDOFF.md</button>
+            <button class="eq-doc-btn" aria-current="false" data-doc="prompt-template">PROMPT-TEMPLATE.md</button>
+            <button class="eq-doc-btn" aria-current="false" data-doc="illustrations-index">illustrations/INDEX.md</button>
+            <button class="eq-doc-btn" aria-current="false" data-doc="icon-reference">icons/ICON-REFERENCE.md</button>
+            <button class="eq-doc-btn" aria-current="false" data-doc="layout-skill">skills/equinet-layout/SKILL.md</button>
+            <button class="eq-doc-btn" aria-current="false" data-doc="visual-kit">references/visual-kit.md</button>
+            <button class="eq-doc-btn" aria-current="false" data-doc="changelog">CHANGELOG.md</button>
+          </div>
+          <div class="eq-doc-content" id="doc-viewer-output">Loading README.md...</div>
+        </div>
+      </div>
+    </div>
+
+  </main>
+
+  <script>
+    // Tab Switching
+    const tabs = document.querySelectorAll('.eq-nav__tab');
+    const panels = document.querySelectorAll('.eq-panel');
+
+    function activateTab(targetId) {
+      tabs.forEach(t => {
+        t.setAttribute('aria-selected', t.dataset.target === targetId ? 'true' : 'false');
+      });
+      panels.forEach(p => {
+        p.classList.toggle('is-active', p.id === targetId);
+      });
+    }
+
+    tabs.forEach(tab => {
+      tab.addEventListener('click', () => activateTab(tab.dataset.target));
+    });
+
+    document.querySelectorAll('[data-jump]').forEach(link => {
+      link.addEventListener('click', (e) => {
+        e.preventDefault();
+        activateTab(link.dataset.jump);
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      });
+    });
+
+    // Populate Semantic & Diagram Colours from tokens.css
+    const semanticColors = [
+      { name: '--equinet-color-navy', hex: '#00426C', role: 'Structural navy: navigation button fill, card borders, focus rings on light grounds.' },
+      { name: '--equinet-color-navy--dark', hex: '#002E4A', role: 'Navigation button hover fill and dark hero backgrounds.' },
+      { name: '--equinet-color-orange', hex: '#E06730', role: 'Primary button fill, eyebrow kicker text, textual button hover arrow.' },
+      { name: '--equinet-color-orange--light', hex: '#F5844D', role: 'Primary button hover on dark grounds; navigation hover label.' },
+      { name: '--equinet-color-orange--dark', hex: '#D04F14', role: 'Primary button hover on light grounds.' },
+      { name: '--equinet-color-orange--pale', hex: '#FCE9E0', role: 'Eyebrow pill background (also folds in #FFE6DB).' },
+      { name: '--equinet-color-heading', hex: '#242630', role: 'Heading text fill on light surfaces (15.0:1 on white).' },
+      { name: '--equinet-color-body', hex: '#3B3F51', role: 'Body copy, card descriptions, and lead fallback (10.4:1 on white).' },
+      { name: '--equinet-color-surface', hex: '#FFFFFF', role: 'Primary card and page surface; filled button label.' },
+      { name: '--equinet-color-surface--alt', hex: '#F6F5F5', role: 'Second stop of module background gradient and transparent media surface.' },
+      { name: '--equinet-color-border', hex: '#B1B7C8', role: '1px rules, card borders, and stat dividers.' },
+      { name: '--equinet-color-black', hex: '#000000', role: 'Card h3 fill in cagr-four-column.' }
+    ];
+
+    const diagramColors = [
+      { name: '--equinet-color-chart-blue-light', hex: '#81ACD7', role: 'Chart/data-viz gradient, lightest stop.' },
+      { name: '--equinet-color-chart-blue-mid', hex: '#5688BA', role: 'Chart/data-viz gradient, middle stop.' },
+      { name: '--equinet-color-chart-blue-dark', hex: '#3D71A5', role: 'Chart/data-viz gradient, darkest stop.' },
+      { name: '--equinet-color-diagram-line', hex: '#68728F', role: 'Blue-tinted illustration ink & node fill.' },
+      { name: '--equinet-color-diagram-line--neutral', hex: '#6C7074', role: 'Neutral-grey diagram line variant.' },
+      { name: '--equinet-color-diagram-tint', hex: '#D6D8E1', role: 'Light panel/shape tint in marketing diagrams.' },
+      { name: '--equinet-color-diagram-tint--pale', hex: '#ECEDF2', role: 'Palest background tint in marketing diagrams.' },
+      { name: '--equinet-color-diagram-surface', hex: '#F1F1F1', role: 'Panel fill across commercial-systems diagrams.' }
+    ];
+
+    function renderColorGrid(containerId, items) {
+      const container = document.getElementById(containerId);
+      container.innerHTML = items.map(item => `
+        <div class="eq-card">
+          <div class="eq-swatch" style="background-color: var(${item.name}, ${item.hex});">
+            <span class="eq-swatch__hex">${item.hex}</span>
+          </div>
+          <div class="eq-card__code">${item.name}</div>
+          <p>${item.role}</p>
+        </div>
+      `).join('');
+    }
+
+    renderColorGrid('semantic-colors-grid', semanticColors);
+    renderColorGrid('diagram-colors-grid', diagramColors);
+
+    // Populate Illustrations
+    const scenes = [
+      { file: 'Equinet-Media-brand-development-brand-consistency-v1.svg', topic: 'brand, consistency, guidelines, identity' },
+      { file: 'Equinet-Media-brand-development-ideal-customer-profile-v1.svg', topic: 'ICP, targeting, audience, segmentation' },
+      { file: 'Equinet-Media-brand-development-market-clarity-v1.svg', topic: 'market, clarity, positioning, research' },
+      { file: 'Equinet-Media-create-a-clear-positioning-strategy-v1.svg', topic: 'positioning, strategy, differentiation' },
+      { file: 'Equinet-Media-create-a-unified-messaging-framework-v1.svg', topic: 'messaging, framework, copy, narrative' },
+      { file: 'Equinet-Media-create-your-own-brand-ai-agent-v1.svg', topic: 'AI agent, automation, brand AI' },
+      { file: 'Equinet-Media-website-design-building-v1.svg', topic: 'web build, development, implementation' },
+      { file: 'Equinet-Media-website-design-journey-mapping-v1.svg', topic: 'journey, UX, flow, mapping' },
+      { file: 'Equinet-Media-website-design-monitoring-improving-v1.svg', topic: 'analytics, monitoring, optimisation, CRO' },
+      { file: 'Equinet-Media-website-design-prototyping-v1.svg', topic: 'prototype, design, iteration' },
+      { file: 'Equinet-Media-website-design-smart-goal-setting-v1.svg', topic: 'goals, KPI, planning, metrics' },
+      { file: 'Equinet-Media-website-design-wireframing-v1.svg', topic: 'wireframe, layout, IA, structure' }
+    ];
+
+    const flows = [
+      { file: 'make-your-technical-expertise-machine-readable.svg', topic: 'machine-readable, structured data, AEO, technical content' },
+      { file: 'smarter-content-operations-for-manufacturing-growth.svg', topic: 'content ops, manufacturing, publishing workflow' },
+      { file: 'turning-your-commercial-data-into-an-uncorrupted-source-of-truth.svg', topic: 'data quality, source of truth, CRM data, governance' }
+    ];
+
+    const systems = [
+      { file: 'Account-management-expansion-enablement-c.svg', topic: 'account management, expansion, upsell, retention' },
+      { file: 'CRM-ERP-integration-d.svg', topic: 'CRM, ERP, integration, HubSpot, architecture' },
+      { file: 'Commercial-data-health-enrichment-c.svg', topic: 'data health, enrichment, hygiene, CRM data' },
+      { file: 'Sales-enablement-execution-support-c.svg', topic: 'sales enablement, execution, sales ops' },
+      { file: 'commercial-insight-and-feedback-loops.svg', topic: 'insight, feedback loops, reporting' }
+    ];
+
+    const sectors = [
+      { file: 'equinet-sector-b2b-software-pictograph.svg', topic: 'SaaS, software, B2B tech' },
+      { file: 'equinet-sector-build-environment-pictograph.svg', topic: 'construction, property, infrastructure (static)' },
+      { file: 'equinet-sector-build-environment-pictograph-1.svg', topic: 'WARNING: unguarded 2s infinite CSS animation' },
+      { file: 'equinet-sector-networked-infrastructure-pictograph.svg', topic: 'networks, utilities, telecoms, connectivity' }
+    ];
+
+    const pictonodes = [
+      { file: 'pictonode-linegraph.svg', topic: 'growth, trend, performance, metrics' },
+      { file: 'pictonode-multitask.svg', topic: 'multitasking, parallel work, coordination' },
+      { file: 'pictonode-paperreview.svg', topic: 'documentation, review, audit' },
+      { file: 'pictonode-piechart.svg', topic: 'data, share, distribution, analysis' },
+      { file: 'pictonode-review.svg', topic: 'review, approval, QA, iteration' },
+      { file: 'pictonode-stack.svg', topic: 'stack, layers, architecture, tech stack' },
+      { file: 'pictonode-thecde.svg', topic: 'CDE, common data environment, shared data' },
+      { file: 'pictonode-website.svg', topic: 'website, web page, online presence' }
+    ];
+
+    function renderAssetCards(containerId, folder, list, isScene = false) {
+      const el = document.getElementById(containerId);
+      el.innerHTML = list.map(item => `
+        <div class="eq-card">
+          <div class="eq-asset-frame ${isScene ? 'eq-asset-frame--scene' : 'eq-asset-frame--transparent'}">
+            <img src="/assets/illustrations/${folder}/${item.file}" alt="${item.file}" loading="lazy" />
+          </div>
+          <div class="eq-card__code">${folder}/${item.file}</div>
+          <p><strong>Topics:</strong> ${item.topic}</p>
+        </div>
+      `).join('');
+    }
+
+    renderAssetCards('grid-scenes', 'scenes', scenes, true);
+    renderAssetCards('grid-flows', 'flows', flows, false);
+    renderAssetCards('grid-systems', 'systems', systems, false);
+    renderAssetCards('grid-sectors', 'sectors', sectors, false);
+    renderAssetCards('grid-pictonodes', 'pictonodes', pictonodes, false);
+
+    // Populate Icons & Service Tiles
+    const serviceTiles = [
+      { file: 'services-commercial-narritive.svg', lucide: 'message-square-quote', topic: 'narrative, story, commercial messaging' },
+      { file: 'services-competitor-analysis.svg', lucide: 'chart-no-axes-column', topic: 'competitors, benchmarking, landscape' },
+      { file: 'services-digital-experience-alignment.svg', lucide: 'monitor-check', topic: 'digital experience, UX alignment' },
+      { file: 'services-ideal-customer-profile.svg', lucide: 'user-round-search', topic: 'ICP, targeting, audience' },
+      { file: 'services-positioning-audit.svg', lucide: 'search-check', topic: 'positioning, audit, assessment' },
+      { file: 'services-positioning-strategy.svg', lucide: 'target', topic: 'positioning, strategy, differentiation' },
+      { file: 'services-sales-enablement-alignment.svg', lucide: 'handshake', topic: 'sales enablement, alignment' },
+      { file: 'services-value-architecture.svg', lucide: 'layers', topic: 'value, pricing, architecture, offer design' }
+    ];
+
+    document.getElementById('grid-service-tiles').innerHTML = serviceTiles.map(t => `
+      <div class="eq-card">
+        <div style="margin-bottom: var(--equinet-space-sm, 16px);">
+          <img src="/assets/icons/service-tiles/${t.file}" alt="${t.file}" style="width: 65px; height: 65px;" />
+        </div>
+        <div class="eq-card__code">service-tiles/${t.file}</div>
+        <p><strong>Topics:</strong> ${t.topic}</p>
+        <p style="margin-top: 8px; font-size: var(--equinet-fontsize-small, 14px);"><strong>Lucide 1px substitute:</strong> <code>lucide/${t.lucide}</code></p>
+      </div>
+    `).join('');
+
+    const nodesAndRoot = [
+      { path: 'nodes/node-black-attract.svg', size: '43px', note: 'Concept node (un-substitutable brand mark, #242630)' },
+      { path: 'nodes/node-black-connect.svg', size: '43px', note: 'Concept node (un-substitutable brand mark, #242630)' },
+      { path: 'nodes/node-black-growth.svg', size: '43px', note: 'Concept node (un-substitutable brand mark, #242630)' },
+      { path: 'nodes/node-black-hubspot.svg', size: '43px', note: 'Concept node (un-substitutable brand mark, #242630)' },
+      { path: 'nodes/node-black-verfied.svg', size: '43px', note: 'Concept node (un-substitutable brand mark, #242630)' },
+      { path: 'arrow-chevron.svg', size: '24px', note: 'Root control icon (2px stroke, currentColor — matches lucide/arrow-right)' },
+      { path: 'arrow-solid.svg', size: '16px', note: 'Root control icon (15.63 × 13.13, currentColor — primary button)' },
+      { path: 'play-circle.svg', size: '26px', note: 'Root control icon (26 × 26, currentColor — primary video button)' }
+    ];
+
+    document.getElementById('grid-nodes-and-root').innerHTML = nodesAndRoot.map(n => `
+      <div class="eq-card">
+        <div style="height: 65px; display: flex; align-items: center; margin-bottom: var(--equinet-space-sm, 16px);">
+          <img src="/assets/icons/${n.path}" alt="${n.path}" style="width: ${n.size}; height: auto;" />
+        </div>
+        <div class="eq-card__code">assets/icons/${n.path}</div>
+        <p>${n.note}</p>
+      </div>
+    `).join('');
+
+    // Populate Comps & Marketing
+    const comps = [
+      { file: 'module__2-column-hero-banner.svg', desc: 'Opening a page — proposition left, visual right (60px/-0.07em display).' },
+      { file: 'module__2-column-comparison.svg', desc: 'Side-by-side argument with 36px/900 section heading.' },
+      { file: 'module__5_column_block_methodology.svg', desc: 'Named method in 5 steps with 56px/-0.05em Open Sans heading.' },
+      { file: 'module__sector-three-column-case-study.svg', desc: 'Three columns of sector cards with 36px/900/-0.03em section heading.' }
+    ];
+
+    document.getElementById('grid-comps').innerHTML = comps.map(c => `
+      <div class="eq-card">
+        <div class="eq-asset-frame eq-asset-frame--transparent">
+          <img src="/assets/comps/${c.file}" alt="${c.file}" loading="lazy" />
+        </div>
+        <div class="eq-card__code">assets/comps/${c.file}</div>
+        <p>${c.desc}</p>
+      </div>
+    `).join('');
+
+    const marketingFiles = [
+      'Custom-GTPs-and-GEMs.svg',
+      'Deploy-AI-to-generate-and-schedule-personalised-sequences.svg',
+      'GEO-Ops.svg',
+      'How-Equinet-Media-Enables-AI-Augmented-Sales.svg',
+      'HubSpot_Agents.svg',
+      'TAMbot.svg',
+      'The-Brand-Ops-Agent.svg',
+      'Use-AI-driven-scoring-to-focus-on-leads-most-likely-to-convert.svg',
+      'Using-AI-t0-Trigger-workflows-from-account-activity.svg',
+      'Using-AI-to-rack-ABM-engagement-across-buying-groups-and-channels.svg',
+      'commercial-systems-aeo-rewards-structure-and-accuracye-blue.svg',
+      'commercial-systems-construction-and-deployment.svg',
+      'commercial-systems-hubspot-as-your-operational-core.svg',
+      'commercial-systems-the-knowledge-base_091526.svg',
+      'equinet-media-abm-loop-marketing-hubspot.svg',
+      'equinet-media-the-infinity-loop.svg',
+      'putting-your-market-map-to-work.svg'
+    ];
+
+    document.getElementById('grid-marketing').innerHTML = marketingFiles.map(m => `
+      <div class="eq-card">
+        <div class="eq-asset-frame eq-asset-frame--transparent">
+          <img src="/assets/marketing/${m}" alt="${m}" loading="lazy" />
+        </div>
+        <div class="eq-card__code">assets/marketing/${m}</div>
+      </div>
+    `).join('');
+
+    // Documentation Viewer
+    const docBtns = document.querySelectorAll('.eq-doc-btn');
+    const docOutput = document.getElementById('doc-viewer-output');
+
+    async function loadDoc(docKey) {
+      docBtns.forEach(b => b.setAttribute('aria-current', b.dataset.doc === docKey ? 'true' : 'false'));
+      docOutput.textContent = 'Loading...';
+      try {
+        const res = await fetch(`/api/docs/${docKey}`);
+        if (!res.ok) throw new Error('Failed to load document');
+        docOutput.textContent = await res.text();
+      } catch (err) {
+        docOutput.textContent = 'Error loading document.';
+      }
+    }
+
+    docBtns.forEach(btn => {
+      btn.addEventListener('click', () => loadDoc(btn.dataset.doc));
+    });
+
+    loadDoc('readme');
+  </script>
+</body>
+</html>
