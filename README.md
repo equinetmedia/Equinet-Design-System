@@ -622,6 +622,24 @@ family, size, weight and tracking — which settled the h2 size, the heading
 weight question, and the whole letter-spacing token category that had been
 flagged missing since the first reconciliation.
 
+## Layout skill — `skills/equinet-layout/`
+
+A skill that turns content into an Equinet page in two phases: a
+section-by-section **layout brief** (which format each piece of content
+becomes, which asset, which HubSpot element carries the reader's next step),
+then — only after approval — the **build** against this design system.
+
+Its core rule: the shape of the content decides the format. A number becomes
+a stat block because it's a number; content with no numbers gets no stat
+block. It never invents data to fill a format, and it flags any component it
+has to build new — charts, stat rows, tables, flowcharts and FAQs have no
+component here yet.
+
+It lives in this repo so Claude Design reads it with the rest of the system.
+For Claude chat, the same folder is packaged as `equinet-layout.skill` and
+installed from the file card. **This repo copy is canonical:** after editing
+the folder, re-package and reinstall, or the chat copy drifts behind.
+
 ## Brand mark
 
 `assets/brand/` holds the Equinet Media wordmark, two ready-made variants —

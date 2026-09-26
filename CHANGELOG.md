@@ -32,6 +32,49 @@ built in rather than needing restatement each session. What can't be is
 brief-level direction — the AEO structure and `{CONTEXT}` — which describes
 a page, not the brand.
 
+## 2026-09-26 — Layout skill added (`skills/equinet-layout/`)
+
+A skill combining the design system with page-planning judgement: given
+content, it produces a section-by-section layout brief, waits for approval,
+then builds. Chosen as brief-then-build so layout decisions get reviewed while
+they're cheap to change.
+
+**Lives in the repo, not only as an installed skill.** Claude chat installs
+`.skill` packages; Claude Design reads this repo. Rather than keep two copies,
+the folder sits here — versioned with the tokens and assets it depends on —
+and is packaged for chat from the same source. The repo copy is canonical.
+
+**Four references:** `content-to-format.md` (a content-shape → format matrix,
+plus the close calls — bar vs line, sequence vs flowchart, cards vs table,
+why not pies), `hubspot-elements.md` (Equinet's 15 modules and native HubSpot
+capabilities, by the reader's next action), `equinet-assets.md` (a pointer
+summary of illustrations, icons, components and chart tokens) and
+`brief-template.md` (the exact brief format, with a worked section and an
+honest gap).
+
+**Two findings from building it.**
+
+- *No chart, stat, table, flowchart or FAQ component exists.* `bundle.css`
+  holds buttons and `.eq-stagger` only, and the three chart-blue tokens have
+  nothing consuming them. The skill says so, builds those from tokens when
+  needed, and flags them as new so they can be promoted instead of living as
+  one-offs. This is the clearest next piece of design-system work.
+- *The CTA rule has a real cost.* The design system forbids `{% cta %}`, but
+  HubSpot's current CTA editor has A/B testing and smart (personalised) CTAs,
+  which a `.btn-primary` anchor can't do — and HubSpot has postponed the
+  legacy editor's sunset, so the native tool is live, not dying. The skill
+  defaults to `.btn-primary`, offers smart content on the surrounding section
+  first, and raises native CTAs as a deliberate exception rather than
+  swapping one in.
+
+**Its central guardrail: never invent data to fill a format.** A layout skill
+is exactly where a plausible "73% of buyers…" gets fabricated to fill a slot
+that looked good in the plan. No number in the content, no stat block — and
+missing data goes in the brief as a gap for the user.
+
+Validated with the skill-creator checker, and every asset count, token value
+and filename it cites was verified against the repo before packaging (18/18).
+
 ## 2026-09-24 — Minimum viable prompt recorded
 
 Checked the original four-line Claude Design prompt against the system line by
