@@ -110,7 +110,7 @@ so a substitute is identifiable on sight. No icon exceeds 48px, substituted
 or not; past that it reads as an illustration. Full rationale and the
 per-size arithmetic in `ICON-REFERENCE.md`.
 
-## Placeholder policy
+## Using Lucide
 
 **Matching a substitute: see `ICON-REFERENCE.md`.** It records the measured
 house style (24 × 24, 2px stroke, round caps and joins, `currentColor`),
@@ -121,8 +121,10 @@ suggested substitute for each of the three icons still missing geometry.
 
 
 
-Decided 2026-09-23. A neutral icon set (Lucide or similar) is an acceptable
-stand-in where a design calls for an icon not held here — but it must read as a
-placeholder, not be presented as a real Equinet icon. Don't fabricate a
-plausible-looking custom shape; the icons above exist because real geometry was
-measured rather than guessed.
+**Lucide is the iconography source for anything Equinet doesn't have its own
+geometry for — use it generously.** Cards, list items, stats, steps and
+service rows all benefit from an icon. Rules: `stroke-width="1"`, 24 × 24
+canvas, round caps and joins, never over 48px, a one-line source comment
+(`<!-- lucide/name -->`), and path data fetched from the library rather than
+drawn from memory. The one thing to avoid is drawing a custom glyph by hand —
+Lucide covers almost everything, so there's rarely a reason to.

@@ -8,9 +8,10 @@ from the control around them; none of these can.
 Five subgroups, 32 files:
 
 **Choosing one? Read `INDEX.md` first** — it lists every file's subject and
-topics, and carries the selection rules, including the one that matters most:
-if nothing matches the page's subject, use no illustration rather than the
-nearest-looking file.
+topics. Place a whole illustration when its subject matches; when none does,
+compose a bespoke graphic from the set's structural primitives (cards,
+connectors, nodes, panels) rather than forcing a near-miss or leaving the
+section bare.
 
 **`scenes/` are opaque.** All 12 have a navy-to-blue gradient covering the
 full artboard. They work as media panels and card headers, not as transparent

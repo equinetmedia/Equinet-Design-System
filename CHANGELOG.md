@@ -32,6 +32,72 @@ built in rather than needing restatement each session. What can't be is
 brief-level direction — the AEO structure and `{CONTEXT}` — which describes
 a page, not the brand.
 
+## 2026-09-26 — Layout skill rewritten; design system's omission rules corrected
+
+**The first version of the skill made output worse.** Reported on first use:
+no assets from icons, illustrations, comps or marketing; no Lucide icons;
+overall poor UI. Diagnosed rather than patched, and the cause was the skill's
+own construction, not Claude Design.
+
+**Measured the bias.** Across the skill, restrictive instructions outnumbered
+directive ones **26 to 6**. It told the model what not to do in nearly every
+paragraph and almost never what to do; a model given that balance does less.
+Specifically:
+
+- It **never mentioned `comps/` or `marketing/`** — they went unused because
+  nothing asked for them.
+- It **contradicted the kit-of-parts decision.** "If nothing matches, use
+  none" is a rule about placing a *whole* illustration; the skill applied it to
+  everything, so any topic outside Equinet's service lines got nothing.
+- It **framed Lucide as a grudging placeholder**, so icons were avoided.
+- Its **brief template modelled omission** — the worked example ended
+  "Section 4 ships without one," which a model copies.
+
+The skill had been built to avoid errors, and avoided them by doing less. It
+conflated caution about facts with caution about visuals.
+
+**The fix, in the skill:**
+
+- Rewritten around a **four-way asset kit** for every section: place a whole
+  illustration on subject match; otherwise **compose** a bespoke graphic from
+  parts; borrow layouts from `comps/`; match the style of `marketing/`. The
+  answer is never "nothing".
+- New **`references/visual-kit.md`**: the actual primitives measured from the
+  illustration files (card, connector, node, accent, panel, line-work, data
+  fill), each with its tokened page-scale rebuild, plus seven composition
+  recipes (step flow, hub and spoke, feedback loop, layer stack, stat panel,
+  comparison split, icon grid), each traced to its source file. Replaces
+  `equinet-assets.md`.
+- Lucide reframed as the **active iconography source**, used generously.
+- Brief template now requires a Visual entry per section — "none" is not
+  valid — and its unmatched-subject example composes rather than skips.
+- **One hard limit kept, deliberately: never invent data.** That's about
+  factual accuracy, not visual caution, and it was correct. A section lacking
+  figures gets a composed graphic instead of a fake number.
+
+After: **17 restrictive to 50 directive**, and all four asset folders
+referenced.
+
+**The fix, in the design system.** The skill had inherited the omission bias
+from the repo itself, and Claude Design reads the repo — so fixing only the
+skill would have left `INDEX.md` overriding it. Corrected in `INDEX.md`
+(rule 2 and the comps section), both asset READMEs, the main README (digest
+rule 10 and three instruction passages) and `PROMPT-TEMPLATE.md`.
+
+The key resolution, in `INDEX.md` rule 2: the old rule said "recomposition
+doesn't rescue a subject mismatch." That confused two things. **Subject
+imagery** — a drawn wireframe, a depicted sector — only fits its subject.
+**Structural primitives** — cards, connectors, nodes, panels — depict nothing
+until given content, and are usable for any topic. A mismatched whole
+illustration is still wrong; a composed graphic from primitives isn't.
+
+Comps reclassified from "never use" to **layout blueprints**: rebuild their
+structure with live components, don't embed them as flat images.
+
+**Caught during validation:** a colon in the rewritten skill description broke
+its YAML frontmatter, which would have stopped the skill loading at all.
+Fixed before packaging.
+
 ## 2026-09-26 — Layout skill added (`skills/equinet-layout/`)
 
 A skill combining the design system with page-planning judgement: given

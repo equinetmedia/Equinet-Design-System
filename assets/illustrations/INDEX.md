@@ -27,13 +27,16 @@ arranged:
 1. **Match on subject, not vibe.** Every row below has a Topics column. A file
    is a candidate when the page's subject is in one — whether you're placing
    it whole or taking parts from it.
-2. **If nothing fits, use nothing.** This set covers Equinet's own service
-   lines and sectors. A page about a topic outside that — general technology
-   commentary, consumer trends, third-party products — has no matching
-   illustration here, and the correct output is a layout with no illustration
-   rather than a loosely-related one. Recomposition doesn't rescue a subject
-   mismatch: rearranged parts of the wrong illustration are still the wrong
-   illustration.
+2. **If no whole illustration fits, compose one — never ship nothing.**
+   This set's *subject imagery* covers Equinet's service lines and sectors, so
+   a page on another topic won't find a whole illustration that depicts it.
+   Don't place a mismatched one. Instead, build a bespoke graphic from the
+   set's **structural primitives** — cards, connectors, nodes, panels,
+   line-work, accent — which carry no subject of their own and are usable for
+   any topic. The distinction: a drawn wireframe depicts wireframing and only
+   fits that subject; a card-connector-node flow depicts nothing until you give
+   it content. See `skills/equinet-layout/references/visual-kit.md` for the
+   primitives and composition recipes.
 3. **Recolour only to a token.** Recomposition makes recolouring possible, and
    that's where drift gets in. Any colour on an extracted element must resolve
    to a token in `tokens.css`. Do not sample a colour out of the artwork and
@@ -148,12 +151,14 @@ for a media panel.
 
 ---
 
-## Not selectable: `assets/comps/`
+## Layout blueprints: `assets/comps/`
 
-Three 1920px module comps live in `assets/comps/`. They are **never** a
-choice here — each pictures an entire rendered module, headings and buttons
-included, so placing one in a page embeds a fake module as a flat image. They
-are reference for parity QA only.
+Four 1920px module comps live in `assets/comps/`. They're real, shipped
+Equinet compositions — use them as **layout blueprints**: reproduce their
+structure, spacing and hierarchy with live components and this page's
+content. The one thing not to do is embed a comp as a flat image, since each
+pictures a whole rendered module with its own text and buttons. Rebuild what
+it shows; don't paste it.
 
 ## Subject coverage, and what it excludes
 

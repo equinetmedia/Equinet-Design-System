@@ -3,11 +3,12 @@
 Figma exports of full HubSpot modules — the design source of record the
 modules were built from. Three files, added 2026-09-23.
 
-**These are not page artwork.** Don't place one in a layout, and don't treat
-one as an illustration; each is a picture of an entire rendered module,
-including its own heading, body copy and buttons. Dropping one into a page
-would embed a fake module as a flat image. They're here to be *compared
-against*, not used.
+**Use these as layout blueprints.** Each is a real, shipped Equinet module
+composition — reproduce its structure, spacing and hierarchy with live
+components and new content. They're also the reference for parity QA. The one
+thing not to do is embed a comp as a flat image: each pictures a whole
+rendered module, its own heading and buttons included, so it must be rebuilt,
+not pasted.
 
 | File | Canvas | Module | Text runs |
 | --- | --- | --- | --- |

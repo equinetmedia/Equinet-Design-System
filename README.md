@@ -15,9 +15,9 @@ AI-generated design**.
 | 5 | **Padding and background are the editor's.** Never hardcoded past override. Exposed in Module Style settings, injected at render. |
 | 6 | **Full-bleed background image ⇒ parallax**, via `IntersectionObserver` + `requestAnimationFrame`. Never `background-attachment: fixed`. |
 | 7 | **Motion needs both halves**: declared inside `prefers-reduced-motion: no-preference`, withdrawn inside `reduce`. |
-| 8 | **Icons**: inline SVG only. Equinet's own are 2px stroke; a Lucide substitute declares **1px** and is marked as a placeholder. Nothing over **48px**. Never fabricate a glyph. |
+| 8 | **Icons — use them generously.** Inline SVG only. Equinet's own first (2px stroke); otherwise **Lucide** at `stroke-width="1"` with a `<!-- lucide/name -->` source comment. Nothing over **48px**. Fetch paths from the library; never draw a glyph by hand. |
 | 9 | **Illustrations are reference, not sealed artwork.** Recompose freely — crop, scale, overlap, extract, rearrange. Colour, typography and iconography still follow the system. |
-| 10 | **Choose illustrations on subject** via `assets/illustrations/INDEX.md`. **If nothing matches, use none.** A near-miss reads as filler. |
+| 10 | **Every section gets a visual.** Place a whole illustration when its subject matches (`assets/illustrations/INDEX.md`); otherwise **compose** a bespoke graphic from the set's structural primitives — cards, connectors, nodes, panels. Never a mismatched whole illustration, never a bare section. Comps are layout blueprints; marketing infographics are the style reference. |
 | 11 | **`scenes/` are opaque**; `sectors/`, `systems/`, `flows/` are transparent and need a surface; `pictonodes/` are square and never sit in a 16:9 row. |
 | 12 | **WCAG 2.1 AA**, measured not estimated. One signed-off exception: the primary button's white label. |
 | 13 | **Say so rather than approximate.** If a rule can't be met — no matching illustration, no icon geometry, no token for a value — state it plainly instead of filling the gap with something plausible. |
@@ -600,8 +600,9 @@ Below 768px every row stacks media-first, including the even ones: alternation
 in a single column reads as a mistake rather than rhythm.
 
 Choosing *which* illustration is a separate question — see
-`assets/illustrations/INDEX.md`, and its rule that if nothing matches the
-subject, the right output is a layout with no illustration.
+`assets/illustrations/INDEX.md`. Where no whole illustration matches the
+subject, compose one from structural primitives rather than leaving the row
+without media.
 
 ## Module comps
 
@@ -610,11 +611,13 @@ subject, the right output is a layout with no illustration.
 `sector-three-column-case-study`, all 1920px wide. They are the design source
 of record those modules were built from.
 
-**Never place one in a layout.** Each is a picture of a whole rendered module,
-its own headings and buttons included; using one as page artwork would embed a
-fake module as a flat image. They exist to be compared against — parity QA,
-token provenance, and settling disputes between a shipped module and a token,
-the way the button exports settled the arrow-travel distance.
+**Use them as layout blueprints — rebuild, don't paste.** Each is a real,
+shipped Equinet composition, so reproducing its structure and hierarchy with
+live components is the fastest route to a page that looks right. Never embed
+one as a flat image: each pictures a whole rendered module, its own headings
+and buttons included. They also serve parity QA, token provenance, and
+settling disputes between a shipped module and a token, the way the button
+exports settled the arrow-travel distance.
 
 Re-exported 2026-09-24 with live `<text>` elements rather than outlined paths,
 and a fourth comp added. Between them they declare 60 text runs with real
@@ -629,11 +632,13 @@ section-by-section **layout brief** (which format each piece of content
 becomes, which asset, which HubSpot element carries the reader's next step),
 then — only after approval — the **build** against this design system.
 
-Its core rule: the shape of the content decides the format. A number becomes
-a stat block because it's a number; content with no numbers gets no stat
-block. It never invents data to fill a format, and it flags any component it
-has to build new — charts, stat rows, tables, flowcharts and FAQs have no
-component here yet.
+It builds visually rich pages from the full asset kit: whole illustrations
+where the subject matches, bespoke infographics composed from the
+illustrations' structural primitives where it doesn't, comps as layout
+blueprints, marketing infographics as the style reference, and Lucide icons
+used generously. Every section gets a visual. The one hard limit is data: it
+never invents a figure to fill a stat block. It flags any component it builds
+new — charts, stat rows, tables, flowcharts and FAQs have no component yet.
 
 It lives in this repo so Claude Design reads it with the rest of the system.
 For Claude chat, the same folder is packaged as `equinet-layout.skill` and
@@ -657,15 +662,17 @@ same standard the colour rule already holds generated output to. Each links
 back to the section that defines the actual values, so this isn't a restatement
 of them, just the mandate to use them.
 
-**Assets — use what's real, never invent what isn't, and leave it out if
-nothing fits.**
-- Illustrations: read `assets/illustrations/INDEX.md` before choosing one. It
-  lists every file's subject and topics, and says which are opaque. Match on
-  subject, not on how a filename sounds. **If no illustration matches the
-  page's subject, use none** — the set covers Equinet's own service lines and
-  sectors, so a page about anything outside that has no fit here, and the
-  nearest-looking file is still the wrong file. A mismatched graphic reads as
-  filler.
+**Assets — use the whole kit, and never invent facts.**
+- Every folder is usable: illustrations (placed whole or recomposed), icons
+  (Equinet's own, then Lucide), comps (as layout blueprints) and marketing
+  infographics (as the style reference). A page of headings and paragraphs is
+  a failed build.
+- Illustrations: read `assets/illustrations/INDEX.md`. Place a whole
+  illustration when its subject matches. When none does — the common case for
+  topics outside Equinet's service lines — **compose** a bespoke graphic from
+  the structural primitives (cards, connectors, nodes, panels, one orange
+  accent) rather than forcing a near-miss or leaving the section bare. See
+  `skills/equinet-layout/references/visual-kit.md`.
 - The 12 files in `scenes/` have an opaque navy gradient baked into the full
   artboard. They are media panels and card headers, not transparent spot art;
   dropping one on a white surface leaves a hard dark rectangle.
@@ -692,18 +699,14 @@ nothing fits.**
   recoloured — though the **glyph inside a tile is substitutable**, and may be
   swapped for a context-appropriate Lucide icon keeping the rect, gradient and
   radius untouched (rule set 2026-09-24; `ICON-REFERENCE.md` has the contract
-  and a per-service mapping). Three icons are still missing
-  geometry (`close`, `checkmark`, `external-link`); for those, **a neutral
-  icon set (Lucide or similar) is an acceptable placeholder** — decided
-  2026-09-23 — but it must read as a placeholder, not be presented as a real
-  Equinet icon — and match it to the house style using
-  `assets/icons/ICON-REFERENCE.md`. Note the substitution rule set
-  2026-09-24: a Lucide icon declares `stroke-width="1"`, not Lucide's native
-  2, and no icon — substituted or Equinet's own — exceeds 48px. Substitutes
-  are deliberately finer than real Equinet artwork, which makes a placeholder
-  visible on sight; don't scale the stroke up to match. Don't fabricate a plausible-looking custom shape; that's
-  exactly the kind of invented geometry the no-hallucination principle exists
-  to prevent.
+  and a per-service mapping). **Use Lucide freely** for
+  every icon Equinet has no geometry for — cards, lists, stats, steps and
+  service rows should carry icons wherever they help scanning. A Lucide icon
+  declares `stroke-width="1"` (finer than Equinet's own 2px, deliberately),
+  sits on a 24 × 24 canvas, never exceeds 48px, carries a one-line source
+  comment (`<!-- lucide/name -->`), and has its path fetched from the library
+  rather than drawn from memory. See `assets/icons/ICON-REFERENCE.md`. Never
+  draw a custom glyph by hand.
 
 **Spacing and frame — token values only, nothing arbitrary.**
 - Padding and gaps: the `equinet-space-*` scale (see **Spacing**). A raw

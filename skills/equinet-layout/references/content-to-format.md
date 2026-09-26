@@ -1,7 +1,9 @@
 # Content shape → format
 
-Find the shape first, then read across. If content fits no row, it's prose —
-which is a correct outcome, not a failure.
+Find the shape first, then read across. Every section ends up with a visual:
+where the content is argument rather than structure, the format is prose, but
+it still carries a spot graphic, a pull-quote or an icon — see
+`visual-kit.md`.
 
 ## The matrix
 
@@ -23,7 +25,7 @@ which is a correct outcome, not a failure.
 | **Proof from a real client** | Named customer, outcome, context | Case study | `sector-three-column-case-study` |
 | **Definitions / common questions** | "What is…", "How does…" | FAQ / accordion | New as a component — also the strongest AEO format |
 | **Several parallel views of one topic** | Content that splits into peer tabs | Tabs | `tabbed_navigation`, `tabbed_navigation_v2` |
-| **An argument or explanation** | Reasoning, nuance, a case being made | Prose | — |
+| **An argument or explanation** | Reasoning, nuance, a case being made | Prose with a visual anchor | A pictonode, a pull-quote on a pale panel, or an icon-led summary list |
 
 ## Choosing between close calls
 
@@ -50,8 +52,9 @@ table when items share several short, comparable attributes. A table with one
 attribute column is a list.
 
 **Illustration vs data visual.** An illustration conveys a concept; a chart
-conveys a measurement. Don't use an illustration where the content has real
-numbers, and don't build a chart to decorate a concept.
+conveys a measurement. Where content has real numbers, chart them; where it
+has a concept, compose or place an illustration. Many sections want both — a
+stat row beside a composed graphic.
 
 ## Sequencing a page
 

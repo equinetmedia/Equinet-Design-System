@@ -63,8 +63,9 @@ This is a deliberate divergence from the house style, not a match to it.
 Equinet's own icons are 2px on a 24 canvas; a substitute at 1px renders half
 that weight at the same size. Two consequences, both intended:
 
-- Substitutes read as visibly finer than real Equinet artwork, which makes a
-  placeholder identifiable on sight rather than only in a code comment.
+- Lucide icons read as a finer, lighter layer than Equinet's own 2px marks —
+  a deliberate visual distinction between the brand's signature icons and
+  general-purpose iconography.
 - **Never scale the declared stroke up to "correct" the difference.** At 48px
   a 1px declaration happens to render 2px, matching the house weight exactly —
   that's arithmetic, not the goal. Keep the declaration at 1 at every size.
@@ -91,11 +92,12 @@ Tokens: `--equinet-icon-stroke` (2), `--equinet-icon-stroke--substitute` (1),
    inheritance in a dark context.
 3. Size it to the slot the real icons use: 24 × 24 for a chevron-class glyph,
    26 × 26 where a play-circle sits.
-4. Mark it as a placeholder in the module comment. The placeholder policy
-   allows a substitute; it doesn't allow presenting one as Equinet artwork.
+4. Name its source in a one-line comment (`<!-- lucide/x -->`), so anyone
+   reading the markup can tell a Lucide icon from Equinet's own geometry.
+   That's provenance, not a warning label — use Lucide freely.
 
 ```html
-<!-- PLACEHOLDER: lucide/x — no Equinet geometry for `close` yet -->
+<!-- lucide/x -->
 <span class="eq-icon" aria-hidden="true">
   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none"
        stroke="currentColor" stroke-width="1"
@@ -116,10 +118,10 @@ supplied as markup. Each has an obvious Lucide equivalent:
 | `checkmark` | `workshop_one_column` bullet list | 26 × 26 | `circle-check` |
 | `external-link` | `cagr-four-column` pill link | 16 × 16 | `external-link` |
 
-These are suggestions for a placeholder, not a decision to adopt Lucide's
-artwork permanently. If the real Figma geometry turns up, it replaces the
-substitute — the same way `arrow-chevron`, `arrow-solid` and `play-circle`
-replaced guesswork once the button exports arrived.
+Use these. If Equinet's own Figma geometry for any of them turns up later,
+it takes priority — the same way `arrow-chevron`, `arrow-solid` and
+`play-circle` came from the button exports — but until then Lucide is the
+right answer, not a stopgap.
 
 ## Service tiles: glyphs ARE substitutable — rule set 2026-09-24
 

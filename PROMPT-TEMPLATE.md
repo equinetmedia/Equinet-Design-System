@@ -28,11 +28,12 @@ clone) *before* starting, then prompt normally.
 > `text-shadow: -2px 2px 4px rgba(0,0,0,0.15)`. Eyebrows are uppercase with
 > `0.2em` tracking at 12px.
 >
-> **Illustrations — read `assets/illustrations/INDEX.md` before choosing.**
-> Match on subject, not on how a filename sounds. **If no illustration
-> matches {CONTEXT}, use none** — the set covers Equinet's service lines,
-> sectors and business-process concepts only, and a near-miss reads as filler.
-> Say so explicitly rather than substituting something approximate.
+> **Every section gets a visual.** Place a whole illustration from
+> `assets/illustrations/INDEX.md` when its subject matches {CONTEXT}. When none
+> does, **compose** a bespoke infographic from the set's structural primitives
+> — cards, connectors, nodes, panels, one orange accent — in the style of
+> `assets/marketing/`. Use `assets/comps/` as layout blueprints. Never a
+> mismatched whole illustration; never a bare section.
 >
 > Illustrations are artistic reference, not sealed artwork: crop into details,
 > scale, overlap, and pull elements out to recombine into new compositions.
@@ -48,10 +49,10 @@ clone) *before* starting, then prompt normally.
 > 16:9 row.
 >
 > **Icons — `assets/icons/`.** Only the three root icons take `currentColor`.
-> For anything with no Equinet geometry, use Lucide on a 24×24 canvas with
-> round caps and joins, `stroke-width="1"` — deliberately finer than
-> Equinet's own 2px icons, so a substitute is visible as one — and no icon
-> over 48px. Mark it in a comment as a placeholder. Never fabricate a glyph.
+> For anything with no Equinet geometry, use Lucide — generously, on cards,
+> lists, stats and steps. 24×24 canvas, round caps and joins,
+> `stroke-width="1"`, no icon over 48px, a `<!-- lucide/name -->` source
+> comment. Fetch paths from the library; never draw a glyph by hand.
 > See `ICON-REFERENCE.md`. `nodes/` are brand marks — place them, don't take them
 > apart. For `service-tiles/`, the tile is the brand asset but the white glyph
 > inside it is iconography: swap it for a context-appropriate Lucide icon
@@ -129,7 +130,7 @@ should say.
 
 | Constraint | What goes wrong without it |
 | --- | --- |
-| "If nothing matches, use none" | A prompt asking to "enhance with assets" reads as an instruction to use one, and a near-miss gets chosen. This happened on the AI-addiction test page. |
+| "Compose when nothing matches" | Without it, a model either forces a near-miss illustration or — as an earlier version of this rule caused — leaves sections bare. Composing from primitives avoids both. |
 | Named h2 rules | An earlier bug set the stagger heading from a 48px token with a 36px fallback — right only when `tokens.css` failed to load. |
 | Opaque `scenes/` warning | Dropping one on a white card leaves a hard dark rectangle. Only found on the third audit pass. |
 | "Sample from `tokens.css`, not artwork" | Eight colours across the illustration set are logged but unsanctioned; extraction propagates them silently. |
@@ -179,9 +180,9 @@ For iterating, once the system is loaded:
 > **{CONTEXT}** pillar page, Equinet Design System. Tokens only — no invented
 > colours or typefaces. Section headings 36px uppercase with the heading
 > shadow. Check `assets/illustrations/INDEX.md` and match illustrations on
-> subject; if nothing fits {CONTEXT}, use none and say so. Illustrations are
+> subject; if none fits {CONTEXT}, compose one from primitives. Illustrations are
 > reference — recompose freely, but colour, type and icons stay per the
 > system. `scenes/` are opaque; `pictonodes/` are square. Lucide for missing
-> icons, marked as placeholders. `.eq-stagger` rows. Structure for AEO:
+> icons, used generously. `.eq-stagger` rows. Structure for AEO:
 > question-shaped H2s, answer-first sections, defined terms, self-contained
 > chunks. Flag anything you can't satisfy.
