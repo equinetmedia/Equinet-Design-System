@@ -32,6 +32,89 @@ built in rather than needing restatement each session. What can't be is
 brief-level direction — the AEO structure and `{CONTEXT}` — which describes
 a page, not the brand.
 
+## 2026-09-26 — Full asset review: naming, editability, documentation
+
+A review against one goal: a language model should be able to rework the
+graphics in `assets/` to fit the data being presented. That tests more than
+naming — it tests whether the files are editable by a model at all.
+
+### Naming — 58 files renamed
+
+One convention: lowercase kebab-case, group-prefixed, globally unique
+(`<group>-<subject>.svg`). 31 files had defects — mixed casing, underscores,
+export cruft (`-v1`, `-c`, `-d`, `_091526`, `-blue`, `-1`), redundant brand
+prefixes — and seven genuine typos: `narritive`, `verfied`, `accuracye`,
+`t0`, `rack` (track), `GTPs` (GPTs), `build-environment` (the industry term is
+*built* environment). `node-black-*` lost "black", which misdescribed a
+`#242630` ink.
+
+Group prefixes were kept on purpose: stripping them makes `ideal-customer-profile`
+and `positioning-strategy` collide between scenes and service tiles.
+
+**Not renamed:** `buttons/` and `comps/` keep their Figma layer-ID names —
+those names *are* the layers PROMPT.md maps back to. Renames used `git mv`, so
+file history survives. Every current document was updated; `CHANGELOG.md` was
+deliberately left with the names as they were, and `assets/RENAMES.md` maps
+all 58 so old references still resolve.
+
+The rename itself introduced one error, caught in verification: a note
+recording that `node-black-hubspot-1.svg` had been deleted was rewritten by
+the substitution into a reference to a file that never existed. Restored.
+
+### Editability — the real blocker
+
+Measured first: **scenes, systems, pictonodes, service tiles and nodes had
+zero live text and zero semantic IDs.** A model opening one saw only anonymous
+path data and couldn't tell a connector from a card. Only `comps/` and
+`marketing/` carried live text.
+
+But every element's role was recoverable from its colour token, so structure
+was added deterministically: a `data-role` on each drawn element (background,
+tile, card, panel, connector, node, glyph, accent, data) and `data-asset` /
+`data-group` on each root, across all 45 reworkable files. Classifier was
+dry-run, its unclassified residue inspected and resolved, then applied.
+**Proven non-destructive: stripping the added attributes reproduces all 45
+originals byte-for-byte, and all 45 parse.** Only six elements remain
+generic — invisible bounding rects.
+
+Illustrations turned out to be **pure structure with no text at all**, which
+became the central rule for reworking: labels go in HTML, never in the SVG.
+
+### Two errors of mine the review uncovered
+
+- **Sectors were recorded as transparent. They're opaque-light** — each has a
+  full-artboard `#F6F5F5` → white gradient. My original background check only
+  matched solid hex fills and missed `fill="url(…)"`. The error had spread to
+  `INDEX.md`, the README digest, the stagger table, the skill and the prompt
+  template — and `bundle.css` routed sectors to `--transparent`, which pads
+  them onto a surface they already carry. Corrected everywhere; added an
+  `--opaque` media modifier (with `--scene` kept as an alias).
+- **Nodes were recorded as single-ink `#242630` marks. They're white glyphs on
+  dark `#242630` tiles.** The `#242630` was the container, not the ink. This
+  mattered: when asked to swap "the white icons on the dark nodes" for Lucide,
+  I applied it to service tiles only and declared nodes "not substitutable —
+  the mark is the whole asset". That reasoning rested on the bad audit. Nodes
+  have exactly the container-plus-glyph structure that makes tiles
+  substitutable, so their glyphs now are too — except `node-hubspot`, verified
+  by inspection to be the HubSpot sprocket logo, a third-party brand mark.
+
+### Documentation — three new files
+
+- **`assets/manifest.json`** — all 81 assets, generated from the files:
+  category, dimensions, aspect, background, live-text count, roles, and palette
+  mapped to tokens. Untokened colours are marked `unsanctioned` with a
+  `nearest_token`; the folded `#FFE6DB` maps to `orange--pale`. Illustrations
+  and tiles carry their subject and topics.
+- **`assets/REWORKING.md`** — which categories may be edited, each role's
+  purpose, per-group recipes, and a worked example built from measured
+  geometry: flow cards sit at a constant 271.508 pitch, so a fifth step
+  appended at that pitch ends at x 1307 — past the 1209 artboard. Adding a
+  step means rescaling, not appending.
+- **`assets/RENAMES.md`** — the full old → new map, plus the typo list.
+
+README gained digest rule 13 (rework by role, from the manifest) and a section
+on all three; the layout skill now reads the manifest and reworks by role.
+
 ## 2026-09-26 — Layout skill rewritten; design system's omission rules corrected
 
 **The first version of the skill made output worse.** Reported on first use:

@@ -155,22 +155,22 @@ substitution rule applying consistently, and it means a part-replaced set
 will look mixed. Replace the whole set or none of it.
 
 (The delivered tiles also aren't internally consistent:
-`services-positioning-strategy` has a `1.15385` stroke on one path and
-`services-value-architecture` uses `1.92308`, where the rest are 2. That
+`tile-positioning-strategy` has a `1.15385` stroke on one path and
+`tile-value-architecture` uses `1.92308`, where the rest are 2. That
 inconsistency disappears if the set is replaced wholesale.)
 
 ### Mapping, by service context
 
 | Tile | Lucide icon | Why |
 | --- | --- | --- |
-| `services-positioning-audit` | `search-check` | An audit is an inspection that reaches a verdict |
-| `services-positioning-strategy` | `target` | A chosen position to aim at |
-| `services-competitor-analysis` | `chart-no-axes-column` | Comparing performance across players |
-| `services-ideal-customer-profile` | `user-round-search` | Identifying a specific customer type |
-| `services-commercial-narritive` | `message-square-quote` | A told story, not a document |
-| `services-value-architecture` | `layers` | Structure built up in layers |
-| `services-sales-enablement-alignment` | `handshake` | Two functions brought into agreement |
-| `services-digital-experience-alignment` | `monitor-check` | A digital surface, verified |
+| `tile-positioning-audit` | `search-check` | An audit is an inspection that reaches a verdict |
+| `tile-positioning-strategy` | `target` | A chosen position to aim at |
+| `tile-competitor-analysis` | `chart-no-axes-column` | Comparing performance across players |
+| `tile-ideal-customer-profile` | `user-round-search` | Identifying a specific customer type |
+| `tile-commercial-narrative` | `message-square-quote` | A told story, not a document |
+| `tile-value-architecture` | `layers` | Structure built up in layers |
+| `tile-sales-enablement-alignment` | `handshake` | Two functions brought into agreement |
+| `tile-digital-experience-alignment` | `monitor-check` | A digital surface, verified |
 
 These are proposals based on what each service means, not decisions — a
 designer may well prefer a different glyph, and the mapping should be edited
@@ -186,10 +186,22 @@ which is the failure this whole file exists to prevent. The three root icons
 here were extracted from real exports with a parser precisely because
 estimates weren't good enough.
 
-## `nodes/` — still not substitutable
+## `nodes/` — glyphs substitutable, same as service tiles
 
-The five 43 × 43 concept marks are a different case. They have no enclosing
-brand container to preserve; the mark *is* the whole asset, and there's no
-Lucide equivalent for an Equinet concept node. Replacing one wouldn't be
-substituting a glyph inside a brand asset, it would be replacing the brand
-asset. If a new node is needed, that's a request for the designer.
+**Corrected 2026-09-26.** This section previously said nodes were not
+substitutable, reasoning that a node "has no enclosing brand container — the
+mark is the whole asset." That rested on a faulty audit. Each node is in fact
+a 43 × 43 dark tile (`#242630`, `rx 5.01`) carrying a **white** glyph — the
+same container-plus-glyph construction that makes service tiles
+substitutable. By the rule this file already states, the same applies here:
+
+- **Tile:** fixed — size, `#242630` fill, corner radius untouched.
+- **Glyph:** swap for a context-appropriate Lucide icon, `stroke-width="1"`,
+  white, centred with the same margin as the original.
+- **Consistency:** replace all five or none; a 1px Lucide glyph beside a
+  delivered glyph reads as mixed.
+
+Suggested mapping by concept: `node-attract` → `magnet`, `node-connect` →
+`link`, `node-growth` → `trending-up`, `node-hubspot` → keep (it depicts the
+HubSpot brand mark, which Lucide doesn't carry and shouldn't substitute),
+`node-verified` → `badge-check`. Proposals, not decisions.

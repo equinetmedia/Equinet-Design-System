@@ -38,7 +38,7 @@ A central node or card, with connectors radiating to three to six satellite
 cards on a pale panel. Use for a core idea with dependent parts — a platform
 and its integrations, a strategy and its pillars.
 
-**Feedback loop** — *from `systems/commercial-insight-and-feedback-loops`*
+**Feedback loop** — *from `systems/system-insight-feedback-loops`*
 Nodes placed around a circle, connectors running in one direction between
 them, a label at each node. Use for cycles — insight → action → measure →
 insight.
@@ -82,7 +82,8 @@ When an illustration's subject matches, place it whole (see `INDEX.md`):
 | Group | Notes |
 | --- | --- |
 | `scenes/` | Opaque navy gradient — use as a full media panel or card header, on its own ground |
-| `sectors/`, `systems/`, `flows/` | Transparent — sit them on a pale panel or white |
+| `sectors/` | Opaque **light** gradient (`#F6F5F5` → white) — fill the frame edge to edge; keep off dark sections |
+| `systems/`, `flows/` | Transparent — sit them on a pale panel or white |
 | `pictonodes/` | Square spot graphics — beside headings and list items |
 
 Crop and scale freely. Colour, type and iconography stay per the system; when

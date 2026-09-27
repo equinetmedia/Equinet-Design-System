@@ -16,7 +16,7 @@ it still carries a spot graphic, a pull-quote or an icon — see
 | **Parts of a whole** | Shares that sum to 100% | Stacked bar, or a single bar split into segments | New. Avoid pies — see below |
 | **Ordered steps** | "First… then… finally", a numbered method | Process sequence | `5_column_block_process`; `flows/` illustrations; `2_column_intelligence_engine_steps` |
 | **Branching process** | Steps with decisions or alternative paths | Flowchart | New. `systems/` illustrations as style reference |
-| **Cycle or feedback loop** | Output feeds back into input | Loop diagram | `systems/commercial-insight-and-feedback-loops`; `pictonodes/pictonode-review` |
+| **Cycle or feedback loop** | Output feeds back into input | Loop diagram | `systems/system-insight-feedback-loops`; `pictonodes/pictonode-review` |
 | **Two options side by side** | "X versus Y", before/after, with/without | Two-column comparison | `2-column-comparison` |
 | **Items with several attributes** | Rows of things, each with the same properties | Table | New. Only when genuinely tabular |
 | **3–5 parallel ideas** | Equal-weight points, no order | Card row | `growth_cards`; `cagr-four-column`; `sector-three-column-case-study` |

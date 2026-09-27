@@ -44,7 +44,8 @@ clone) *before* starting, then prompt normally.
 >
 > The 12 files in `scenes/` are opaque with a navy gradient across the full
 > artboard — media panels and card headers, never dropped on a white surface.
-> `sectors/` and `systems/` are transparent and need a surface behind them.
+> `sectors/` carry their own light gradient — fill the frame, keep them off
+> dark sections. `systems/` and `flows/` are transparent and need a surface.
 > `pictonodes/` are square and belong beside a heading or list item, not in a
 > 16:9 row.
 >
@@ -53,8 +54,8 @@ clone) *before* starting, then prompt normally.
 > lists, stats and steps. 24×24 canvas, round caps and joins,
 > `stroke-width="1"`, no icon over 48px, a `<!-- lucide/name -->` source
 > comment. Fetch paths from the library; never draw a glyph by hand.
-> See `ICON-REFERENCE.md`. `nodes/` are brand marks — place them, don't take them
-> apart. For `service-tiles/`, the tile is the brand asset but the white glyph
+> See `ICON-REFERENCE.md`. `nodes/` are white glyphs on dark tiles: keep the
+> tile, swap the glyph for Lucide (except `node-hubspot`, a brand mark). For `service-tiles/`, the tile is the brand asset but the white glyph
 > inside it is iconography: swap it for a context-appropriate Lucide icon
 > (1px stroke, round caps, white, ~27px box) and leave the rect, gradient and
 > radius untouched. Replace the whole set or none of it — a 1px substitute

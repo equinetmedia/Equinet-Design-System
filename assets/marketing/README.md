@@ -46,23 +46,23 @@ provenance discipline as everything else in this system.
 
 | File | Added | What it contributed |
 | --- | --- | --- |
-| `equinet-media-abm-loop-marketing-hubspot.svg` | 2026-09-23 | `equinet-color-chart-blue-*` (sanctioned); `#ECEAEA` and `#F3F2F2` vs. `equinet-color-surface--alt` (both logged, unresolved — `#F3F2F2` missed in this file's first audit pass, caught 2026-09-23 during the second batch's cross-check) |
-| `how-equinet-media-enables-ai-augmented-sales.svg` | 2026-09-23 | Confirmed `equinet-color-diagram-line`, `-line--neutral` (stroke), `-tint--pale`; `#444A60` logged, single-file, not promoted |
-| `commercial-systems-aeo-rewards-structure-and-accuracye-blue.svg` | 2026-09-23 | Confirmed `equinet-color-diagram-line`, `-tint--pale`; `#E3EFFC`, `#CFE0F4` logged, single-file, not promoted |
-| `commercial-systems-construction-and-deployment.svg` | 2026-09-23 | Confirmed `equinet-color-diagram-line`, `-tint`, `-tint--pale` |
-| `commercial-systems-hubspot-as-your-operational-core.svg` | 2026-09-23 | Confirmed `equinet-color-diagram-line`, `-tint`, `-tint--pale` |
-| `commercial-systems-the-knowledge-base_091526.svg` | 2026-09-23 | Confirmed `equinet-color-diagram-line`, `-tint--pale` |
-| `equinet-media-the-infinity-loop.svg` | 2026-09-23 | Confirmed `equinet-color-diagram-line`, `-line--neutral`, `-tint`, `-tint--pale`; `#FFE6DB` **resolved** — folded into `equinet-color-orange--pale`; `#F49E78` logged, still weak |
-| `putting-your-market-map-to-work.svg` | 2026-09-23 | Confirmed `equinet-color-diagram-line`, `-line--neutral` (stroke), `-tint--pale` |
-| `HubSpot_Agents.svg` | 2026-09-23 | Real `font-family="Myriad Pro"` confirmed (first file in this folder with recoverable font info — text not outlined); confirmed diagram tokens; `#343330`, `#A4A4A4` logged, single-file; gradient stops `#FF4800`, `#FBDDD2` logged, single-file |
-| `TAMbot.svg` | 2026-09-23 | Confirmed `equinet-color-diagram-tint`, border, orange-family tokens; Myriad Pro `<text>` confirmed |
-| `GEO-Ops.svg` | 2026-09-23 | Confirmed `equinet-color-diagram-tint--pale`; Myriad Pro `<text>` confirmed |
-| `Custom-GTPs-and-GEMs.svg` | 2026-09-23 | Confirmed `equinet-color-diagram-line`, `-line--neutral` (stroke), `-tint--pale`; Myriad Pro `<text>` confirmed |
-| `The-Brand-Ops-Agent.svg` | 2026-09-23 | Confirmed `equinet-color-diagram-line`, border; `#F3F3F4` logged as part of the near-white cluster (see `README.md`) |
-| `Using-AI-to-rack-ABM-engagement-across-buying-groups-and-channels.svg` | 2026-09-23 | Confirmed `equinet-color-diagram-line`, `-tint--pale`; Myriad Pro `<text>` confirmed |
-| `Using-AI-t0-Trigger-workflows-from-account-activity.svg` | 2026-09-23 | Confirmed `equinet-color-diagram-line`; Myriad Pro `<text>` confirmed |
-| `Deploy-AI-to-generate-and-schedule-personalised-sequences.svg` | 2026-09-23 | `#FFE6DB` contributed to the orange-pale fold decision; `#F6F7F9`, `#8790A9` logged, single-file; Myriad Pro `<text>` confirmed |
-| `Use-AI-driven-scoring-to-focus-on-leads-most-likely-to-convert.svg` | 2026-09-23 | `#FFE6DB` contributed to the orange-pale fold decision; confirmed `equinet-color-diagram-line--neutral`; `#F49E78` (2nd file); Myriad Pro `<text>` confirmed |
+| `marketing-abm-loop-hubspot.svg` | 2026-09-23 | `equinet-color-chart-blue-*` (sanctioned); `#ECEAEA` and `#F3F2F2` vs. `equinet-color-surface--alt` (both logged, unresolved — `#F3F2F2` missed in this file's first audit pass, caught 2026-09-23 during the second batch's cross-check) |
+| `marketing-ai-augmented-sales.svg` | 2026-09-23 | Confirmed `equinet-color-diagram-line`, `-line--neutral` (stroke), `-tint--pale`; `#444A60` logged, single-file, not promoted |
+| `marketing-aeo-rewards-structure-and-accuracy.svg` | 2026-09-23 | Confirmed `equinet-color-diagram-line`, `-tint--pale`; `#E3EFFC`, `#CFE0F4` logged, single-file, not promoted |
+| `marketing-construction-and-deployment.svg` | 2026-09-23 | Confirmed `equinet-color-diagram-line`, `-tint`, `-tint--pale` |
+| `marketing-hubspot-operational-core.svg` | 2026-09-23 | Confirmed `equinet-color-diagram-line`, `-tint`, `-tint--pale` |
+| `marketing-knowledge-base.svg` | 2026-09-23 | Confirmed `equinet-color-diagram-line`, `-tint--pale` |
+| `marketing-infinity-loop.svg` | 2026-09-23 | Confirmed `equinet-color-diagram-line`, `-line--neutral`, `-tint`, `-tint--pale`; `#FFE6DB` **resolved** — folded into `equinet-color-orange--pale`; `#F49E78` logged, still weak |
+| `marketing-market-map.svg` | 2026-09-23 | Confirmed `equinet-color-diagram-line`, `-line--neutral` (stroke), `-tint--pale` |
+| `marketing-hubspot-agents.svg` | 2026-09-23 | Real `font-family="Myriad Pro"` confirmed (first file in this folder with recoverable font info — text not outlined); confirmed diagram tokens; `#343330`, `#A4A4A4` logged, single-file; gradient stops `#FF4800`, `#FBDDD2` logged, single-file |
+| `marketing-tambot.svg` | 2026-09-23 | Confirmed `equinet-color-diagram-tint`, border, orange-family tokens; Myriad Pro `<text>` confirmed |
+| `marketing-geo-ops.svg` | 2026-09-23 | Confirmed `equinet-color-diagram-tint--pale`; Myriad Pro `<text>` confirmed |
+| `marketing-custom-gpts-and-gems.svg` | 2026-09-23 | Confirmed `equinet-color-diagram-line`, `-line--neutral` (stroke), `-tint--pale`; Myriad Pro `<text>` confirmed |
+| `marketing-brand-ops-agent.svg` | 2026-09-23 | Confirmed `equinet-color-diagram-line`, border; `#F3F3F4` logged as part of the near-white cluster (see `README.md`) |
+| `marketing-ai-abm-engagement-tracking.svg` | 2026-09-23 | Confirmed `equinet-color-diagram-line`, `-tint--pale`; Myriad Pro `<text>` confirmed |
+| `marketing-ai-account-triggered-workflows.svg` | 2026-09-23 | Confirmed `equinet-color-diagram-line`; Myriad Pro `<text>` confirmed |
+| `marketing-ai-personalised-sequences.svg` | 2026-09-23 | `#FFE6DB` contributed to the orange-pale fold decision; `#F6F7F9`, `#8790A9` logged, single-file; Myriad Pro `<text>` confirmed |
+| `marketing-ai-lead-scoring.svg` | 2026-09-23 | `#FFE6DB` contributed to the orange-pale fold decision; confirmed `equinet-color-diagram-line--neutral`; `#F49E78` (2nd file); Myriad Pro `<text>` confirmed |
 
 `equinet-color-diagram-*` (now five tokens, after `-line--neutral` was added
 following this second batch) and the `#FFE6DB` → `orange--pale` fold are

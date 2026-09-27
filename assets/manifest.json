@@ -1,0 +1,3051 @@
+{
+  "schema": "equinet-asset-manifest/1",
+  "generated": "2026-09-26",
+  "note": "Generated from the SVG files themselves. Regenerate after adding or editing assets; do not hand-edit.",
+  "roles": {
+    "background": "full-artboard fill (opaque artwork)",
+    "tile": "brand container behind an icon glyph",
+    "card": "content card",
+    "panel": "pale grouping surface",
+    "connector": "line or arrow linking elements",
+    "node": "circular point on a flow or loop",
+    "glyph": "icon or pictographic line-work",
+    "accent": "the orange outcome/emphasis element \u2014 once per graphic",
+    "data": "chart-blue data element",
+    "shape": "unclassified (usually invisible bounds)"
+  },
+  "count": 81,
+  "assets": [
+    {
+      "name": "wordmark-dark",
+      "path": "assets/brand/wordmark-dark.svg",
+      "category": "brand",
+      "group": "brand",
+      "width": 727.0,
+      "height": 305.0,
+      "aspect": 2.384,
+      "background": "transparent",
+      "live_text": 0,
+      "reworkable": false,
+      "roles": {},
+      "palette": [
+        {
+          "hex": "#242530",
+          "token": "--equinet-color-text"
+        }
+      ]
+    },
+    {
+      "name": "wordmark-light",
+      "path": "assets/brand/wordmark-light.svg",
+      "category": "brand",
+      "group": "brand",
+      "width": 727.0,
+      "height": 305.0,
+      "aspect": 2.384,
+      "background": "transparent",
+      "live_text": 0,
+      "reworkable": false,
+      "roles": {},
+      "palette": []
+    },
+    {
+      "name": "button_navigation_solid-Hover",
+      "path": "assets/buttons/button_navigation_solid-Hover.svg",
+      "category": "button-source",
+      "group": "buttons",
+      "width": 283.0,
+      "height": 94.0,
+      "aspect": 3.011,
+      "background": "transparent",
+      "live_text": 0,
+      "reworkable": false,
+      "roles": {},
+      "palette": [
+        {
+          "hex": "#002E4A",
+          "token": "--equinet-color-blue-900"
+        },
+        {
+          "hex": "#F5844D",
+          "token": "--equinet-color-amber-400"
+        }
+      ]
+    },
+    {
+      "name": "button_navigation_solid_default",
+      "path": "assets/buttons/button_navigation_solid_default.svg",
+      "category": "button-source",
+      "group": "buttons",
+      "width": 283.0,
+      "height": 94.0,
+      "aspect": 3.011,
+      "background": "transparent",
+      "live_text": 0,
+      "reworkable": false,
+      "roles": {},
+      "palette": [
+        {
+          "hex": "#00426C",
+          "token": "--equinet-color-blue-default"
+        }
+      ]
+    },
+    {
+      "name": "button_primary_large_dark-Hover",
+      "path": "assets/buttons/button_primary_large_dark-Hover.svg",
+      "category": "button-source",
+      "group": "buttons",
+      "width": 272.0,
+      "height": 96.0,
+      "aspect": 2.833,
+      "background": "transparent",
+      "live_text": 0,
+      "reworkable": false,
+      "roles": {},
+      "palette": [
+        {
+          "hex": "#D04F14",
+          "token": "--equinet-color-amber-600"
+        }
+      ]
+    },
+    {
+      "name": "button_primary_large_default",
+      "path": "assets/buttons/button_primary_large_default.svg",
+      "category": "button-source",
+      "group": "buttons",
+      "width": 272.0,
+      "height": 96.0,
+      "aspect": 2.833,
+      "background": "transparent",
+      "live_text": 0,
+      "reworkable": false,
+      "roles": {},
+      "palette": [
+        {
+          "hex": "#E06730",
+          "token": "--equinet-color-amber-default"
+        }
+      ]
+    },
+    {
+      "name": "button_primary_large_light-Hover",
+      "path": "assets/buttons/button_primary_large_light-Hover.svg",
+      "category": "button-source",
+      "group": "buttons",
+      "width": 272.0,
+      "height": 96.0,
+      "aspect": 2.833,
+      "background": "transparent",
+      "live_text": 0,
+      "reworkable": false,
+      "roles": {},
+      "palette": [
+        {
+          "hex": "#F5844D",
+          "token": "--equinet-color-amber-400"
+        }
+      ]
+    },
+    {
+      "name": "button_primary_video_dark-Hover",
+      "path": "assets/buttons/button_primary_video_dark-Hover.svg",
+      "category": "button-source",
+      "group": "buttons",
+      "width": 275.0,
+      "height": 96.0,
+      "aspect": 2.865,
+      "background": "transparent",
+      "live_text": 0,
+      "reworkable": false,
+      "roles": {},
+      "palette": [
+        {
+          "hex": "#D04F14",
+          "token": "--equinet-color-amber-600"
+        }
+      ]
+    },
+    {
+      "name": "button_primary_video_default",
+      "path": "assets/buttons/button_primary_video_default.svg",
+      "category": "button-source",
+      "group": "buttons",
+      "width": 275.0,
+      "height": 96.0,
+      "aspect": 2.865,
+      "background": "transparent",
+      "live_text": 0,
+      "reworkable": false,
+      "roles": {},
+      "palette": [
+        {
+          "hex": "#E06730",
+          "token": "--equinet-color-amber-default"
+        }
+      ]
+    },
+    {
+      "name": "button_primary_video_light-Hover",
+      "path": "assets/buttons/button_primary_video_light-Hover.svg",
+      "category": "button-source",
+      "group": "buttons",
+      "width": 275.0,
+      "height": 96.0,
+      "aspect": 2.865,
+      "background": "transparent",
+      "live_text": 0,
+      "reworkable": false,
+      "roles": {},
+      "palette": [
+        {
+          "hex": "#F5844D",
+          "token": "--equinet-color-amber-400"
+        }
+      ]
+    },
+    {
+      "name": "button_textual-Hover",
+      "path": "assets/buttons/button_textual-Hover.svg",
+      "category": "button-source",
+      "group": "buttons",
+      "width": 225.0,
+      "height": 24.0,
+      "aspect": 9.375,
+      "background": "transparent",
+      "live_text": 0,
+      "reworkable": false,
+      "roles": {},
+      "palette": [
+        {
+          "hex": "#242630",
+          "token": "--equinet-color-night-default"
+        },
+        {
+          "hex": "#E06730",
+          "token": "--equinet-color-amber-default"
+        }
+      ]
+    },
+    {
+      "name": "button_textual_default",
+      "path": "assets/buttons/button_textual_default.svg",
+      "category": "button-source",
+      "group": "buttons",
+      "width": 209.0,
+      "height": 24.0,
+      "aspect": 8.708,
+      "background": "transparent",
+      "live_text": 0,
+      "reworkable": false,
+      "roles": {},
+      "palette": [
+        {
+          "hex": "#242630",
+          "token": "--equinet-color-night-default"
+        }
+      ]
+    },
+    {
+      "name": "module__2-column-comparison",
+      "path": "assets/comps/module__2-column-comparison.svg",
+      "category": "layout-blueprint",
+      "group": "comps",
+      "width": 1920.0,
+      "height": 612.0,
+      "aspect": 3.137,
+      "background": "transparent",
+      "live_text": 7,
+      "reworkable": false,
+      "roles": {},
+      "palette": [
+        {
+          "hex": "#00426C",
+          "token": "--equinet-color-blue-default"
+        },
+        {
+          "hex": "#011420",
+          "token": "--equinet-color-blue-950"
+        },
+        {
+          "hex": "#242630",
+          "token": "--equinet-color-night-default"
+        },
+        {
+          "hex": "#3B3F51",
+          "token": "--equinet-color-night-700"
+        },
+        {
+          "hex": "#E06730",
+          "token": "--equinet-color-amber-default"
+        },
+        {
+          "hex": "#F5844D",
+          "token": "--equinet-color-amber-400"
+        },
+        {
+          "hex": "#F6F5F5",
+          "token": "--equinet-color-surface-200"
+        },
+        {
+          "hex": "#FCE9E0",
+          "token": "--equinet-color-amber-100"
+        }
+      ]
+    },
+    {
+      "name": "module__2-column-hero-banner",
+      "path": "assets/comps/module__2-column-hero-banner.svg",
+      "category": "layout-blueprint",
+      "group": "comps",
+      "width": 1920.0,
+      "height": 714.0,
+      "aspect": 2.689,
+      "background": "transparent",
+      "live_text": 9,
+      "reworkable": false,
+      "roles": {},
+      "palette": [
+        {
+          "hex": "#002E4A",
+          "token": "--equinet-color-blue-900"
+        },
+        {
+          "hex": "#00426C",
+          "token": "--equinet-color-blue-default"
+        },
+        {
+          "hex": "#242630",
+          "token": "--equinet-color-night-default"
+        },
+        {
+          "hex": "#292D32",
+          "token": null,
+          "status": "unsanctioned",
+          "nearest_token": "--equinet-color-night-default",
+          "nearest_hex": "#242630"
+        },
+        {
+          "hex": "#3B3F51",
+          "token": "--equinet-color-night-700"
+        },
+        {
+          "hex": "#5688BA",
+          "token": "--equinet-color-blue-500"
+        },
+        {
+          "hex": "#E06730",
+          "token": "--equinet-color-amber-default"
+        },
+        {
+          "hex": "#F1F1F1",
+          "token": "--equinet-color-diagram-surface"
+        },
+        {
+          "hex": "#F3F2F2",
+          "token": null,
+          "status": "unsanctioned",
+          "nearest_token": "--equinet-color-diagram-surface",
+          "nearest_hex": "#F1F1F1"
+        },
+        {
+          "hex": "#F5844D",
+          "token": "--equinet-color-amber-400"
+        },
+        {
+          "hex": "#F6F5F5",
+          "token": "--equinet-color-surface-200"
+        },
+        {
+          "hex": "#FCE9E0",
+          "token": "--equinet-color-amber-100"
+        }
+      ]
+    },
+    {
+      "name": "module__5_column_block_methodology",
+      "path": "assets/comps/module__5_column_block_methodology.svg",
+      "category": "layout-blueprint",
+      "group": "comps",
+      "width": 1920.0,
+      "height": 805.0,
+      "aspect": 2.385,
+      "background": "transparent",
+      "live_text": 21,
+      "reworkable": false,
+      "roles": {},
+      "palette": [
+        {
+          "hex": "#00426C",
+          "token": "--equinet-color-blue-default"
+        },
+        {
+          "hex": "#242630",
+          "token": "--equinet-color-night-default"
+        },
+        {
+          "hex": "#3B3F51",
+          "token": "--equinet-color-night-700"
+        },
+        {
+          "hex": "#E06730",
+          "token": "--equinet-color-amber-default"
+        },
+        {
+          "hex": "#F6F5F5",
+          "token": "--equinet-color-surface-200"
+        }
+      ]
+    },
+    {
+      "name": "module__sector-three-column-case-study",
+      "path": "assets/comps/module__sector-three-column-case-study.svg",
+      "category": "layout-blueprint",
+      "group": "comps",
+      "width": 1920.0,
+      "height": 1276.0,
+      "aspect": 1.505,
+      "background": "transparent",
+      "live_text": 23,
+      "reworkable": false,
+      "roles": {},
+      "palette": [
+        {
+          "hex": "#00426C",
+          "token": "--equinet-color-blue-default"
+        },
+        {
+          "hex": "#242630",
+          "token": "--equinet-color-night-default"
+        },
+        {
+          "hex": "#3B3F51",
+          "token": "--equinet-color-night-700"
+        },
+        {
+          "hex": "#68728F",
+          "token": "--equinet-color-charade-500"
+        },
+        {
+          "hex": "#B1B7C8",
+          "token": "--equinet-color-charade-300"
+        },
+        {
+          "hex": "#E06730",
+          "token": "--equinet-color-amber-default"
+        },
+        {
+          "hex": "#E6E6E6",
+          "token": "--equinet-color-surface-400"
+        },
+        {
+          "hex": "#F5844D",
+          "token": "--equinet-color-amber-400"
+        },
+        {
+          "hex": "#F6F5F5",
+          "token": "--equinet-color-surface-200"
+        },
+        {
+          "hex": "#FCE9E0",
+          "token": "--equinet-color-amber-100"
+        }
+      ]
+    },
+    {
+      "name": "arrow-chevron",
+      "path": "assets/icons/arrow-chevron.svg",
+      "category": "icon",
+      "group": "icons",
+      "width": 24.0,
+      "height": 24.0,
+      "aspect": 1.0,
+      "background": "transparent",
+      "live_text": 0,
+      "reworkable": false,
+      "roles": {},
+      "palette": []
+    },
+    {
+      "name": "arrow-solid",
+      "path": "assets/icons/arrow-solid.svg",
+      "category": "icon",
+      "group": "icons",
+      "width": 15.627,
+      "height": 13.129,
+      "aspect": 1.19,
+      "background": "transparent",
+      "live_text": 0,
+      "reworkable": false,
+      "roles": {},
+      "palette": []
+    },
+    {
+      "name": "node-attract",
+      "path": "assets/icons/nodes/node-attract.svg",
+      "category": "icon",
+      "group": "nodes",
+      "width": 43.0,
+      "height": 43.0,
+      "aspect": 1.0,
+      "background": "dark tile",
+      "live_text": 0,
+      "reworkable": true,
+      "roles": {
+        "tile": 1,
+        "glyph": 1
+      },
+      "palette": [
+        {
+          "hex": "#242630",
+          "token": "--equinet-color-night-default"
+        }
+      ]
+    },
+    {
+      "name": "node-connect",
+      "path": "assets/icons/nodes/node-connect.svg",
+      "category": "icon",
+      "group": "nodes",
+      "width": 43.0,
+      "height": 43.0,
+      "aspect": 1.0,
+      "background": "dark tile",
+      "live_text": 0,
+      "reworkable": true,
+      "roles": {
+        "tile": 1,
+        "glyph": 1
+      },
+      "palette": [
+        {
+          "hex": "#242630",
+          "token": "--equinet-color-night-default"
+        }
+      ]
+    },
+    {
+      "name": "node-growth",
+      "path": "assets/icons/nodes/node-growth.svg",
+      "category": "icon",
+      "group": "nodes",
+      "width": 43.0,
+      "height": 43.0,
+      "aspect": 1.0,
+      "background": "dark tile",
+      "live_text": 0,
+      "reworkable": true,
+      "roles": {
+        "tile": 1,
+        "glyph": 7
+      },
+      "palette": [
+        {
+          "hex": "#242630",
+          "token": "--equinet-color-night-default"
+        }
+      ]
+    },
+    {
+      "name": "node-hubspot",
+      "path": "assets/icons/nodes/node-hubspot.svg",
+      "category": "icon",
+      "group": "nodes",
+      "width": 43.0,
+      "height": 43.0,
+      "aspect": 1.0,
+      "background": "dark tile",
+      "live_text": 0,
+      "reworkable": true,
+      "roles": {
+        "tile": 1,
+        "glyph": 1
+      },
+      "palette": [
+        {
+          "hex": "#242630",
+          "token": "--equinet-color-night-default"
+        }
+      ]
+    },
+    {
+      "name": "node-verified",
+      "path": "assets/icons/nodes/node-verified.svg",
+      "category": "icon",
+      "group": "nodes",
+      "width": 43.0,
+      "height": 43.0,
+      "aspect": 1.0,
+      "background": "dark tile",
+      "live_text": 0,
+      "reworkable": true,
+      "roles": {
+        "tile": 1,
+        "glyph": 1
+      },
+      "palette": [
+        {
+          "hex": "#242630",
+          "token": "--equinet-color-night-default"
+        }
+      ]
+    },
+    {
+      "name": "play-circle",
+      "path": "assets/icons/play-circle.svg",
+      "category": "icon",
+      "group": "icons",
+      "width": 26.0,
+      "height": 26.0,
+      "aspect": 1.0,
+      "background": "transparent",
+      "live_text": 0,
+      "reworkable": false,
+      "roles": {},
+      "palette": []
+    },
+    {
+      "name": "tile-commercial-narrative",
+      "path": "assets/icons/service-tiles/tile-commercial-narrative.svg",
+      "category": "icon",
+      "group": "service-tiles",
+      "width": 65.0,
+      "height": 65.0,
+      "aspect": 1.0,
+      "background": "dark tile",
+      "live_text": 0,
+      "reworkable": true,
+      "roles": {
+        "tile": 1,
+        "glyph": 8
+      },
+      "palette": [
+        {
+          "hex": "#002E4A",
+          "token": "--equinet-color-blue-900"
+        },
+        {
+          "hex": "#265D94",
+          "token": "--equinet-color-blue-700"
+        }
+      ],
+      "topics": [
+        "narrative",
+        "story",
+        "commercial messaging"
+      ]
+    },
+    {
+      "name": "tile-competitor-analysis",
+      "path": "assets/icons/service-tiles/tile-competitor-analysis.svg",
+      "category": "icon",
+      "group": "service-tiles",
+      "width": 65.0,
+      "height": 65.0,
+      "aspect": 1.0,
+      "background": "dark tile",
+      "live_text": 0,
+      "reworkable": true,
+      "roles": {
+        "tile": 1,
+        "glyph": 4
+      },
+      "palette": [
+        {
+          "hex": "#002E4A",
+          "token": "--equinet-color-blue-900"
+        },
+        {
+          "hex": "#265D94",
+          "token": "--equinet-color-blue-700"
+        }
+      ],
+      "topics": [
+        "competitors",
+        "benchmarking",
+        "landscape"
+      ]
+    },
+    {
+      "name": "tile-digital-experience-alignment",
+      "path": "assets/icons/service-tiles/tile-digital-experience-alignment.svg",
+      "category": "icon",
+      "group": "service-tiles",
+      "width": 65.0,
+      "height": 65.0,
+      "aspect": 1.0,
+      "background": "dark tile",
+      "live_text": 0,
+      "reworkable": true,
+      "roles": {
+        "tile": 1,
+        "glyph": 8
+      },
+      "palette": [
+        {
+          "hex": "#002E4A",
+          "token": "--equinet-color-blue-900"
+        },
+        {
+          "hex": "#265D94",
+          "token": "--equinet-color-blue-700"
+        }
+      ],
+      "topics": [
+        "digital experience",
+        "UX alignment"
+      ]
+    },
+    {
+      "name": "tile-ideal-customer-profile",
+      "path": "assets/icons/service-tiles/tile-ideal-customer-profile.svg",
+      "category": "icon",
+      "group": "service-tiles",
+      "width": 65.0,
+      "height": 65.0,
+      "aspect": 1.0,
+      "background": "dark tile",
+      "live_text": 0,
+      "reworkable": true,
+      "roles": {
+        "tile": 1,
+        "glyph": 6
+      },
+      "palette": [
+        {
+          "hex": "#002E4A",
+          "token": "--equinet-color-blue-900"
+        },
+        {
+          "hex": "#265D94",
+          "token": "--equinet-color-blue-700"
+        }
+      ],
+      "topics": [
+        "ICP",
+        "targeting",
+        "audience"
+      ]
+    },
+    {
+      "name": "tile-positioning-audit",
+      "path": "assets/icons/service-tiles/tile-positioning-audit.svg",
+      "category": "icon",
+      "group": "service-tiles",
+      "width": 65.0,
+      "height": 65.0,
+      "aspect": 1.0,
+      "background": "dark tile",
+      "live_text": 0,
+      "reworkable": true,
+      "roles": {
+        "tile": 1,
+        "glyph": 3
+      },
+      "palette": [
+        {
+          "hex": "#002E4A",
+          "token": "--equinet-color-blue-900"
+        },
+        {
+          "hex": "#265D94",
+          "token": "--equinet-color-blue-700"
+        }
+      ],
+      "topics": [
+        "positioning",
+        "audit",
+        "assessment"
+      ]
+    },
+    {
+      "name": "tile-positioning-strategy",
+      "path": "assets/icons/service-tiles/tile-positioning-strategy.svg",
+      "category": "icon",
+      "group": "service-tiles",
+      "width": 65.0,
+      "height": 65.0,
+      "aspect": 1.0,
+      "background": "dark tile",
+      "live_text": 0,
+      "reworkable": true,
+      "roles": {
+        "tile": 1,
+        "glyph": 3
+      },
+      "palette": [
+        {
+          "hex": "#002E4A",
+          "token": "--equinet-color-blue-900"
+        },
+        {
+          "hex": "#265D94",
+          "token": "--equinet-color-blue-700"
+        }
+      ],
+      "topics": [
+        "positioning",
+        "strategy",
+        "differentiation"
+      ]
+    },
+    {
+      "name": "tile-sales-enablement-alignment",
+      "path": "assets/icons/service-tiles/tile-sales-enablement-alignment.svg",
+      "category": "icon",
+      "group": "service-tiles",
+      "width": 65.0,
+      "height": 65.0,
+      "aspect": 1.0,
+      "background": "dark tile",
+      "live_text": 0,
+      "reworkable": true,
+      "roles": {
+        "tile": 1,
+        "glyph": 2
+      },
+      "palette": [
+        {
+          "hex": "#002E4A",
+          "token": "--equinet-color-blue-900"
+        },
+        {
+          "hex": "#265D94",
+          "token": "--equinet-color-blue-700"
+        }
+      ],
+      "topics": [
+        "sales enablement",
+        "alignment"
+      ]
+    },
+    {
+      "name": "tile-value-architecture",
+      "path": "assets/icons/service-tiles/tile-value-architecture.svg",
+      "category": "icon",
+      "group": "service-tiles",
+      "width": 65.0,
+      "height": 65.0,
+      "aspect": 1.0,
+      "background": "dark tile",
+      "live_text": 0,
+      "reworkable": true,
+      "roles": {
+        "tile": 1,
+        "glyph": 2
+      },
+      "palette": [
+        {
+          "hex": "#002E4A",
+          "token": "--equinet-color-blue-900"
+        },
+        {
+          "hex": "#265D94",
+          "token": "--equinet-color-blue-700"
+        }
+      ],
+      "topics": [
+        "value",
+        "pricing",
+        "architecture",
+        "offer design"
+      ]
+    },
+    {
+      "name": "flow-content-operations",
+      "path": "assets/illustrations/flows/flow-content-operations.svg",
+      "category": "illustration",
+      "group": "flows",
+      "width": 1209.0,
+      "height": 675.0,
+      "aspect": 1.791,
+      "background": "transparent",
+      "live_text": 0,
+      "reworkable": true,
+      "roles": {
+        "card": 4,
+        "glyph": 8,
+        "node": 4,
+        "connector": 15,
+        "accent": 2
+      },
+      "palette": [
+        {
+          "hex": "#242630",
+          "token": "--equinet-color-night-default"
+        },
+        {
+          "hex": "#68728F",
+          "token": "--equinet-color-charade-500"
+        },
+        {
+          "hex": "#B1B7C8",
+          "token": "--equinet-color-charade-300"
+        },
+        {
+          "hex": "#E06730",
+          "token": "--equinet-color-amber-default"
+        },
+        {
+          "hex": "#F6F5F5",
+          "token": "--equinet-color-surface-200"
+        }
+      ],
+      "depicts": "Content operations for manufacturers",
+      "topics": [
+        "content ops",
+        "manufacturing",
+        "publishing workflow"
+      ]
+    },
+    {
+      "name": "flow-data-source-of-truth",
+      "path": "assets/illustrations/flows/flow-data-source-of-truth.svg",
+      "category": "illustration",
+      "group": "flows",
+      "width": 1209.0,
+      "height": 675.0,
+      "aspect": 1.791,
+      "background": "transparent",
+      "live_text": 0,
+      "reworkable": true,
+      "roles": {
+        "card": 4,
+        "node": 4,
+        "connector": 15,
+        "shape": 3,
+        "glyph": 10,
+        "accent": 2
+      },
+      "palette": [
+        {
+          "hex": "#242630",
+          "token": "--equinet-color-night-default"
+        },
+        {
+          "hex": "#68728F",
+          "token": "--equinet-color-charade-500"
+        },
+        {
+          "hex": "#B1B7C8",
+          "token": "--equinet-color-charade-300"
+        },
+        {
+          "hex": "#E06730",
+          "token": "--equinet-color-amber-default"
+        },
+        {
+          "hex": "#F6F5F5",
+          "token": "--equinet-color-surface-200"
+        }
+      ],
+      "depicts": "Data cleaned into a single trusted source",
+      "topics": [
+        "data quality",
+        "source of truth",
+        "CRM data",
+        "governance"
+      ]
+    },
+    {
+      "name": "flow-machine-readable-expertise",
+      "path": "assets/illustrations/flows/flow-machine-readable-expertise.svg",
+      "category": "illustration",
+      "group": "flows",
+      "width": 1209.0,
+      "height": 675.0,
+      "aspect": 1.791,
+      "background": "transparent",
+      "live_text": 0,
+      "reworkable": true,
+      "roles": {
+        "card": 4,
+        "node": 4,
+        "connector": 15,
+        "shape": 3,
+        "glyph": 10,
+        "accent": 2
+      },
+      "palette": [
+        {
+          "hex": "#242630",
+          "token": "--equinet-color-night-default"
+        },
+        {
+          "hex": "#68728F",
+          "token": "--equinet-color-charade-500"
+        },
+        {
+          "hex": "#B1B7C8",
+          "token": "--equinet-color-charade-300"
+        },
+        {
+          "hex": "#E06730",
+          "token": "--equinet-color-amber-default"
+        },
+        {
+          "hex": "#F6F5F5",
+          "token": "--equinet-color-surface-200"
+        }
+      ],
+      "depicts": "Expertise structured for machines to parse",
+      "topics": [
+        "machine-readable",
+        "structured data",
+        "AEO",
+        "technical content"
+      ]
+    },
+    {
+      "name": "pictonode-line-graph",
+      "path": "assets/illustrations/pictonodes/pictonode-line-graph.svg",
+      "category": "illustration",
+      "group": "pictonodes",
+      "width": 118.0,
+      "height": 118.0,
+      "aspect": 1.0,
+      "background": "transparent",
+      "live_text": 0,
+      "reworkable": true,
+      "roles": {
+        "accent": 1,
+        "glyph": 4
+      },
+      "palette": [
+        {
+          "hex": "#242630",
+          "token": "--equinet-color-night-default"
+        },
+        {
+          "hex": "#F5844D",
+          "token": "--equinet-color-amber-400"
+        }
+      ],
+      "depicts": "Line graph on a panel",
+      "topics": [
+        "growth",
+        "trend",
+        "performance",
+        "metrics"
+      ]
+    },
+    {
+      "name": "pictonode-multitask",
+      "path": "assets/illustrations/pictonodes/pictonode-multitask.svg",
+      "category": "illustration",
+      "group": "pictonodes",
+      "width": 118.0,
+      "height": 118.0,
+      "aspect": 1.0,
+      "background": "transparent",
+      "live_text": 0,
+      "reworkable": true,
+      "roles": {
+        "accent": 1,
+        "node": 4,
+        "glyph": 13
+      },
+      "palette": [
+        {
+          "hex": "#242630",
+          "token": "--equinet-color-night-default"
+        },
+        {
+          "hex": "#81ACD7",
+          "token": "--equinet-color-blue-400"
+        },
+        {
+          "hex": "#F5844D",
+          "token": "--equinet-color-amber-400"
+        }
+      ],
+      "depicts": "Connected work streams",
+      "topics": [
+        "multitasking",
+        "parallel work",
+        "coordination"
+      ]
+    },
+    {
+      "name": "pictonode-paper-review",
+      "path": "assets/illustrations/pictonodes/pictonode-paper-review.svg",
+      "category": "illustration",
+      "group": "pictonodes",
+      "width": 118.0,
+      "height": 118.0,
+      "aspect": 1.0,
+      "background": "transparent",
+      "live_text": 0,
+      "reworkable": true,
+      "roles": {
+        "accent": 3,
+        "data": 1,
+        "glyph": 11
+      },
+      "palette": [
+        {
+          "hex": "#242630",
+          "token": "--equinet-color-night-default"
+        },
+        {
+          "hex": "#81ACD7",
+          "token": "--equinet-color-blue-400"
+        },
+        {
+          "hex": "#F5844D",
+          "token": "--equinet-color-amber-400"
+        }
+      ],
+      "depicts": "Document under review",
+      "topics": [
+        "documentation",
+        "review",
+        "audit"
+      ]
+    },
+    {
+      "name": "pictonode-pie-chart",
+      "path": "assets/illustrations/pictonodes/pictonode-pie-chart.svg",
+      "category": "illustration",
+      "group": "pictonodes",
+      "width": 118.0,
+      "height": 118.0,
+      "aspect": 1.0,
+      "background": "transparent",
+      "live_text": 0,
+      "reworkable": true,
+      "roles": {
+        "node": 1,
+        "accent": 1,
+        "glyph": 11
+      },
+      "palette": [
+        {
+          "hex": "#242630",
+          "token": "--equinet-color-night-default"
+        },
+        {
+          "hex": "#81ACD7",
+          "token": "--equinet-color-blue-400"
+        },
+        {
+          "hex": "#F5844D",
+          "token": "--equinet-color-amber-400"
+        }
+      ],
+      "depicts": "Segmented chart with nodes",
+      "topics": [
+        "data",
+        "share",
+        "distribution",
+        "analysis"
+      ]
+    },
+    {
+      "name": "pictonode-review",
+      "path": "assets/illustrations/pictonodes/pictonode-review.svg",
+      "category": "illustration",
+      "group": "pictonodes",
+      "width": 118.0,
+      "height": 118.0,
+      "aspect": 1.0,
+      "background": "transparent",
+      "live_text": 0,
+      "reworkable": true,
+      "roles": {
+        "accent": 1,
+        "data": 1,
+        "glyph": 8
+      },
+      "palette": [
+        {
+          "hex": "#242630",
+          "token": "--equinet-color-night-default"
+        },
+        {
+          "hex": "#81ACD7",
+          "token": "--equinet-color-blue-400"
+        },
+        {
+          "hex": "#F5844D",
+          "token": "--equinet-color-amber-400"
+        }
+      ],
+      "depicts": "Review / approval cycle",
+      "topics": [
+        "review",
+        "approval",
+        "QA",
+        "iteration"
+      ]
+    },
+    {
+      "name": "pictonode-stack",
+      "path": "assets/illustrations/pictonodes/pictonode-stack.svg",
+      "category": "illustration",
+      "group": "pictonodes",
+      "width": 118.0,
+      "height": 118.0,
+      "aspect": 1.0,
+      "background": "transparent",
+      "live_text": 0,
+      "reworkable": true,
+      "roles": {
+        "data": 1,
+        "accent": 1,
+        "glyph": 11
+      },
+      "palette": [
+        {
+          "hex": "#242630",
+          "token": "--equinet-color-night-default"
+        },
+        {
+          "hex": "#81ACD7",
+          "token": "--equinet-color-blue-400"
+        },
+        {
+          "hex": "#F5844D",
+          "token": "--equinet-color-amber-400"
+        }
+      ],
+      "depicts": "Layered stack",
+      "topics": [
+        "stack",
+        "layers",
+        "architecture",
+        "tech stack"
+      ]
+    },
+    {
+      "name": "pictonode-the-cde",
+      "path": "assets/illustrations/pictonodes/pictonode-the-cde.svg",
+      "category": "illustration",
+      "group": "pictonodes",
+      "width": 119.0,
+      "height": 117.0,
+      "aspect": 1.017,
+      "background": "transparent",
+      "live_text": 0,
+      "reworkable": true,
+      "roles": {
+        "glyph": 24,
+        "data": 3,
+        "accent": 1
+      },
+      "palette": [
+        {
+          "hex": "#242630",
+          "token": "--equinet-color-night-default"
+        },
+        {
+          "hex": "#5688BA",
+          "token": "--equinet-color-blue-500"
+        },
+        {
+          "hex": "#F5844D",
+          "token": "--equinet-color-amber-400"
+        }
+      ],
+      "depicts": "The CDE",
+      "topics": [
+        "CDE",
+        "common data environment",
+        "shared data"
+      ]
+    },
+    {
+      "name": "pictonode-website",
+      "path": "assets/illustrations/pictonodes/pictonode-website.svg",
+      "category": "illustration",
+      "group": "pictonodes",
+      "width": 121.0,
+      "height": 116.0,
+      "aspect": 1.043,
+      "background": "transparent",
+      "live_text": 0,
+      "reworkable": true,
+      "roles": {
+        "glyph": 9,
+        "data": 1
+      },
+      "palette": [
+        {
+          "hex": "#242630",
+          "token": "--equinet-color-night-default"
+        },
+        {
+          "hex": "#5688BA",
+          "token": "--equinet-color-blue-500"
+        }
+      ],
+      "depicts": "Website / browser frame",
+      "topics": [
+        "website",
+        "web page",
+        "online presence"
+      ]
+    },
+    {
+      "name": "scene-brand-ai-agent",
+      "path": "assets/illustrations/scenes/scene-brand-ai-agent.svg",
+      "category": "illustration",
+      "group": "scenes",
+      "width": 641.0,
+      "height": 360.0,
+      "aspect": 1.781,
+      "background": "opaque dark",
+      "live_text": 0,
+      "reworkable": true,
+      "roles": {
+        "background": 1,
+        "node": 1,
+        "glyph": 8,
+        "accent": 1
+      },
+      "palette": [
+        {
+          "hex": "#002E4A",
+          "token": "--equinet-color-blue-900"
+        },
+        {
+          "hex": "#3D71A5",
+          "token": "--equinet-color-blue-600"
+        },
+        {
+          "hex": "#81ACD7",
+          "token": "--equinet-color-blue-400"
+        },
+        {
+          "hex": "#F5844D",
+          "token": "--equinet-color-amber-400"
+        }
+      ],
+      "depicts": "A brand-trained AI agent",
+      "topics": [
+        "AI agent",
+        "automation",
+        "brand AI"
+      ]
+    },
+    {
+      "name": "scene-brand-consistency",
+      "path": "assets/illustrations/scenes/scene-brand-consistency.svg",
+      "category": "illustration",
+      "group": "scenes",
+      "width": 641.0,
+      "height": 360.0,
+      "aspect": 1.781,
+      "background": "opaque dark",
+      "live_text": 0,
+      "reworkable": true,
+      "roles": {
+        "background": 1,
+        "node": 1,
+        "glyph": 8,
+        "accent": 1
+      },
+      "palette": [
+        {
+          "hex": "#002E4A",
+          "token": "--equinet-color-blue-900"
+        },
+        {
+          "hex": "#3D71A5",
+          "token": "--equinet-color-blue-600"
+        },
+        {
+          "hex": "#81ACD7",
+          "token": "--equinet-color-blue-400"
+        },
+        {
+          "hex": "#F5844D",
+          "token": "--equinet-color-amber-400"
+        }
+      ],
+      "depicts": "Consistency across brand touchpoints",
+      "topics": [
+        "brand",
+        "consistency",
+        "guidelines",
+        "identity"
+      ]
+    },
+    {
+      "name": "scene-ideal-customer-profile",
+      "path": "assets/illustrations/scenes/scene-ideal-customer-profile.svg",
+      "category": "illustration",
+      "group": "scenes",
+      "width": 641.0,
+      "height": 360.0,
+      "aspect": 1.781,
+      "background": "opaque dark",
+      "live_text": 0,
+      "reworkable": true,
+      "roles": {
+        "background": 1,
+        "node": 1,
+        "glyph": 8,
+        "accent": 1
+      },
+      "palette": [
+        {
+          "hex": "#002E4A",
+          "token": "--equinet-color-blue-900"
+        },
+        {
+          "hex": "#3D71A5",
+          "token": "--equinet-color-blue-600"
+        },
+        {
+          "hex": "#81ACD7",
+          "token": "--equinet-color-blue-400"
+        },
+        {
+          "hex": "#F5844D",
+          "token": "--equinet-color-amber-400"
+        }
+      ],
+      "depicts": "Defining the target customer",
+      "topics": [
+        "ICP",
+        "targeting",
+        "audience",
+        "segmentation"
+      ]
+    },
+    {
+      "name": "scene-journey-mapping",
+      "path": "assets/illustrations/scenes/scene-journey-mapping.svg",
+      "category": "illustration",
+      "group": "scenes",
+      "width": 641.0,
+      "height": 360.0,
+      "aspect": 1.781,
+      "background": "opaque dark",
+      "live_text": 0,
+      "reworkable": true,
+      "roles": {
+        "background": 1,
+        "node": 1,
+        "glyph": 5,
+        "accent": 1
+      },
+      "palette": [
+        {
+          "hex": "#002E4A",
+          "token": "--equinet-color-blue-900"
+        },
+        {
+          "hex": "#3D71A5",
+          "token": "--equinet-color-blue-600"
+        },
+        {
+          "hex": "#81ACD7",
+          "token": "--equinet-color-blue-400"
+        },
+        {
+          "hex": "#F5844D",
+          "token": "--equinet-color-amber-400"
+        },
+        {
+          "hex": "#F6F5F5",
+          "token": "--equinet-color-surface-200"
+        }
+      ],
+      "depicts": "Mapping the user journey",
+      "topics": [
+        "journey",
+        "UX",
+        "flow",
+        "mapping"
+      ]
+    },
+    {
+      "name": "scene-market-clarity",
+      "path": "assets/illustrations/scenes/scene-market-clarity.svg",
+      "category": "illustration",
+      "group": "scenes",
+      "width": 641.0,
+      "height": 360.0,
+      "aspect": 1.781,
+      "background": "opaque dark",
+      "live_text": 0,
+      "reworkable": true,
+      "roles": {
+        "background": 1,
+        "node": 1,
+        "glyph": 4,
+        "accent": 1
+      },
+      "palette": [
+        {
+          "hex": "#002E4A",
+          "token": "--equinet-color-blue-900"
+        },
+        {
+          "hex": "#3D71A5",
+          "token": "--equinet-color-blue-600"
+        },
+        {
+          "hex": "#81ACD7",
+          "token": "--equinet-color-blue-400"
+        },
+        {
+          "hex": "#F5844D",
+          "token": "--equinet-color-amber-400"
+        }
+      ],
+      "depicts": "Clarifying market position",
+      "topics": [
+        "market",
+        "clarity",
+        "positioning",
+        "research"
+      ]
+    },
+    {
+      "name": "scene-messaging-framework",
+      "path": "assets/illustrations/scenes/scene-messaging-framework.svg",
+      "category": "illustration",
+      "group": "scenes",
+      "width": 641.0,
+      "height": 360.0,
+      "aspect": 1.781,
+      "background": "opaque dark",
+      "live_text": 0,
+      "reworkable": true,
+      "roles": {
+        "background": 1,
+        "node": 1,
+        "glyph": 10,
+        "accent": 1
+      },
+      "palette": [
+        {
+          "hex": "#002E4A",
+          "token": "--equinet-color-blue-900"
+        },
+        {
+          "hex": "#3D71A5",
+          "token": "--equinet-color-blue-600"
+        },
+        {
+          "hex": "#81ACD7",
+          "token": "--equinet-color-blue-400"
+        },
+        {
+          "hex": "#F5844D",
+          "token": "--equinet-color-amber-400"
+        }
+      ],
+      "depicts": "A single messaging framework",
+      "topics": [
+        "messaging",
+        "framework",
+        "copy",
+        "narrative"
+      ]
+    },
+    {
+      "name": "scene-monitoring-improving",
+      "path": "assets/illustrations/scenes/scene-monitoring-improving.svg",
+      "category": "illustration",
+      "group": "scenes",
+      "width": 641.0,
+      "height": 360.0,
+      "aspect": 1.781,
+      "background": "opaque dark",
+      "live_text": 0,
+      "reworkable": true,
+      "roles": {
+        "background": 1,
+        "node": 1,
+        "glyph": 5,
+        "accent": 1
+      },
+      "palette": [
+        {
+          "hex": "#002E4A",
+          "token": "--equinet-color-blue-900"
+        },
+        {
+          "hex": "#3D71A5",
+          "token": "--equinet-color-blue-600"
+        },
+        {
+          "hex": "#81ACD7",
+          "token": "--equinet-color-blue-400"
+        },
+        {
+          "hex": "#F5844D",
+          "token": "--equinet-color-amber-400"
+        }
+      ],
+      "depicts": "Measuring and iterating",
+      "topics": [
+        "analytics",
+        "monitoring",
+        "optimisation",
+        "CRO"
+      ]
+    },
+    {
+      "name": "scene-positioning-strategy",
+      "path": "assets/illustrations/scenes/scene-positioning-strategy.svg",
+      "category": "illustration",
+      "group": "scenes",
+      "width": 641.0,
+      "height": 360.0,
+      "aspect": 1.781,
+      "background": "opaque dark",
+      "live_text": 0,
+      "reworkable": true,
+      "roles": {
+        "background": 1,
+        "node": 1,
+        "glyph": 5,
+        "accent": 1
+      },
+      "palette": [
+        {
+          "hex": "#002E4A",
+          "token": "--equinet-color-blue-900"
+        },
+        {
+          "hex": "#3D71A5",
+          "token": "--equinet-color-blue-600"
+        },
+        {
+          "hex": "#81ACD7",
+          "token": "--equinet-color-blue-400"
+        },
+        {
+          "hex": "#F5844D",
+          "token": "--equinet-color-amber-400"
+        }
+      ],
+      "depicts": "Building a positioning strategy",
+      "topics": [
+        "positioning",
+        "strategy",
+        "differentiation"
+      ]
+    },
+    {
+      "name": "scene-prototyping",
+      "path": "assets/illustrations/scenes/scene-prototyping.svg",
+      "category": "illustration",
+      "group": "scenes",
+      "width": 641.0,
+      "height": 360.0,
+      "aspect": 1.781,
+      "background": "opaque dark",
+      "live_text": 0,
+      "reworkable": true,
+      "roles": {
+        "background": 1,
+        "node": 1,
+        "glyph": 6,
+        "accent": 1
+      },
+      "palette": [
+        {
+          "hex": "#002E4A",
+          "token": "--equinet-color-blue-900"
+        },
+        {
+          "hex": "#3D71A5",
+          "token": "--equinet-color-blue-600"
+        },
+        {
+          "hex": "#81ACD7",
+          "token": "--equinet-color-blue-400"
+        },
+        {
+          "hex": "#F5844D",
+          "token": "--equinet-color-amber-400"
+        },
+        {
+          "hex": "#F6F5F5",
+          "token": "--equinet-color-surface-200"
+        }
+      ],
+      "depicts": "Interactive prototypes",
+      "topics": [
+        "prototype",
+        "design",
+        "iteration"
+      ]
+    },
+    {
+      "name": "scene-smart-goal-setting",
+      "path": "assets/illustrations/scenes/scene-smart-goal-setting.svg",
+      "category": "illustration",
+      "group": "scenes",
+      "width": 641.0,
+      "height": 360.0,
+      "aspect": 1.781,
+      "background": "opaque dark",
+      "live_text": 0,
+      "reworkable": true,
+      "roles": {
+        "background": 1,
+        "node": 1,
+        "glyph": 6,
+        "accent": 1
+      },
+      "palette": [
+        {
+          "hex": "#002E4A",
+          "token": "--equinet-color-blue-900"
+        },
+        {
+          "hex": "#3D71A5",
+          "token": "--equinet-color-blue-600"
+        },
+        {
+          "hex": "#81ACD7",
+          "token": "--equinet-color-blue-400"
+        },
+        {
+          "hex": "#F5844D",
+          "token": "--equinet-color-amber-400"
+        },
+        {
+          "hex": "#F6F5F5",
+          "token": "--equinet-color-surface-200"
+        }
+      ],
+      "depicts": "Setting measurable goals",
+      "topics": [
+        "goals",
+        "KPI",
+        "planning",
+        "metrics"
+      ]
+    },
+    {
+      "name": "scene-website-build",
+      "path": "assets/illustrations/scenes/scene-website-build.svg",
+      "category": "illustration",
+      "group": "scenes",
+      "width": 641.0,
+      "height": 360.0,
+      "aspect": 1.781,
+      "background": "opaque dark",
+      "live_text": 0,
+      "reworkable": true,
+      "roles": {
+        "background": 1,
+        "glyph": 4,
+        "node": 1,
+        "accent": 1
+      },
+      "palette": [
+        {
+          "hex": "#002E4A",
+          "token": "--equinet-color-blue-900"
+        },
+        {
+          "hex": "#3D71A5",
+          "token": "--equinet-color-blue-600"
+        },
+        {
+          "hex": "#81ACD7",
+          "token": "--equinet-color-blue-400"
+        },
+        {
+          "hex": "#F5844D",
+          "token": "--equinet-color-amber-400"
+        }
+      ],
+      "depicts": "Building the site",
+      "topics": [
+        "web build",
+        "development",
+        "implementation"
+      ]
+    },
+    {
+      "name": "scene-wireframing",
+      "path": "assets/illustrations/scenes/scene-wireframing.svg",
+      "category": "illustration",
+      "group": "scenes",
+      "width": 641.0,
+      "height": 360.0,
+      "aspect": 1.781,
+      "background": "opaque dark",
+      "live_text": 0,
+      "reworkable": true,
+      "roles": {
+        "background": 1,
+        "node": 1,
+        "glyph": 5,
+        "accent": 1
+      },
+      "palette": [
+        {
+          "hex": "#002E4A",
+          "token": "--equinet-color-blue-900"
+        },
+        {
+          "hex": "#3D71A5",
+          "token": "--equinet-color-blue-600"
+        },
+        {
+          "hex": "#81ACD7",
+          "token": "--equinet-color-blue-400"
+        },
+        {
+          "hex": "#F5844D",
+          "token": "--equinet-color-amber-400"
+        },
+        {
+          "hex": "#F6F5F5",
+          "token": "--equinet-color-surface-200"
+        }
+      ],
+      "depicts": "Wireframe layout blocks",
+      "topics": [
+        "wireframe",
+        "layout",
+        "IA",
+        "structure"
+      ]
+    },
+    {
+      "name": "sector-b2b-software",
+      "path": "assets/illustrations/sectors/sector-b2b-software.svg",
+      "category": "illustration",
+      "group": "sectors",
+      "width": 641.0,
+      "height": 361.0,
+      "aspect": 1.776,
+      "background": "opaque light",
+      "live_text": 0,
+      "reworkable": true,
+      "roles": {
+        "background": 1,
+        "glyph": 3,
+        "accent": 7,
+        "connector": 4
+      },
+      "palette": [
+        {
+          "hex": "#00426C",
+          "token": "--equinet-color-blue-default"
+        },
+        {
+          "hex": "#68728F",
+          "token": "--equinet-color-charade-500"
+        },
+        {
+          "hex": "#F5844D",
+          "token": "--equinet-color-amber-400"
+        },
+        {
+          "hex": "#F6F5F5",
+          "token": "--equinet-color-surface-200"
+        }
+      ],
+      "depicts": "B2B software vertical",
+      "topics": [
+        "SaaS",
+        "software",
+        "B2B tech"
+      ]
+    },
+    {
+      "name": "sector-built-environment-animated",
+      "path": "assets/illustrations/sectors/sector-built-environment-animated.svg",
+      "category": "illustration",
+      "group": "sectors",
+      "width": 641.0,
+      "height": 361.0,
+      "aspect": 1.776,
+      "background": "opaque light",
+      "live_text": 0,
+      "reworkable": true,
+      "roles": {
+        "background": 1,
+        "node": 1,
+        "accent": 6,
+        "connector": 3,
+        "glyph": 2
+      },
+      "palette": [
+        {
+          "hex": "#00426C",
+          "token": "--equinet-color-blue-default"
+        },
+        {
+          "hex": "#68728F",
+          "token": "--equinet-color-charade-500"
+        },
+        {
+          "hex": "#F5844D",
+          "token": "--equinet-color-amber-400"
+        },
+        {
+          "hex": "#F6F5F5",
+          "token": "--equinet-color-surface-200"
+        }
+      ],
+      "depicts": "As above, **animated**",
+      "topics": [
+        "\u2014 **see the warning in `README.md`: unguarded infinite animation**"
+      ]
+    },
+    {
+      "name": "sector-built-environment",
+      "path": "assets/illustrations/sectors/sector-built-environment.svg",
+      "category": "illustration",
+      "group": "sectors",
+      "width": 641.0,
+      "height": 361.0,
+      "aspect": 1.776,
+      "background": "opaque light",
+      "live_text": 0,
+      "reworkable": true,
+      "roles": {
+        "background": 1,
+        "node": 1,
+        "accent": 6,
+        "connector": 3,
+        "glyph": 2
+      },
+      "palette": [
+        {
+          "hex": "#00426C",
+          "token": "--equinet-color-blue-default"
+        },
+        {
+          "hex": "#68728F",
+          "token": "--equinet-color-charade-500"
+        },
+        {
+          "hex": "#F5844D",
+          "token": "--equinet-color-amber-400"
+        },
+        {
+          "hex": "#F6F5F5",
+          "token": "--equinet-color-surface-200"
+        }
+      ],
+      "depicts": "Built environment vertical",
+      "topics": [
+        "construction",
+        "property",
+        "infrastructure"
+      ]
+    },
+    {
+      "name": "sector-networked-infrastructure",
+      "path": "assets/illustrations/sectors/sector-networked-infrastructure.svg",
+      "category": "illustration",
+      "group": "sectors",
+      "width": 641.0,
+      "height": 361.0,
+      "aspect": 1.776,
+      "background": "opaque light",
+      "live_text": 0,
+      "reworkable": true,
+      "roles": {
+        "background": 1,
+        "node": 1,
+        "accent": 7,
+        "connector": 5,
+        "glyph": 2
+      },
+      "palette": [
+        {
+          "hex": "#00426C",
+          "token": "--equinet-color-blue-default"
+        },
+        {
+          "hex": "#68728F",
+          "token": "--equinet-color-charade-500"
+        },
+        {
+          "hex": "#F5844D",
+          "token": "--equinet-color-amber-400"
+        },
+        {
+          "hex": "#F6F5F5",
+          "token": "--equinet-color-surface-200"
+        }
+      ],
+      "depicts": "Networked infrastructure vertical",
+      "topics": [
+        "networks",
+        "utilities",
+        "telecoms",
+        "connectivity"
+      ]
+    },
+    {
+      "name": "system-account-expansion",
+      "path": "assets/illustrations/systems/system-account-expansion.svg",
+      "category": "illustration",
+      "group": "systems",
+      "width": 460.0,
+      "height": 259.0,
+      "aspect": 1.776,
+      "background": "transparent",
+      "live_text": 0,
+      "reworkable": true,
+      "roles": {
+        "panel": 3,
+        "connector": 5,
+        "card": 5,
+        "node": 1,
+        "accent": 1,
+        "glyph": 17,
+        "data": 4
+      },
+      "palette": [
+        {
+          "hex": "#242630",
+          "token": "--equinet-color-night-default"
+        },
+        {
+          "hex": "#81ACD7",
+          "token": "--equinet-color-blue-400"
+        },
+        {
+          "hex": "#8790A9",
+          "token": "--equinet-color-charade-400"
+        },
+        {
+          "hex": "#D6D8E1",
+          "token": "--equinet-color-charade-200"
+        },
+        {
+          "hex": "#F1F1F1",
+          "token": "--equinet-color-diagram-surface"
+        },
+        {
+          "hex": "#F5844D",
+          "token": "--equinet-color-amber-400"
+        }
+      ],
+      "depicts": "Account growth and expansion",
+      "topics": [
+        "account management",
+        "expansion",
+        "upsell",
+        "retention"
+      ]
+    },
+    {
+      "name": "system-crm-erp-integration",
+      "path": "assets/illustrations/systems/system-crm-erp-integration.svg",
+      "category": "illustration",
+      "group": "systems",
+      "width": 460.0,
+      "height": 259.0,
+      "aspect": 1.776,
+      "background": "transparent",
+      "live_text": 0,
+      "reworkable": true,
+      "roles": {
+        "connector": 6,
+        "panel": 1,
+        "card": 5,
+        "accent": 3,
+        "node": 5,
+        "glyph": 31,
+        "data": 3
+      },
+      "palette": [
+        {
+          "hex": "#242630",
+          "token": "--equinet-color-night-default"
+        },
+        {
+          "hex": "#3B3F51",
+          "token": "--equinet-color-night-700"
+        },
+        {
+          "hex": "#81ACD7",
+          "token": "--equinet-color-blue-400"
+        },
+        {
+          "hex": "#8790A9",
+          "token": "--equinet-color-charade-400"
+        },
+        {
+          "hex": "#F1F1F1",
+          "token": "--equinet-color-diagram-surface"
+        },
+        {
+          "hex": "#F5844D",
+          "token": "--equinet-color-amber-400"
+        }
+      ],
+      "depicts": "Systems integration",
+      "topics": [
+        "CRM",
+        "ERP",
+        "integration",
+        "HubSpot",
+        "architecture"
+      ]
+    },
+    {
+      "name": "system-data-health-enrichment",
+      "path": "assets/illustrations/systems/system-data-health-enrichment.svg",
+      "category": "illustration",
+      "group": "systems",
+      "width": 460.0,
+      "height": 259.0,
+      "aspect": 1.776,
+      "background": "transparent",
+      "live_text": 0,
+      "reworkable": true,
+      "roles": {
+        "panel": 1,
+        "connector": 14,
+        "card": 7,
+        "node": 6,
+        "data": 1,
+        "accent": 1,
+        "glyph": 13
+      },
+      "palette": [
+        {
+          "hex": "#242630",
+          "token": "--equinet-color-night-default"
+        },
+        {
+          "hex": "#81ACD7",
+          "token": "--equinet-color-blue-400"
+        },
+        {
+          "hex": "#8790A9",
+          "token": "--equinet-color-charade-400"
+        },
+        {
+          "hex": "#F1F1F1",
+          "token": "--equinet-color-diagram-surface"
+        },
+        {
+          "hex": "#F5844D",
+          "token": "--equinet-color-amber-400"
+        }
+      ],
+      "depicts": "Data quality and enrichment",
+      "topics": [
+        "data health",
+        "enrichment",
+        "hygiene",
+        "CRM data"
+      ]
+    },
+    {
+      "name": "system-insight-feedback-loops",
+      "path": "assets/illustrations/systems/system-insight-feedback-loops.svg",
+      "category": "illustration",
+      "group": "systems",
+      "width": 460.0,
+      "height": 259.0,
+      "aspect": 1.776,
+      "background": "transparent",
+      "live_text": 0,
+      "reworkable": true,
+      "roles": {
+        "panel": 1,
+        "card": 3,
+        "connector": 17,
+        "accent": 1,
+        "glyph": 12,
+        "data": 2,
+        "node": 2
+      },
+      "palette": [
+        {
+          "hex": "#242630",
+          "token": "--equinet-color-night-default"
+        },
+        {
+          "hex": "#81ACD7",
+          "token": "--equinet-color-blue-400"
+        },
+        {
+          "hex": "#8790A9",
+          "token": "--equinet-color-charade-400"
+        },
+        {
+          "hex": "#D6D8E1",
+          "token": "--equinet-color-charade-200"
+        },
+        {
+          "hex": "#F1F1F1",
+          "token": "--equinet-color-diagram-surface"
+        },
+        {
+          "hex": "#F5844D",
+          "token": "--equinet-color-amber-400"
+        }
+      ],
+      "depicts": "Insight and feedback cycles",
+      "topics": [
+        "insight",
+        "feedback loops",
+        "reporting"
+      ]
+    },
+    {
+      "name": "system-sales-enablement",
+      "path": "assets/illustrations/systems/system-sales-enablement.svg",
+      "category": "illustration",
+      "group": "systems",
+      "width": 460.0,
+      "height": 259.0,
+      "aspect": 1.776,
+      "background": "transparent",
+      "live_text": 0,
+      "reworkable": true,
+      "roles": {
+        "panel": 1,
+        "connector": 15,
+        "card": 6,
+        "accent": 1,
+        "node": 9,
+        "glyph": 15,
+        "data": 2
+      },
+      "palette": [
+        {
+          "hex": "#242630",
+          "token": "--equinet-color-night-default"
+        },
+        {
+          "hex": "#81ACD7",
+          "token": "--equinet-color-blue-400"
+        },
+        {
+          "hex": "#8790A9",
+          "token": "--equinet-color-charade-400"
+        },
+        {
+          "hex": "#D6D8E1",
+          "token": "--equinet-color-charade-200"
+        },
+        {
+          "hex": "#F1F1F1",
+          "token": "--equinet-color-diagram-surface"
+        },
+        {
+          "hex": "#F5844D",
+          "token": "--equinet-color-amber-400"
+        }
+      ],
+      "depicts": "Supporting sales execution",
+      "topics": [
+        "sales enablement",
+        "execution",
+        "sales ops"
+      ]
+    },
+    {
+      "name": "marketing-abm-loop-hubspot",
+      "path": "assets/marketing/marketing-abm-loop-hubspot.svg",
+      "category": "style-reference",
+      "group": "marketing",
+      "width": 1280.0,
+      "height": 923.0,
+      "aspect": 1.387,
+      "background": "transparent",
+      "live_text": 0,
+      "reworkable": false,
+      "roles": {},
+      "palette": [
+        {
+          "hex": "#002E4A",
+          "token": "--equinet-color-blue-900"
+        },
+        {
+          "hex": "#242530",
+          "token": "--equinet-color-text"
+        },
+        {
+          "hex": "#265D94",
+          "token": "--equinet-color-blue-700"
+        },
+        {
+          "hex": "#3D71A5",
+          "token": "--equinet-color-blue-600"
+        },
+        {
+          "hex": "#5688BA",
+          "token": "--equinet-color-blue-500"
+        },
+        {
+          "hex": "#81ACD7",
+          "token": "--equinet-color-blue-400"
+        },
+        {
+          "hex": "#ECEAEA",
+          "token": null,
+          "status": "unsanctioned",
+          "nearest_token": "--equinet-color-night-200",
+          "nearest_hex": "#E8EAED"
+        },
+        {
+          "hex": "#F3F2F2",
+          "token": null,
+          "status": "unsanctioned",
+          "nearest_token": "--equinet-color-diagram-surface",
+          "nearest_hex": "#F1F1F1"
+        },
+        {
+          "hex": "#F5844D",
+          "token": "--equinet-color-amber-400"
+        },
+        {
+          "hex": "#F6F5F5",
+          "token": "--equinet-color-surface-200"
+        }
+      ]
+    },
+    {
+      "name": "marketing-aeo-rewards-structure-and-accuracy",
+      "path": "assets/marketing/marketing-aeo-rewards-structure-and-accuracy.svg",
+      "category": "style-reference",
+      "group": "marketing",
+      "width": 1200.0,
+      "height": 1419.0,
+      "aspect": 0.846,
+      "background": "transparent",
+      "live_text": 0,
+      "reworkable": false,
+      "roles": {},
+      "palette": [
+        {
+          "hex": "#00426C",
+          "token": "--equinet-color-blue-default"
+        },
+        {
+          "hex": "#242530",
+          "token": "--equinet-color-text"
+        },
+        {
+          "hex": "#242630",
+          "token": "--equinet-color-night-default"
+        },
+        {
+          "hex": "#68728F",
+          "token": "--equinet-color-charade-500"
+        },
+        {
+          "hex": "#B1B7C8",
+          "token": "--equinet-color-charade-300"
+        },
+        {
+          "hex": "#CFE0F4",
+          "token": "--equinet-color-blue-200"
+        },
+        {
+          "hex": "#D04F14",
+          "token": "--equinet-color-amber-600"
+        },
+        {
+          "hex": "#E3EFFC",
+          "token": "--equinet-color-blue-100"
+        },
+        {
+          "hex": "#ECEDF2",
+          "token": "--equinet-color-charade-100"
+        },
+        {
+          "hex": "#F5844D",
+          "token": "--equinet-color-amber-400"
+        },
+        {
+          "hex": "#FCE9E0",
+          "token": "--equinet-color-amber-100"
+        }
+      ]
+    },
+    {
+      "name": "marketing-ai-abm-engagement-tracking",
+      "path": "assets/marketing/marketing-ai-abm-engagement-tracking.svg",
+      "category": "style-reference",
+      "group": "marketing",
+      "width": 320.0,
+      "height": 180.0,
+      "aspect": 1.778,
+      "background": "transparent",
+      "live_text": 5,
+      "reworkable": false,
+      "roles": {},
+      "palette": [
+        {
+          "hex": "#242530",
+          "token": "--equinet-color-text"
+        },
+        {
+          "hex": "#68728F",
+          "token": "--equinet-color-charade-500"
+        },
+        {
+          "hex": "#B1B7C8",
+          "token": "--equinet-color-charade-300"
+        },
+        {
+          "hex": "#ECEDF2",
+          "token": "--equinet-color-charade-100"
+        },
+        {
+          "hex": "#F5844D",
+          "token": "--equinet-color-amber-400"
+        },
+        {
+          "hex": "#F6F5F5",
+          "token": "--equinet-color-surface-200"
+        }
+      ]
+    },
+    {
+      "name": "marketing-ai-account-triggered-workflows",
+      "path": "assets/marketing/marketing-ai-account-triggered-workflows.svg",
+      "category": "style-reference",
+      "group": "marketing",
+      "width": 320.0,
+      "height": 180.0,
+      "aspect": 1.778,
+      "background": "transparent",
+      "live_text": 6,
+      "reworkable": false,
+      "roles": {},
+      "palette": [
+        {
+          "hex": "#242530",
+          "token": "--equinet-color-text"
+        },
+        {
+          "hex": "#68728F",
+          "token": "--equinet-color-charade-500"
+        },
+        {
+          "hex": "#F5844D",
+          "token": "--equinet-color-amber-400"
+        },
+        {
+          "hex": "#F6F5F5",
+          "token": "--equinet-color-surface-200"
+        }
+      ]
+    },
+    {
+      "name": "marketing-ai-augmented-sales",
+      "path": "assets/marketing/marketing-ai-augmented-sales.svg",
+      "category": "style-reference",
+      "group": "marketing",
+      "width": 1200.0,
+      "height": 799.0,
+      "aspect": 1.502,
+      "background": "transparent",
+      "live_text": 0,
+      "reworkable": false,
+      "roles": {},
+      "palette": [
+        {
+          "hex": "#242630",
+          "token": "--equinet-color-night-default"
+        },
+        {
+          "hex": "#444A60",
+          "token": null,
+          "status": "unsanctioned",
+          "nearest_token": "--equinet-color-night-700",
+          "nearest_hex": "#3B3F51"
+        },
+        {
+          "hex": "#68728F",
+          "token": "--equinet-color-charade-500"
+        },
+        {
+          "hex": "#6C7074",
+          "token": "--equinet-color-diagram-line--neutral"
+        },
+        {
+          "hex": "#B1B7C8",
+          "token": "--equinet-color-charade-300"
+        },
+        {
+          "hex": "#E06730",
+          "token": "--equinet-color-amber-default"
+        },
+        {
+          "hex": "#ECEDF2",
+          "token": "--equinet-color-charade-100"
+        }
+      ]
+    },
+    {
+      "name": "marketing-ai-lead-scoring",
+      "path": "assets/marketing/marketing-ai-lead-scoring.svg",
+      "category": "style-reference",
+      "group": "marketing",
+      "width": 320.0,
+      "height": 180.0,
+      "aspect": 1.778,
+      "background": "transparent",
+      "live_text": 7,
+      "reworkable": false,
+      "roles": {},
+      "palette": [
+        {
+          "hex": "#242530",
+          "token": "--equinet-color-text"
+        },
+        {
+          "hex": "#6C7074",
+          "token": "--equinet-color-diagram-line--neutral"
+        },
+        {
+          "hex": "#E06730",
+          "token": "--equinet-color-amber-default"
+        },
+        {
+          "hex": "#F49E78",
+          "token": null,
+          "status": "unsanctioned",
+          "nearest_token": "--equinet-color-amber-400",
+          "nearest_hex": "#F5844D"
+        },
+        {
+          "hex": "#F6F5F5",
+          "token": "--equinet-color-surface-200"
+        },
+        {
+          "hex": "#FFE6DB",
+          "token": "--equinet-color-orange--pale",
+          "status": "folded \u2014 treat as this token"
+        }
+      ]
+    },
+    {
+      "name": "marketing-ai-personalised-sequences",
+      "path": "assets/marketing/marketing-ai-personalised-sequences.svg",
+      "category": "style-reference",
+      "group": "marketing",
+      "width": 320.0,
+      "height": 180.0,
+      "aspect": 1.778,
+      "background": "transparent",
+      "live_text": 7,
+      "reworkable": false,
+      "roles": {},
+      "palette": [
+        {
+          "hex": "#242530",
+          "token": "--equinet-color-text"
+        },
+        {
+          "hex": "#68728F",
+          "token": "--equinet-color-charade-500"
+        },
+        {
+          "hex": "#8790A9",
+          "token": "--equinet-color-charade-400"
+        },
+        {
+          "hex": "#B1B7C8",
+          "token": "--equinet-color-charade-300"
+        },
+        {
+          "hex": "#E06730",
+          "token": "--equinet-color-amber-default"
+        },
+        {
+          "hex": "#F6F5F5",
+          "token": "--equinet-color-surface-200"
+        },
+        {
+          "hex": "#F6F7F9",
+          "token": "--equinet-color-night-100"
+        },
+        {
+          "hex": "#FFE6DB",
+          "token": "--equinet-color-orange--pale",
+          "status": "folded \u2014 treat as this token"
+        }
+      ]
+    },
+    {
+      "name": "marketing-brand-ops-agent",
+      "path": "assets/marketing/marketing-brand-ops-agent.svg",
+      "category": "style-reference",
+      "group": "marketing",
+      "width": 320.0,
+      "height": 180.0,
+      "aspect": 1.778,
+      "background": "transparent",
+      "live_text": 0,
+      "reworkable": false,
+      "roles": {},
+      "palette": [
+        {
+          "hex": "#242530",
+          "token": "--equinet-color-text"
+        },
+        {
+          "hex": "#68728F",
+          "token": "--equinet-color-charade-500"
+        },
+        {
+          "hex": "#B1B7C8",
+          "token": "--equinet-color-charade-300"
+        },
+        {
+          "hex": "#F3F3F4",
+          "token": null,
+          "status": "unsanctioned",
+          "nearest_token": "--equinet-color-surface-200",
+          "nearest_hex": "#F6F5F5"
+        },
+        {
+          "hex": "#F5844D",
+          "token": "--equinet-color-amber-400"
+        },
+        {
+          "hex": "#F6F5F5",
+          "token": "--equinet-color-surface-200"
+        }
+      ]
+    },
+    {
+      "name": "marketing-construction-and-deployment",
+      "path": "assets/marketing/marketing-construction-and-deployment.svg",
+      "category": "style-reference",
+      "group": "marketing",
+      "width": 1200.0,
+      "height": 841.0,
+      "aspect": 1.427,
+      "background": "transparent",
+      "live_text": 0,
+      "reworkable": false,
+      "roles": {},
+      "palette": [
+        {
+          "hex": "#242630",
+          "token": "--equinet-color-night-default"
+        },
+        {
+          "hex": "#68728F",
+          "token": "--equinet-color-charade-500"
+        },
+        {
+          "hex": "#B1B7C8",
+          "token": "--equinet-color-charade-300"
+        },
+        {
+          "hex": "#D04F14",
+          "token": "--equinet-color-amber-600"
+        },
+        {
+          "hex": "#D6D8E1",
+          "token": "--equinet-color-charade-200"
+        },
+        {
+          "hex": "#ECEDF2",
+          "token": "--equinet-color-charade-100"
+        },
+        {
+          "hex": "#FCE9E0",
+          "token": "--equinet-color-amber-100"
+        }
+      ]
+    },
+    {
+      "name": "marketing-custom-gpts-and-gems",
+      "path": "assets/marketing/marketing-custom-gpts-and-gems.svg",
+      "category": "style-reference",
+      "group": "marketing",
+      "width": 320.0,
+      "height": 180.0,
+      "aspect": 1.778,
+      "background": "transparent",
+      "live_text": 5,
+      "reworkable": false,
+      "roles": {},
+      "palette": [
+        {
+          "hex": "#242530",
+          "token": "--equinet-color-text"
+        },
+        {
+          "hex": "#242630",
+          "token": "--equinet-color-night-default"
+        },
+        {
+          "hex": "#68728F",
+          "token": "--equinet-color-charade-500"
+        },
+        {
+          "hex": "#6C7074",
+          "token": "--equinet-color-diagram-line--neutral"
+        },
+        {
+          "hex": "#ECEDF2",
+          "token": "--equinet-color-charade-100"
+        },
+        {
+          "hex": "#F5844D",
+          "token": "--equinet-color-amber-400"
+        },
+        {
+          "hex": "#F6F5F5",
+          "token": "--equinet-color-surface-200"
+        }
+      ]
+    },
+    {
+      "name": "marketing-geo-ops",
+      "path": "assets/marketing/marketing-geo-ops.svg",
+      "category": "style-reference",
+      "group": "marketing",
+      "width": 320.0,
+      "height": 180.0,
+      "aspect": 1.778,
+      "background": "transparent",
+      "live_text": 2,
+      "reworkable": false,
+      "roles": {},
+      "palette": [
+        {
+          "hex": "#242530",
+          "token": "--equinet-color-text"
+        },
+        {
+          "hex": "#B1B7C8",
+          "token": "--equinet-color-charade-300"
+        },
+        {
+          "hex": "#ECEDF2",
+          "token": "--equinet-color-charade-100"
+        },
+        {
+          "hex": "#F5844D",
+          "token": "--equinet-color-amber-400"
+        },
+        {
+          "hex": "#F6F5F5",
+          "token": "--equinet-color-surface-200"
+        }
+      ]
+    },
+    {
+      "name": "marketing-hubspot-agents",
+      "path": "assets/marketing/marketing-hubspot-agents.svg",
+      "category": "style-reference",
+      "group": "marketing",
+      "width": 320.0,
+      "height": 180.0,
+      "aspect": 1.778,
+      "background": "transparent",
+      "live_text": 5,
+      "reworkable": false,
+      "roles": {},
+      "palette": [
+        {
+          "hex": "#242630",
+          "token": "--equinet-color-night-default"
+        },
+        {
+          "hex": "#343330",
+          "token": null,
+          "status": "unsanctioned",
+          "nearest_token": "--equinet-color-night-default",
+          "nearest_hex": "#242630"
+        },
+        {
+          "hex": "#3B3F51",
+          "token": "--equinet-color-night-700"
+        },
+        {
+          "hex": "#68728F",
+          "token": "--equinet-color-charade-500"
+        },
+        {
+          "hex": "#A4A4A4",
+          "token": null,
+          "status": "unsanctioned",
+          "nearest_token": "--equinet-color-night-500",
+          "nearest_hex": "#9DA3B5"
+        },
+        {
+          "hex": "#D6D8E1",
+          "token": "--equinet-color-charade-200"
+        },
+        {
+          "hex": "#ECEDF2",
+          "token": "--equinet-color-charade-100"
+        },
+        {
+          "hex": "#F5844D",
+          "token": "--equinet-color-amber-400"
+        },
+        {
+          "hex": "#F6F5F5",
+          "token": "--equinet-color-surface-200"
+        },
+        {
+          "hex": "#FBDDD2",
+          "token": null,
+          "status": "unsanctioned",
+          "nearest_token": "--equinet-color-amber-100",
+          "nearest_hex": "#FCE9E0"
+        },
+        {
+          "hex": "#FF4800",
+          "token": null,
+          "status": "unsanctioned",
+          "nearest_token": "--equinet-color-amber-600",
+          "nearest_hex": "#D04F14"
+        }
+      ]
+    },
+    {
+      "name": "marketing-hubspot-operational-core",
+      "path": "assets/marketing/marketing-hubspot-operational-core.svg",
+      "category": "style-reference",
+      "group": "marketing",
+      "width": 1200.0,
+      "height": 841.0,
+      "aspect": 1.427,
+      "background": "transparent",
+      "live_text": 0,
+      "reworkable": false,
+      "roles": {},
+      "palette": [
+        {
+          "hex": "#242630",
+          "token": "--equinet-color-night-default"
+        },
+        {
+          "hex": "#68728F",
+          "token": "--equinet-color-charade-500"
+        },
+        {
+          "hex": "#B1B7C8",
+          "token": "--equinet-color-charade-300"
+        },
+        {
+          "hex": "#D04F14",
+          "token": "--equinet-color-amber-600"
+        },
+        {
+          "hex": "#D6D8E1",
+          "token": "--equinet-color-charade-200"
+        },
+        {
+          "hex": "#E06730",
+          "token": "--equinet-color-amber-default"
+        },
+        {
+          "hex": "#ECEDF2",
+          "token": "--equinet-color-charade-100"
+        },
+        {
+          "hex": "#F5844D",
+          "token": "--equinet-color-amber-400"
+        },
+        {
+          "hex": "#FCE9E0",
+          "token": "--equinet-color-amber-100"
+        }
+      ]
+    },
+    {
+      "name": "marketing-infinity-loop",
+      "path": "assets/marketing/marketing-infinity-loop.svg",
+      "category": "style-reference",
+      "group": "marketing",
+      "width": 1208.0,
+      "height": 892.0,
+      "aspect": 1.354,
+      "background": "transparent",
+      "live_text": 0,
+      "reworkable": false,
+      "roles": {},
+      "palette": [
+        {
+          "hex": "#242530",
+          "token": "--equinet-color-text"
+        },
+        {
+          "hex": "#242630",
+          "token": "--equinet-color-night-default"
+        },
+        {
+          "hex": "#68728F",
+          "token": "--equinet-color-charade-500"
+        },
+        {
+          "hex": "#6C7074",
+          "token": "--equinet-color-diagram-line--neutral"
+        },
+        {
+          "hex": "#B1B7C8",
+          "token": "--equinet-color-charade-300"
+        },
+        {
+          "hex": "#D6D8E1",
+          "token": "--equinet-color-charade-200"
+        },
+        {
+          "hex": "#E06730",
+          "token": "--equinet-color-amber-default"
+        },
+        {
+          "hex": "#ECEDF2",
+          "token": "--equinet-color-charade-100"
+        },
+        {
+          "hex": "#F49E78",
+          "token": null,
+          "status": "unsanctioned",
+          "nearest_token": "--equinet-color-amber-400",
+          "nearest_hex": "#F5844D"
+        },
+        {
+          "hex": "#F5844D",
+          "token": "--equinet-color-amber-400"
+        },
+        {
+          "hex": "#F6F5F5",
+          "token": "--equinet-color-surface-200"
+        },
+        {
+          "hex": "#FFE6DB",
+          "token": "--equinet-color-orange--pale",
+          "status": "folded \u2014 treat as this token"
+        }
+      ]
+    },
+    {
+      "name": "marketing-knowledge-base",
+      "path": "assets/marketing/marketing-knowledge-base.svg",
+      "category": "style-reference",
+      "group": "marketing",
+      "width": 1200.0,
+      "height": 743.0,
+      "aspect": 1.615,
+      "background": "transparent",
+      "live_text": 0,
+      "reworkable": false,
+      "roles": {},
+      "palette": [
+        {
+          "hex": "#242630",
+          "token": "--equinet-color-night-default"
+        },
+        {
+          "hex": "#68728F",
+          "token": "--equinet-color-charade-500"
+        },
+        {
+          "hex": "#B1B7C8",
+          "token": "--equinet-color-charade-300"
+        },
+        {
+          "hex": "#D04F14",
+          "token": "--equinet-color-amber-600"
+        },
+        {
+          "hex": "#ECEDF2",
+          "token": "--equinet-color-charade-100"
+        },
+        {
+          "hex": "#FCE9E0",
+          "token": "--equinet-color-amber-100"
+        }
+      ]
+    },
+    {
+      "name": "marketing-market-map",
+      "path": "assets/marketing/marketing-market-map.svg",
+      "category": "style-reference",
+      "group": "marketing",
+      "width": 1200.0,
+      "height": 1073.0,
+      "aspect": 1.118,
+      "background": "transparent",
+      "live_text": 0,
+      "reworkable": false,
+      "roles": {},
+      "palette": [
+        {
+          "hex": "#242630",
+          "token": "--equinet-color-night-default"
+        },
+        {
+          "hex": "#68728F",
+          "token": "--equinet-color-charade-500"
+        },
+        {
+          "hex": "#6C7074",
+          "token": "--equinet-color-diagram-line--neutral"
+        },
+        {
+          "hex": "#B1B7C8",
+          "token": "--equinet-color-charade-300"
+        },
+        {
+          "hex": "#E06730",
+          "token": "--equinet-color-amber-default"
+        },
+        {
+          "hex": "#ECEDF2",
+          "token": "--equinet-color-charade-100"
+        }
+      ]
+    },
+    {
+      "name": "marketing-tambot",
+      "path": "assets/marketing/marketing-tambot.svg",
+      "category": "style-reference",
+      "group": "marketing",
+      "width": 320.0,
+      "height": 180.0,
+      "aspect": 1.778,
+      "background": "transparent",
+      "live_text": 2,
+      "reworkable": false,
+      "roles": {},
+      "palette": [
+        {
+          "hex": "#242630",
+          "token": "--equinet-color-night-default"
+        },
+        {
+          "hex": "#68728F",
+          "token": "--equinet-color-charade-500"
+        },
+        {
+          "hex": "#B1B7C8",
+          "token": "--equinet-color-charade-300"
+        },
+        {
+          "hex": "#D6D8E1",
+          "token": "--equinet-color-charade-200"
+        },
+        {
+          "hex": "#F5844D",
+          "token": "--equinet-color-amber-400"
+        },
+        {
+          "hex": "#F6F5F5",
+          "token": "--equinet-color-surface-200"
+        }
+      ]
+    }
+  ],
+  "palette_note": "A palette entry with status 'unsanctioned' is a colour found in the artwork that is not a design token. When reworking or extracting that element, replace it with nearest_token rather than carrying the raw hex into new work. 'nearest' is by RGB distance \u2014 a suggestion, not a ruling."
+}

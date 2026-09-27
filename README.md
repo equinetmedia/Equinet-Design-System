@@ -18,9 +18,10 @@ AI-generated design**.
 | 8 | **Icons — use them generously.** Inline SVG only. Equinet's own first (2px stroke); otherwise **Lucide** at `stroke-width="1"` with a `<!-- lucide/name -->` source comment. Nothing over **48px**. Fetch paths from the library; never draw a glyph by hand. |
 | 9 | **Illustrations are reference, not sealed artwork.** Recompose freely — crop, scale, overlap, extract, rearrange. Colour, typography and iconography still follow the system. |
 | 10 | **Every section gets a visual.** Place a whole illustration when its subject matches (`assets/illustrations/INDEX.md`); otherwise **compose** a bespoke graphic from the set's structural primitives — cards, connectors, nodes, panels. Never a mismatched whole illustration, never a bare section. Comps are layout blueprints; marketing infographics are the style reference. |
-| 11 | **`scenes/` are opaque**; `sectors/`, `systems/`, `flows/` are transparent and need a surface; `pictonodes/` are square and never sit in a 16:9 row. |
+| 11 | **Backgrounds:** `scenes/` are opaque **dark** (navy gradient); `sectors/` are opaque **light** (`#F6F5F5`→white); `systems/`, `flows/` are transparent and need a surface; `pictonodes/` are square and never sit in a 16:9 row. |
 | 12 | **WCAG 2.1 AA**, measured not estimated. One signed-off exception: the primary button's white label. |
-| 13 | **Say so rather than approximate.** If a rule can't be met — no matching illustration, no icon geometry, no token for a value — state it plainly instead of filling the gap with something plausible. |
+| 13 | **Rework assets by role, from the manifest.** Choose from `assets/manifest.json`; edit via `data-role` (card, node, connector, glyph, accent…), per `assets/REWORKING.md`. Illustrations have no live text — labels go in HTML, never in the SVG. |
+| 14 | **Say so rather than approximate.** If a rule can't be met — no matching illustration, no icon geometry, no token for a value — state it plainly instead of filling the gap with something plausible. |
 
 > **Do not add a `---` horizontal rule to this file.** The design-system
 > format treats the first `---` as the boundary between author text and
@@ -164,7 +165,7 @@ be treated as this token.
 
 **Still unresolved — a cluster, not a one-off:** `#ECEAEA` and `#F3F2F2`
 (both in the ABM infographic — the latter missed in that file's first audit
-pass) and `#F3F3F4` (`The-Brand-Ops-Agent.svg`) are three near-identical,
+pass) and `#F3F3F4` (`marketing-brand-ops-agent.svg`) are three near-identical,
 very pale, cool-toned near-whites. None matches `equinet-color-surface--alt`
 or `equinet-color-diagram-tint--pale` exactly, and none matches each other
 exactly either. Reads less like three isolated choices and more like nobody
@@ -552,7 +553,7 @@ clue that they're collateral rather than interface. Full per-group breakdown,
 palette mapping and usage rules in that folder's own `README.md`.
 
 **One file there has an accessibility defect:**
-`sectors/equinet-sector-build-environment-pictograph-1.svg` carries an
+`sectors/sector-built-environment-animated.svg` carries an
 embedded `2s linear infinite` CSS animation with no `prefers-reduced-motion`
 guard — the one thing the motion rule above exists to prevent. Use its static
 twin until that's fixed.
@@ -590,7 +591,8 @@ silently:**
 | Folder | Modifier | Why |
 | --- | --- | --- |
 | `scenes/` | `--scene` | Opaque navy gradient, full artboard. Fills the frame edge to edge; adding padding would expose page colour around a hard dark rectangle |
-| `sectors/`, `systems/` | `--transparent` | Line work with no background — needs a surface behind it or it floats on the page |
+| `sectors/` | `--opaque` | Carries its own light gradient (`#F6F5F5` → white) across the full artboard. Fills the frame edge to edge; don't add a surface or padding, and keep it off dark sections |
+| `systems/`, `flows/` | `--transparent` | Line work with no background — needs a surface behind it or it floats on the page |
 | `pictonodes/` | use `__row--compact` | 118 × 118 is too small to hold half a row; it sits inline beside the text at native size |
 
 The three 16:9 groups are interchangeable in one row (1.776–1.781, the same
@@ -644,6 +646,29 @@ It lives in this repo so Claude Design reads it with the rest of the system.
 For Claude chat, the same folder is packaged as `equinet-layout.skill` and
 installed from the file card. **This repo copy is canonical:** after editing
 the folder, re-package and reinstall, or the chat copy drifts behind.
+
+## Assets — manifest, roles and reworking
+
+Three files make the asset folders usable by a model, not just a person:
+
+- **`assets/manifest.json`** — one entry per asset (81), generated from the
+  files: category, dimensions, background (opaque dark / opaque light /
+  transparent / dark tile), live-text count, the roles it contains, and its
+  palette mapped to tokens. Colours that aren't tokens are marked
+  `unsanctioned` with a `nearest_token` to substitute. Illustrations and tiles
+  also carry what they depict and the topics they suit. Regenerate it after
+  any asset change; never hand-edit.
+- **`data-role` on every drawn element** of the 45 reworkable assets
+  (illustrations, service tiles, nodes), plus `data-asset` / `data-group` on
+  each root. Assigned from colour tokens and proven non-destructive: stripping
+  them reproduces each original byte-for-byte.
+- **`assets/REWORKING.md`** — how to adapt an asset to the data: which
+  categories may be edited, what each role is for, per-group recipes, and a
+  measured worked example.
+
+Filenames follow one convention — lowercase kebab-case, group-prefixed,
+globally unique — except `buttons/` and `comps/`, which keep their Figma
+layer-ID names. `assets/RENAMES.md` maps every old name to its new one.
 
 ## Brand mark
 

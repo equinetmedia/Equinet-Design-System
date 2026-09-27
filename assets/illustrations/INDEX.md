@@ -50,7 +50,7 @@ arranged:
    want, but the element was drawn to read against dark. Check contrast
    against whatever surface it lands on.
 5. **Don't extract from
-   `sectors/equinet-sector-build-environment-pictograph-1.svg`.** It carries an
+   `sectors/sector-built-environment-animated.svg`.** It carries an
    embedded `2s linear infinite` animation with no `prefers-reduced-motion`
    guard. Taking parts from it carries that defect into new work. Use its
    static twin.
@@ -65,37 +65,37 @@ arranged:
 
 | File | Depicts | Topics |
 | --- | --- | --- |
-| `Equinet-Media-brand-development-brand-consistency-v1` | Consistency across brand touchpoints | brand, consistency, guidelines, identity |
-| `Equinet-Media-brand-development-ideal-customer-profile-v1` | Defining the target customer | ICP, targeting, audience, segmentation |
-| `Equinet-Media-brand-development-market-clarity-v1` | Clarifying market position | market, clarity, positioning, research |
-| `Equinet-Media-create-a-clear-positioning-strategy-v1` | Building a positioning strategy | positioning, strategy, differentiation |
-| `Equinet-Media-create-a-unified-messaging-framework-v1` | A single messaging framework | messaging, framework, copy, narrative |
-| `Equinet-Media-create-your-own-brand-ai-agent-v1` | A brand-trained AI agent | AI agent, automation, brand AI |
-| `Equinet-Media-website-design-building-v1` | Building the site | web build, development, implementation |
-| `Equinet-Media-website-design-journey-mapping-v1` | Mapping the user journey | journey, UX, flow, mapping |
-| `Equinet-Media-website-design-monitoring-improving-v1` | Measuring and iterating | analytics, monitoring, optimisation, CRO |
-| `Equinet-Media-website-design-prototyping-v1` | Interactive prototypes | prototype, design, iteration |
-| `Equinet-Media-website-design-smart-goal-setting-v1` | Setting measurable goals | goals, KPI, planning, metrics |
-| `Equinet-Media-website-design-wireframing-v1` | Wireframe layout blocks | wireframe, layout, IA, structure |
+| `scene-brand-consistency` | Consistency across brand touchpoints | brand, consistency, guidelines, identity |
+| `scene-ideal-customer-profile` | Defining the target customer | ICP, targeting, audience, segmentation |
+| `scene-market-clarity` | Clarifying market position | market, clarity, positioning, research |
+| `scene-positioning-strategy` | Building a positioning strategy | positioning, strategy, differentiation |
+| `scene-messaging-framework` | A single messaging framework | messaging, framework, copy, narrative |
+| `scene-brand-ai-agent` | A brand-trained AI agent | AI agent, automation, brand AI |
+| `scene-website-build` | Building the site | web build, development, implementation |
+| `scene-journey-mapping` | Mapping the user journey | journey, UX, flow, mapping |
+| `scene-monitoring-improving` | Measuring and iterating | analytics, monitoring, optimisation, CRO |
+| `scene-prototyping` | Interactive prototypes | prototype, design, iteration |
+| `scene-smart-goal-setting` | Setting measurable goals | goals, KPI, planning, metrics |
+| `scene-wireframing` | Wireframe layout blocks | wireframe, layout, IA, structure |
 
-## `sectors/` — 641 × 361, transparent
+## `sectors/` — 641 × 361, OPAQUE light gradient (`#F6F5F5` → white)
 
 | File | Depicts | Topics |
 | --- | --- | --- |
-| `equinet-sector-b2b-software-pictograph` | B2B software vertical | SaaS, software, B2B tech |
-| `equinet-sector-build-environment-pictograph` | Built environment vertical | construction, property, infrastructure |
-| `equinet-sector-build-environment-pictograph-1` | As above, **animated** | — **see the warning in `README.md`: unguarded infinite animation** |
-| `equinet-sector-networked-infrastructure-pictograph` | Networked infrastructure vertical | networks, utilities, telecoms, connectivity |
+| `sector-b2b-software` | B2B software vertical | SaaS, software, B2B tech |
+| `sector-built-environment` | Built environment vertical | construction, property, infrastructure |
+| `sector-built-environment-animated` | As above, **animated** | — **see the warning in `README.md`: unguarded infinite animation** |
+| `sector-networked-infrastructure` | Networked infrastructure vertical | networks, utilities, telecoms, connectivity |
 
 ## `systems/` — 460 × 259, transparent
 
 | File | Depicts | Topics |
 | --- | --- | --- |
-| `Account-management-expansion-enablement-c` | Account growth and expansion | account management, expansion, upsell, retention |
-| `Commercial-data-health-enrichment-c` | Data quality and enrichment | data health, enrichment, hygiene, CRM data |
-| `commercial-insight-and-feedback-loops` | Insight and feedback cycles | insight, feedback loops, reporting |
-| `CRM-ERP-integration-d` | Systems integration | CRM, ERP, integration, HubSpot, architecture |
-| `Sales-enablement-execution-support-c` | Supporting sales execution | sales enablement, execution, sales ops |
+| `system-account-expansion` | Account growth and expansion | account management, expansion, upsell, retention |
+| `system-data-health-enrichment` | Data quality and enrichment | data health, enrichment, hygiene, CRM data |
+| `system-insight-feedback-loops` | Insight and feedback cycles | insight, feedback loops, reporting |
+| `system-crm-erp-integration` | Systems integration | CRM, ERP, integration, HubSpot, architecture |
+| `system-sales-enablement` | Supporting sales execution | sales enablement, execution, sales ops |
 
 ## `flows/` — 1209 × 675, transparent
 
@@ -105,12 +105,12 @@ unordered items.
 
 | File | Depicts | Topics |
 | --- | --- | --- |
-| `turning-your-commercial-data-into-an-uncorrupted-source-of-truth` | Data cleaned into a single trusted source | data quality, source of truth, CRM data, governance |
-| `make-your-technical-expertise-machine-readable` | Expertise structured for machines to parse | machine-readable, structured data, AEO, technical content |
-| `smarter-content-operations-for-manufacturing-growth` | Content operations for manufacturers | content ops, manufacturing, publishing workflow |
+| `flow-data-source-of-truth` | Data cleaned into a single trusted source | data quality, source of truth, CRM data, governance |
+| `flow-machine-readable-expertise` | Expertise structured for machines to parse | machine-readable, structured data, AEO, technical content |
+| `flow-content-operations` | Content operations for manufacturers | content ops, manufacturing, publishing workflow |
 
 These three suit AEO and structured-content subjects better than anything
-else in the set — `make-your-technical-expertise-machine-readable` in
+else in the set — `flow-machine-readable-expertise` in
 particular is the only illustration that directly depicts machine-readability.
 
 ## `pictonodes/` — 118 × 118 square, transparent
@@ -119,13 +119,13 @@ Small spot graphics. Use beside a heading or list item, not as a hero.
 
 | File | Depicts | Topics |
 | --- | --- | --- |
-| `pictonode-linegraph` | Line graph on a panel | growth, trend, performance, metrics |
+| `pictonode-line-graph` | Line graph on a panel | growth, trend, performance, metrics |
 | `pictonode-multitask` | Connected work streams | multitasking, parallel work, coordination |
-| `pictonode-paperreview` | Document under review | documentation, review, audit |
-| `pictonode-piechart` | Segmented chart with nodes | data, share, distribution, analysis |
+| `pictonode-paper-review` | Document under review | documentation, review, audit |
+| `pictonode-pie-chart` | Segmented chart with nodes | data, share, distribution, analysis |
 | `pictonode-review` | Review / approval cycle | review, approval, QA, iteration |
 | `pictonode-stack` | Layered stack | stack, layers, architecture, tech stack |
-| `pictonode-thecde` | The CDE | CDE, common data environment, shared data |
+| `pictonode-the-cde` | The CDE | CDE, common data environment, shared data |
 | `pictonode-website` | Website / browser frame | website, web page, online presence |
 
 ## Also selectable: `assets/icons/service-tiles/`
@@ -136,14 +136,14 @@ than a scene — use in a service list, a card row or beside a heading, where a
 
 | File | Topics |
 | --- | --- |
-| `services-commercial-narritive` | narrative, story, commercial messaging |
-| `services-competitor-analysis` | competitors, benchmarking, landscape |
-| `services-digital-experience-alignment` | digital experience, UX alignment |
-| `services-ideal-customer-profile` | ICP, targeting, audience |
-| `services-positioning-audit` | positioning, audit, assessment |
-| `services-positioning-strategy` | positioning, strategy, differentiation |
-| `services-sales-enablement-alignment` | sales enablement, alignment |
-| `services-value-architecture` | value, pricing, architecture, offer design |
+| `tile-commercial-narrative` | narrative, story, commercial messaging |
+| `tile-competitor-analysis` | competitors, benchmarking, landscape |
+| `tile-digital-experience-alignment` | digital experience, UX alignment |
+| `tile-ideal-customer-profile` | ICP, targeting, audience |
+| `tile-positioning-audit` | positioning, audit, assessment |
+| `tile-positioning-strategy` | positioning, strategy, differentiation |
+| `tile-sales-enablement-alignment` | sales enablement, alignment |
+| `tile-value-architecture` | value, pricing, architecture, offer design |
 
 Three overlap in subject with `scenes/` (ICP, positioning strategy, sales
 enablement). Pick by scale, not by preference: a tile for a list item, a scene

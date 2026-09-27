@@ -59,7 +59,7 @@ This is common, and the answer is to compose — not to skip:
 - **Content shape:** a cycle — prompt → reward → return → prompt
 - **Format:** feedback loop
 - **Visual:** composed — feedback loop (from
-  `systems/commercial-insight-and-feedback-loops`): four nodes on a circle,
+  `systems/system-insight-feedback-loops`): four nodes on a circle,
   directional connectors, lucide/bell, lucide/sparkles, lucide/repeat,
   lucide/hourglass; pale panel ground
 - **Icons:** as above

@@ -9,7 +9,7 @@ Three groups, 16 files:
 | Group | Count | Size | Ink | Recolours with `currentColor`? |
 | --- | --- | --- | --- | --- |
 | (root) | 3 | 24 × 24, 15.6 × 13.1, 26 × 26 | `currentColor` | Yes |
-| `nodes/` | 5 | 43 × 43 | `#242630` | **No** — hardcoded, see below |
+| `nodes/` | 5 | 43 × 43 | White glyph on a `#242630` dark tile | Tile no; **glyph yes — substitutable** |
 | `service-tiles/` | 8 | 65 × 65 | White glyph on a navy gradient tile | **No** — by design |
 
 ---
@@ -38,20 +38,21 @@ in one declaration. Inline them in `module.html` rather than linking —
 Added 2026-09-23. Five single-ink marks: attract, connect, growth, hubspot,
 verified. Mostly one path each; `growth` has seven.
 
-**The filenames say "black" but the ink is `#242630`** —
-`--equinet-color-heading`, the same near-black used for headings, not true
-black (`--equinet-color-black` / `#000000`, which does exist as a separate
-token). The names are kept as delivered, but don't read them as a colour
-specification.
+**Their ink is `#242630`** — `--equinet-color-heading`, the same near-black
+used for headings, not true black (`--equinet-color-black` / `#000000` is a
+separate token). The files were delivered as `node-black-*`; "black" was
+dropped from the names on 2026-09-26 because it misdescribed the colour.
 
-**They hardcode that fill rather than using `currentColor`**, unlike the root
-icons. As delivered they can't follow a control's colour. If they're meant to
-sit inside anything with a hover or a dark variant, the fill wants swapping for
-`currentColor` — a one-line change per file, but a change to delivered artwork,
-so it's flagged rather than made.
+**Structure: a white glyph on a dark tile.** Each node is a full-size
+43 × 43 rounded rect (`rx 5.01`, `#242630`) with a white glyph on top — the
+same container-plus-glyph construction as the service tiles. An earlier audit
+misread the `#242630` tile as the glyph's own ink and recorded these as
+single-ink marks; corrected 2026-09-26. As with the tiles, **the tile is the
+brand asset and the white glyph is substitutable** with a context-appropriate
+Lucide icon (`stroke-width="1"`, white). Replace all five or none.
 
-A sixth file, `node-black-hubspot-1.svg`, was **dropped as a true duplicate**:
-identical geometry to `node-black-hubspot.svg`, differing only by sub-0.001px
+A sixth file, `node-black-hubspot-1.svg` (its original export name), was **dropped as a true duplicate**:
+identical geometry to `node-hubspot.svg`, differing only by sub-0.001px
 floating-point rounding in the exported path. Unlike the animated sector
 pictograph, there was no second behaviour to preserve.
 
@@ -60,10 +61,13 @@ pictograph, there was no second behaviour to preserve.
 Added 2026-09-23. Eight rounded tiles (`rx 10.34`), each a white line glyph on
 a navy gradient, one per service:
 
-`commercial-narritive` *(sic — delivered spelling)* · `competitor-analysis` ·
-`digital-experience-alignment` · `ideal-customer-profile` ·
-`positioning-audit` · `positioning-strategy` · `sales-enablement-alignment` ·
-`value-architecture`
+`tile-commercial-narrative` · `tile-competitor-analysis` ·
+`tile-digital-experience-alignment` · `tile-ideal-customer-profile` ·
+`tile-positioning-audit` · `tile-positioning-strategy` ·
+`tile-sales-enablement-alignment` · `tile-value-architecture`
+
+(`commercial-narrative` was delivered misspelled as `narritive`; corrected in
+the 2026-09-26 rename.)
 
 Gradient: `#265D94` (`--equinet-color-blue-700`) to `#002E4A`
 (`--equinet-color-blue-900`), top-right to bottom-left. Both are existing

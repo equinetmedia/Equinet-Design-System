@@ -70,8 +70,8 @@ rounding artefact rather than intent.
 
 ### One file is animated, and it has an accessibility problem
 
-`equinet-sector-build-environment-pictograph-1.svg` is **not** a duplicate of
-`equinet-sector-build-environment-pictograph.svg` — it's the animated variant,
+`sector-built-environment-animated.svg` is **not** a duplicate of
+`sector-built-environment.svg` — it's the animated variant,
 carrying an embedded `<style>` block with `@keyframes` and:
 
 ```css
@@ -84,7 +84,7 @@ exists to prevent — see `README.md`, "Motion", which requires both a
 `no-preference` wrapper and a `reduce` fallback. It is the only animated file
 in the whole asset set.
 
-Until it's fixed, use the static `equinet-sector-build-environment-pictograph.svg`
+Until it's fixed, use the static `sector-built-environment.svg`
 by default. If the animation is wanted, the embedded style block needs a guard
 added:
 
@@ -174,7 +174,7 @@ review, stack, the CDE, website. 9–24 paths, the densest of the three groups.
 Palette: `#242630` (`--equinet-color-night-default`), `#81ACD7` and `#5688BA`
 (the chart-blues), `#F5844D`. All existing tokens.
 
-Six are exactly 118 × 118; `pictonode-thecde` is 119 × 117 and
+Six are exactly 118 × 118; `pictonode-the-cde` is 119 × 117 and
 `pictonode-website` 121 × 116. Worth normalizing if they ever share a grid —
 the 1–3px difference shows as misalignment.
 

@@ -56,6 +56,9 @@ chat each time, not pulled automatically.
 | `assets/icons/` | 16 files in three groups, plus `ICON-REFERENCE.md` — the measured house style and how to match a Lucide or Phosphor substitute to it | Inlining an icon into a module |
 | `assets/buttons/` | The ten Figma button exports, kept as the measurement source of record | Verifying a geometry claim against its origin |
 | `assets/brand/` | Wordmark, light and dark variants | Any use of the logo |
+| `assets/manifest.json` | Machine-readable record of all 81 assets — background, roles, palette→tokens, subject | Choosing and reworking assets programmatically |
+| `assets/REWORKING.md` | How to adapt an asset to the data, by `data-role` | Editing a graphic to match content |
+| `assets/RENAMES.md` | Old → new filename map from the 2026-09-26 rename | Resolving older references |
 | `assets/comps/` | Three 1920px Figma module comps — reference for parity QA, never page artwork |
 | `assets/marketing/` | Seventeen infographics, with a per-file audit index | Provenance for the chart and diagram token categories |
 | `assets/illustrations/` | 32 standalone graphics in five subgroups, plus `INDEX.md` — the per-file subject index an agent reads to choose artwork | Standalone graphics — not icons; one file has an unguarded infinite animation, see that folder's README |

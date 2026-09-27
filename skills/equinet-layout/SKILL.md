@@ -17,6 +17,9 @@ earns its place. A page of headings and paragraphs is a failed build.
 ## Before starting
 
 This sits on the Equinet design system (`equinetmedia/equinet-design-system`).
+Choose assets from `assets/manifest.json` (every asset's background, roles,
+palette and subject) and rework them per `assets/REWORKING.md`, targeting
+elements by `data-role`.
 Its `README.md` opens with a 13-rule digest of binding token, type and
 accessibility rules. If the repo isn't in this session, ask for `README.md`
 and `assets/illustrations/INDEX.md`.
@@ -30,6 +33,12 @@ one from parts.
 **1. Place a whole illustration** when its subject matches the section.
 Find it in `assets/illustrations/INDEX.md`. Crop, scale and reposition it
 freely — illustrations are reference, not sealed artwork.
+
+**Rework to fit the data.** A placed or composed graphic should match the
+content's shape exactly — five steps means five cards, not four. Add or
+remove `card`/`node`/`connector` elements by `data-role`, move the single
+`accent` to the element that is the point, and put every label in HTML
+around the graphic, since illustrations carry no live text.
 
 **2. Compose a bespoke graphic** when nothing matches the subject. This is
 the normal case for most topics, not a fallback. Pull primitives out of the

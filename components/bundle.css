@@ -337,13 +337,16 @@
   object-position: var(--media-position, center);
 }
 
-/* scenes/ carry their own opaque navy gradient across the full artboard.
-   They need no surface behind them and must NOT be padded — padding would
-   reveal the page colour around a hard-edged dark rectangle. */
-.eq-stagger__media--scene img { object-fit: cover; }
+/* Opaque artwork carries its own background across the full artboard:
+   scenes/ a dark navy gradient, sectors/ a light #F6F5F5 -> white one. They
+   need no surface behind them and must NOT be padded — padding would reveal
+   the page colour around a hard-edged rectangle. --opaque is the accurate
+   name; --scene is kept as an alias so existing markup doesn't break. */
+.eq-stagger__media--scene img,
+.eq-stagger__media--opaque img { object-fit: cover; }
 
-/* sectors/, systems/ and pictonodes are transparent. They need a surface to
-   sit on, or the line work floats on the page background. */
+/* systems/, flows/ and pictonodes are genuinely transparent. They need a
+   surface to sit on, or the line work floats on the page background. */
 .eq-stagger__media--transparent {
   background: var(--equinet-color-surface--alt, #F6F5F5);
   padding: var(--equinet-space-xl, 40px);
