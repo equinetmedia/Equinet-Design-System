@@ -128,6 +128,8 @@
     .geo-answer-card:focus-within, .geo-panel:focus-within, .geo-faq details:focus-within {
       outline: 2px solid var(--equinet-color-navy,#00426C); outline-offset: 3px;
     }
+    .geo-copy-spaced { margin-top: var(--equinet-space-sm,16px); }
+    .geo-hub__list--spaced { margin-top: var(--equinet-space-xs,12px); }
     .geo-architecture { margin: 0 auto var(--equinet-space-2xl,48px); max-width: 1000px; }
     .geo-architecture__frame {
       padding: var(--equinet-space-sm,16px);
@@ -181,6 +183,64 @@
     }
 
   </style>
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "Is GEO different from SEO?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Yes, although they overlap. SEO focuses on helping search engines discover and rank pages. GEO focuses on helping generative answer systems interpret and use relevant information. Strong technical SEO, helpful content and clear site structure support both."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "What is the difference between GEO and AEO?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Answer Engine Optimisation (AEO) commonly describes making content useful for systems that provide direct answers. GEO is often used for optimisation in generative AI experiences. The terms overlap and are not applied consistently across the industry, so define the scope of work rather than relying on the label alone."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Does structured data guarantee that an AI system will cite my website?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "No. Structured data can help clarify information about a page or entity when implemented correctly, but it does not guarantee crawling, inclusion, citation or a particular position in a generated answer."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "How long does GEO take to work?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "There is no universal timeline. Discovery, crawling, platform behaviour, competition, content changes and measurement methods all affect what you observe. Establish a baseline and review changes over a suitable period rather than promising a fixed result."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Can we measure AI visibility reliably?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "You can track selected signals, such as mentions in a defined prompt set, citations, answer accuracy and measurable referral traffic. These are partial indicators, not a complete or platform-independent measure of visibility."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Should we replace our existing SEO strategy with GEO?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "No. Treat GEO as an extension of a sound search and content strategy. Continue to invest in useful content, technical accessibility, clear positioning and a website experience that helps buyers make informed decisions."
+        }
+      }
+    ]
+  }
+  </script>
+
 </head>
 <body class="geo-page">
   <header class="geo-topbar">
@@ -296,11 +356,11 @@
           <p class="geo-kicker">Why it matters for B2B</p>
           <h2>How can GEO support B2B marketing?</h2>
           <p>Business buyers research complex problems before they speak to sales. Clear, well-organised expertise can help them understand your offering and evaluate whether it is relevant to their needs, wherever they discover it.</p>
-          <p style="margin-top:16px">GEO is one part of a wider strategy. It should reinforce your positioning, content marketing, website experience and sales enablement rather than operate as a disconnected tactic.</p>
+          <p class="geo-copy-spaced">GEO is one part of a wider strategy. It should reinforce your positioning, content marketing, website experience and sales enablement rather than operate as a disconnected tactic.</p>
         </div>
         <div>
           <div class="geo-hub__core"><span>Shared foundation</span><strong>Clear, credible expertise</strong></div>
-          <div class="geo-hub__list" style="margin-top:14px">
+          <div class="geo-hub__list" class="geo-hub__list geo-hub__list--spaced">
             <div class="geo-hub__item"><strong>Discoverability</strong><p>Make relevant information easier to find and interpret.</p></div>
             <div class="geo-hub__item"><strong>Buyer education</strong><p>Explain complex products, services and processes.</p></div>
             <div class="geo-hub__item"><strong>Differentiation</strong><p>Express what makes your approach distinct.</p></div>
