@@ -446,3 +446,39 @@
   .eq-stagger__heading { font-size: var(--equinet-fontsize-h3, 24px); }
   .eq-stagger__media--transparent { padding: var(--equinet-space-md, 24px); }
 }
+
+
+/* ============================================================================
+   LEAD — the intro paragraph under a heading
+   Added 2026-09-26. The lead tokens existed with nothing consuming them, so
+   no rule rendered a lead paragraph — the cause of lead text "not pulling
+   through". Values read from the live-text comps: every lead is italic, at
+   20px (22px only in the methodology module), in one of two colours on light
+   grounds.
+   ========================================================================== */
+
+.eq-lead {
+  margin: 0;
+  max-width: 62ch;                              /* a lead is read, not scanned */
+  font-family: var(--equinet-font-body, 'Source Sans 3', sans-serif);
+  font-size: var(--equinet-fontsize-lead, 20px);
+  font-style: var(--equinet-fontstyle-lead, italic);
+  font-weight: var(--equinet-fontweight-body, 400);
+  line-height: var(--equinet-lineheight-lead, 1.3);
+  color: var(--equinet-color-lead, #3B3F51);
+  text-wrap: pretty;
+}
+
+/* Navy lead — the treatment two of the four comps use. Light grounds only. */
+.eq-lead--accent { color: var(--equinet-color-lead--accent, #00426C); }
+
+/* Dark grounds. The default lead grey is 1.01:1 on navy — invisible. */
+.eq-lead--on-dark { color: var(--equinet-color-lead--on-dark, #FFFFFF); }
+
+/* The methodology module's larger lead. */
+.eq-lead--lg { font-size: 22px; }
+
+@media (max-width: 767px) {
+  .eq-lead,
+  .eq-lead--lg { font-size: 18px; }   /* matches plain_hero_banner's mobile step */
+}

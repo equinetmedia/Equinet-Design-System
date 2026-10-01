@@ -148,17 +148,18 @@
                                             may be an export artefact. Whether to merge is an open decision
                                             — see README.md. */
   --equinet-color-body:    var(--equinet-color-night-700); /* #3B3F51 */
-  --equinet-color-lead:    var(--equinet-color-body);      /* NEW 2026-09-23: lead text has no colour token
-                                                               anywhere in the shipped module — the source
-                                                               comment literally says "colour is the editable
-                                                               lead_color field (inline)", with no var()
-                                                               fallback at all, unlike padding. If the field is
-                                                               ever unset (a fresh Claude Design reconstruction,
-                                                               a missing fields.json default), lead text
-                                                               renders with no colour applied — on
-                                                               plain_hero_banner's navy background that's
-                                                               functionally invisible. This alias exists so a
-                                                               reconstruction has something to fall back to. */
+  --equinet-color-lead:    var(--equinet-color-body);      /* #3B3F51 — default lead colour on light grounds.
+                                                               Confirmed in 2-column-hero-banner and
+                                                               5_column_block_methodology live text. */
+  --equinet-color-lead--accent: var(--equinet-color-navy);   /* #00426C — navy lead, confirmed in
+                                                               2-column-comparison and sector-three-column-
+                                                               case-study live text. Light grounds only. */
+  --equinet-color-lead--on-dark: var(--equinet-color-surface); /* #FFFFFF — for navy/dark grounds such as
+                                                               plain_hero_banner. CORRECTS 2026-09-23: the
+                                                               default above is 1.01:1 on navy. White matches
+                                                               that module's own heading on the same ground.
+                                                               A decision, not a measurement — no comp shows a
+                                                               lead on a dark ground. · 2026-09-26 */
   --equinet-color-black:   #000000;      /* card h3 fill · cagr-four-column · 2026-09-18 */
 
   /* -- surfaces -- */
@@ -343,9 +344,9 @@
   /* -- module overrides (diverge from the Figma scale) -- */
   --equinet-fontsize-display: 60px;   /* SVG-measured h1 · 2-column-hero-banner (Figma: 56px) · 2026-08-07 */
   --equinet-fontsize-lead:    20px;   /* Lead-Text-Color · 2-column-hero-banner · 2026-08-07
-                                          DISCREPANCY: plain_hero_banner ships this at 22px desktop
-                                          (20px tablet, 18px mobile) — this token was sourced from a
-                                          different module. Not reconciled; flagged 2026-09-23. */
+                                          RESOLVED 2026-09-26: 20px is the default — three of four
+                                          live-text comps set leads at 20px. 22px is the methodology
+                                          module's larger lead (.eq-lead--lg), not a conflict. */
   --equinet-fontsize-btn:     16px;   /* button label · 2-column-hero-banner · 2026-08-07 */
   --equinet-fontsize-kicker:  12px;   /* pencilBar label · 2-column-hero-banner · 2026-08-07 */
   --equinet-fontsize-stat:    18px;   /* sectorStats value · cagr-four-column · 2026-09-18 */

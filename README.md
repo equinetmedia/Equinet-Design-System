@@ -241,18 +241,15 @@ the schema allows. The requirement itself still lives here and in
 `tokens.css` (`--equinet-text-transform-h2`, applied directly in module CSS);
 anything reading only `tokens.json` for type styles won't see it.
 
-**Lead text has a real gap, found 2026-09-23: no colour token at all.**
-The shipped module (`plain_hero_banner`) sets colour via an editor-controlled
-inline field with no CSS fallback whatsoever — unlike padding, which always
-carries a `var(--token, fallback)` even while being editor-controllable. If
-that field is ever unset, lead text renders with no colour applied, which on
-a navy background is functionally invisible. `equinet-color-lead` (aliasing
-`equinet-color-body`) now exists as that missing fallback. Also caught in the
-same pass: `font-style: italic` was hardcoded in the module but absent from
-`tokens.json` entirely — `equinet-fontstyle-lead` now covers it — and the
-`equinet-fontsize-lead` token (20px) doesn't match what `plain_hero_banner`
-actually ships (22px desktop) — sourced from a different module, not
-reconciled.
+**Lead text — use `.eq-lead`.** Corrected 2026-09-26. Lead paragraphs weren't
+rendering because the lead tokens existed with nothing consuming them; there's
+now an `.eq-lead` component in `components/bundle.css`. The live-text comps
+settle its values: every lead is italic, 20px (22px only in the methodology
+module, `.eq-lead--lg`), in one of two colours on light grounds — body grey
+`#3B3F51` (default) or navy `#00426C` (`.eq-lead--accent`). On navy or dark
+grounds use `.eq-lead--on-dark` (white): the default grey is 1.01:1 on navy,
+which is why an earlier fix that fell back to it still rendered invisible
+there. All variants measure 9.6:1 or better on their intended grounds.
 
 `text-wrap` is split by role: `pretty` on body copy and card descriptions to pull
 down single-word orphans, `balance` on display headings and short accent lines

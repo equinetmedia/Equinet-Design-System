@@ -82,7 +82,7 @@ rather than drawn from memory. Add a one-line comment naming the icon
 ## Phase 2 — Build
 
 1. Build from the approved brief, section by section.
-2. Reuse first: `.eq-stagger`, the button classes, the shipped modules, the
+2. Reuse first: `.eq-stagger`, `.eq-lead` (with `--accent` and `--on-dark`), the button classes, the shipped modules, the
    comp layouts. Build new only where nothing exists — and say so.
 3. Compose graphics from the visual kit in the brand palette. Make them
    substantial: an infographic is several related elements with a clear

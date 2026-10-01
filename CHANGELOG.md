@@ -32,6 +32,34 @@ built in rather than needing restatement each session. What can't be is
 brief-level direction — the AEO structure and `{CONTEXT}` — which describes
 a page, not the brand.
 
+## 2026-09-26 — Lead text: a missing component, and a fix that didn't work
+
+Reported: lead text not pulling through. Three causes, one of them an error in
+an earlier fix.
+
+- **No component consumed the lead tokens.** `--equinet-color-lead`,
+  `-fontsize-lead`, `-lineheight-lead` and `-fontstyle-lead` all existed, but
+  `bundle.css` had no lead rule — its only "lead" was the word *leads* in a
+  comment. Tokens with no consumer render nothing. Same gap as the unused
+  chart tokens. Added `.eq-lead`.
+- **The 2026-09-23 fix failed on its own motivating case.** That fix added
+  `--equinet-color-lead` because lead text was invisible on
+  `plain_hero_banner`'s navy — then aliased it to body grey `#3B3F51`, which
+  measures **1.01:1 on navy**. Still invisible. Added
+  `--equinet-color-lead--on-dark` (white, 10.5:1). White is a decision matching
+  that module's own heading on the same ground, not a measurement — no comp
+  shows a lead on a dark ground — and is recorded as such.
+- **Lead colour is two-valued, not one.** The live-text comps give every lead
+  as italic 20px, but split on colour: `#3B3F51` in two comps, navy `#00426C`
+  in the other two. Added `--equinet-color-lead--accent` and
+  `.eq-lead--accent`.
+
+**Also resolved: the 20px vs 22px question** flagged 2026-09-23. Three of four
+comps set leads at 20px; 22px is the methodology module's larger lead, now
+`.eq-lead--lg`. Not a conflict.
+
+All six variant/ground pairings measured, all 9.6:1 or better.
+
 ## 2026-09-26 — Full asset review: naming, editability, documentation
 
 A review against one goal: a language model should be able to rework the
