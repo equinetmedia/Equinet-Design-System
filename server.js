@@ -52,7 +52,12 @@ const ALLOWED_DOCS = {
 const server = http.createServer((req, res) => {
   try {
     const parsedUrl = new URL(req.url || '/', `http://${req.headers.host || 'localhost'}`);
-    const pathname = decodeURIComponent(parsedUrl.pathname);
+    let pathname = decodeURIComponent(parsedUrl.pathname);
+
+    // Human-friendly route for the GEO landing page preview.
+    if (pathname === '/geo' || pathname === '/geo/') {
+      pathname = '/geo.html';
+    }
 
     if (pathname.startsWith('/api/docs/')) {
       const docName = pathname.replace('/api/docs/', '');
