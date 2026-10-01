@@ -1,5 +1,7 @@
 # Equinet
 
+> **GEO landing page preview:** run `npm run dev` and open [http://localhost:3000/geo](http://localhost:3000/geo). The standalone page source is [`geo.html`](./geo.html).
+
 ## Rules at a glance
 
 The binding rules, in one place. Each links to the section that explains it.
