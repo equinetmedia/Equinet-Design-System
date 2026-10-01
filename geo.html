@@ -1,0 +1,264 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Generative Engine Optimisation (GEO) for B2B | Equinet</title>
+  <meta name="description" content="Help AI answer engines understand your expertise and represent your B2B business accurately. Explore Equinet's approach to Generative Engine Optimisation.">
+  <meta name="theme-color" content="#002E4A">
+  <link rel="stylesheet" href="/tokens.css">
+  <link rel="stylesheet" href="/components/bundle.css">
+  <style>
+    :where(.geo-page) :where(p,h1,h2,h3,h4,ul,ol,figure){margin:0}
+    :where(.geo-page) :where(ul,ol){padding:0;list-style:none}
+    .geo-page{color:var(--equinet-color-body,#3B3F51);font-family:var(--equinet-font-body,'Source Sans 3',sans-serif);font-size:var(--equinet-fontsize-body,16px);line-height:1.55;background:var(--equinet-color-surface,#fff)}
+    .geo-container{width:min(1200px,calc(100% - 48px));margin-inline:auto}
+    .geo-topbar{background:var(--equinet-color-navy--dark,#002E4A);color:var(--equinet-color-surface,#fff);border-bottom:2px solid var(--equinet-color-navy,#00426C)}
+    .geo-topbar__inner{min-height:76px;display:flex;align-items:center;justify-content:space-between;gap:24px}
+    .geo-brand{display:inline-flex;align-items:center}
+    .geo-brand img{display:block;width:174px;max-height:42px}
+    .geo-topbar__label{font-size:12px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--equinet-color-orange--light,#F5844D)}
+    .geo-hero{background:linear-gradient(120deg,var(--equinet-color-navy--dark,#002E4A),var(--equinet-color-navy,#00426C));color:var(--equinet-color-surface,#fff);padding:clamp(56px,8vw,96px) 0}
+    .geo-hero__grid{display:grid;grid-template-columns:minmax(0,1.05fr) minmax(0,.95fr);align-items:center;gap:clamp(32px,5vw,72px)}
+    .geo-eyebrow{display:inline-block;margin-bottom:24px;color:var(--equinet-color-orange,#E06730);background:var(--equinet-color-orange--pale,#FCE9E0);padding:8px 16px;border-radius:var(--equinet-radius-pill,8px);font-size:12px;font-weight:700;letter-spacing:.16em;text-transform:uppercase}
+    .geo-hero h1{font-family:var(--equinet-font-heading,'Open Sans',sans-serif);font-size:clamp(40px,5.4vw,64px);line-height:1.02;font-weight:800;letter-spacing:-.05em;text-transform:uppercase;text-shadow:var(--equinet-shadow-heading,-2px 2px 4px rgba(0,0,0,.15));text-wrap:balance;margin-bottom:24px}
+    .geo-hero__lead{max-width:640px;font-size:clamp(18px,2vw,22px);line-height:1.45;color:var(--equinet-color-surface--alt,#F6F5F5);margin-bottom:32px}
+    .geo-hero__actions{display:flex;align-items:center;flex-wrap:wrap;gap:24px}
+    .geo-hero .btn-textual{color:#fff}
+    .geo-hero__visual{padding:16px;background:var(--equinet-color-surface,#fff);border-radius:var(--equinet-radius-card,7px);box-shadow:var(--equinet-shadow-card,1px 1px 5px rgba(0,0,0,.13))}
+    .geo-hero__visual img{display:block;width:100%;height:auto}
+    .geo-hero__caption{padding:12px 8px 2px;color:var(--equinet-color-body,#3B3F51);font-size:14px}
+    .geo-section{padding:clamp(56px,7vw,88px) 0}
+    .geo-section--alt{background:var(--equinet-color-surface--alt,#F6F5F5)}
+    .geo-section__intro{max-width:780px;margin:0 auto 40px;text-align:center}
+    .geo-kicker{color:var(--equinet-color-orange,#E06730);font-size:12px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;margin-bottom:12px}
+    .geo-section h2{font-family:var(--equinet-font-heading,'Open Sans',sans-serif);font-size:var(--equinet-fontsize-section-heading,36px);line-height:1.12;font-weight:800;letter-spacing:-.03em;text-transform:uppercase;text-shadow:var(--equinet-shadow-heading,-2px 2px 4px rgba(0,0,0,.15));color:var(--equinet-color-heading,#242630);text-wrap:balance;margin-bottom:20px}
+    .geo-section__intro>p{font-size:18px;text-wrap:pretty}
+    .geo-definition{display:grid;grid-template-columns:1fr 1fr;gap:24px;align-items:stretch}
+    .geo-panel{padding:clamp(24px,3vw,36px);border:1px solid var(--equinet-color-border,#B1B7C8);border-radius:var(--equinet-radius-card,7px);background:var(--equinet-color-surface,#fff)}
+    .geo-panel h3{font-family:var(--equinet-font-heading,'Open Sans',sans-serif);font-size:22px;line-height:1.2;font-weight:800;color:var(--equinet-color-heading,#242630);margin-bottom:12px}
+    .geo-panel p+p{margin-top:12px}
+    .geo-compare{display:grid;grid-template-columns:1fr auto 1fr;align-items:stretch;gap:18px;margin-top:28px}
+    .geo-compare__side{padding:22px;background:var(--equinet-color-surface,#fff);border-radius:var(--equinet-radius-card,7px);border:1px solid var(--equinet-color-border,#B1B7C8)}
+    .geo-compare__side strong{display:block;color:var(--equinet-color-heading,#242630);font-size:18px;margin-bottom:6px}
+    .geo-compare__plus{align-self:center;font-size:24px;color:var(--equinet-color-orange,#E06730);font-weight:700}
+    .geo-answer-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:16px}
+    .geo-answer-card{background:var(--equinet-color-surface,#fff);border:1px solid var(--equinet-color-border,#B1B7C8);border-radius:var(--equinet-radius-card,7px);padding:24px;min-height:210px}
+    .geo-number{display:flex;align-items:center;justify-content:center;width:36px;height:36px;margin-bottom:20px;border-radius:50%;background:var(--equinet-color-navy,#00426C);color:#fff;font-weight:700}
+    .geo-answer-card h3{font-family:var(--equinet-font-heading,'Open Sans',sans-serif);font-size:18px;line-height:1.25;font-weight:800;color:var(--equinet-color-heading,#242630);margin-bottom:10px}
+    .geo-process{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:24px;counter-reset:geo-step}
+    .geo-step{position:relative;padding:24px;background:linear-gradient(var(--equinet-color-surface--alt,#F6F5F5),var(--equinet-color-surface,#fff));border:2px solid var(--equinet-color-border,#B1B7C8);border-radius:var(--equinet-radius-card,7px)}
+    .geo-step:not(:last-child):after{content:"›";position:absolute;right:-19px;top:50%;transform:translateY(-50%);color:var(--equinet-color-diagram-line,#68728F);font-size:30px;line-height:1}
+    .geo-step:last-child{border-color:var(--equinet-color-orange,#E06730)}
+    .geo-step__index{display:block;font-size:12px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--equinet-color-orange,#E06730);margin-bottom:12px}
+    .geo-step h3{font-family:var(--equinet-font-heading,'Open Sans',sans-serif);font-size:20px;line-height:1.2;font-weight:800;color:var(--equinet-color-heading,#242630);margin-bottom:10px}
+    .geo-method-note{margin-top:24px;padding:20px 24px;border-left:4px solid var(--equinet-color-navy,#00426C);background:var(--equinet-color-surface,#fff)}
+    .geo-capabilities{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:14px}
+    .geo-capability{padding:22px 18px;border-top:3px solid var(--equinet-color-navy,#00426C);background:var(--equinet-color-surface,#fff)}
+    .geo-capability:nth-child(5){border-top-color:var(--equinet-color-orange,#E06730)}
+    .geo-capability h3{font-size:17px;line-height:1.25;font-weight:700;color:var(--equinet-color-heading,#242630);margin-bottom:10px}
+    .geo-hub{display:grid;grid-template-columns:minmax(0,1fr) minmax(260px,.75fr);gap:40px;align-items:center}
+    .geo-hub__list{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+    .geo-hub__item{padding:18px;background:var(--equinet-color-surface,#fff);border:1px solid var(--equinet-color-border,#B1B7C8);border-radius:var(--equinet-radius-card,7px)}
+    .geo-hub__item strong{display:block;color:var(--equinet-color-heading,#242630);margin-bottom:5px}
+    .geo-hub__core{padding:34px 24px;text-align:center;background:var(--equinet-color-navy--dark,#002E4A);border-radius:var(--equinet-radius-card,7px);color:#fff}
+    .geo-hub__core span{display:block;color:var(--equinet-color-orange--light,#F5844D);font-size:12px;letter-spacing:.16em;text-transform:uppercase;font-weight:700;margin-bottom:10px}
+    .geo-hub__core strong{font-family:var(--equinet-font-heading,'Open Sans',sans-serif);font-size:24px;line-height:1.2;text-transform:uppercase}
+    .geo-measure{display:grid;grid-template-columns:1fr 1fr;gap:24px;align-items:start}
+    .geo-checklist{display:grid;gap:14px}
+    .geo-checklist li{padding:14px 16px;border:1px solid var(--equinet-color-border,#B1B7C8);border-radius:var(--equinet-radius-card,7px);background:#fff}
+    .geo-checklist strong{display:block;color:var(--equinet-color-heading,#242630);margin-bottom:4px}
+    .geo-callout{padding:30px;background:var(--equinet-color-diagram-surface,#F1F1F1);border-radius:var(--equinet-radius-card,7px)}
+    .geo-callout h3{font-family:var(--equinet-font-heading,'Open Sans',sans-serif);font-size:24px;line-height:1.2;font-weight:800;color:var(--equinet-color-heading,#242630);margin-bottom:12px}
+    .geo-faq{max-width:900px;margin-inline:auto;border-top:1px solid var(--equinet-color-border,#B1B7C8)}
+    .geo-faq details{border-bottom:1px solid var(--equinet-color-border,#B1B7C8);padding:20px 0}
+    .geo-faq summary{cursor:pointer;list-style:none;display:flex;justify-content:space-between;gap:24px;color:var(--equinet-color-heading,#242630);font-size:19px;font-weight:700}
+    .geo-faq summary::-webkit-details-marker{display:none}
+    .geo-faq summary:after{content:"+";color:var(--equinet-color-orange,#E06730);font-size:24px;line-height:1}
+    .geo-faq details[open] summary:after{content:"−"}
+    .geo-faq details p{max-width:780px;padding-top:14px}
+    .geo-cta{padding:clamp(56px,7vw,88px) 0;background:var(--equinet-color-navy--dark,#002E4A);color:#fff}
+    .geo-cta__inner{display:grid;grid-template-columns:1fr auto;gap:32px;align-items:center}
+    .geo-cta h2{font-family:var(--equinet-font-heading,'Open Sans',sans-serif);font-size:clamp(32px,4vw,48px);line-height:1.08;font-weight:800;letter-spacing:-.04em;text-transform:uppercase;text-shadow:var(--equinet-shadow-heading,-2px 2px 4px rgba(0,0,0,.15));margin-bottom:16px}
+    .geo-cta p{max-width:760px;color:var(--equinet-color-surface--alt,#F6F5F5);font-size:18px}
+    .geo-footer{padding:24px 0;background:var(--equinet-color-navy--dark,#002E4A);border-top:1px solid var(--equinet-color-navy,#00426C);color:#fff}
+    .geo-footer__inner{display:flex;justify-content:space-between;align-items:center;gap:20px;flex-wrap:wrap;font-size:14px}
+    .geo-footer a{color:#fff;text-underline-offset:4px}
+    .geo-page a:focus-visible,.geo-page summary:focus-visible{outline:2px solid var(--equinet-color-orange,#E06730);outline-offset:4px}
+    @media(max-width:1023px){.geo-hero__grid,.geo-hub{grid-template-columns:1fr}.geo-hero__visual{max-width:680px}.geo-answer-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.geo-capabilities{grid-template-columns:repeat(2,minmax(0,1fr))}.geo-capability:last-child{grid-column:1/-1}.geo-process{grid-template-columns:repeat(2,minmax(0,1fr))}.geo-step:nth-child(2):after{display:none}.geo-cta__inner{grid-template-columns:1fr}}
+    @media(max-width:767px){.geo-container{width:min(100% - 32px,1200px)}.geo-topbar__inner{min-height:64px}.geo-brand img{width:145px}.geo-topbar__label{font-size:10px}.geo-hero__grid{gap:36px}.geo-definition,.geo-measure{grid-template-columns:1fr}.geo-compare{grid-template-columns:1fr}.geo-compare__plus{text-align:center;line-height:1}.geo-answer-grid,.geo-process,.geo-capabilities,.geo-hub__list{grid-template-columns:1fr}.geo-answer-card{min-height:0}.geo-step:not(:last-child):after{content:"⌄";top:auto;bottom:-25px;right:50%;transform:translateX(50%);z-index:1;background:var(--equinet-color-surface--alt,#F6F5F5);padding:0 8px}.geo-step:nth-child(2):after{display:block}.geo-capability:last-child{grid-column:auto}.geo-hero__actions{align-items:flex-start;flex-direction:column;gap:18px}.geo-footer__inner{align-items:flex-start;flex-direction:column}}
+    @media(prefers-reduced-motion:reduce){.geo-page *{scroll-behavior:auto!important;transition:none!important;animation:none!important}}
+  </style>
+</head>
+<body class="geo-page">
+  <header class="geo-topbar">
+    <div class="geo-container geo-topbar__inner">
+      <a class="geo-brand" href="/" aria-label="Equinet Design System home"><img src="/assets/brand/wordmark-light.svg" alt="Equinet Media"></a>
+      <span class="geo-topbar__label">B2B growth strategy</span>
+    </div>
+  </header>
+
+  <main>
+    <section class="geo-hero">
+      <div class="geo-container geo-hero__grid">
+        <div>
+          <p class="geo-eyebrow">Generative Engine Optimisation</p>
+          <h1>Will AI search understand your expertise?</h1>
+          <p class="geo-hero__lead">Help AI answer engines find, interpret and accurately represent what your B2B business knows and does.</p>
+          <div class="geo-hero__actions">
+            <a class="btn-primary btn-primary--hover-light" href="#start">Explore your GEO starting point <span class="btn-primary__icon" aria-hidden="true"><svg viewBox="0 0 16 14" fill="none"><path d="M1 7h13M8 1l6 6-6 6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span></a>
+            <a class="btn-textual" href="#approach">See how it works <span class="btn-textual__icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none"><path d="M4 12h15m-6-6 6 6-6 6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span></a>
+          </div>
+        </div>
+        <figure class="geo-hero__visual">
+          <img src="/assets/illustrations/flows/make-your-technical-expertise-machine-readable.svg" alt="Illustration representing technical expertise made machine-readable">
+          <figcaption class="geo-hero__caption">Make your expertise easier for answer engines to interpret.</figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <section class="geo-section">
+      <div class="geo-container">
+        <div class="geo-section__intro">
+          <p class="geo-kicker">Start with the fundamentals</p>
+          <h2>What is Generative Engine Optimisation?</h2>
+          <p>Generative Engine Optimisation (GEO) is the practice of making your organisation's expertise and information easier for generative AI systems to discover, interpret and use when responding to relevant questions.</p>
+        </div>
+        <div class="geo-definition">
+          <article class="geo-panel">
+            <h3>It starts with useful, clear information</h3>
+            <p>Answer real buyer questions directly. Explain your products, services, expertise and terminology in language that people and machines can understand.</p>
+          </article>
+          <article class="geo-panel">
+            <h3>It builds on sound search foundations</h3>
+            <p>GEO does not replace SEO. It works alongside accessible pages, helpful content, a technically sound website and consistent information about your organisation.</p>
+          </article>
+        </div>
+        <div class="geo-compare" aria-label="How SEO and GEO work together">
+          <div class="geo-compare__side"><strong>SEO</strong><p>Helps search engines discover, crawl and rank relevant pages.</p></div>
+          <span class="geo-compare__plus" aria-hidden="true">+</span>
+          <div class="geo-compare__side"><strong>GEO</strong><p>Helps answer engines interpret your expertise and draw on relevant information in generated responses.</p></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="geo-section geo-section--alt">
+      <div class="geo-container">
+        <div class="geo-section__intro">
+          <p class="geo-kicker">The building blocks</p>
+          <h2>How do AI answer engines understand your business?</h2>
+          <p>There is no single switch that guarantees inclusion in an AI-generated answer. Build a clear, consistent and accessible body of information that supports accurate interpretation.</p>
+        </div>
+        <div class="geo-answer-grid">
+          <article class="geo-answer-card"><span class="geo-number">01</span><h3>Clear expertise</h3><p>State what you do, who you help, which problems you solve and what makes your approach distinct.</p></article>
+          <article class="geo-answer-card"><span class="geo-number">02</span><h3>Useful answers</h3><p>Address specific questions with direct explanations, meaningful detail and evidence where available.</p></article>
+          <article class="geo-answer-card"><span class="geo-number">03</span><h3>Machine-readable structure</h3><p>Use sound page structure and appropriate structured data to clarify entities, relationships and page meaning.</p></article>
+          <article class="geo-answer-card"><span class="geo-number">04</span><h3>Consistent signals</h3><p>Keep company descriptions, product names, expertise and supporting information consistent across relevant touchpoints.</p></article>
+        </div>
+      </div>
+    </section>
+
+    <section class="geo-section" id="approach">
+      <div class="geo-container">
+        <div class="geo-section__intro">
+          <p class="geo-kicker">A practical approach</p>
+          <h2>How do you improve your visibility in AI search?</h2>
+          <p>Start with a baseline, fix the foundations and improve the information that matters to your audience. Review the evidence and refine the work over time.</p>
+        </div>
+        <div class="geo-process">
+          <article class="geo-step"><span class="geo-step__index">Step 01</span><h3>Assess</h3><p>Review priority buyer questions, current search visibility, content coverage and how accurately your business is described.</p></article>
+          <article class="geo-step"><span class="geo-step__index">Step 02</span><h3>Clarify</h3><p>Align positioning, terminology, service descriptions and the evidence that supports your expertise.</p></article>
+          <article class="geo-step"><span class="geo-step__index">Step 03</span><h3>Optimise</h3><p>Improve page structure, answer-led content, internal linking, technical accessibility and relevant structured data.</p></article>
+          <article class="geo-step"><span class="geo-step__index">Step 04</span><h3>Learn and refine</h3><p>Monitor representative prompts and available referral or engagement signals, then prioritise the next improvements.</p></article>
+        </div>
+        <p class="geo-method-note"><strong>Important:</strong> AI platforms differ and change over time. This process improves clarity and discoverability; it cannot guarantee a citation, mention or ranking in a generated answer.</p>
+      </div>
+    </section>
+
+    <section class="geo-section geo-section--alt">
+      <div class="geo-container">
+        <div class="geo-section__intro">
+          <p class="geo-kicker">Connected disciplines</p>
+          <h2>Which parts of your digital presence affect AI visibility?</h2>
+          <p>GEO works across your digital presence. The practical priorities depend on your audience, site, content and current technical foundations.</p>
+        </div>
+        <div class="geo-capabilities">
+          <article class="geo-capability"><h3>Content quality</h3><p>Answer questions with specific, accurate and genuinely useful information.</p></article>
+          <article class="geo-capability"><h3>Technical accessibility</h3><p>Make important pages crawlable, accessible and well structured.</p></article>
+          <article class="geo-capability"><h3>Structured data</h3><p>Use suitable schema markup where it accurately describes page content.</p></article>
+          <article class="geo-capability"><h3>Brand consistency</h3><p>Use clear, consistent descriptions of your organisation and expertise.</p></article>
+          <article class="geo-capability"><h3>Measurement</h3><p>Track observable signals and document what each measurement can and cannot tell you.</p></article>
+        </div>
+      </div>
+    </section>
+
+    <section class="geo-section">
+      <div class="geo-container geo-hub">
+        <div>
+          <p class="geo-kicker">Why it matters for B2B</p>
+          <h2>How can GEO support B2B marketing?</h2>
+          <p>Business buyers research complex problems before they speak to sales. Clear, well-organised expertise can help them understand your offering and evaluate whether it is relevant to their needs, wherever they discover it.</p>
+          <p style="margin-top:16px">GEO is one part of a wider strategy. It should reinforce your positioning, content marketing, website experience and sales enablement rather than operate as a disconnected tactic.</p>
+        </div>
+        <div>
+          <div class="geo-hub__core"><span>Shared foundation</span><strong>Clear, credible expertise</strong></div>
+          <div class="geo-hub__list" style="margin-top:14px">
+            <div class="geo-hub__item"><strong>Discoverability</strong><p>Make relevant information easier to find and interpret.</p></div>
+            <div class="geo-hub__item"><strong>Buyer education</strong><p>Explain complex products, services and processes.</p></div>
+            <div class="geo-hub__item"><strong>Differentiation</strong><p>Express what makes your approach distinct.</p></div>
+            <div class="geo-hub__item"><strong>Content alignment</strong><p>Connect website content to real buyer questions.</p></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="geo-section geo-section--alt">
+      <div class="geo-container">
+        <div class="geo-section__intro">
+          <p class="geo-kicker">Evidence, not assumptions</p>
+          <h2>How should you measure and improve GEO?</h2>
+          <p>Use a repeatable measurement approach. No single metric fully captures AI visibility, and results can vary by platform, prompt, location and time.</p>
+        </div>
+        <div class="geo-measure">
+          <ul class="geo-checklist">
+            <li><strong>Mentions and citations</strong>Record whether your organisation or pages appear for a defined set of relevant prompts.</li>
+            <li><strong>Accuracy of answers</strong>Check whether descriptions of your products, services and expertise are correct.</li>
+            <li><strong>Referral and engagement signals</strong>Where analytics make them observable, review AI-referred visits and what those visitors do next.</li>
+            <li><strong>Content coverage</strong>Identify buyer questions that remain unanswered or are answered more clearly elsewhere.</li>
+          </ul>
+          <aside class="geo-callout"><h3>Build a useful baseline first</h3><p>Choose a small, relevant set of buyer questions, record the platform and date, and repeat the checks consistently. Treat observations as directional evidence, not a universal ranking score.</p></aside>
+        </div>
+      </div>
+    </section>
+
+    <section class="geo-section">
+      <div class="geo-container">
+        <div class="geo-section__intro">
+          <p class="geo-kicker">Common questions</p>
+          <h2>What do B2B businesses need to know about GEO?</h2>
+          <p>Clear answers to the practical questions teams often ask when planning for AI-assisted discovery.</p>
+        </div>
+        <div class="geo-faq">
+          <details><summary>Is GEO different from SEO?</summary><p>Yes, although they overlap. SEO focuses on helping search engines discover and rank pages. GEO focuses on helping generative answer systems interpret and use relevant information. Strong technical SEO, helpful content and clear site structure support both.</p></details>
+          <details><summary>What is the difference between GEO and AEO?</summary><p>Answer Engine Optimisation (AEO) commonly describes making content useful for systems that provide direct answers. GEO is often used for optimisation in generative AI experiences. The terms overlap and are not applied consistently across the industry, so define the scope of work rather than relying on the label alone.</p></details>
+          <details><summary>Does structured data guarantee that an AI system will cite my website?</summary><p>No. Structured data can help clarify information about a page or entity when implemented correctly, but it does not guarantee crawling, inclusion, citation or a particular position in a generated answer.</p></details>
+          <details><summary>How long does GEO take to work?</summary><p>There is no universal timeline. Discovery, crawling, platform behaviour, competition, content changes and measurement methods all affect what you observe. Establish a baseline and review changes over a suitable period rather than promising a fixed result.</p></details>
+          <details><summary>Can we measure AI visibility reliably?</summary><p>You can track selected signals, such as mentions in a defined prompt set, citations, answer accuracy and measurable referral traffic. These are partial indicators, not a complete or platform-independent measure of visibility.</p></details>
+          <details><summary>Should we replace our existing SEO strategy with GEO?</summary><p>No. Treat GEO as an extension of a sound search and content strategy. Continue to invest in useful content, technical accessibility, clear positioning and a website experience that helps buyers make informed decisions.</p></details>
+        </div>
+      </div>
+    </section>
+
+    <section class="geo-cta" id="start">
+      <div class="geo-container geo-cta__inner">
+        <div><p class="geo-kicker">Your next step</p><h2>Where should you start with GEO?</h2><p>Begin by reviewing how clearly your website explains your expertise, answers buyer questions and presents consistent information about your business. Use those findings to prioritise practical improvements.</p></div>
+        <a class="btn-primary btn-primary--hover-light" href="mailto:hello@equinetmedia.com?subject=GEO%20website%20review">Discuss your GEO priorities <span class="btn-primary__icon" aria-hidden="true"><svg viewBox="0 0 16 14" fill="none"><path d="M1 7h13M8 1l6 6-6 6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span></a>
+      </div>
+    </section>
+  </main>
+
+  <footer class="geo-footer">
+    <div class="geo-container geo-footer__inner"><span>© Equinet Media</span><a href="/">Back to the design system</a></div>
+  </footer>
+</body>
+</html>
