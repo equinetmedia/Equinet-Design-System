@@ -6,6 +6,9 @@
   <title>Generative Engine Optimisation (GEO) for B2B | Equinet</title>
   <meta name="description" content="Help AI answer engines understand your expertise and represent your B2B business accurately. Explore Equinet's approach to Generative Engine Optimisation.">
   <meta name="theme-color" content="#002E4A">
+  <meta property="og:title" content="Generative Engine Optimisation (GEO) for B2B | Equinet">
+  <meta property="og:description" content="Make your B2B expertise easier for AI-driven search and answer engines to understand.">
+  <meta property="og:type" content="website">
   <link rel="stylesheet" href="/tokens.css">
   <link rel="stylesheet" href="/components/bundle.css">
   <style>
@@ -88,6 +91,95 @@
     @media(max-width:1023px){.geo-hero__grid,.geo-hub{grid-template-columns:1fr}.geo-hero__visual{max-width:680px}.geo-answer-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.geo-capabilities{grid-template-columns:repeat(2,minmax(0,1fr))}.geo-capability:last-child{grid-column:1/-1}.geo-process{grid-template-columns:repeat(2,minmax(0,1fr))}.geo-step:nth-child(2):after{display:none}.geo-cta__inner{grid-template-columns:1fr}}
     @media(max-width:767px){.geo-container{width:min(100% - 32px,1200px)}.geo-topbar__inner{min-height:64px}.geo-brand img{width:145px}.geo-topbar__label{font-size:10px}.geo-hero__grid{gap:36px}.geo-definition,.geo-measure{grid-template-columns:1fr}.geo-compare{grid-template-columns:1fr}.geo-compare__plus{text-align:center;line-height:1}.geo-answer-grid,.geo-process,.geo-capabilities,.geo-hub__list{grid-template-columns:1fr}.geo-answer-card{min-height:0}.geo-step:not(:last-child):after{content:"⌄";top:auto;bottom:-25px;right:50%;transform:translateX(50%);z-index:1;background:var(--equinet-color-surface--alt,#F6F5F5);padding:0 8px}.geo-step:nth-child(2):after{display:block}.geo-capability:last-child{grid-column:auto}.geo-hero__actions{align-items:flex-start;flex-direction:column;gap:18px}.geo-footer__inner{align-items:flex-start;flex-direction:column}}
     @media(prefers-reduced-motion:reduce){.geo-page *{scroll-behavior:auto!important;transition:none!important;animation:none!important}}
+  
+    /* GEO page refinements: token-led rhythm, clearer hierarchy and responsive states */
+    .geo-page { scroll-behavior: smooth; }
+    .geo-container { width: min(1200px, calc(100% - 48px)); }
+    .geo-topbar__inner { min-height: 80px; }
+    .geo-brand img { width: 180px; }
+    .geo-hero { position: relative; overflow: hidden; }
+    .geo-hero::after {
+      content: ""; position: absolute; width: 360px; height: 360px;
+      right: -190px; bottom: -220px; border: 1px solid var(--equinet-color-charade-500,#68728F);
+      border-radius: 50%; pointer-events: none; opacity: .45;
+    }
+    .geo-hero__grid { position: relative; z-index: 1; }
+    .geo-hero h1 { max-width: 760px; }
+    .geo-hero__visual { padding: var(--equinet-space-sm,16px); }
+    .geo-hero__visual img { aspect-ratio: 1209 / 675; object-fit: contain; }
+    .geo-section__intro { max-width: 820px; margin-bottom: var(--equinet-space-2xl,48px); }
+    .geo-section__intro > p:last-child { max-width: 760px; margin-inline: auto; }
+    .geo-section h2 { text-wrap: balance; }
+    .geo-panel, .geo-answer-card, .geo-compare__side, .geo-step, .geo-capability, .geo-hub__item, .geo-faq details {
+      transition: border-color .18s ease, box-shadow .18s ease, transform .18s ease;
+    }
+    .geo-answer-card { min-height: 0; border-top: 3px solid var(--equinet-color-navy,#00426C); }
+    .geo-number, .geo-step__index { color: var(--equinet-color-orange,#E06730); }
+    .geo-answer-card h3, .geo-step h3, .geo-capability h3 {
+      font-family: var(--equinet-font-heading,'Open Sans',sans-serif);
+      color: var(--equinet-color-heading,#242630);
+      font-weight: 800; line-height: 1.2;
+    }
+    .geo-answer-card h3 { font-size: var(--equinet-fontsize-card-heading,24px); margin: 12px 0; }
+    .geo-answer-card:hover, .geo-panel:hover, .geo-compare__side:hover, .geo-capability:hover, .geo-hub__item:hover {
+      border-color: var(--equinet-color-navy,#00426C);
+      box-shadow: var(--equinet-shadow-card,1px 1px 5px rgba(0,0,0,.13));
+    }
+    .geo-answer-card:focus-within, .geo-panel:focus-within, .geo-faq details:focus-within {
+      outline: 2px solid var(--equinet-color-navy,#00426C); outline-offset: 3px;
+    }
+    .geo-architecture { margin: 0 auto var(--equinet-space-2xl,48px); max-width: 1000px; }
+    .geo-architecture__frame {
+      padding: var(--equinet-space-sm,16px);
+      border: 1px solid var(--equinet-color-border,#B1B7C8);
+      border-radius: var(--equinet-radius-card,7px);
+      background: var(--equinet-color-surface,#fff);
+      box-shadow: var(--equinet-shadow-card,1px 1px 5px rgba(0,0,0,.13));
+    }
+    .geo-architecture img { display: block; width: 100%; height: auto; }
+    .geo-architecture figcaption { padding: 12px 8px 0; color: var(--equinet-color-body,#3B3F51); font-size: 14px; }
+    .geo-method-note { border-left: 3px solid var(--equinet-color-orange,#E06730); }
+    .geo-faq details[open] { border-color: var(--equinet-color-navy,#00426C); }
+    .geo-faq summary { cursor: pointer; }
+    .geo-faq summary:focus-visible, .geo-page a:focus-visible {
+      outline: 3px solid var(--equinet-color-orange,#E06730); outline-offset: 4px; border-radius: 2px;
+    }
+    .geo-page a { text-underline-offset: .18em; }
+    .geo-page a:hover { text-decoration-thickness: 2px; }
+    .geo-cta { background: var(--equinet-color-navy--dark,#002E4A); }
+    .geo-cta h2 { text-wrap: balance; }
+    @media (max-width: 900px) {
+      .geo-hero__grid { grid-template-columns: 1fr; }
+      .geo-hero__copy { max-width: 760px; }
+      .geo-hero__visual { max-width: 760px; }
+      .geo-answer-grid { grid-template-columns: repeat(2, minmax(0,1fr)); }
+      .geo-definition { grid-template-columns: 1fr; }
+      .geo-hub { grid-template-columns: 1fr; }
+    }
+    @media (max-width: 640px) {
+      .geo-container { width: min(100% - 32px, 1200px); }
+      .geo-topbar__inner { min-height: 64px; }
+      .geo-brand img { width: 148px; }
+      .geo-topbar__label { font-size: 10px; letter-spacing: .1em; }
+      .geo-hero { padding-block: var(--equinet-space-4xl,96px); }
+      .geo-hero h1 { font-size: clamp(36px, 10vw, 48px); }
+      .geo-hero__actions { align-items: flex-start; flex-direction: column; gap: var(--equinet-space-md,24px); }
+      .geo-section { padding-block: var(--equinet-space-3xl,56px); }
+      .geo-section h2 { font-size: clamp(28px, 7vw, var(--equinet-fontsize-section-heading,36px)); }
+      .geo-section__intro { text-align: left; }
+      .geo-section__intro > p:last-child { margin-inline: 0; }
+      .geo-answer-grid, .geo-compare, .geo-capabilities, .geo-process, .geo-measure { grid-template-columns: 1fr; }
+      .geo-compare__plus { justify-self: center; }
+      .geo-architecture__frame { padding: 8px; }
+      .geo-cta__inner { align-items: flex-start; flex-direction: column; gap: var(--equinet-space-lg,32px); }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .geo-page { scroll-behavior: auto; }
+      .geo-panel, .geo-answer-card, .geo-compare__side, .geo-step, .geo-capability, .geo-hub__item, .geo-faq details {
+        transition: none;
+      }
+    }
+
   </style>
 </head>
 <body class="geo-page">
@@ -149,6 +241,12 @@
           <h2>How do AI answer engines understand your business?</h2>
           <p>There is no single switch that guarantees inclusion in an AI-generated answer. Build a clear, consistent and accessible body of information that supports accurate interpretation.</p>
         </div>
+        <figure class="geo-architecture">
+          <div class="geo-architecture__frame">
+            <img src="/assets/illustrations/flows/geo-information-architecture.svg" alt="Clear expertise connects buyer questions, structured content, consistent business information and measurement.">
+          </div>
+          <figcaption>GEO works best as a connected system: clear expertise is supported by useful answers, accessible structure, consistent information and ongoing review.</figcaption>
+        </figure>
         <div class="geo-answer-grid">
           <article class="geo-answer-card"><span class="geo-number">01</span><h3>Clear expertise</h3><p>State what you do, who you help, which problems you solve and what makes your approach distinct.</p></article>
           <article class="geo-answer-card"><span class="geo-number">02</span><h3>Useful answers</h3><p>Address specific questions with direct explanations, meaningful detail and evidence where available.</p></article>
