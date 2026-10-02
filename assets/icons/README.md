@@ -4,12 +4,13 @@ Small glyphs that sit inside or beside a control, as opposed to the standalone
 graphics in `assets/illustrations/`. The quick test: if flattening a graphic to
 a single ink would ruin it, it's an illustration, not an icon.
 
-Three groups, 16 files:
+Four groups, 20 files:
 
 | Group | Count | Size | Ink | Recolours with `currentColor`? |
 | --- | --- | --- | --- | --- |
 | (root) | 3 | 24 × 24, 15.6 × 13.1, 26 × 26 | `currentColor` | Yes |
 | `nodes/` | 5 | 43 × 43 | White glyph on a `#242630` dark tile | Tile no; **glyph yes — substitutable** |
+| `service-marks/` | 4 | 69 × 69 | White glyph on a `#242630` dark tile | Tile no; **glyph yes — substitutable** |
 | `service-tiles/` | 8 | 65 × 65 | White glyph on a navy gradient tile | **No** — by design |
 
 ---
@@ -55,6 +56,21 @@ A sixth file, `node-black-hubspot-1.svg` (its original export name), was **dropp
 identical geometry to `node-hubspot.svg`, differing only by sub-0.001px
 floating-point rounding in the exported path. Unlike the animated sector
 pictograph, there was no second behaviour to preserve.
+
+## `service-marks/` — 69 × 69 service-line marks
+
+Added 2026-10-02. Four marks named for service lines — commercial data,
+commercial diagnostic, commercial positioning, market amplification. Same
+construction as `nodes/` — a dark `#242630` rounded tile (`rx 7.55`) carrying
+a white glyph — at a larger size, so they're a set of their own rather than
+mixed into the 43px nodes.
+
+Same rule as nodes and tiles: **the tile is fixed, the white glyph is
+substitutable** for a context-appropriate Lucide icon (`stroke-width="1"`,
+white). Replace all four or none.
+
+Delivered as `commercial-*-icon` and `market-amplification-icon`; renamed to
+`mark-*` on filing.
 
 ## `service-tiles/` — 65 × 65 tiles
 

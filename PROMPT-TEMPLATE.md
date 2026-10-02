@@ -91,7 +91,7 @@ clone) *before* starting, then prompt normally.
 ## Does this need pasting every session?
 
 **Mostly no.** The design-system format specifies that an agent reads
-`README.md` first, and this system's rules now sit in a 13-row digest at the
+`README.md` first, and this system's rules now sit in a digest at the
 very top of it. Tokens, icons, illustrations, spacing, motion and the
 escalation rule are genuinely built in — Claude Design gets them from the
 system itself.
@@ -169,7 +169,7 @@ So the per-session prompt reduces to the subject plus the editorial brief:
 **One honest caveat.** A rule in the repo is *available* to the model; a rule
 in the prompt is *in front of* it at generation time. Those aren't the same,
 and a long README is not guaranteed to be read end to end — which is why the
-13-rule digest was hoisted to the top of `README.md`. If output drifts on a
+rules digest was hoisted to the top of `README.md`. If output drifts on a
 specific rule, restate that one rule in the prompt rather than reverting to
 pasting everything. Treat the full template as a fallback for when something
 goes wrong, not the default.

@@ -151,6 +151,26 @@ for a media panel.
 
 ---
 
+## Data charts: `assets/charts/`
+
+Seven sourced charts on AI adoption in manufacturing. Selectable when the
+page's subject is AI in manufacturing — but they're data, not illustration, so
+different rules apply: **never edit or retype their figures.** The numbers are
+outlined in the SVGs; rebuild the chart live from `assets/charts/data.json`,
+which holds every figure with its source and a verified / transcribed /
+not-quotable status. See `assets/charts/README.md` — one chart's bars aren't
+drawn to scale and three carry source or label errors.
+
+| File | Topics |
+| --- | --- |
+| `chart-ai-results-not-universal` | AI ROI, AI strategy, AI knowledge gap |
+| `chart-ai-adoption-manufacturing-2025` | AI adoption stage, company size, manufacturing |
+| `chart-ai-leaders-widening-gap` | AI leaders, competitive gap, KPI impact |
+| `chart-ai-targets-achieved` | AI targets, AI success rate |
+| `chart-robotic-arms-roi` | robotics, physical AI, cycle time, operational cost |
+| `chart-ai-industry-output` | economic output, GVA, sector impact |
+| `chart-ai-adoption-barriers` | AI barriers, expertise gap, integration, implementation cost |
+
 ## Layout blueprints: `assets/comps/`
 
 Four 1920px module comps live in `assets/comps/`. They're real, shipped

@@ -48,7 +48,7 @@ chat each time, not pulled automatically.
 | --- | --- | --- |
 | `tokens.css` | The real, production token file — the original `/modules/tokens.css` with the finalized spacing scale appended (dated 2026-09-22) | A codebase-style or raw-file import; the closest thing to ground truth |
 | `tokens.json` | The same values, reshaped into the `{"tokens":[{"name","value","usage"}]}` format Claude Design's own Design System schema reads | If the import flow asks for this shape instead of CSS |
-| `README.md` | Opens with a 13-rule digest — the binding rules in one scannable table — then the full brand book: consumption pattern, colour, type, spacing, breakpoints, motion, buttons, cards, backgrounds/parallax, editor-controlled styling, icons, accessibility, the engineering contract, component inventory, and open decisions | Read first — everything else assumes it |
+| `README.md` | Opens with a rules digest — the binding rules in one scannable table — then the full brand book: consumption pattern, colour, type, spacing, breakpoints, motion, buttons, cards, backgrounds/parallax, editor-controlled styling, icons, accessibility, the engineering contract, component inventory, and open decisions | Read first — everything else assumes it |
 | `CHANGELOG.md` | Dated log of every reconciliation pass, what it resolved, and what it newly surfaced | Tracing when and why a value or decision changed |
 | `skills/equinet-layout/` | A two-phase skill: content → approved layout brief → build. Maps content shapes to formats, assets and HubSpot elements | Planning any page from content; packaged as `equinet-layout.skill` for Claude chat |
 | `PROMPT-TEMPLATE.md` | A ready prompt for generating pages in Claude Design, with the reasoning behind each constraint | Starting a new page; adapting the wording for a different brief |
@@ -58,6 +58,8 @@ chat each time, not pulled automatically.
 | `assets/brand/` | Wordmark, light and dark variants | Any use of the logo |
 | `components/motion.js` | Entrance motion for inline annotated graphics; pairs with "GRAPHIC MOTION" in `bundle.css` | Animating any graphic — no per-file code |
 | `tests/motion-test.py` | 14 browser checks for the motion layer | Re-verifying after changing motion code or graphics |
+| `assets/charts/` | Seven sourced data charts, plus `data.json` holding every figure with source and verification status | Any page using statistics; rebuild charts live from `data.json` |
+| `tools/build-manifest.py` | Regenerates `assets/manifest.json` from the files | After adding, renaming or editing any asset |
 | `assets/manifest.json` | Machine-readable record of all 81 assets — background, roles, palette→tokens, subject | Choosing and reworking assets programmatically |
 | `assets/REWORKING.md` | How to adapt an asset to the data, by `data-role` | Editing a graphic to match content |
 | `assets/RENAMES.md` | Old → new filename map from the 2026-09-26 rename | Resolving older references |

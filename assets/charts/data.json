@@ -1,0 +1,149 @@
+{
+  "schema": "equinet-chart-data/1",
+  "transcribed": "2026-10-02",
+  "purpose": "The figures in assets/charts/*.svg are outlined to paths and cannot be read or edited by a model. This file holds them as data, with sources, so a chart can be rebuilt live with real figures instead of retyped by hand.",
+  "status_key": {
+    "verified": "Figure checked against a public statement by the cited source and found to match.",
+    "transcribed": "Read from the chart artwork. The source is cited on the chart but the figure has not been independently checked. Usable, but verify before publishing a new claim built on it.",
+    "not-quotable": "The chart plots positions without printing values. Do not quote numbers read off the geometry; they are estimates, not data."
+  },
+  "charts": [
+    {
+      "file": "chart-ai-results-not-universal.svg",
+      "title": "But AI is not delivering spectacular results for everyone",
+      "form": "three donuts",
+      "series": [
+        {
+          "value": 95, "unit": "%",
+          "label": "Of organisations report zero measurable ROI from AI pilots",
+          "source_as_printed": "MIT NANDO",
+          "source_correct": "MIT Media Lab, Project NANDA — The GenAI Divide: State of AI in Business 2025 (preliminary report, July 2025)",
+          "status": "verified",
+          "caveats": [
+            "Source name misspelled on the chart: NANDA, not NANDO.",
+            "The study covers GENERATIVE AI pilots specifically. The chart's wording ('AI pilots') broadens the claim beyond what the source supports.",
+            "Preliminary report with an anonymised, self-reported sample; widely noted as limited in generalisability."
+          ]
+        },
+        {
+          "value": 24, "unit": "%",
+          "label": "Of manufacturing companies in the EU say AI is central to their business strategy",
+          "source_as_printed": "Makerverse", "status": "transcribed"
+        },
+        {
+          "value": 16, "unit": "%",
+          "label": "Of manufacturers feel knowledgeable about AI's full potential applications",
+          "source_as_printed": "Make UK", "status": "transcribed"
+        }
+      ]
+    },
+    {
+      "file": "chart-ai-adoption-manufacturing-2025.svg",
+      "title": "Global Manufacturing Organisations — 2025 — State of AI Adoption",
+      "form": "horizontal grouped bars",
+      "source_as_printed": "Taking AI to the next level in Manufacturing Marketing, MIT",
+      "status": "transcribed",
+      "categories": ["We are researching its potential for our organisation", "We are experimenting with potential use cases", "We have begun developing use cases into production"],
+      "series_colours": ["navy", "orange", "teal"],
+      "groups": [
+        { "group": "All respondents", "values": [27, 37, 35] },
+        { "group": "More than $10 billion", "values": [3, 20, 77] },
+        { "group": "$1 billion to $10 billion", "values": [18, 44, 38] },
+        { "group": "$500 million to $999 million", "values": [62, 36, 2] },
+        { "group": "$100 million to $499 million", "values": [43, 52, 4] }
+      ],
+      "caveats": [
+        "Bars are NOT drawn to scale: measured against their labels, 12 of 15 deviate by more than 1.5 points, worst 62% drawn as 69.2%, 77% as 82.4%, 37% as 41.5%. Ordering is preserved. Rebuild from these values rather than reusing the artwork.",
+        "Bars at 2–4% are drawn at roughly 5%, likely a deliberate minimum so the label fits — defensible, but should be stated.",
+        "Two labels (52%, 4%) set the % sign smaller and raised; the other thirteen do not."
+      ]
+    },
+    {
+      "file": "chart-ai-leaders-widening-gap.svg",
+      "title": "Leading companies are widening the gap in AI compared to the rest of companies",
+      "subtitle_as_printed": "Performance of leaders vs bottom 50%, average HPI impact multiple",
+      "form": "dumbbell — leaders 4–5 years ago vs leaders in last 2 years",
+      "source_as_printed": "MIT MIMO; McKinsey analysis",
+      "status": "not-quotable",
+      "rows": ["Overall", "Environmental", "Responsiveness", "Cost", "Revenue", "Customer experience", "Efficiency"],
+      "axis": "0–8 (impact multiple)",
+      "caveats": [
+        "No values are printed. The dots can be read off the axis, but those readings are estimates — do not quote them as figures.",
+        "Subtitle says 'HPI'; both footnotes say 'KPI'. Almost certainly a typo for KPI.",
+        "Efficiency shows no change between the two periods (dots coincide)."
+      ]
+    },
+    {
+      "file": "chart-ai-targets-achieved.svg",
+      "title": "Successful AI-related targets achieved",
+      "form": "single gauge",
+      "series": [
+        { "value": 16, "unit": "%", "label": "of AI adopters have successfully achieved their AI-related targets", "source_as_printed": "BCG", "status": "transcribed" }
+      ],
+      "caveats": ["Delivered filename misspelled 'Perectage'; corrected on filing."]
+    },
+    {
+      "file": "chart-robotic-arms-roi.svg",
+      "title": "ROI from intelligent AI-powered robotic arms",
+      "form": "three gauges plus a headline figure",
+      "source_as_printed": "WEF, Physical AI: Powering the New Age of Industrial Operations",
+      "status": "transcribed",
+      "headline": { "value": 40, "unit": "%", "label": "Deployment time cut following virtual simulations, testing and validation" },
+      "series": [
+        { "value_min": 20, "value_max": 30, "unit": "%", "label": "Improved cycle times", "printed_as": "20/30%" },
+        { "value": 25, "unit": "%", "label": "Reduction in error rates" },
+        { "value": 15, "unit": "%", "label": "Reduced operational costs" }
+      ],
+      "caveats": ["'20/30%' reads as a ratio or as '20 or 30'. A range is conventionally written '20–30%'."]
+    },
+    {
+      "file": "chart-ai-industry-output.svg",
+      "title": "The impact of AI on industry output",
+      "claim": "For Manufacturing alone, AI can boost GVA by almost US$4 trillion in 2035",
+      "form": "stacked vertical bars",
+      "unit": "US$ trillions, real GVA in 2035",
+      "source_as_printed": "Accenture and Frontier Economics",
+      "status": "transcribed",
+      "stack": ["Current output", "AI Automation"],
+      "groups": [
+        { "group": "Manufacturing", "current": 8.4, "total": 12.2 },
+        { "group": "Professional Services", "current": 7.5, "total": 9.3 },
+        { "group": "Wholesale & Retail", "current": 6.2, "total": 8.4 },
+        { "group": "Public Services", "current": 4.0, "total": 4.9 },
+        { "group": "Information & Communication", "current": 3.7, "total": 4.7 },
+        { "group": "Financial Services", "current": 3.4, "total": 4.6 },
+        { "group": "Construction", "current": 2.8, "total": 3.3 },
+        { "group": "Transportation & Storage", "current": 2.1, "total": 2.9 }
+      ],
+      "caveats": [
+        "Internally consistent: Manufacturing's AI uplift is 12.2 − 8.4 = 3.8, matching 'almost US$4 trillion'.",
+        "Drawn accurately to scale — every bar within 0.1 of its value.",
+        "Only the Manufacturing bar has rounded top corners; the other seven are square."
+      ]
+    },
+    {
+      "file": "chart-ai-adoption-barriers.svg",
+      "title": "What do you consider the most significant barriers to the adoption of AI within your organisation?",
+      "form": "grouped vertical bars, 2023 vs 2024",
+      "unit": "% of respondents",
+      "source_as_printed": "2nd Annual State of AI in Manufacturing Survey, Rootsock Software",
+      "source_correct": "Rootstock Software, State of AI in Manufacturing Survey — 2023 figures from the first survey (fielded October 2023), 2024 figures from the second (fielded October 2024)",
+      "series": ["2023", "2024"],
+      "groups": [
+        { "group": "Other", "values": [3, 2], "status": "transcribed" },
+        { "group": "Disconnected data silos or limited access to real-time data", "values": [14, 13], "status": "transcribed" },
+        { "group": "Resistance from leadership or other stakeholders", "values": [20, 21], "status": "transcribed" },
+        { "group": "Unclear return on investment", "values": [25, 24], "status": "transcribed" },
+        { "group": "High implementation costs", "values": [37, 37], "status": "verified (2023)" },
+        { "group": "Difficulty integrating with existing systems", "values": [43, 44], "status": "verified" },
+        { "group": "Lack of internal expertise or knowledge", "values": [49, 45], "status": "verified" }
+      ],
+      "caveats": [
+        "The chart is labelled '% illustrative', but the figures are REAL: 49/43/37 (2023) and 45/44 (2024) match Rootstock's published survey releases exactly. The label wrongly discredits genuine data and should be removed.",
+        "Source name misspelled on the chart: Rootstock, not Rootsock.",
+        "Drawn accurately to scale — every bar within 0.4 points.",
+        "The source line names only the 2nd survey, but the 2023 column comes from the first."
+      ]
+    }
+  ]
+}

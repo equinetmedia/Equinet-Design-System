@@ -32,6 +32,82 @@ built in rather than needing restatement each session. What can't be is
 brief-level direction — the AEO structure and `{CONTEXT}` — which describes
 a page, not the brand.
 
+## 2026-10-02 — Charts category added; data checked against its sources
+
+Eleven SVGs filed: seven data charts as a new `assets/charts/` category, and
+four service-line icons as `assets/icons/service-marks/`. Renamed on filing to
+the convention (`chart-*`, `mark-*`), correcting a typo (`Perectage`).
+
+**Charts are data, not illustration.** They carry real statistics with cited
+sources, so they're governed by the never-invent-data rule rather than by the
+kit-of-parts freedom. Each was rendered in a headless browser and read, its
+geometry measured against its own labels, and where possible its figures and
+sources checked against the publisher.
+
+**Every chart has zero live text** — figures, labels and sources are all
+outlined. So every figure is now transcribed into **`assets/charts/data.json`**
+with its source and a status: verified (checked against the source),
+transcribed (read from artwork, source cited, not independently checked) or
+not-quotable (positions plotted without values — don't quote readings off the
+geometry). Charts are to be rebuilt live from it, never retyped.
+
+**Findings, most important first:**
+
+- **The barriers chart is labelled "% illustrative" — but its data is real.**
+  Its 2023 (49, 43, 37) and 2024 (45, 44) figures match Rootstock Software's
+  published survey releases exactly. The label wrongly discredits genuine data.
+- **The adoption chart's bars aren't drawn to scale.** 12 of 15 deviate by
+  more than 1.5 points from their labels, worst 62% drawn as 69.2%, in both
+  directions — sized by eye. Ordering is preserved.
+- **The two other bar charts are accurate** — industry output within 0.1,
+  barriers within 0.4 points. Arcs and the dumbbell weren't measured, and make
+  no claim either way.
+- **Two misspelled sources:** "MIT NANDO" is MIT Media Lab's Project NANDA;
+  "Rootsock" is Rootstock Software.
+- **The 95% statistic is broader than its source.** The chart says "AI
+  pilots"; the MIT NANDA study covers generative AI pilots, in a preliminary
+  report with a limited sample.
+- Smaller: "HPI" for KPI in one subtitle (both footnotes say KPI); "20/30%"
+  for a range; inconsistent % sign sizing in one chart; one rounded bar among
+  square ones; `#FEE8D6`, a pale-orange near-miss.
+
+None corrected in the artwork — that's the designer's call — but recorded in
+the charts README and `data.json` so fixes can be made at source.
+
+**An open palette question.** All seven charts use navy, orange and teal for
+their series. The sanctioned data-viz palette is `chart-blue-*`, sanctioned
+from a single infographic; none of the seven uses it. Recorded as a decision
+needed, not assumed either way.
+
+**Charts deliberately not annotated with `data-role`.** The illustration
+classifier would tag every orange bar as the single accent and every navy bar
+as a glyph, and generic data motion grows elements upward — wrong for
+horizontal bars and arcs. Left unannotated, so motion.js ignores them.
+
+**Service marks:** four 69px dark tiles with white glyphs — nodes'
+construction at a larger size. Annotated (tile + glyph), proven
+non-destructive; glyph substitutable, tile fixed.
+
+**Also fixed:**
+
+- **The manifest had no generator.** The README told people to regenerate it,
+  but the code existed only in a past session. Now `tools/build-manifest.py`.
+  Running it surfaced a further error in the old manifest: every
+  un-annotated file defaulted to "transparent", so the four comps and nine
+  marketing graphics — which have full-artboard light gradients — were
+  misrecorded. Same class of error as the earlier sectors mistake.
+- **The digest gained rule 14, "Never invent data"** — it previously lived
+  only in the skill.
+- **Four references called the digest "13-rule"**, already stale at 14.
+  Made count-free so they can't drift again.
+- **The motion test's draw-on check was marginal.** It took one sample at
+  420ms, which lands where the entrance easing has barely started — it had
+  passed by catching a single connector on the cusp, then failed
+  consistently. Sampled across the whole entrance, the draw works exactly as
+  designed (offsets fall 61 → 54 → 17 → 1.5 → 0 over ~400–1,100ms); the code
+  was never broken. The check now polls the entrance and sees all 12
+  connectors drawing at once. 14/14 on repeated runs.
+
 ## 2026-09-26 — Graphic motion, verified in a real browser
 
 New: `components/motion.js` and a "GRAPHIC MOTION" section in `bundle.css` —

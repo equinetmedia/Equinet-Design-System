@@ -21,7 +21,8 @@ AI-generated design**.
 | 11 | **Backgrounds:** `scenes/` are opaque **dark** (navy gradient); `sectors/` are opaque **light** (`#F6F5F5`→white); `systems/`, `flows/` are transparent and need a surface; `pictonodes/` are square and never sit in a 16:9 row. |
 | 12 | **WCAG 2.1 AA**, measured not estimated. One signed-off exception: the primary button's white label. |
 | 13 | **Rework assets by role, from the manifest.** Choose from `assets/manifest.json`; edit via `data-role` (card, node, connector, glyph, accent…), per `assets/REWORKING.md`. Illustrations have no live text — labels go in HTML, never in the SVG. |
-| 14 | **Say so rather than approximate.** If a rule can't be met — no matching illustration, no icon geometry, no token for a value — state it plainly instead of filling the gap with something plausible. |
+| 14 | **Never invent data.** Every figure on a page comes from supplied content or from `assets/charts/data.json`, with its source shown. Chart figures are outlined in the SVGs — rebuild charts live from `data.json`, never retype from the artwork, and don't quote a `not-quotable` value. |
+| 15 | **Say so rather than approximate.** If a rule can't be met — no matching illustration, no icon geometry, no token for a value — state it plainly instead of filling the gap with something plausible. |
 
 > **Do not add a `---` horizontal rule to this file.** The design-system
 > format treats the first `---` as the boundary between author text and
@@ -648,13 +649,19 @@ the folder, re-package and reinstall, or the chat copy drifts behind.
 
 Three files make the asset folders usable by a model, not just a person:
 
-- **`assets/manifest.json`** — one entry per asset (81), generated from the
-  files: category, dimensions, background (opaque dark / opaque light /
+- **`assets/manifest.json`** — one entry per asset (92), generated from the
+  files by **`tools/build-manifest.py`**: category, dimensions, background (opaque dark / opaque light /
   transparent / dark tile), live-text count, the roles it contains, and its
   palette mapped to tokens. Colours that aren't tokens are marked
   `unsanctioned` with a `nearest_token` to substitute. Illustrations and tiles
-  also carry what they depict and the topics they suit. Regenerate it after
-  any asset change; never hand-edit.
+  also carry what they depict and the topics they suit; charts link to their
+  figures and sources. Run `python tools/build-manifest.py` after any asset
+  change; never hand-edit.
+- **`assets/charts/`** — seven sourced data charts, with every figure
+  transcribed into **`data.json`** alongside its source and a verified /
+  transcribed / not-quotable status. The SVGs' figures are outlined and
+  unreadable, so charts are rebuilt live from `data.json`. See the charts
+  README for errors found in the artwork — one chart isn't drawn to scale.
 - **`data-role` on every drawn element** of the 45 reworkable assets
   (illustrations, service tiles, nodes), plus `data-asset` / `data-group` on
   each root. Assigned from colour tokens and proven non-destructive: stripping

@@ -92,3 +92,24 @@ the three root icons were already clean.
 
 Also removed earlier, not renamed: `icons/nodes/node-black-hubspot-1.svg`, a true
 duplicate of `node-black-hubspot.svg` (now `node-hubspot.svg`).
+
+## Filed under new names — 2026-10-02
+
+These arrived with export names and were renamed on filing, so they never existed
+in the repo under the old names.
+
+| Delivered as | Filed as |
+| --- | --- |
+| `But-AI-is-not-delivering-spectacular-results-for-everyone.svg` | `charts/chart-ai-results-not-universal.svg` |
+| `Global-Manufacturing-Organisations-2025-State-of-AI-Adoption.svg` | `charts/chart-ai-adoption-manufacturing-2025.svg` |
+| `Leading-companies-are-widening-the-gap-in-AI-compared-to-the-rest-of-companies.svg` | `charts/chart-ai-leaders-widening-gap.svg` |
+| `Perectage-of-successfully-achieved-AI-related-targets.svg` | `charts/chart-ai-targets-achieved.svg` |
+| `ROI-from-intelligent-AI-powered-robotic-arms.svg` | `charts/chart-robotic-arms-roi.svg` |
+| `The-impact-of-AI-on-industry-output.svg` | `charts/chart-ai-industry-output.svg` |
+| `The-most-significant-barriers-to-the-adoption-of-AI-within-your-organisation.svg` | `charts/chart-ai-adoption-barriers.svg` |
+| `commercial-data-icon.svg` | `icons/service-marks/mark-commercial-data.svg` |
+| `commercial-diagnostic-icon.svg` | `icons/service-marks/mark-commercial-diagnostic.svg` |
+| `commercial-positioning-icon.svg` | `icons/service-marks/mark-commercial-positioning.svg` |
+| `market-amplification-icon.svg` | `icons/service-marks/mark-market-amplification.svg` |
+
+`Perectage` corrected to *percentage* (the file became `chart-ai-targets-achieved`).

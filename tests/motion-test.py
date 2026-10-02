@@ -49,11 +49,14 @@ with sync_playwright() as p:
     ok("T8 stroked connectors marked for drawing", nd==20, f"{nd} of 20 expected")
     lens=pg.evaluate("[...document.querySelectorAll('#dh [data-draw]')].map(e=>getComputedStyle(e).strokeDashoffset)")
     ok("T8 hidden state: connectors fully undrawn", all(float(v.replace('px',''))>0 for v in lens), f"offsets e.g. {lens[:3]}")
-    scroll(pg,'dh'); pg.wait_for_timeout(420)
-    mid=[float(v.replace('px','')) for v in pg.evaluate("[...document.querySelectorAll('#dh [data-draw]')].map(e=>getComputedStyle(e).strokeDashoffset)")]
-    full=[float(v.replace('px','')) for v in lens]
-    drawing=sum(1 for m,f in zip(mid,full) if 0<m<f)
-    ok("T8 connectors genuinely drawing mid-entrance", drawing>0, f"{drawing} part-drawn")
+    # Watch the whole entrance rather than one instant: the entrance easing
+    # starts slowly, so a single early sample can land before lines move.
+    scroll(pg,'dh'); full=[float(v.replace('px','')) for v in lens]; drawing=0
+    for _ in range(14):
+        pg.wait_for_timeout(80)
+        cur=[float(v.replace('px','')) for v in pg.evaluate("[...document.querySelectorAll('#dh [data-draw]')].map(e=>getComputedStyle(e).strokeDashoffset)")]
+        drawing=max(drawing, sum(1 for m,f in zip(cur,full) if 0<m<f))
+    ok("T8 connectors genuinely drawing mid-entrance", drawing>0, f"up to {drawing} part-drawn at once")
     for i in IDS: scroll(pg,i); pg.wait_for_timeout(2400)
     ok("T3 after entrance: every element visible", min(pg.evaluate(OPAC,'svg.eq-motion'))==1.0)
     ok("T3 dash properties cleaned up", pg.evaluate("document.querySelectorAll('[data-draw]').length")==0)

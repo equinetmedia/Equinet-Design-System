@@ -20,7 +20,7 @@ This sits on the Equinet design system (`equinetmedia/equinet-design-system`).
 Choose assets from `assets/manifest.json` (every asset's background, roles,
 palette and subject) and rework them per `assets/REWORKING.md`, targeting
 elements by `data-role`.
-Its `README.md` opens with a 13-rule digest of binding token, type and
+Its `README.md` opens with a rules digest of binding token, type and
 accessibility rules. If the repo isn't in this session, ask for `README.md`
 and `assets/illustrations/INDEX.md`.
 
@@ -102,17 +102,27 @@ implies it can be clicked.
 ## The one hard limit: never invent data
 
 Visual richness comes from design, never from made-up facts. A stat block
-needs a real figure from the supplied content, with its source. If a section
+needs a real figure from the supplied content — or from
+`assets/charts/data.json`, which holds sourced figures on AI adoption in
+manufacturing, each marked verified, transcribed or not-quotable. Show the
+source with the figure. Never quote a `not-quotable` value, and treat
+`transcribed` figures as needing a check before a new claim is built on them. If a section
 would suit data the content lacks, the brief lists it as a gap for the user —
 and the section gets a composed graphic or icon treatment instead of a fake
 number. This is the only place to hold back; everywhere else, use the kit.
 
 ## Charts
 
-No chart component exists yet, so build charts from the chart tokens
-(`--equinet-color-chart-blue-light`, `-mid`, `-dark`) with diagram greys for
-axes and gridlines, and note them as new so they can be promoted. Prefer bars
-to pies.
+No chart component exists yet. Build charts live — real `<text>`, real values
+from the content or `data.json`, the source shown beneath — and note them as
+new so they can be promoted. Draw bars to scale: one of the seven existing
+charts sizes bars by eye, off by up to 7 points, and a chart that misstates
+its own data undoes the credibility the source lends it. Prefer bars to pies.
+
+Palette: the documented data palette is `--equinet-color-chart-blue-*`, but
+all seven real charts in `assets/charts/` use navy, orange and teal. That's an
+open decision — see `assets/charts/README.md` — so match whichever the user
+confirms, and say which you used.
 
 ## AEO structure
 
