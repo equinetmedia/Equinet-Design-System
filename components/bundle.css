@@ -482,3 +482,99 @@
   .eq-lead,
   .eq-lead--lg { font-size: 18px; }   /* matches plain_hero_banner's mobile step */
 }
+
+
+/* ============================================================================
+   GRAPHIC MOTION — entrance choreography for inline SVG graphics
+   Added 2026-09-26. Targets elements by data-role, so it works on any
+   annotated asset without per-file code. Paired with components/motion.js.
+
+   Principles, each one a bug avoided:
+   - PROGRESSIVE. Nothing is hidden unless motion.js has armed the graphic
+     with .eq-motion. No JS, a JS error, or reduced motion = the static
+     artwork, fully visible. Never hide content behind a script.
+   - ONCE. Plays on first scroll into view, then stops. No loops — an
+     infinite animation is what got sector-built-environment-animated flagged.
+   - COMPOSITOR-ONLY. Animates opacity, transform and stroke-dashoffset — no
+     width, height, top or left, so no layout or paint thrash.
+   - NEVER OVERRIDE AN SVG transform ATTRIBUTE. 44 annotated elements carry
+     one, some of them mirrored matrices. A CSS transform REPLACES it — even
+     `transform: none` — so the element would jump or un-flip. Every transform
+     rule below is scoped :not([transform]); those elements fade instead.
+   - TWO CONNECTOR KINDS. 41 connectors are stroked and can be drawn on; 76
+     are filled outline shapes (Figma outlines strokes on export), for which
+     stroke-dashoffset does nothing. Stroked ones draw, filled ones fade.
+   - INLINE ONLY. CSS can't reach inside an SVG placed with <img>. A graphic
+     must be inlined to animate; an <img> simply stays static, which is fine.
+   ========================================================================== */
+
+@media (prefers-reduced-motion: no-preference) {
+
+  /* Choreography: the order roles arrive in. Ground first, outcome last. */
+  .eq-motion [data-role="panel"]     { --eq-base: 0ms; }
+  .eq-motion [data-role="card"]      { --eq-base: 80ms; }
+  .eq-motion [data-role="data"]      { --eq-base: 160ms; }
+  .eq-motion [data-role="connector"] { --eq-base: 200ms; }
+  .eq-motion [data-role="node"]      { --eq-base: 280ms; }
+  .eq-motion [data-role="glyph"]     { --eq-base: 360ms; }
+  .eq-motion [data-role="accent"]    { --eq-base: 640ms; }
+
+  .eq-motion [data-role]:not([data-role="background"]):not([data-role="tile"]):not([data-role="shape"]) {
+    transition:
+      opacity var(--equinet-motion-duration--wipe, 0.45s) var(--equinet-motion-ease--enter, cubic-bezier(0.33, 0, 0.2, 1)),
+      transform var(--equinet-motion-duration--wipe, 0.45s) var(--equinet-motion-ease--enter, cubic-bezier(0.33, 0, 0.2, 1)),
+      stroke-dashoffset var(--equinet-motion-duration--slow, 0.6s) var(--equinet-motion-ease--enter, cubic-bezier(0.33, 0, 0.2, 1));
+    /* --i is the element's index within its role, set by motion.js. The
+       stagger is capped so a 30-element diagram doesn't make anyone wait. */
+    transition-delay: calc(var(--eq-base, 0ms) + min(calc(var(--i, 0) * var(--equinet-motion-stagger, 60ms)), 480ms));
+  }
+
+  /* Applied for one frame while motion.js arms a graphic, so it drops
+     straight into the hidden state instead of transitioning there. */
+  .eq-motion--arming [data-role] { transition: none !important; }
+
+  /* Scale and translate pivot on the element itself, not the SVG origin. */
+  .eq-motion [data-role]:not([transform]) {
+    transform-box: fill-box;
+    transform-origin: center;
+  }
+
+  /* ---- Hidden (armed, not yet in view) -------------------------------- */
+  .eq-motion:not(.is-visible) [data-role="panel"],
+  .eq-motion:not(.is-visible) [data-role="card"],
+  .eq-motion:not(.is-visible) [data-role="data"],
+  .eq-motion:not(.is-visible) [data-role="node"],
+  .eq-motion:not(.is-visible) [data-role="glyph"],
+  .eq-motion:not(.is-visible) [data-role="accent"],
+  .eq-motion:not(.is-visible) [data-role="connector"]:not([data-draw]) {
+    opacity: 0;
+  }
+  .eq-motion:not(.is-visible) [data-role="card"]:not([transform])   { transform: translateY(12px); }
+  .eq-motion:not(.is-visible) [data-role="node"]:not([transform])   { transform: scale(0.6); }
+  .eq-motion:not(.is-visible) [data-role="accent"]:not([transform]) { transform: scale(0.92); }
+  .eq-motion:not(.is-visible) [data-role="data"]:not([transform])   {
+    transform: scaleY(0);
+    transform-origin: center bottom;   /* bars grow up from their baseline */
+  }
+  /* Stroked connectors: motion.js measures each path and sets --len. */
+  .eq-motion:not(.is-visible) [data-role="connector"][data-draw] {
+    stroke-dasharray: var(--len);
+    stroke-dashoffset: var(--len);
+  }
+
+  /* ---- Visible ---------------------------------------------------------- */
+  .eq-motion.is-visible [data-role] { opacity: 1; }
+  .eq-motion.is-visible [data-role]:not([transform]) { transform: none; }
+  .eq-motion.is-visible [data-role="connector"][data-draw] {
+    stroke-dasharray: var(--len);
+    stroke-dashoffset: 0;
+  }
+}
+
+/* Safety net: if motion was ever armed under reduced motion, withdraw it.
+   Scoped :not([transform]) for the same reason as above. */
+@media (prefers-reduced-motion: reduce) {
+  .eq-motion [data-role] { transition: none !important; opacity: 1 !important; }
+  .eq-motion [data-role]:not([transform]) { transform: none !important; }
+  .eq-motion [data-role="connector"][data-draw] { stroke-dashoffset: 0 !important; }
+}

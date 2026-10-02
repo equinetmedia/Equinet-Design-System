@@ -1,0 +1,136 @@
+/* ============================================================================
+   EQUINET — GRAPHIC MOTION
+   Entrance choreography for inline SVG graphics annotated with data-role.
+   Pairs with the "GRAPHIC MOTION" section of components/bundle.css.
+
+   Does only what CSS can't:
+     1. measures stroked connectors so they can be drawn on,
+     2. numbers elements within each role for the stagger,
+     3. arms each graphic, then starts it once it scrolls into view,
+     4. removes its own dash properties afterwards, so the resting state is
+        the original artwork exactly.
+
+   Progressive: if this script never runs, fails, or the reader prefers
+   reduced motion, nothing is ever hidden — the graphic is simply static.
+
+   In a HubSpot module, this is the body of module.js; scope the selector to
+   the module root instead of `document`.
+   ========================================================================== */
+(function () {
+  'use strict';
+
+  var reduce = window.matchMedia('(prefers-reduced-motion: reduce)');
+  if (reduce.matches || !('IntersectionObserver' in window)) return;
+
+  // Entrance length = latest role start (640ms) + stagger cap (480ms)
+  // + longest transition (600ms). Clean up a little after that.
+  var CLEANUP_AFTER_MS = 1900;
+
+  // A connector can be drawn on only if it is a real stroke: it has a
+  // stroke, no fill, and isn't already dashed by the artwork. 76 of 117
+  // connectors are filled outline shapes — those fade instead.
+  function isDrawable(el) {
+    if (typeof el.getTotalLength !== 'function') return false;
+    var stroke = el.getAttribute('stroke');
+    var fill = (el.getAttribute('fill') || '').toLowerCase();
+    if (!stroke || stroke === 'none') return false;
+    if (fill && fill !== 'none') return false;
+    if (el.getAttribute('stroke-dasharray')) return false;
+    return true;
+  }
+
+  function prepare(svg) {
+    var counts = {};
+    var els = svg.querySelectorAll('[data-role]');
+    for (var i = 0; i < els.length; i++) {
+      var el = els[i];
+      var role = el.getAttribute('data-role');
+      counts[role] = (counts[role] || 0) + 1;
+      el.style.setProperty('--i', counts[role] - 1);
+
+      if (role === 'connector' && isDrawable(el)) {
+        var len = Math.ceil(el.getTotalLength());
+        if (len > 0) {
+          el.setAttribute('data-draw', '');
+          el.style.setProperty('--len', len + 'px');  // must carry a unit: Chrome rejects a bare number for stroke-dashoffset in CSS and silently uses 0
+        }
+      }
+    }
+  }
+
+  // Return the graphic to exactly its original rendering. Removing the dash
+  // properties restores the DOM, but Chrome keeps the raster it painted while
+  // strokes were dashed — measured at up to 35/255 on line-end pixels, all of
+  // them on drawn connectors. A fresh copy of the node has no render history
+  // and was measured pixel-identical to the static artwork, so swap one in.
+  // Nothing is lost: the clone carries every attribute and class, and these
+  // decorative SVGs hold no listeners.
+  function cleanup(svg) {
+    var drawn = svg.querySelectorAll('[data-draw]');
+    for (var i = 0; i < drawn.length; i++) {
+      drawn[i].removeAttribute('data-draw');
+      drawn[i].style.removeProperty('--len');
+    }
+    if (svg.parentNode) svg.parentNode.replaceChild(svg.cloneNode(true), svg);
+  }
+
+  function reveal(svg) {
+    svg.classList.add('is-visible');
+    window.setTimeout(function () { cleanup(svg); }, CLEANUP_AFTER_MS);
+  }
+
+  var graphics = document.querySelectorAll('svg[data-asset]:not([data-motion-ready])');
+  if (!graphics.length) return;
+
+  var observer = new IntersectionObserver(function (entries) {
+    for (var i = 0; i < entries.length; i++) {
+      if (entries[i].isIntersecting) {
+        observer.unobserve(entries[i].target);
+        reveal(entries[i].target);
+      }
+    }
+  }, { threshold: 0.25, rootMargin: '0px 0px -10% 0px' });
+
+  // Leave self-animating artwork alone. sector-built-environment-animated
+  // carries its own embedded @keyframes loop; layering this on top would put
+  // two animation systems on the same elements.
+  function animatesItself(svg) {
+    var styles = svg.querySelectorAll('style');
+    for (var s = 0; s < styles.length; s++) {
+      if (/@keyframes|animation\s*:/.test(styles[s].textContent)) return true;
+    }
+    return false;
+  }
+
+  for (var g = 0; g < graphics.length; g++) {
+    var svg = graphics[g];
+    svg.setAttribute('data-motion-ready', '');
+    if (animatesItself(svg)) continue;
+    prepare(svg);
+    // Arm WITHOUT transitions. prepare() calls getTotalLength(), which forces
+    // a style computation — so the visible, fully drawn state is already on
+    // record. Adding .eq-motion with transitions live would then ANIMATE into
+    // the hidden state: elements fade out and lines un-draw, and a graphic
+    // visible on load flickers. Disable transitions, flush, then re-enable.
+    svg.classList.add('eq-motion', 'eq-motion--arming');
+    void svg.getBoundingClientRect();
+    svg.classList.remove('eq-motion--arming');
+    observer.observe(svg);
+  }
+
+  // If the reader switches on reduced motion mid-session, show everything
+  // at once and stop observing.
+  function onPreferenceChange(e) {
+    if (!e.matches) return;
+    observer.disconnect();
+    for (var k = 0; k < graphics.length; k++) {
+      graphics[k].classList.add('is-visible');
+      cleanup(graphics[k]);
+    }
+  }
+  if (typeof reduce.addEventListener === 'function') {
+    reduce.addEventListener('change', onPreferenceChange);
+  } else if (typeof reduce.addListener === 'function') {
+    reduce.addListener(onPreferenceChange);
+  }
+})();

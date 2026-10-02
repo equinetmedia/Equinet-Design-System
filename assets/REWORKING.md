@@ -114,6 +114,15 @@ The content lists five ordered steps; the best match is
    card centres — not in the SVG.
 7. **Check:** one accent; every colour a token; no connector left dangling.
 
+## Motion survives a rework — if roles do
+
+Graphic motion keys off `data-role`, so a reworked graphic animates with no
+extra work **provided every element you add carries a role**. A duplicated
+card should keep `data-role="card"`; a new connector needs
+`data-role="connector"`. An element without a role isn't animated and arrives
+with the ground, which reads as a mistake mid-entrance. Keep the single
+`accent` single — it's choreographed to arrive last.
+
 ## After editing
 
 Regenerate `assets/manifest.json` so it reflects the change — it's built from

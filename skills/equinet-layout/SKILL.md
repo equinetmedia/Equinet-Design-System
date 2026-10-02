@@ -90,6 +90,15 @@ rather than drawn from memory. Add a one-line comment naming the icon
 4. Apply AEO structure (below) and the design-system digest throughout.
 5. Finish with a short list of any new components built.
 
+## Motion
+
+Inline graphics and load `components/motion.js` — every annotated graphic then
+gets a once-only entrance (ground, cards, lines drawing on, nodes, glyphs,
+accent last), with no per-graphic code. Elements you add while reworking must
+keep a `data-role` or they won't join the sequence. Don't add looping or
+hover animation to graphics: a graphic isn't a control, and motion on hover
+implies it can be clicked.
+
 ## The one hard limit: never invent data
 
 Visual richness comes from design, never from made-up facts. A stat block

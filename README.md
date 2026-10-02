@@ -667,6 +667,44 @@ Filenames follow one convention — lowercase kebab-case, group-prefixed,
 globally unique — except `buttons/` and `comps/`, which keep their Figma
 layer-ID names. `assets/RENAMES.md` maps every old name to its new one.
 
+## Graphic motion
+
+`components/motion.js` plus the "GRAPHIC MOTION" section of `bundle.css` give
+every annotated graphic an entrance: ground first, then cards, data, lines,
+nodes and glyphs, with the orange accent arriving last. Stroked connectors
+draw on; everything else fades, rises or scales into place. It plays once,
+when the graphic scrolls into view, and stops.
+
+To use it: **inline the SVG** (CSS can't reach inside an `<img>`, which simply
+stays static) and load `motion.js`. No per-graphic code — it works from
+`data-role`, so any annotated asset animates, including reworked ones.
+
+Six rules it follows, each one a bug found and fixed while testing it:
+
+- **Progressive.** Nothing is hidden unless the script has armed the graphic.
+  No JS, a script error, or reduced motion leaves the static artwork fully
+  visible.
+- **Never overrides an SVG `transform` attribute.** 44 annotated elements
+  carry one, some mirrored. A CSS transform replaces it — even
+  `transform: none` — so those elements fade only.
+- **Two connector kinds.** 41 are true strokes and draw on; 76 are filled
+  outline shapes, where `stroke-dashoffset` does nothing, so they fade.
+- **Arms without transitions.** Measuring a path forces a style pass, so
+  arming with transitions live would *animate into* the hidden state — the
+  graphic flickers out before coming back. Transitions are off while arming.
+- **Leaves self-animating artwork alone.**
+  `sector-built-environment-animated` runs its own keyframe loop.
+- **Rests exactly.** Afterwards the graphic is swapped for a fresh copy,
+  because Chrome otherwise keeps the raster it painted while lines were
+  dashed.
+
+Verified in a real browser by `tests/motion-test.py` (14 checks). The resting
+state matches the static artwork to within 4/255 — two graphics identical, two
+differing by 1–4 levels on under 0.1% of pixels, below perception. Motion uses
+the system's tokens: `--equinet-motion-ease--enter` (reused from a shipped
+module's reveal wipe) and `--equinet-motion-stagger` (60ms, capped at 480ms
+total so a dense diagram never makes anyone wait).
+
 ## Brand mark
 
 `assets/brand/` holds the Equinet Media wordmark, two ready-made variants —

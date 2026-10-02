@@ -32,6 +32,56 @@ built in rather than needing restatement each session. What can't be is
 brief-level direction — the AEO structure and `{CONTEXT}` — which describes
 a page, not the brand.
 
+## 2026-09-26 — Graphic motion, verified in a real browser
+
+New: `components/motion.js` and a "GRAPHIC MOTION" section in `bundle.css` —
+a once-only, scroll-triggered entrance for any inline annotated graphic,
+driven entirely by `data-role`. New tokens: `--equinet-motion-ease--enter`
+(the ease-out curve from `sector-three-column-case-study`'s shipped reveal
+wipe, not invented) and `--equinet-motion-stagger` (60ms, capped at 480ms).
+New: `tests/motion-test.py`, 14 checks run in headless Chromium.
+
+**Three findings shaped it before any code was written:**
+
+- 76 of 117 connectors are filled outline shapes, not strokes, so the usual
+  `stroke-dashoffset` draw-on works on only 41. Stroked ones draw; filled
+  ones fade.
+- 44 annotated elements carry an SVG `transform` attribute, some mirrored
+  matrices. A CSS `transform` replaces the attribute — even `transform: none`
+  — so every transform rule is scoped `:not([transform])` in both hidden and
+  visible states.
+- CSS can't reach inside an `<img>`; animation requires inline SVG.
+
+**Testing caught four real bugs — the first version looked right and wasn't:**
+
+1. **Lines never drew.** Arming triggered a *reverse* transition:
+   `getTotalLength()` forces a style pass, so the visible state was on record,
+   and adding the class *animated into* the hidden state. On a live page a
+   graphic visible on load would flicker out and back. Fixed by arming with
+   transitions disabled for one frame.
+2. **A unitless `--len`.** Chrome rejects a bare number for
+   `stroke-dashoffset` in CSS and silently uses 0. Now carries `px`.
+3. **Collision with self-animating artwork.**
+   `sector-built-environment-animated` has drawable connectors and its own
+   keyframe loop; two animation systems would have fought. Now skipped.
+4. **Resting state off by up to 35/255.** All 43 affected pixels sat on drawn
+   connectors, and a fresh clone of the same node rendered identically —
+   proving it was Chrome's retained raster from the dashed paint, not the DOM.
+   The graphic is now swapped for a fresh copy after the entrance. Worst case
+   fell from 35/255 to 4/255.
+
+Two test bugs were also found and fixed rather than papered over: the
+first harness used graphics with no stroked connectors, so the draw-on path
+was never exercised; and a position check compared viewport-relative boxes
+across different scroll offsets.
+
+**Final: 14/14.** The resting state matches the static artwork within 4/255 —
+two graphics identical, two differing by 1–4 levels on under 0.1% of pixels.
+Reported as that, not as "pixel-identical", because two aren't.
+
+Deliberately not added: looping or hover motion on graphics. A graphic isn't
+a control, and hover motion signals that something can be clicked.
+
 ## 2026-09-26 — Lead text: a missing component, and a fix that didn't work
 
 Reported: lead text not pulling through. Three causes, one of them an error in
