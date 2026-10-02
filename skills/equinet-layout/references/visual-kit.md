@@ -90,6 +90,14 @@ Crop and scale freely. Colour, type and iconography stay per the system; when
 you extract an element, sample its colour from `tokens.css` rather than the
 artwork.
 
+## Heroes — `illustrations/heroes/`
+
+Four near-square service-page heroes (engine, commercial data, ABM, HubSpot).
+Use one as the opening visual of its matching service page. Their card labels
+are baked into the artwork, so recompose by moving whole cards, not by editing
+text. Never use `hero-why-hubspot` without reading its note — it recolours
+HubSpot's logo, which HubSpot's trademark rules forbid.
+
 ## Layouts from `assets/comps/`
 
 | Comp | Blueprint for |
@@ -98,6 +106,7 @@ artwork.
 | `module__2-column-comparison` | Any side-by-side argument |
 | `module__5_column_block_methodology` | A named method in steps, with an orange eyebrow and 56px Open Sans heading |
 | `module__sector-three-column-case-study` | Grouped proof — three columns of sector cards, 36px/900 section heading |
+| `Global-Navigation` | The site header — dark band, 1280px container, two-line service links, orange CTA. Labels transcribed in `assets/comps/README.md` |
 
 Reproduce the structure with live components. Open the comp to read its
 spacing and hierarchy; its live `<text>` elements give real type sizes.

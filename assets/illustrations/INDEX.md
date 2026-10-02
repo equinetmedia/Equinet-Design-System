@@ -151,6 +151,22 @@ for a media panel.
 
 ---
 
+## `heroes/` — 1200 × ~1092 (1.10), transparent
+
+Service-page heroes. Near-square — never in a 16:9 row. They carry outlined
+card text, so recompose by moving whole cards, not by editing labels.
+
+| File | Depicts | Topics |
+| --- | --- | --- |
+| `hero-commercial-intelligence-engine` | Five service pillars around a central engine | commercial intelligence, methodology, services overview |
+| `hero-commercial-data` | Interlocking gears with data cards | commercial data, rev ops, pipeline, market sizing, account records |
+| `hero-account-based-marketing` | ABM tier gauge | account based marketing, ABM, one-to-one, targeting |
+| `hero-why-hubspot` | HubSpot logo with dashboard cards | HubSpot, CRM, commercial systems, reporting |
+
+`hero-why-hubspot` recolours HubSpot's logo against HubSpot's trademark
+guidelines and shows mock dashboard figures — read its notes in
+`README.md` before using it.
+
 ## Data charts: `assets/charts/`
 
 Seven sourced charts on AI adoption in manufacturing. Selectable when the

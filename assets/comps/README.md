@@ -16,6 +16,7 @@ not pasted.
 | `module__2-column-comparison.svg` | 1920 × 612 | `2-column-comparison` | 7 |
 | `module__5_column_block_methodology.svg` | 1920 × 805 | `5_column_block_process` / methodology | 21 |
 | `module__sector-three-column-case-study.svg` | 1920 × 1276 | `sector-three-column-case-study` | 23 |
+| `Global-Navigation.svg` | 1920 × 100 | global header / navigation | 0 — outlined |
 
 ## What they're for
 
@@ -82,3 +83,55 @@ been seen in two contexts rather than one.
 
 Neither is changed here. Flagged so the next person deciding the near-white
 cluster has the full picture.
+
+## `Global-Navigation.svg` — the site header
+
+Added 2026-10-02. The global navigation bar: a full-width 1920 × 100 band in
+`#242630`, carrying a centred **1280px content container** in `#242530`, with
+the Equinet Media wordmark in white, five two-line service links, a 1px white
+vertical divider, an About dropdown, and an orange CTA (`#E06730`). Every
+colour is a token. Kept under its Figma name, like the other comps.
+
+Measured from the file:
+
+| Element | Value |
+| --- | --- |
+| Band | 1920 × 100, `#242630` (`--equinet-color-heading`) |
+| Content container | 1280 wide, centred, `#242530` (`--equinet-color-text`) |
+| Divider | 1 × 50, white |
+| CTA | 148 × 50, `rx 6`, `#E06730` |
+
+**Two findings from those numbers.** The band and its container use the two
+near-identical greys *side by side* — `#242630` and `#242530`, one unit apart
+and indistinguishable on screen. That's the clearest evidence yet on the open
+question of whether `--equinet-color-heading` and `--equinet-color-text`
+should merge. And the CTA is a **third button size**: 50px tall with a 6px
+radius, unlike the primary (56px, `rx 7`) and navigation (54px, `rx 7`)
+buttons. It isn't tokenised; worth deciding whether it's a header-specific
+variant or drift.
+
+Its text is outlined, so the labels are recorded here as text:
+
+| Position | Label | Treatment |
+| --- | --- | --- |
+| Left | Equinet Media | Wordmark (`assets/brand/wordmark-light.svg`) |
+| Nav 1 | Commercial / **Positioning** | Two lines, second line bold |
+| Nav 2 | Commercial / **Systems** | Two lines, second line bold |
+| Nav 3 | Commercial Data / **& Rev Ops** | Two lines, second line bold |
+| Nav 4 | Account Based / **Marketing** | Two lines, second line bold |
+| Nav 5 | Website / **Design** | Two lines, second line bold |
+| — | Vertical divider | |
+| Nav 6 | **About** ▾ | Single line, dropdown chevron |
+| CTA | Commercial / **Diagnostic** | `.btn-primary`, two-line label |
+
+**This is the reference an earlier header module should have followed.**
+`new_header_module_2026_v3.css` was excluded from the system for an off-brand
+green palette, its own `:root` block and FontAwesome glyphs. Its two-line
+"top / bottom" label structure matches this comp exactly — so it was built for
+this design, with the wrong colours — and its `.container-1280` matches this
+comp's 1280px container exactly. Rebuild the header against this comp: dark
+band, 1280px container, white labels, orange CTA, Lucide for the dropdown
+chevron.
+
+The navigation also maps the site's service pages, which is what
+`assets/illustrations/heroes/` provides artwork for.

@@ -113,3 +113,16 @@ in the repo under the old names.
 | `market-amplification-icon.svg` | `icons/service-marks/mark-market-amplification.svg` |
 
 `Perectage` corrected to *percentage* (the file became `chart-ai-targets-achieved`).
+
+## Filed under new names — 2026-10-02 (second batch)
+
+| Delivered as | Filed as |
+| --- | --- |
+| `equinet-media-why-hubspot.svg` | `illustrations/heroes/hero-why-hubspot.svg` |
+| `equinet-media-commercial-data-page-hero.svg` | `illustrations/heroes/hero-commercial-data.svg` |
+| `equinet-media-account-based-marketing-hero.svg` | `illustrations/heroes/hero-account-based-marketing.svg` |
+| `equinet-media-commercial-intelligence-engine_093026.svg` | `illustrations/heroes/hero-commercial-intelligence-engine.svg` |
+| `the-commercial-intelligence-engine-icon.svg` | `brand/emblem-commercial-intelligence-engine.svg` |
+
+`Global-Navigation.svg` kept its Figma name in `comps/`, like the other comps. The `_093026` date suffix was dropped.
+`icons/service-marks/mark-commercial-systems.svg` was not delivered — it was derived from the engine hero.

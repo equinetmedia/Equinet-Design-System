@@ -35,3 +35,25 @@ knowing before merging in either direction.
 - No minimum size or clear-space rule is documented yet — nothing in the
   supplied files specifies one, so none is asserted here. Add one if the
   brand guidelines ever state it explicitly.
+
+## Emblem — The Commercial Intelligence Engine
+
+`emblem-commercial-intelligence-engine.svg`, added 2026-10-02. The mark of
+Equinet's named methodology: a gear with orbiting nodes, an entry arrow and a
+check. Single ink — `#242630`, 4px stroke, no fill — on a 284 × 275 artboard.
+
+Delivered as an "icon", but it isn't one: it's nearly six times the 48px icon
+ceiling and functions as identity, not as a control glyph. So it lives with
+the wordmark.
+
+It's the same emblem that sits in the centre card of
+`hero-commercial-intelligence-engine`, where it's drawn in orange — 16 of its
+24 path shapes match that hero exactly.
+
+**Minimum size: about 72px.** The 4px stroke scales with the artboard, so at
+smaller sizes the line thins below 1px and the small nodes close up. At 72px it
+renders roughly 1px; at 48px about 0.7px.
+
+**Colour.** It's a single ink, so inline it and set the stroke from a token to
+recolour it — `#242630` on light grounds, white or `--equinet-color-orange` on
+navy, as the hero does. Placed as an `<img>` it stays `#242630`.

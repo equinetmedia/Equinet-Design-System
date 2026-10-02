@@ -5,7 +5,7 @@ to stand on its own belongs here. The quick test: if flattening a graphic to a
 single ink would ruin it, it's an illustration. Icons inherit `currentColor`
 from the control around them; none of these can.
 
-Five subgroups, 32 files:
+Six subgroups, 36 files:
 
 **Choosing one? Read `INDEX.md` first** — it lists every file's subject and
 topics. Place a whole illustration when its subject matches; when none does,
@@ -24,6 +24,7 @@ spot art. Every other group is transparent.
 | `sectors/` | 4 | 641 × 361 (1.776) | Blue-default, charade-500, amber | Sector/vertical pictographs |
 | `systems/` | 5 | 460 × 259 (1.776) | Night, charade, blue-400, amber | Commercial-systems process diagrams |
 | `flows/` | 3 | 1209 × 675 (1.791) | Night, charade-500, border, orange | Horizontal step-flow diagrams |
+| `heroes/` | 4 | 1200 × ~1092 (1.10) | Night, orange, blues, card whites | Service-page hero compositions |
 
 The four 16:9 groups are interchangeable in one frame — 1.776 to 1.791, the
 same ratio within rounding, despite four different pixel sizes.
@@ -165,6 +166,59 @@ One palette distinction worth noting: these use `#E06730`, the primary
 orange, where every other illustration group reaches for `#F5844D`
 (`amber-400`). And `#B1B7C8` is a UI border token doing illustration line
 work — the only group where that happens.
+
+## `heroes/` — service-page hero compositions
+
+Four 1200 × ~1092 compositions, added 2026-10-02 — the artwork for the site's
+service pages, which `assets/comps/Global-Navigation.svg` lists:
+
+| File | Page | Composition |
+| --- | --- | --- |
+| `hero-commercial-intelligence-engine` | The engine / home | Five numbered pillar cards orbiting a central engine card |
+| `hero-commercial-data` | Commercial Data & Rev Ops | Interlocking gears with Market sizing, Account records, Pipeline data cards |
+| `hero-account-based-marketing` | Account Based Marketing | A gauge with One to many / One to a few / One to one tier cards |
+| `hero-why-hubspot` | Commercial Systems (HubSpot) | The HubSpot logo surrounded by dashboard cards |
+
+**A new aspect ratio.** At 1.10 they're near-square — unlike the 16:9 groups and
+the 1:1 pictonodes. Don't mix them into a row with either.
+
+**Unlike every other illustration group, these carry text** — card titles
+("Market sizing", "One to a few", "Commercial Diagnostic") outlined into the
+artwork. So "labels go in HTML" can't be applied to them: their labels are
+fixed. Recompose by moving whole cards; don't try to change what a card says.
+
+**The engine hero contains the five service marks.** Its card icons are the
+`icons/service-marks/` glyphs at identical geometry and placement — proven to
+sub-pixel precision. Card 03, Commercial Systems, carried the one mark the set
+was missing; it's been extracted (see the icons README).
+
+**Mock dashboard figures are not data.** `hero-why-hubspot` shows "611" new
+contacts and "51,937" blog views, and its pie and bar charts carry values.
+These are placeholder UI, depicting a dashboard — never quote them as Equinet
+or HubSpot statistics.
+
+**Two problems in `hero-why-hubspot`:**
+- **The HubSpot logo is recoloured.** It's drawn in Equinet's `#F5844D`.
+  HubSpot's trademark guidelines list changing the logo's colour among things
+  partners must not do; its brand orange is `#FF7A59`. Use HubSpot's colour or
+  its white reversed logo.
+- **Seven off-palette colours**, the most of any asset — salmon (used 33
+  times), lilac, cyan, teal and green, the colours of HubSpot's own dashboard
+  charts. If the intent is to depict HubSpot's interface faithfully, that's a
+  defensible exception and should be recorded as one; otherwise retint to
+  the system palette. A decision, not something to resolve silently.
+
+`hero-commercial-data` and `hero-account-based-marketing` also carry recurring
+off-palette greys (`#343330`, `#ECEAEA`, `#F3F2F2`, `#F5F5F5`) and
+`hero-commercial-data`'s gears use `#1973AD` — see `CHANGELOG.md`.
+
+**Not annotated with `data-role`, deliberately.** The illustration roles fit
+badly: the engine hero would get 38 "accents" (orange numbers the pillars,
+fills tile 03 and draws the emblem), and the HubSpot hero would tag HubSpot's
+logo as Equinet's accent. A wrong role misleads more than no role, so the
+heroes stay unannotated and motion.js leaves them alone. They need a
+hero-aware role set — a highlight distinct from the single accent, a label for
+baked-in text, a logo for third-party marks.
 
 ## `pictonodes/` — square spot graphics
 

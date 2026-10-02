@@ -14,8 +14,27 @@
     "shape": "unclassified (usually invisible bounds)"
   },
   "palette_note": "'unsanctioned' marks a colour found in artwork that is not a token; replace it with nearest_token (by RGB distance \u2014 a suggestion, not a ruling) rather than carrying the raw hex forward.",
-  "count": 92,
+  "count": 99,
   "assets": [
+    {
+      "name": "emblem-commercial-intelligence-engine",
+      "path": "assets/brand/emblem-commercial-intelligence-engine.svg",
+      "category": "brand",
+      "group": "brand",
+      "width": 284.0,
+      "height": 275.0,
+      "aspect": 1.033,
+      "background": "transparent",
+      "live_text": 0,
+      "reworkable": false,
+      "roles": {},
+      "palette": [
+        {
+          "hex": "#242630",
+          "token": "--equinet-color-night-default"
+        }
+      ]
+    },
     {
       "name": "wordmark-dark",
       "path": "assets/brand/wordmark-dark.svg",
@@ -281,6 +300,12 @@
           "token": "--equinet-color-amber-400"
         }
       ],
+      "topics": [
+        "AI barriers",
+        "expertise gap",
+        "integration",
+        "implementation cost"
+      ],
       "chart": {
         "title": "What do you consider the most significant barriers to the adoption of AI within your organisation?",
         "form": "grouped vertical bars, 2023 vs 2024",
@@ -327,6 +352,11 @@
           "token": "--equinet-color-night-100"
         }
       ],
+      "topics": [
+        "AI adoption stage",
+        "company size",
+        "manufacturing"
+      ],
       "chart": {
         "title": "Global Manufacturing Organisations \u2014 2025 \u2014 State of AI Adoption",
         "form": "horizontal grouped bars",
@@ -368,6 +398,11 @@
           "hex": "#F5844D",
           "token": "--equinet-color-amber-400"
         }
+      ],
+      "topics": [
+        "economic output",
+        "GVA",
+        "sector impact"
       ],
       "chart": {
         "title": "The impact of AI on industry output",
@@ -419,6 +454,11 @@
           "token": "--equinet-color-night-100"
         }
       ],
+      "topics": [
+        "AI leaders",
+        "competitive gap",
+        "KPI impact"
+      ],
       "chart": {
         "title": "Leading companies are widening the gap in AI compared to the rest of companies",
         "form": "dumbbell \u2014 leaders 4\u20135 years ago vs leaders in last 2 years",
@@ -457,6 +497,11 @@
           "token": "--equinet-color-night-100"
         }
       ],
+      "topics": [
+        "AI ROI",
+        "AI strategy",
+        "AI knowledge gap"
+      ],
       "chart": {
         "title": "But AI is not delivering spectacular results for everyone",
         "form": "three donuts",
@@ -494,6 +539,10 @@
           "hex": "#F6F7F9",
           "token": "--equinet-color-night-100"
         }
+      ],
+      "topics": [
+        "AI targets",
+        "AI success rate"
       ],
       "chart": {
         "title": "Successful AI-related targets achieved",
@@ -540,6 +589,12 @@
           "nearest_hex": "#FCE9E0"
         }
       ],
+      "topics": [
+        "robotics",
+        "physical AI",
+        "cycle time",
+        "operational cost"
+      ],
       "chart": {
         "title": "ROI from intelligent AI-powered robotic arms",
         "form": "three gauges plus a headline figure",
@@ -547,6 +602,33 @@
         "data": "assets/charts/data.json",
         "note": "Figures are outlined in the SVG. Rebuild live from data.json; never retype from the artwork."
       }
+    },
+    {
+      "name": "Global-Navigation",
+      "path": "assets/comps/Global-Navigation.svg",
+      "category": "layout-blueprint",
+      "group": "comps",
+      "width": 1920.0,
+      "height": 100.0,
+      "aspect": 19.2,
+      "background": "opaque dark",
+      "live_text": 0,
+      "reworkable": false,
+      "roles": {},
+      "palette": [
+        {
+          "hex": "#242530",
+          "token": "--equinet-color-text"
+        },
+        {
+          "hex": "#242630",
+          "token": "--equinet-color-night-default"
+        },
+        {
+          "hex": "#E06730",
+          "token": "--equinet-color-amber-default"
+        }
+      ]
     },
     {
       "name": "module__2-column-comparison",
@@ -953,6 +1035,28 @@
     {
       "name": "mark-commercial-positioning",
       "path": "assets/icons/service-marks/mark-commercial-positioning.svg",
+      "category": "icon",
+      "group": "service-marks",
+      "width": 69.0,
+      "height": 69.0,
+      "aspect": 1.0,
+      "background": "dark tile",
+      "live_text": 0,
+      "reworkable": true,
+      "roles": {
+        "tile": 1,
+        "glyph": 1
+      },
+      "palette": [
+        {
+          "hex": "#242630",
+          "token": "--equinet-color-night-default"
+        }
+      ]
+    },
+    {
+      "name": "mark-commercial-systems",
+      "path": "assets/icons/service-marks/mark-commercial-systems.svg",
       "category": "icon",
       "group": "service-marks",
       "width": 69.0,
@@ -1384,6 +1488,285 @@
         "structured data",
         "AEO",
         "technical content"
+      ]
+    },
+    {
+      "name": "hero-account-based-marketing",
+      "path": "assets/illustrations/heroes/hero-account-based-marketing.svg",
+      "category": "illustration",
+      "group": "heroes",
+      "width": 1200.0,
+      "height": 1094.0,
+      "aspect": 1.097,
+      "background": "transparent",
+      "live_text": 0,
+      "reworkable": false,
+      "roles": {},
+      "palette": [
+        {
+          "hex": "#242630",
+          "token": "--equinet-color-night-default"
+        },
+        {
+          "hex": "#343330",
+          "token": null,
+          "status": "unsanctioned",
+          "nearest_token": "--equinet-color-night-default",
+          "nearest_hex": "#242630"
+        },
+        {
+          "hex": "#5688BA",
+          "token": "--equinet-color-blue-500"
+        },
+        {
+          "hex": "#ECEAEA",
+          "token": null,
+          "status": "unsanctioned",
+          "nearest_token": "--equinet-color-night-200",
+          "nearest_hex": "#E8EAED"
+        },
+        {
+          "hex": "#F3F2F2",
+          "token": null,
+          "status": "unsanctioned",
+          "nearest_token": "--equinet-color-diagram-surface",
+          "nearest_hex": "#F1F1F1"
+        },
+        {
+          "hex": "#F5844D",
+          "token": "--equinet-color-amber-400"
+        },
+        {
+          "hex": "#F5F5F5",
+          "token": null,
+          "status": "unsanctioned",
+          "nearest_token": "--equinet-color-surface-200",
+          "nearest_hex": "#F6F5F5"
+        },
+        {
+          "hex": "#F6F5F5",
+          "token": "--equinet-color-surface-200"
+        }
+      ],
+      "depicts": "ABM tier gauge",
+      "topics": [
+        "account based marketing",
+        "ABM",
+        "one-to-one",
+        "targeting"
+      ]
+    },
+    {
+      "name": "hero-commercial-data",
+      "path": "assets/illustrations/heroes/hero-commercial-data.svg",
+      "category": "illustration",
+      "group": "heroes",
+      "width": 1200.0,
+      "height": 1091.0,
+      "aspect": 1.1,
+      "background": "transparent",
+      "live_text": 0,
+      "reworkable": false,
+      "roles": {},
+      "palette": [
+        {
+          "hex": "#1973AD",
+          "token": null,
+          "status": "unsanctioned",
+          "nearest_token": "--equinet-color-blue-700",
+          "nearest_hex": "#265D94"
+        },
+        {
+          "hex": "#242630",
+          "token": "--equinet-color-night-default"
+        },
+        {
+          "hex": "#343330",
+          "token": null,
+          "status": "unsanctioned",
+          "nearest_token": "--equinet-color-night-default",
+          "nearest_hex": "#242630"
+        },
+        {
+          "hex": "#ECEAEA",
+          "token": null,
+          "status": "unsanctioned",
+          "nearest_token": "--equinet-color-night-200",
+          "nearest_hex": "#E8EAED"
+        }
+      ],
+      "depicts": "Interlocking gears with data cards",
+      "topics": [
+        "commercial data",
+        "rev ops",
+        "pipeline",
+        "market sizing",
+        "account records"
+      ]
+    },
+    {
+      "name": "hero-commercial-intelligence-engine",
+      "path": "assets/illustrations/heroes/hero-commercial-intelligence-engine.svg",
+      "category": "illustration",
+      "group": "heroes",
+      "width": 1200.0,
+      "height": 1091.0,
+      "aspect": 1.1,
+      "background": "transparent",
+      "live_text": 0,
+      "reworkable": false,
+      "roles": {},
+      "palette": [
+        {
+          "hex": "#002E4A",
+          "token": "--equinet-color-blue-900"
+        },
+        {
+          "hex": "#00426C",
+          "token": "--equinet-color-blue-default"
+        },
+        {
+          "hex": "#242630",
+          "token": "--equinet-color-night-default"
+        },
+        {
+          "hex": "#265D94",
+          "token": "--equinet-color-blue-700"
+        },
+        {
+          "hex": "#3B3F51",
+          "token": "--equinet-color-night-700"
+        },
+        {
+          "hex": "#68728F",
+          "token": "--equinet-color-charade-500"
+        },
+        {
+          "hex": "#6C7074",
+          "token": "--equinet-color-diagram-line--neutral"
+        },
+        {
+          "hex": "#B1B7C8",
+          "token": "--equinet-color-charade-300"
+        },
+        {
+          "hex": "#D6D8E1",
+          "token": "--equinet-color-charade-200"
+        },
+        {
+          "hex": "#E06730",
+          "token": "--equinet-color-amber-default"
+        },
+        {
+          "hex": "#F5844D",
+          "token": "--equinet-color-amber-400"
+        },
+        {
+          "hex": "#FFE6DB",
+          "token": "--equinet-color-orange--pale",
+          "status": "folded \u2014 treat as this token"
+        }
+      ],
+      "depicts": "Five service pillars around a central engine",
+      "topics": [
+        "commercial intelligence",
+        "methodology",
+        "services overview"
+      ]
+    },
+    {
+      "name": "hero-why-hubspot",
+      "path": "assets/illustrations/heroes/hero-why-hubspot.svg",
+      "category": "illustration",
+      "group": "heroes",
+      "width": 1200.0,
+      "height": 1092.0,
+      "aspect": 1.099,
+      "background": "transparent",
+      "live_text": 0,
+      "reworkable": false,
+      "roles": {},
+      "palette": [
+        {
+          "hex": "#002E4A",
+          "token": "--equinet-color-blue-900"
+        },
+        {
+          "hex": "#00426C",
+          "token": "--equinet-color-blue-default"
+        },
+        {
+          "hex": "#242530",
+          "token": "--equinet-color-text"
+        },
+        {
+          "hex": "#242630",
+          "token": "--equinet-color-night-default"
+        },
+        {
+          "hex": "#292D32",
+          "token": null,
+          "status": "unsanctioned",
+          "nearest_token": "--equinet-color-night-default",
+          "nearest_hex": "#242630"
+        },
+        {
+          "hex": "#4BCDD4",
+          "token": null,
+          "status": "unsanctioned",
+          "nearest_token": "--equinet-color-teal-default",
+          "nearest_hex": "#6BBFC6"
+        },
+        {
+          "hex": "#4DB296",
+          "token": null,
+          "status": "unsanctioned",
+          "nearest_token": "--equinet-color-teal-500",
+          "nearest_hex": "#4691A0"
+        },
+        {
+          "hex": "#70ABB7",
+          "token": null,
+          "status": "unsanctioned",
+          "nearest_token": "--equinet-color-teal-default",
+          "nearest_hex": "#6BBFC6"
+        },
+        {
+          "hex": "#8E9CA6",
+          "token": null,
+          "status": "unsanctioned",
+          "nearest_token": "--equinet-color-charade-400",
+          "nearest_hex": "#8790A9"
+        },
+        {
+          "hex": "#B49DE7",
+          "token": null,
+          "status": "unsanctioned",
+          "nearest_token": "--equinet-color-charade-300",
+          "nearest_hex": "#B1B7C8"
+        },
+        {
+          "hex": "#D6D8E1",
+          "token": "--equinet-color-charade-200"
+        },
+        {
+          "hex": "#EA9F8A",
+          "token": null,
+          "status": "unsanctioned",
+          "nearest_token": "--equinet-color-amber-400",
+          "nearest_hex": "#F5844D"
+        },
+        {
+          "hex": "#F5844D",
+          "token": "--equinet-color-amber-400"
+        }
+      ],
+      "depicts": "HubSpot logo with dashboard cards",
+      "topics": [
+        "HubSpot",
+        "CRM",
+        "commercial systems",
+        "reporting"
       ]
     },
     {

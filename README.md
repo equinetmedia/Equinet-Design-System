@@ -22,7 +22,8 @@ AI-generated design**.
 | 12 | **WCAG 2.1 AA**, measured not estimated. One signed-off exception: the primary button's white label. |
 | 13 | **Rework assets by role, from the manifest.** Choose from `assets/manifest.json`; edit via `data-role` (card, node, connector, glyph, accent…), per `assets/REWORKING.md`. Illustrations have no live text — labels go in HTML, never in the SVG. |
 | 14 | **Never invent data.** Every figure on a page comes from supplied content or from `assets/charts/data.json`, with its source shown. Chart figures are outlined in the SVGs — rebuild charts live from `data.json`, never retype from the artwork, and don't quote a `not-quotable` value. |
-| 15 | **Say so rather than approximate.** If a rule can't be met — no matching illustration, no icon geometry, no token for a value — state it plainly instead of filling the gap with something plausible. |
+| 15 | **Third-party marks are never altered.** HubSpot's logo is used only in its own colours (`#FF7A59`) or its white reversed version — never recoloured, distorted, or swapped for a Lucide glyph. Its trademark guidelines forbid changing the logo's colour. Same for any partner mark. |
+| 16 | **Say so rather than approximate.** If a rule can't be met — no matching illustration, no icon geometry, no token for a value — state it plainly instead of filling the gap with something plausible. |
 
 > **Do not add a `---` horizontal rule to this file.** The design-system
 > format treats the first `---` as the boundary between author text and
@@ -539,11 +540,12 @@ class — see **Module anatomy**.
 
 ## Illustrations
 
-`assets/illustrations/` holds 32 standalone graphics in five subgroups:
+`assets/illustrations/` holds 36 standalone graphics in six subgroups:
 `pictonodes/` (8, square 118 × 118), `scenes/` (12, 16:9 service and process
 illustrations), `sectors/` (4, 16:9 vertical pictographs), `systems/`
-(5, 16:9 commercial-systems process diagrams) and `flows/` (3, 16:9
-horizontal four-step sequences). All are
+(5, 16:9 commercial-systems process diagrams), `flows/` (3, 16:9
+horizontal four-step sequences) and `heroes/` (4, near-square service-page
+heroes, whose card labels are baked into the artwork). All are
 multi-colour and stand alone, distinct from the single-ink glyphs in
 `assets/icons/`. Every colour across all 24 resolves to an existing token —
 but to the marketing and chart palettes, not the UI one, which is itself the
@@ -649,7 +651,7 @@ the folder, re-package and reinstall, or the chat copy drifts behind.
 
 Three files make the asset folders usable by a model, not just a person:
 
-- **`assets/manifest.json`** — one entry per asset (92), generated from the
+- **`assets/manifest.json`** — one entry per asset (99), generated from the
   files by **`tools/build-manifest.py`**: category, dimensions, background (opaque dark / opaque light /
   transparent / dark tile), live-text count, the roles it contains, and its
   palette mapped to tokens. Colours that aren't tokens are marked

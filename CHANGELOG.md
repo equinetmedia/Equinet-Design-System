@@ -32,6 +32,67 @@ built in rather than needing restatement each session. What can't be is
 brief-level direction — the AEO structure and `{CONTEXT}` — which describes
 a page, not the brand.
 
+## 2026-10-02 — Service-page heroes, the engine emblem, the site navigation, and a fifth mark
+
+Six files filed: four service-page heroes as `assets/illustrations/heroes/`,
+the Commercial Intelligence Engine emblem in `assets/brand/`, and the global
+navigation in `assets/comps/`. Plus one asset derived rather than delivered.
+
+**They form one set.** The navigation lists the service pages — Commercial
+Positioning, Commercial Systems, Commercial Data & Rev Ops, Account Based
+Marketing, Website Design — and the heroes are artwork for those pages.
+
+**A fifth service mark, derived from real geometry.** The engine hero shows
+five pillars; `service-marks/` had four. Its card icons turned out to be those
+marks exactly — identical geometry, identical absolute placement in identical
+68.12px tiles, measured to within 0.01. Card 03 carried the missing
+**Commercial Systems** glyph, so `mark-commercial-systems.svg` was built by
+the same transform: verbatim path, standard tile, placement within 0.06px of
+its siblings. Marked DERIVED in the file pending designer confirmation. A
+first render showed square corners — traced to the preview script, not the
+file — and then exposed a real error: the mark tile is 68.12px inside a 69px
+artboard, not 69px. Corrected.
+
+**The navigation resolves an old exclusion.** `new_header_module_2026_v3.css`
+was excluded for an off-brand green palette. Its two-line labels and its
+`.container-1280` match this comp exactly — it was built for this design with
+the wrong colours. The comp is now the reference to rebuild it against; its
+outlined labels are transcribed in the comps README.
+
+**Strongest evidence yet on heading vs text.** The navigation's 1920px band is
+`#242630` and its centred 1280px container is `#242530` — the two
+near-identical tokens side by side in one component, visually
+indistinguishable.
+
+**The emblem is a brand mark, not an icon** — 284 × 275, nearly six times the
+48px ceiling, single ink. It matches the engine hero's centre glyph (16 of 24
+path shapes). Its 4px stroke drops below 1px under ~72px, so that's its
+minimum size.
+
+**A trademark issue.** `hero-why-hubspot` draws HubSpot's logo in Equinet's
+`#F5844D`. HubSpot's trademark guidelines forbid changing the logo's colour;
+its brand orange is `#FF7A59`. Added as digest rule 15 — third-party marks
+are never altered — because this is a legal constraint, not a style one. The
+same hero has seven off-palette colours, the most of any asset: HubSpot's own
+dashboard chart colours. Whether depicting HubSpot's interface faithfully is a
+sanctioned exception is left as a decision.
+
+**Mock dashboard figures are not data.** "611" and "51,937" in that hero are
+placeholder UI and must never be quoted.
+
+**Heroes deliberately not annotated.** The illustration roles would give the
+engine hero 38 "accents" and tag HubSpot's logo as Equinet's accent. Recorded
+as needing a hero-aware role set instead.
+
+**Recurring colours.** `#343330`, `#ECEAEA` and `#F3F2F2` have each reached
+three files; `#1973AD` appears in a hero and in `workshop_one_column`'s
+shipped button shadow. Below the five-file bar used for earlier promotions,
+so logged in `tokens.css`, not promoted.
+
+**Smaller:** the navigation's CTA is a third button size (148 × 50, `rx 6`),
+distinct from primary and navigation buttons; the heroes introduce a fourth
+aspect ratio (1.10).
+
 ## 2026-10-02 — Charts category added; data checked against its sources
 
 Eleven SVGs filed: seven data charts as a new `assets/charts/` category, and

@@ -4,13 +4,13 @@ Small glyphs that sit inside or beside a control, as opposed to the standalone
 graphics in `assets/illustrations/`. The quick test: if flattening a graphic to
 a single ink would ruin it, it's an illustration, not an icon.
 
-Four groups, 20 files:
+Four groups, 21 files:
 
 | Group | Count | Size | Ink | Recolours with `currentColor`? |
 | --- | --- | --- | --- | --- |
 | (root) | 3 | 24 × 24, 15.6 × 13.1, 26 × 26 | `currentColor` | Yes |
 | `nodes/` | 5 | 43 × 43 | White glyph on a `#242630` dark tile | Tile no; **glyph yes — substitutable** |
-| `service-marks/` | 4 | 69 × 69 | White glyph on a `#242630` dark tile | Tile no; **glyph yes — substitutable** |
+| `service-marks/` | 5 | 69 × 69 | White glyph on a `#242630` dark tile | Tile no; **glyph yes — substitutable** |
 | `service-tiles/` | 8 | 65 × 65 | White glyph on a navy gradient tile | **No** — by design |
 
 ---
@@ -71,6 +71,23 @@ white). Replace all four or none.
 
 Delivered as `commercial-*-icon` and `market-amplification-icon`; renamed to
 `mark-*` on filing.
+
+**The set now has five — the fifth is derived, not delivered.** The engine
+hero (`illustrations/heroes/hero-commercial-intelligence-engine`) shows five
+pillars, and its card icons are these marks: every glyph matches at identical
+geometry *and* identical absolute placement in its 68.12px tile, measured to
+within 0.01. Card 03, **Commercial Systems**, carries a fifth glyph the set
+didn't have. `mark-commercial-systems.svg` was built from it by the same
+transform: its path copied verbatim, moved from the hero tile into a standard
+mark tile (68.12px, `#242630`, `rx 7.55404`). Its placement matches the
+siblings' within 0.06px. In the hero that card's tile is orange — a
+highlighted state — but the mark uses the dark tile like the other four.
+
+It's marked DERIVED in a comment inside the file. Confirm with the designer
+before treating it as final.
+
+In engine order: 01 diagnostic · 02 positioning · 03 systems · 04 data ·
+05 amplification.
 
 ## `service-tiles/` — 65 × 65 tiles
 
