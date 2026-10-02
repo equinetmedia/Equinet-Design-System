@@ -5,6 +5,38 @@ name of the idea — the page's subject in a few words.
 
 ---
 
+## The shortest prompt — use this
+
+As of 2026-10-02 the layout skill builds in everything that used to need
+spelling out: interaction states, entrance motion, an accordion FAQ with
+FAQPage markup, AEO structure, asset selection and the never-invent-data rule.
+A prompt now only needs what changes from page to page.
+
+```
+Using the Equinet design system, follow skills/equinet-layout/SKILL.md.
+
+Build a landing page on: [topic].
+Audience: [who it's for].
+Goal: [the one thing the reader should do]. CTA: [button label and destination].
+
+Build directly — skip the brief. One design only.
+```
+
+**Optional lines**, added only when they apply:
+
+- `Produce the layout brief first and wait for my approval.` — instead of
+  building directly, for a page whose layout you want to review first.
+- `Link to [page] from this page; don't edit [page].` — for a spin-off, so it
+  links to the parent rather than redesigning it as well.
+- `Use these figures, with their sources: [paste].` — the only way statistics
+  appear. Without it, the page uses none (or sourced figures from
+  `assets/charts/data.json` where they genuinely fit).
+- `Allow two or three variations.` — on a first exploration, before you've
+  chosen a direction.
+
+**Before prompting:** if the repo has changed, refresh the design system's
+import in Claude Design first. A prompt can't fetch the repo.
+
 ## Before you prompt
 
 **Refresh the design system first, outside the prompt.** This repo is private

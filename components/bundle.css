@@ -578,3 +578,223 @@
   .eq-motion [data-role]:not([transform]) { transform: none !important; }
   .eq-motion [data-role="connector"][data-draw] { stroke-dashoffset: 0 !important; }
 }
+
+
+/* ============================================================================
+   CARD — .eq-card
+   Added 2026-10-02. The card lift was documented in README "Cards" but never
+   built. Values: translateY(-6px), in 0.3s / out 0.6s, shadow card ->
+   card--hover (cagr-four-column, the canonical lift).
+
+   It lifts ONLY when it contains .eq-card__link: a card that rises on hover
+   but goes nowhere is a false affordance. The link is stretched over the
+   whole card, so the entire card is the target and keyboard focus lifts it
+   exactly as hover does.
+   ========================================================================== */
+
+.eq-card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: var(--equinet-space-sm, 16px);
+  padding: var(--equinet-space-md, 24px);
+  background: var(--equinet-color-surface, #FFFFFF);
+  border-radius: var(--equinet-radius-card, 7px);
+  box-shadow: var(--equinet-shadow-card, 1px 1px 5px 0 rgba(0, 0, 0, 0.13));
+  overflow: clip;
+}
+
+.eq-card__title {
+  margin: 0;
+  font-family: var(--equinet-font-heading, 'Open Sans', sans-serif);
+  font-size: var(--equinet-fontsize-card-heading, 24px);
+  font-weight: var(--equinet-fontweight-semibold, 600);
+  line-height: 1.2;
+  color: var(--equinet-color-heading, #242630);
+  text-wrap: balance;
+}
+
+.eq-card__text {
+  margin: 0;
+  font-family: var(--equinet-font-body, 'Source Sans 3', sans-serif);
+  font-size: var(--equinet-fontsize-body, 16px);
+  line-height: 1.375;
+  color: var(--equinet-color-body, #3B3F51);
+  text-wrap: pretty;
+}
+
+.eq-card__link,
+.eq-card__link:link,
+.eq-card__link:visited { color: inherit; text-decoration: none; }
+
+/* Stretched link: the whole card becomes the click and focus target. */
+.eq-card__link::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+}
+.eq-card__link:focus-visible { outline: none; }
+.eq-card:has(.eq-card__link:focus-visible) {
+  outline: 2px solid var(--equinet-color-navy, #00426C);
+  outline-offset: 3px;
+}
+
+/* Shadow deepens on hover and focus regardless of motion preference — it's
+   feedback, not movement. */
+.eq-card:has(.eq-card__link):hover,
+.eq-card:has(.eq-card__link:focus-visible) {
+  box-shadow: var(--equinet-shadow-card--hover, -4px 34px 34px rgba(0, 0, 0, 0.07));
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .eq-card {
+    /* Out: slow settle (0.6s). */
+    transition:
+      transform var(--equinet-motion-duration--slow, 0.6s) var(--equinet-motion-ease, ease-in-out),
+      box-shadow var(--equinet-motion-duration--slow, 0.6s) var(--equinet-motion-ease, ease-in-out);
+  }
+  .eq-card:has(.eq-card__link):hover,
+  .eq-card:has(.eq-card__link:focus-visible) {
+    transform: translateY(-6px);
+    /* In: quick response (0.3s). */
+    transition-duration: var(--equinet-motion-duration, 0.3s);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .eq-card { transition: none; }
+  .eq-card:hover,
+  .eq-card:has(.eq-card__link:focus-visible) { transform: none; }
+}
+
+
+/* ============================================================================
+   FAQ ACCORDION — .eq-faq
+   Added 2026-10-02. Built on native <details>/<summary>, deliberately:
+   - keyboard operable and announced as expandable with no JavaScript;
+   - answers stay in the document when collapsed, so answer engines can still
+     read and extract them — the reason a FAQ is on the page at all;
+   - works with no script, a failed script, and any browser.
+   The opening animation is progressive: browsers supporting ::details-content
+   and interpolate-size ease it open; others open instantly. Nothing breaks.
+
+   The chevron is Equinet's own arrow-chevron, rotated — not a Lucide path
+   written from memory. Hover uses navy, not orange: orange text is 3.4:1 on
+   white, below AA for 20px semibold.
+   ========================================================================== */
+
+.eq-faq {
+  display: flex;
+  flex-direction: column;
+  border-top: 1px solid var(--equinet-color-border, #B1B7C8);
+}
+
+.eq-faq__item {
+  border-bottom: 1px solid var(--equinet-color-border, #B1B7C8);
+}
+
+.eq-faq__question {
+  list-style: none;                   /* removes the default disclosure triangle */
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--equinet-space-md, 24px);
+  padding: var(--equinet-space-md, 24px) 0;
+  cursor: pointer;
+  font-family: var(--equinet-font-heading, 'Open Sans', sans-serif);
+  font-size: var(--equinet-fontsize-h5, 20px);
+  font-weight: var(--equinet-fontweight-semibold, 600);
+  line-height: 1.3;
+  color: var(--equinet-color-heading, #242630);
+  text-wrap: balance;
+}
+.eq-faq__question::-webkit-details-marker { display: none; }   /* Safari */
+
+.eq-faq__question:hover { color: var(--equinet-color-navy, #00426C); }
+
+.eq-faq__question:focus-visible {
+  outline: 2px solid var(--equinet-color-navy, #00426C);
+  outline-offset: 4px;
+  border-radius: 2px;
+}
+
+/* arrow-chevron points right; rotated to point down when closed, up when open.
+   The rotation is the state indicator, so it applies with or without motion —
+   only the transition is motion-gated. */
+.eq-faq__icon {
+  flex: 0 0 auto;
+  display: inline-flex;
+  width: 24px;
+  height: 24px;
+  color: var(--equinet-color-orange, #E06730);   /* graphical object: 3.4:1, passes 3:1 */
+  transform: rotate(90deg);
+}
+.eq-faq__icon svg { display: block; width: 100%; height: 100%; }
+.eq-faq__item[open] .eq-faq__icon { transform: rotate(-90deg); }
+
+.eq-faq__answer {
+  max-width: 68ch;
+  padding: 0 0 var(--equinet-space-md, 24px);
+  font-family: var(--equinet-font-body, 'Source Sans 3', sans-serif);
+  font-size: var(--equinet-fontsize-body, 16px);
+  line-height: 1.5;
+  color: var(--equinet-color-body, #3B3F51);
+}
+.eq-faq__answer > * + * { margin-top: var(--equinet-space-sm, 16px); }
+.eq-faq__answer p { margin: 0; text-wrap: pretty; }
+
+@media (prefers-reduced-motion: no-preference) {
+  .eq-faq { interpolate-size: allow-keywords; }
+  .eq-faq__item::details-content {
+    height: 0;
+    overflow: clip;
+    transition:
+      height var(--equinet-motion-duration, 0.3s) var(--equinet-motion-ease, ease-in-out),
+      content-visibility var(--equinet-motion-duration, 0.3s) allow-discrete;
+  }
+  .eq-faq__item[open]::details-content { height: auto; }
+  .eq-faq__icon {
+    transition: transform var(--equinet-motion-duration--ui, 200ms) var(--equinet-motion-ease--ui, ease);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .eq-faq__item::details-content { transition: none; }
+  .eq-faq__icon { transition: none; }
+}
+
+
+/* ============================================================================
+   REVEAL — [data-reveal] entrance for HTML blocks
+   Added 2026-10-02. Extends entrance motion beyond SVG graphics to cards,
+   stat panels and section blocks. Driven by components/motion.js, same rules
+   as graphic motion: progressive, once, compositor-only, armed without
+   transitions, and withdrawn under reduced motion.
+
+   motion.js removes .eq-reveal after the entrance. That matters: an element
+   that is both a reveal and an .eq-card would otherwise keep the reveal's
+   staggered transition-delay, making its hover lift lag.
+   ========================================================================== */
+
+@media (prefers-reduced-motion: no-preference) {
+  .eq-reveal {
+    transition:
+      opacity var(--equinet-motion-duration--wipe, 0.45s) var(--equinet-motion-ease--enter, cubic-bezier(0.33, 0, 0.2, 1)),
+      transform var(--equinet-motion-duration--wipe, 0.45s) var(--equinet-motion-ease--enter, cubic-bezier(0.33, 0, 0.2, 1));
+    transition-delay: min(calc(var(--i, 0) * var(--equinet-motion-stagger, 60ms)), 480ms);
+  }
+  .eq-reveal--arming { transition: none !important; }
+  .eq-reveal:not(.is-visible) {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .eq-reveal {
+    opacity: 1 !important;
+    transform: none !important;
+    transition: none !important;
+  }
+}

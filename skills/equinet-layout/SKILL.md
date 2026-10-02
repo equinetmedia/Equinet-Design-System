@@ -90,14 +90,61 @@ rather than drawn from memory. Add a one-line comment naming the icon
 4. Apply AEO structure (below) and the design-system digest throughout.
 5. Finish with a short list of any new components built.
 
-## Motion
+## Built into every page — no prompt needed
 
-Inline graphics and load `components/motion.js` — every annotated graphic then
-gets a once-only entrance (ground, cards, lines drawing on, nodes, glyphs,
-accent last), with no per-graphic code. Elements you add while reworking must
-keep a `data-role` or they won't join the sequence. Don't add looping or
-hover animation to graphics: a graphic isn't a control, and motion on hover
-implies it can be clicked.
+Every build ships these three, whether or not the prompt mentions them.
+They're the difference between a page that looks designed and one that feels
+designed.
+
+**1. Interaction states on everything interactive.** Use the components in
+`components/bundle.css`, which already carry hover, focus-visible and active
+states: `.btn-primary`, `.btn-navigation` and `.btn-textual` for actions, and
+`.eq-card` for content cards. A card that links somewhere gets
+`.eq-card__link` inside it — that stretches the link over the whole card and
+makes it lift 6px on hover *and* on keyboard focus. A card that doesn't link
+anywhere gets no link and doesn't lift: rising on hover promises a click.
+
+**2. Entrance motion.** Load `components/motion.js`. It animates two things:
+- **Graphics** — inline every SVG (never `<img>`), put `data-asset="name"` on
+  its root, and a `data-role` (card, node, connector, glyph, accent, panel) on
+  every drawn element, *including in graphics you compose from scratch*.
+  Without `data-asset` and roles, the script has nothing to animate.
+- **Blocks** — add `data-reveal` to cards, stat panels and section blocks.
+  Siblings arrive in sequence.
+
+**3. An FAQ as an accordion.** Every page gets an FAQ section built with
+`.eq-faq` on native `<details>`/`<summary>`, plus `FAQPage` JSON-LD whose
+questions and answers match the visible text word for word. It's the
+strongest answer-engine format on the page, and the native element keeps
+every answer in the document even when collapsed.
+
+```html
+<div class="eq-faq">
+  <details class="eq-faq__item">
+    <summary class="eq-faq__question">What is GEO?
+      <span class="eq-faq__icon" aria-hidden="true"><!-- assets/icons/arrow-chevron.svg, inline --></span>
+    </summary>
+    <div class="eq-faq__answer"><p>…</p></div>
+  </details>
+</div>
+```
+
+The chevron is Equinet's own `arrow-chevron` — the CSS rotates it to point
+down, and up when open.
+
+**If the page can't reference repository files**, paste the needed rules from
+`bundle.css` and the whole of `motion.js` into the page. A `<link>` or
+`<script src>` pointing at a file the page can't reach fails silently: no
+error, just no motion.
+
+**What all three already handle, so don't re-implement it:** reduced motion
+(everything static, feedback kept), no-JS fallback (nothing hidden, FAQ still
+works), keyboard access, and visible focus. Verified in a real browser by
+`tests/components-test.py` and `tests/motion-test.py`.
+
+**Don't add:** looping or ambient animation, or hover motion on a graphic that
+isn't inside a link. Motion should answer an action or mark an arrival, not
+decorate.
 
 ## The one hard limit: never invent data
 
@@ -131,5 +178,5 @@ confirms, and say which you used.
 - Terms defined on first use; entities named explicitly.
 - Tables and lists where content is genuinely enumerable.
 - One idea per section, so any chunk stands alone as an answer.
-- An FAQ section is the strongest AEO format — include one where the content
-  answers common questions.
+- Every page ends with an FAQ (see "Built into every page") — it's the
+  strongest AEO format, because it's literally question and answer.

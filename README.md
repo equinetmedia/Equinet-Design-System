@@ -14,7 +14,7 @@ AI-generated design**.
 | 4 | **Section headings**: `--equinet-fontsize-section-heading` (36px), uppercase, with `--equinet-shadow-heading`. Weight follows family — 800 Open Sans, 900 body family. Not `--equinet-fontsize-h2` (48px, canonical but applied nowhere). |
 | 5 | **Padding and background are the editor's.** Never hardcoded past override. Exposed in Module Style settings, injected at render. |
 | 6 | **Full-bleed background image ⇒ parallax**, via `IntersectionObserver` + `requestAnimationFrame`. Never `background-attachment: fixed`. |
-| 7 | **Motion needs both halves**: declared inside `prefers-reduced-motion: no-preference`, withdrawn inside `reduce`. |
+| 7 | **Every page is interactive and moves — by default.** Interaction states on every control and linked card (`.btn-*`, `.eq-card`); entrance motion via `components/motion.js` (inline SVGs with `data-asset` + `data-role`, `data-reveal` on blocks); an FAQ accordion (`.eq-faq` on native `<details>`, with matching FAQPage JSON-LD). Motion needs both halves — declared under `prefers-reduced-motion: no-preference`, withdrawn under `reduce`. No looping or decorative motion. |
 | 8 | **Icons — use them generously.** Inline SVG only. Equinet's own first (2px stroke); otherwise **Lucide** at `stroke-width="1"` with a `<!-- lucide/name -->` source comment. Nothing over **48px**. Fetch paths from the library; never draw a glyph by hand. |
 | 9 | **Illustrations are reference, not sealed artwork.** Recompose freely — crop, scale, overlap, extract, rearrange. Colour, typography and iconography still follow the system. |
 | 10 | **Every section gets a visual.** Place a whole illustration when its subject matches (`assets/illustrations/INDEX.md`); otherwise **compose** a bespoke graphic from the set's structural primitives — cards, connectors, nodes, panels. Never a mismatched whole illustration, never a bare section. Comps are layout blueprints; marketing infographics are the style reference. |
@@ -675,6 +675,31 @@ Three files make the asset folders usable by a model, not just a person:
 Filenames follow one convention — lowercase kebab-case, group-prefixed,
 globally unique — except `buttons/` and `comps/`, which keep their Figma
 layer-ID names. `assets/RENAMES.md` maps every old name to its new one.
+
+## Interactive components — card, FAQ, reveal
+
+Added 2026-10-02 and part of every build by default (digest rule 7).
+
+**`.eq-card`** — the card lift documented under **Cards** had never been built
+as a component; now it is. It lifts `translateY(-6px)` (in 0.3s, out 0.6s) and
+deepens to `--equinet-shadow-card--hover` — but only when it contains
+`.eq-card__link`, which stretches the link over the whole card so hover and
+keyboard focus behave identically. A card with no link doesn't lift.
+
+**`.eq-faq`** — an accordion built on native `<details>`/`<summary>`. No
+JavaScript, keyboard operable, announced as expanded/collapsed, and every
+answer stays in the document when closed so answer engines can still read it.
+It eases open where the browser supports `::details-content`, and opens
+instantly elsewhere. Pair it with `FAQPage` JSON-LD matching the visible
+questions word for word. Google no longer shows FAQ rich results, so the
+markup's value is as clean machine-readable Q&A, not a search snippet.
+
+**`[data-reveal]`** — entrance motion for HTML blocks, handled by
+`motion.js` alongside graphics. Siblings arrive in sequence; the reveal
+classes are removed afterwards so a revealed card's hover has no lag.
+
+Verified by `tests/components-test.py` (19 checks) in a real browser,
+including assistive-technology state and reduced motion.
 
 ## Graphic motion
 

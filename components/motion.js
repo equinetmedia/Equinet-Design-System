@@ -1,6 +1,7 @@
 /* ============================================================================
    EQUINET — GRAPHIC MOTION
-   Entrance choreography for inline SVG graphics annotated with data-role.
+   Entrance choreography for inline SVG graphics annotated with data-role,
+   and for HTML blocks marked data-reveal (cards, stat panels, sections).
    Pairs with the "GRAPHIC MOTION" section of components/bundle.css.
 
    Does only what CSS can't:
@@ -80,16 +81,45 @@
   }
 
   var graphics = document.querySelectorAll('svg[data-asset]:not([data-motion-ready])');
-  if (!graphics.length) return;
+  // HTML blocks marked data-reveal: cards, stat panels, section blocks.
+  var blocks = document.querySelectorAll('[data-reveal]:not([data-motion-ready])');
+  if (!graphics.length && !blocks.length) return;
+
+  // After a block's entrance, drop the reveal classes so the element returns
+  // to its own styles — otherwise a revealed .eq-card would keep the reveal's
+  // staggered transition-delay and its hover lift would lag.
+  function revealBlock(el) {
+    el.classList.add('is-visible');
+    window.setTimeout(function () {
+      el.classList.remove('eq-reveal', 'is-visible');
+      el.style.removeProperty('--i');
+    }, CLEANUP_AFTER_MS);
+  }
 
   var observer = new IntersectionObserver(function (entries) {
     for (var i = 0; i < entries.length; i++) {
       if (entries[i].isIntersecting) {
-        observer.unobserve(entries[i].target);
-        reveal(entries[i].target);
+        var t = entries[i].target;
+        observer.unobserve(t);
+        if (t.hasAttribute('data-reveal')) revealBlock(t); else reveal(t);
       }
     }
   }, { threshold: 0.25, rootMargin: '0px 0px -10% 0px' });
+
+  // Arm blocks. Stagger siblings that share a parent, so a row of cards
+  // arrives in order. Same no-transition arming as graphics.
+  var siblingIndex = new Map();
+  for (var r = 0; r < blocks.length; r++) {
+    var el = blocks[r];
+    el.setAttribute('data-motion-ready', '');
+    var n = siblingIndex.get(el.parentNode) || 0;
+    siblingIndex.set(el.parentNode, n + 1);
+    el.style.setProperty('--i', n);
+    el.classList.add('eq-reveal', 'eq-reveal--arming');
+    void el.getBoundingClientRect();
+    el.classList.remove('eq-reveal--arming');
+    observer.observe(el);
+  }
 
   // Leave self-animating artwork alone. sector-built-environment-animated
   // carries its own embedded @keyframes loop; layering this on top would put
@@ -126,6 +156,9 @@
     for (var k = 0; k < graphics.length; k++) {
       graphics[k].classList.add('is-visible');
       cleanup(graphics[k]);
+    }
+    for (var q = 0; q < blocks.length; q++) {
+      blocks[q].classList.remove('eq-reveal', 'is-visible');
     }
   }
   if (typeof reduce.addEventListener === 'function') {

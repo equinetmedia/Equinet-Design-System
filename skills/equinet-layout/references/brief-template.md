@@ -22,8 +22,13 @@ scannable and specific enough to build from without re-reading the content.
     comp layout: `{comp}` structure rebuilt with this content}
 - **Icons:** {Equinet icon or lucide/{name} per item, where they aid scanning}
 - **Built with:** {existing module/component, or NEW — {what}}
+- **Interaction & motion:** {e.g. "linked .eq-card row, data-reveal; graphic inlined with data-roles for motion.js" — every section has one}
 - **Reader's next step:** {or "continues"}
 - **AEO:** {the question this section answers}
+
+## FAQ (required)
+{Four to six questions in the reader's words, each answered in a
+self-contained paragraph. Built as `.eq-faq` with matching FAQPage JSON-LD.}
 
 ## New components this page needs
 {Charts, stat rows, tables, flowcharts, FAQs, composed graphics — listed so

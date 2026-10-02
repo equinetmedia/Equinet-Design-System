@@ -57,6 +57,7 @@ chat each time, not pulled automatically.
 | `assets/buttons/` | The ten Figma button exports, kept as the measurement source of record | Verifying a geometry claim against its origin |
 | `assets/brand/` | Wordmark, light and dark variants | Any use of the logo |
 | `components/motion.js` | Entrance motion for inline annotated graphics; pairs with "GRAPHIC MOTION" in `bundle.css` | Animating any graphic — no per-file code |
+| `tests/components-test.py` | 19 browser checks for `.eq-card`, `.eq-faq` and `[data-reveal]` | Re-verifying after changing components |
 | `tests/motion-test.py` | 14 browser checks for the motion layer | Re-verifying after changing motion code or graphics |
 | `assets/illustrations/heroes/` | Four service-page hero compositions; card labels baked in | Page heroes — read the HubSpot-logo note first |
 | `assets/charts/` | Seven sourced data charts, plus `data.json` holding every figure with source and verification status | Any page using statistics; rebuild charts live from `data.json` |

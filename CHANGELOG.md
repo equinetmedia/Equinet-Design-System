@@ -32,6 +32,64 @@ built in rather than needing restatement each session. What can't be is
 brief-level direction — the AEO structure and `{CONTEXT}` — which describes
 a page, not the brand.
 
+## 2026-10-02 — Interaction, motion and an FAQ accordion, built into every page
+
+Reported: a Claude Design page came out with no animation, motion or
+interactivity. Cause: the prompt didn't ask — an earlier prompt rewrite had
+dropped the "pay attention to" list — and nothing in the system made those
+things happen by default. Motion was opt-in by design, composed graphics carry
+no `data-role`, and the skill told models not to add hover motion to graphics,
+which reads easily as "don't add interactivity".
+
+**Now part of every build, without being asked.** Digest rule 7 rewritten and
+the layout skill given a "Built into every page" section:
+
+- **Interaction states** on every control and linked card.
+- **Entrance motion** via `motion.js` — SVGs inlined with `data-asset` and
+  `data-role` (now required on composed graphics too), and `data-reveal` on
+  blocks.
+- **An FAQ accordion** with matching FAQPage JSON-LD, now required in the
+  brief template.
+
+**New components** in `bundle.css`:
+
+- **`.eq-card`** — the documented card lift had never been built; `.eq-card`
+  appeared only in README examples. Lifts 6px (in 0.3s, out 0.6s) and deepens
+  its shadow, but only when it contains `.eq-card__link`, stretched over the
+  whole card so keyboard focus lifts it exactly as hover does. A card that
+  goes nowhere doesn't lift — that would be a false affordance.
+- **`.eq-faq`** — on native `<details>`/`<summary>`: no JavaScript, keyboard
+  operable, and answers stay in the document when collapsed, so answer
+  engines can still read them. Eases open where `::details-content` is
+  supported, opens instantly elsewhere. The chevron is Equinet's own
+  `arrow-chevron`, rotated — not a Lucide path written from memory. Hover is
+  navy, because orange text fails AA at that size.
+- **`[data-reveal]`** — entrance motion for HTML blocks. `motion.js` removes
+  the reveal classes after the entrance, so a revealed card's hover doesn't
+  inherit the reveal's stagger delay — the transition-list cascade trap this
+  system has hit before.
+
+`motion.js` also had an early exit when a page had no annotated SVGs, which
+would have skipped reveals entirely. Restructured.
+
+**FAQPage markup, described honestly.** Google added a deprecation notice for
+FAQ rich results on 7 May 2026, after restricting them in 2023. The markup
+remains valid Schema.org and does no harm. Claims that it boosts AI citations
+come mostly from SEO vendors, so the docs present it as clean machine-readable
+Q&A, not a ranking lever.
+
+**Tested: `tests/components-test.py`, 19 checks in headless Chromium.** The
+first run passed 19/19 — and two of the checks didn't prove what they claimed:
+"opening animates" only checked the final height, and "expanded state" passed
+by matching the word *group*. Rewritten: the accordion now has to pass through
+intermediate heights (measured 75 → 92 → 111 → 130 → 147px), and the browser's
+real accessibility tree must report expanded `true` open and `false` closed.
+Both pass. Motion regression still 14/14.
+
+**`PROMPT-TEMPLATE.md` gains a shortest prompt** — topic, audience, goal and
+build mode — with optional lines for a brief, a spin-off, supplied figures and
+variations.
+
 ## 2026-10-02 — Service-page heroes, the engine emblem, the site navigation, and a fifth mark
 
 Six files filed: four service-page heroes as `assets/illustrations/heroes/`,
