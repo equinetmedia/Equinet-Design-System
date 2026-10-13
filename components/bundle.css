@@ -809,19 +809,23 @@
    interaction DOES something, and only through one of the two patterns below.
    A graphic that responds to a pointer and goes nowhere is still wrong.
 
-   TWO PATTERNS, AND NOTHING ELSE:
+   THE DEFAULT IS A TAB SET. Parts of the graphic are controls, each revealing
+   a detail panel beside it — .eq-graphic__hotspot with role="tab", wired by
+   motion.js as WAI-ARIA Authoring Practices tabs. One tab stop for the whole
+   graphic, arrow keys between hotspots, one panel showing at a time. That is
+   what "select one of several related panels" already means to a reader, and
+   it is how a diagram becomes navigable rather than merely clickable.
 
-   1. The whole graphic is a link — .eq-graphic + a stretched .eq-graphic__link.
-      Mirrors .eq-card exactly: lifts 6px, shadow deepens, same in/out timings.
-      The transform sits on the HTML wrapper, never on the SVG, so it cannot
-      collide with the `transform` ATTRIBUTE that 44 annotated elements carry
-      (a CSS transform replaces the attribute outright — the bug that forced
-      every motion rule to be scoped :not([transform]) on 2026-09-26).
+   role="button" on a lone hotspot is the disclosure variant: one panel,
+   toggled independently, for when there is no one-of-several relationship.
 
-   2. Parts of the graphic are controls — .eq-graphic__hotspot on a <g>.
-      Each hotspot is EITHER an SVG <a href>, which is keyboard-operable with
-      no script, OR <g tabindex="0" role="button" aria-expanded aria-controls>
-      for an in-page toggle, which motion.js wires up.
+   .eq-graphic__link is the third form and the rarest — the whole graphic is
+   a link to somewhere else. It mirrors .eq-card exactly: lifts 6px, shadow
+   deepens, same in/out timings. The transform sits on the HTML wrapper,
+   never on the SVG, so it cannot collide with the `transform` ATTRIBUTE that
+   44 annotated elements carry (a CSS transform replaces the attribute
+   outright — the bug that forced every motion rule to be scoped
+   :not([transform]) on 2026-09-26).
 
    EVERY HOTSPOT MUST CONTAIN <rect data-role="hit">, transparent, at least
    24 × 24 user units. It does three jobs: a target big enough to hit (WCAG
@@ -916,13 +920,44 @@
   stroke-width: var(--equinet-border-width-lg, 4px);
 }
 
-/* An expanded hotspot stays marked while its panel is open, so the reader can
-   see which part of the graphic they opened. */
+/* The open one stays marked, so the reader can always see which part of the
+   graphic the panel belongs to. Selected (tabs) and expanded (disclosure)
+   read the same way. */
+.eq-graphic__hotspot[aria-selected="true"] [data-role="hit"],
 .eq-graphic__hotspot[aria-expanded="true"] [data-role="hit"] {
   stroke: var(--equinet-color-navy, #00426C);
   fill: var(--equinet-color-surface--alt, #F6F5F5);
 }
 
-/* The panel a hotspot controls. Hidden with [hidden] so it stays in the
-   document for answer engines and is still found by in-page search. */
+/* A hotspot not currently selected still invites a cursor. Unselected
+   siblings are NOT dimmed: dimming would need opacity, which motion.js
+   animates on [data-role] during entrance. */
+
+/* ------------------------------------------------------------- panels --
+   Only motion.js sets [hidden]. In markup every panel is visible, so with no
+   script the whole set reads as plain prose and an answer engine gets all of
+   it — the reason the detail is on the page at all. */
 .eq-graphic__panel[hidden] { display: none; }
+
+.eq-graphic__panel {
+  margin-top: var(--equinet-space-md, 24px);
+  padding: var(--equinet-space-md, 24px);
+  border-left: var(--equinet-border-width-lg, 4px) solid var(--equinet-color-navy, #00426C);
+  background: var(--equinet-color-surface--alt, #F6F5F5);
+  border-radius: var(--equinet-radius-card, 7px);
+  outline-offset: 3px;
+}
+
+/* The panel carries tabindex="0" so a reader can tab from the graphic into
+   its content. That makes it focusable, which makes a focus ring necessary. */
+.eq-graphic__panel:focus-visible {
+  outline: var(--equinet-border-width-md, 2px) solid var(--equinet-color-navy, #00426C);
+}
+
+/* Reserve the panel's height so switching tabs doesn't jump the page under
+   the reader's cursor — the single most common complaint about tab sets. */
+.eq-graphic--tabs .eq-graphic__panel { min-height: 7.5rem; }
+
+@media (max-width: 767px) {
+  .eq-graphic--tabs .eq-graphic__panel { min-height: 0; }
+}

@@ -110,6 +110,7 @@ headings and paragraphs.
    - FAQ items, and whether the `FAQPage` JSON-LD matches them word for word
    - SVGs carrying a real `viewBox` attribute, out of the total
    - template loops or `{{ }}` bindings left in the markup (must be 0)
+   - multi-part graphics, and how many are tab sets rather than flat pictures
 
    Any count that reads 0 of N, or a `motion.js` answer of "no", means the
    page is dead on arrival — fix it before replying, don't report it as a
@@ -206,26 +207,56 @@ down, and up when open.
 **What all three already handle, so don't re-implement it:** reduced motion
 (everything static, feedback kept), no-JS fallback (nothing hidden, FAQ still
 works), keyboard access, and visible focus. Verified in a real browser by
-`tests/components-test.py` and `tests/motion-test.py`.
+`tests/components-test.py`, `tests/motion-test.py` and
+`tests/graphics-interaction-test.py`.
 
-**Graphics may be interactive — through one of two patterns, and nothing
-else.** The old rule forbade hover motion on any graphic not inside a link.
-The reason behind it survives: something that responds to a cursor promises
-that something happens. What changed is the conclusion. Build the interaction
-properly instead of avoiding it.
+**Graphics are navigable.** The default for any multi-part graphic — a flow,
+a system diagram, a set of stages — is a **tab set**: each part is a hotspot
+revealing a detail panel beside it, one panel showing at a time. It is how a
+diagram stops being a picture and becomes something a reader works through,
+and it earns the space a large graphic takes.
 
-- **The whole graphic is a link** — `.eq-graphic` wrapping the inline SVG,
-  with a stretched `.eq-graphic__link` inside. Lifts 6px on hover *and*
-  keyboard focus, exactly like `.eq-card`.
-- **Parts of the graphic are controls** — `.eq-graphic__hotspot` on a `<g>`.
-  Either an SVG `<a href>`, which needs no script, or
-  `<g tabindex="0" role="button" aria-expanded aria-controls>` for an in-page
-  toggle, which `motion.js` wires up for Enter and Space.
+```html
+<div class="eq-graphic eq-graphic--tabs">
+  <svg data-asset="flow-name" viewBox="…" role="tablist" aria-label="The four stages">
+    <g class="eq-graphic__hotspot" role="tab" id="t1" aria-controls="p1">
+      <title>Audit</title>                     <!-- the accessible name -->
+      <rect data-role="hit" x="…" y="…" width="…" height="…"></rect>
+      …the artwork for this stage…
+    </g>
+    …
+  </svg>
+  <div class="eq-graphic__panel" id="p1">
+    <p>The detail for that stage.</p>
+  </div>
+  …
+</div>
+```
 
-Every hotspot must contain `<rect data-role="hit">` — transparent, at least
-24 × 24 user units. It is the target, the highlight shape and the focus ring.
-Give every hotspot an accessible name with a `<title>` or `aria-label`;
-`motion.js` warns in the console when one is missing.
+`motion.js` wires the rest: WAI-ARIA tabs with a roving tabindex, so the whole
+graphic is **one tab stop** rather than one per hotspot, arrow keys move
+between parts, Home and End jump to the ends, and moving selects — the reader
+arrows across the diagram and watches the context change.
+
+**Write the panels visible.** Only the script sets `hidden`. With no script
+every panel reads as plain prose and an answer engine gets all of it, which is
+the reason the detail is on the page at all.
+
+**Every hotspot needs two things:** a `<rect data-role="hit">` — transparent,
+at least 24 × 24 user units, which is the target (WCAG 2.5.8), the highlight
+shape and the focus ring — and an accessible name from a `<title>` or
+`aria-label`. `motion.js` warns in the console when the name is missing.
+
+**Two other forms, both rarer.** `role="button"` on a lone hotspot is a
+disclosure: one panel, toggled independently, where there is no
+one-of-several relationship to express. `.eq-graphic__link` makes the whole
+graphic a link to somewhere else, lifting 6px exactly like `.eq-card`.
+
+**What the panels should say.** A panel is the context the graphic cannot draw
+— what happens at that stage, why it is there, what it costs to skip. Not a
+caption restating the label. If a part of the graphic has nothing worth
+revealing, it is not a hotspot; a tab that opens a sentence anyone could have
+guessed is worse than no tab.
 
 **Still don't add:** looping or ambient animation, or a response on a graphic
 that does nothing. A hover state is a promise — keep it or don't make it.

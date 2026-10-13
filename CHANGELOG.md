@@ -28,6 +28,57 @@ Project. Every entry below represents a manual reconciliation pass — someone
 asked Claude, in that Project, to fold new development work into
 `tokens.css` / `README.md`, then committed the result here.
 
+## 2026-10-13 — Graphics become navigable: tab sets with detail panels
+
+Reworked the interactive-graphics component the same day it landed. The first
+version offered a link or an independent toggle; what was actually wanted is a
+diagram a reader works through — each part revealing context, nothing
+navigating away. Rebuilt on the WAI-ARIA Authoring Practices **tabs** pattern,
+because that is literally what it is: select one of several related panels.
+
+**`.eq-graphic--tabs` is now the default for any multi-part graphic.** Each
+part is `.eq-graphic__hotspot[role="tab"]` controlling a
+`.eq-graphic__panel`; the SVG is the `tablist`.
+
+**Roving tabindex, because eight tab stops is not accessible, it is just
+operable.** The whole graphic takes ONE tab stop. Arrow keys move between
+parts, Home and End jump to the ends, and moving selects — automatic
+activation, which APG sanctions where switching is instantaneous and local.
+Arrowing across a flow and watching the detail change is the behaviour that
+makes a diagram worth the space it takes.
+
+**Panels are written visible; only the script hides them.** With no JavaScript
+every panel reads as plain prose and an answer engine gets all of the detail,
+which is the reason the detail is on the page. Panels carry `tabindex="0"` so
+a reader can tab from the graphic into the content, `role="tabpanel"` and
+`aria-labelledby` pointing at their tab — all applied by `motion.js`, so the
+author writes four attributes, not twelve.
+
+**Selection outranks hover.** The selected hotspot stays navy; an unselected
+one highlights orange under the cursor. Unselected siblings are deliberately
+NOT dimmed, because dimming needs `opacity`, which `motion.js` animates on
+`[data-role]` elements during entrance.
+
+**The panel has a reserved min-height** on desktop so switching tabs doesn't
+jump the page under the reader's cursor — the commonest complaint about tab
+sets — released at mobile width where the reserve would just be a gap.
+
+`.eq-graphic__link` survives as the rare third form, for a graphic that really
+is a link somewhere. `role="button"` survives as the disclosure variant for a
+lone hotspot with no one-of-several relationship to express.
+
+**`tests/graphics-interaction-test.py` grows to 37 checks**, all passing. It
+pins the tab semantics (tablist/tab/tabpanel wired, panels labelled by their
+tab), the roving tabindex, arrow/Home/End including wraparound, automatic
+activation revealing one panel and hiding the last, Space never scrolling the
+page, selection outranking hover, panels surviving with no JS, and reduced
+motion withdrawing the lift while keeping colour feedback and full function.
+`components-test.py` (19) and `motion-test.py` (14) unchanged.
+
+Skill and digest rule 7 rewritten around the tab set, with a note on what a
+panel should contain: the context the graphic cannot draw, not a caption
+restating the label. A part with nothing worth revealing is not a hotspot.
+
 ## 2026-10-13 — Interactive graphics allowed; .eq-graphic built and tested
 
 The rule forbidding hover motion on a graphic not inside a link is withdrawn.

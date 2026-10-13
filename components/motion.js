@@ -170,16 +170,35 @@
 
 
 /* ============================================================================
-   HOTSPOT ACTIVATION — pairs with .eq-graphic__hotspot in bundle.css.
-   Added 2026-10-13.
+   GRAPHIC HOTSPOTS — pairs with .eq-graphic__hotspot in bundle.css.
+   Added 2026-10-13, reworked the same day to the APG tabs pattern.
 
-   Only needed for the TOGGLE form. A hotspot that navigates is an SVG <a
-   href>, which the browser already makes keyboard-operable — don't wire that
-   one up here.
+   TWO FORMS, picked from the role the author wrote:
 
-   A <g role="button" tabindex="0"> is NOT a button to the browser: it has no
-   implicit activation, so Enter and Space do nothing unless handled. That is
-   the whole job of this block.
+   role="tab"     Several hotspots in one graphic, one detail panel showing at
+                  a time. This is the normal case: a flow, a system diagram, a
+                  set of stages. Implemented as WAI-ARIA Authoring Practices
+                  tabs, because that is what it is — "select one of several
+                  related panels" — and readers already know how it behaves.
+
+   role="button"  A single hotspot toggling one panel independently. A
+                  disclosure, not a tab set. Use when there is no "one of
+                  several" relationship to express.
+
+   WHY TABS AND NOT EIGHT BUTTONS:
+   A roving tabindex gives the whole graphic ONE tab stop. Arrow keys move
+   between hotspots, Home and End jump to the ends. Eight separately focusable
+   hotspots would mean eight tab stops a keyboard reader has to pass through
+   to reach the next section — technically operable, miserable to use.
+
+   ACTIVATION IS AUTOMATIC: moving to a tab selects it. APG sanctions this
+   where switching is instantaneous and local, which it is — the panels are
+   inline text already in the document. Arrowing through the graphic and
+   watching the context change is the point.
+
+   NO-JS: panels are NOT hidden in markup. This block hides them. With no
+   script every panel stays visible and readable, and an answer engine sees
+   all of the content — which is the entire reason the detail is on the page.
 
    Runs regardless of prefers-reduced-motion. Reduced motion means less
    movement, never less function.
@@ -187,55 +206,127 @@
 (function () {
   'use strict';
 
-  var hotspots = document.querySelectorAll(
-    '.eq-graphic__hotspot[role="button"]:not([data-hotspot-ready])'
-  );
-  if (!hotspots.length) return;
+  var graphics = document.querySelectorAll('.eq-graphic:not([data-hotspot-ready])');
+  if (!graphics.length) return;
 
   function panelFor(hotspot) {
     var id = hotspot.getAttribute('aria-controls');
     return id ? document.getElementById(id) : null;
   }
 
-  function toggle(hotspot) {
-    var open = hotspot.getAttribute('aria-expanded') === 'true';
-    var panel = panelFor(hotspot);
-    hotspot.setAttribute('aria-expanded', open ? 'false' : 'true');
-    if (panel) {
-      if (open) {
-        panel.setAttribute('hidden', '');
-      } else {
-        panel.removeAttribute('hidden');
+  function nameMissing(hotspot) {
+    return !hotspot.getAttribute('aria-label') && !hotspot.querySelector('title');
+  }
+
+  // ------------------------------------------------------------- tab set --
+  function initTabs(graphic, tabs) {
+    var list = tabs[0].closest('[role="tablist"]') || graphic.querySelector('svg');
+    if (list && !list.getAttribute('role')) list.setAttribute('role', 'tablist');
+
+    function select(index, moveFocus) {
+      for (var i = 0; i < tabs.length; i++) {
+        var on = i === index;
+        tabs[i].setAttribute('aria-selected', on ? 'true' : 'false');
+        // Roving tabindex: exactly one hotspot is in the tab order.
+        tabs[i].setAttribute('tabindex', on ? '0' : '-1');
+        var panel = panelFor(tabs[i]);
+        if (panel) {
+          if (on) { panel.removeAttribute('hidden'); }
+          else { panel.setAttribute('hidden', ''); }
+        }
       }
+      if (moveFocus) tabs[index].focus();
+    }
+
+    for (var i = 0; i < tabs.length; i++) {
+      (function (tab, index) {
+        if (nameMissing(tab)) {
+          console.warn('[equinet] tab hotspot has no accessible name:', tab);
+        }
+        var panel = panelFor(tab);
+        if (panel) {
+          if (!panel.getAttribute('role')) panel.setAttribute('role', 'tabpanel');
+          if (!panel.getAttribute('aria-labelledby') && tab.id) {
+            panel.setAttribute('aria-labelledby', tab.id);
+          }
+          // A panel holding focusable content needs its own tab stop so a
+          // keyboard reader can reach that content from the tab.
+          if (!panel.hasAttribute('tabindex')) panel.setAttribute('tabindex', '0');
+        }
+
+        tab.addEventListener('click', function () { select(index, true); });
+
+        tab.addEventListener('keydown', function (e) {
+          var next = null;
+          switch (e.key) {
+            case 'ArrowRight': case 'ArrowDown': next = (index + 1) % tabs.length; break;
+            case 'ArrowLeft':  case 'ArrowUp':   next = (index - 1 + tabs.length) % tabs.length; break;
+            case 'Home':       next = 0; break;
+            case 'End':        next = tabs.length - 1; break;
+            // Enter and Space are redundant under automatic activation, but a
+            // reader who presses them should not scroll the page instead.
+            case 'Enter': case ' ': case 'Spacebar': next = index; break;
+            default: return;
+          }
+          e.preventDefault();
+          select(next, true);
+        });
+      })(tabs[i], i);
+    }
+
+    // Honour an author-chosen starting tab; otherwise open the first.
+    var start = 0;
+    for (var k = 0; k < tabs.length; k++) {
+      if (tabs[k].getAttribute('aria-selected') === 'true') { start = k; break; }
+    }
+    select(start, false);
+  }
+
+  // --------------------------------------------------------- disclosures --
+  function initButtons(buttons) {
+    for (var i = 0; i < buttons.length; i++) {
+      (function (hotspot) {
+        if (nameMissing(hotspot)) {
+          console.warn('[equinet] hotspot has no accessible name:', hotspot);
+        }
+        if (!hotspot.hasAttribute('tabindex')) hotspot.setAttribute('tabindex', '0');
+        if (hotspot.getAttribute('aria-expanded') === null) {
+          hotspot.setAttribute('aria-expanded', 'false');
+        }
+        var panel = panelFor(hotspot);
+        if (panel && hotspot.getAttribute('aria-expanded') === 'false') {
+          panel.setAttribute('hidden', '');
+        }
+
+        function toggle() {
+          var open = hotspot.getAttribute('aria-expanded') === 'true';
+          hotspot.setAttribute('aria-expanded', open ? 'false' : 'true');
+          if (panel) {
+            if (open) { panel.setAttribute('hidden', ''); }
+            else { panel.removeAttribute('hidden'); }
+          }
+        }
+
+        hotspot.addEventListener('click', toggle);
+        hotspot.addEventListener('keydown', function (e) {
+          // A <g role="button"> is not a button to the browser: no implicit
+          // activation, and Space would scroll the page.
+          if (e.key === 'Enter' || e.key === ' ' || e.key === 'Spacebar') {
+            e.preventDefault();
+            toggle();
+          }
+        });
+      })(buttons[i]);
     }
   }
 
-  for (var i = 0; i < hotspots.length; i++) {
-    (function (hotspot) {
-      hotspot.setAttribute('data-hotspot-ready', '');
-
-      // An unlabelled control is unusable with a screen reader. Say so loudly
-      // in development rather than shipping a button announced as "button".
-      if (!hotspot.getAttribute('aria-label') && !hotspot.querySelector('title')) {
-        console.warn('[equinet] hotspot has no accessible name:', hotspot);
-      }
-      if (hotspot.getAttribute('aria-expanded') === null) {
-        hotspot.setAttribute('aria-expanded', 'false');
-      }
-      var panel = panelFor(hotspot);
-      if (panel && hotspot.getAttribute('aria-expanded') === 'false') {
-        panel.setAttribute('hidden', '');
-      }
-
-      hotspot.addEventListener('click', function () { toggle(hotspot); });
-
-      hotspot.addEventListener('keydown', function (e) {
-        // Space scrolls the page by default; Enter does nothing on a <g>.
-        if (e.key === 'Enter' || e.key === ' ' || e.key === 'Spacebar') {
-          e.preventDefault();
-          toggle(hotspot);
-        }
-      });
-    })(hotspots[i]);
+  for (var g = 0; g < graphics.length; g++) {
+    var graphic = graphics[g];
+    var tabs = graphic.querySelectorAll('.eq-graphic__hotspot[role="tab"]');
+    var buttons = graphic.querySelectorAll('.eq-graphic__hotspot[role="button"]');
+    if (!tabs.length && !buttons.length) continue;
+    graphic.setAttribute('data-hotspot-ready', '');
+    if (tabs.length) initTabs(graphic, tabs);
+    if (buttons.length) initButtons(buttons);
   }
 })();

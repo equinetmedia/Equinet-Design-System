@@ -12,10 +12,11 @@ Checks, each one a thing that would ship silently broken:
   hotspot hover    — highlights via stroke/fill only, never transform/opacity,
                      because motion.js animates both of those on [data-role]
   hotspot focus    — visible navy ring, reachable by Tab, survives hover
-  keyboard         — Enter and Space activate a <g role="button">, which the
-                     browser does NOT do for free
-  aria             — aria-expanded flips, the controlled panel's hidden
-                     attribute follows it, and an unnamed hotspot warns
+  roving tabindex  — the whole graphic is ONE tab stop, not one per hotspot
+  keyboard         — arrows move and select, Home/End jump, Space never
+                     scrolls the page
+  aria             — tablist/tab/tabpanel wired up, panels labelled by their
+                     tab, and an unnamed hotspot warns
   no-JS            — panels stay in the document (answer engines read them)
   reduced motion   — the lift is withdrawn, the colour feedback is kept
 """
@@ -41,20 +42,26 @@ FIXTURE = """<!doctype html><html><head><meta charset="utf-8">
   <span class="eq-graphic__link"></span>
 </a>
 
-<div class="eq-graphic" id="hotspots">
-  <svg data-asset="hotspot-demo" viewBox="0 0 200 100">
-    <g class="eq-graphic__hotspot" id="h1" role="button" tabindex="0" aria-controls="p1">
+<div class="eq-graphic eq-graphic--tabs" id="hotspots">
+  <svg data-asset="hotspot-demo" viewBox="0 0 300 100" role="tablist" aria-label="Three stages">
+    <g class="eq-graphic__hotspot" id="h1" role="tab" aria-controls="p1">
       <title>Step one</title>
       <rect data-role="hit" x="10" y="10" width="60" height="60"></rect>
       <circle data-role="node" cx="40" cy="40" r="18" fill="#00426C"></circle>
     </g>
-    <g class="eq-graphic__hotspot" id="h2" role="button" tabindex="0" aria-controls="p2">
+    <g class="eq-graphic__hotspot" id="h2" role="tab" aria-controls="p2">
+      <title>Step two</title>
       <rect data-role="hit" x="110" y="10" width="60" height="60"></rect>
       <circle data-role="node" cx="140" cy="40" r="18" fill="#E06730"></circle>
+    </g>
+    <g class="eq-graphic__hotspot" id="h3" role="tab" aria-controls="p3">
+      <rect data-role="hit" x="210" y="10" width="60" height="60"></rect>
+      <circle data-role="node" cx="240" cy="40" r="18" fill="#6BBFC6"></circle>
     </g>
   </svg>
   <div class="eq-graphic__panel" id="p1"><p>Panel one</p></div>
   <div class="eq-graphic__panel" id="p2"><p>Panel two</p></div>
+  <div class="eq-graphic__panel" id="p3"><p>Panel three</p></div>
 </div>
 
 {script}
@@ -99,15 +106,24 @@ def main():
         page.goto(with_js)
         page.wait_for_timeout(200)
 
-        check("unnamed hotspot warns in the console",
+        check("unnamed tab warns in the console",
               any("accessible name" in w for w in warnings),
               f"warnings seen: {warnings}")
 
-        # aria defaults and panel state
-        check("aria-expanded defaults to false",
-              page.get_attribute("#h1", "aria-expanded") == "false")
-        check("controlled panel starts hidden",
-              page.get_attribute("#p1", "hidden") is not None)
+        # tab defaults
+        check("first tab is selected on load",
+              page.get_attribute("#h1", "aria-selected") == "true")
+        check("its panel is showing",
+              page.get_attribute("#p1", "hidden") is None)
+        check("the other panels are hidden",
+              page.get_attribute("#p2", "hidden") is not None
+              and page.get_attribute("#p3", "hidden") is not None)
+        check("svg is announced as a tablist",
+              page.get_attribute("#hotspots svg", "role") == "tablist")
+        check("panels get role=tabpanel",
+              page.get_attribute("#p2", "role") == "tabpanel")
+        check("panels are labelled by their tab",
+              page.get_attribute("#p1", "aria-labelledby") == "h1")
 
         # ------------------------------------------------- linked graphic --
         def transform_of(sel):
@@ -136,52 +152,94 @@ def main():
                 f'{hotspot} [data-role="hit"]', f"e => getComputedStyle(e).{prop}"
             )
 
-        check("hit rect is invisible at rest",
-              hit_style("#h1", "stroke") in ("rgba(0, 0, 0, 0)", "transparent"))
+        # #h1 is the selected tab on load, so rest and hover feedback are
+        # measured on an UNSELECTED hotspot. Selection outranks hover.
+        check("unselected hit rect is invisible at rest",
+              hit_style("#h3", "stroke") in ("rgba(0, 0, 0, 0)", "transparent"))
+        check("the selected one is marked navy",
+              "0, 66, 108" in hit_style("#h1", "stroke"))
+
+        page.hover("#h3")
+        page.wait_for_timeout(300)
+        stroke = hit_style("#h3", "stroke")
+        check("hover strokes an unselected hit rect orange",
+              "224, 103, 48" in stroke, stroke)
+        check("hover does not transform the hotspot",
+              hit_style("#h3", "transform") in ("none", "matrix(1, 0, 0, 1, 0, 0)"))
+        check("hover does not change opacity",
+              hit_style("#h3", "opacity") == "1")
 
         page.hover("#h1")
         page.wait_for_timeout(300)
-        stroke = hit_style("#h1", "stroke")
-        check("hover strokes the hit rect orange", "224, 103, 48" in stroke, stroke)
-        check("hover does not transform the hotspot",
-              hit_style("#h1", "transform") in ("none", "matrix(1, 0, 0, 1, 0, 0)"))
-        check("hover does not change opacity",
-              hit_style("#h1", "opacity") == "1")
+        check("selection outranks hover on the selected tab",
+              "0, 66, 108" in hit_style("#h1", "stroke"))
 
-        # keyboard: Tab to the first hotspot, then activate
+        # ------------------------------------------- roving tabindex / keys --
         page.goto(with_js)
         page.wait_for_timeout(150)
+
+        check("roving tabindex: only the selected tab is in the tab order",
+              page.get_attribute("#h1", "tabindex") == "0"
+              and page.get_attribute("#h2", "tabindex") == "-1"
+              and page.get_attribute("#h3", "tabindex") == "-1")
+
         page.keyboard.press("Tab")          # #linked
-        page.keyboard.press("Tab")          # #h1
+        page.keyboard.press("Tab")          # into the graphic — ONE stop
         focused = page.evaluate("document.activeElement.id")
-        check("hotspot is reachable by Tab", focused == "h1", f"focus landed on {focused!r}")
+        check("the whole graphic is one tab stop", focused == "h1",
+              f"focus landed on {focused!r}")
 
         ring = hit_style("#h1", "stroke")
         check("focus ring is navy", "0, 66, 108" in ring, ring)
-        width = hit_style("#h1", "strokeWidth")
-        check("focus ring is thicker than hover", width.startswith("4"), width)
+        check("focus ring is thicker than hover",
+              hit_style("#h1", "strokeWidth").startswith("4"))
 
-        page.keyboard.press("Enter")
+        page.keyboard.press("ArrowRight")
         page.wait_for_timeout(100)
-        check("Enter activates a <g role=button>",
-              page.get_attribute("#h1", "aria-expanded") == "true")
-        check("Enter reveals the controlled panel",
-              page.get_attribute("#p1", "hidden") is None)
+        check("ArrowRight moves to the next hotspot",
+              page.evaluate("document.activeElement.id") == "h2")
+        check("automatic activation: moving selects it",
+              page.get_attribute("#h2", "aria-selected") == "true")
+        check("its panel is revealed",
+              page.get_attribute("#p2", "hidden") is None)
+        check("the previous panel is hidden again",
+              page.get_attribute("#p1", "hidden") is not None)
 
-        page.keyboard.press("Enter")
+        page.keyboard.press("ArrowLeft")
         page.wait_for_timeout(100)
-        check("Enter again collapses it",
-              page.get_attribute("#h1", "aria-expanded") == "false")
+        check("ArrowLeft moves back",
+              page.evaluate("document.activeElement.id") == "h1")
+
+        page.keyboard.press("ArrowLeft")
+        page.wait_for_timeout(100)
+        check("ArrowLeft wraps to the last hotspot",
+              page.evaluate("document.activeElement.id") == "h3")
+
+        page.keyboard.press("Home")
+        page.wait_for_timeout(100)
+        check("Home jumps to the first",
+              page.evaluate("document.activeElement.id") == "h1")
+
+        page.keyboard.press("End")
+        page.wait_for_timeout(100)
+        check("End jumps to the last",
+              page.evaluate("document.activeElement.id") == "h3")
+
+        check("selected hotspot stays marked",
+              "0, 66, 108" in hit_style("#h3", "stroke"))
 
         page.keyboard.press("Space")
         page.wait_for_timeout(100)
-        check("Space activates it too",
-              page.get_attribute("#h1", "aria-expanded") == "true")
-        check("expanded hotspot stays marked",
-              "0, 66, 108" in hit_style("#h1", "stroke"))
-
         scrolled = page.evaluate("window.scrollY")
         check("Space does not scroll the page", scrolled == 0, f"scrollY={scrolled}")
+
+        page.click("#h2")
+        page.wait_for_timeout(100)
+        check("clicking a hotspot selects it",
+              page.get_attribute("#h2", "aria-selected") == "true")
+
+        check("panel is focusable, so its content is reachable",
+              page.get_attribute("#p2", "tabindex") == "0")
         page.close()
 
         # ------------------------------------------------- reduced motion --
@@ -194,18 +252,18 @@ def main():
         check("reduced motion: no lift",
               page.eval_on_selector("#linked", "e => getComputedStyle(e).transform") == before)
 
-        page.hover("#h1")
+        page.hover("#h3")
         page.wait_for_timeout(300)
         check("reduced motion: colour feedback kept",
               "224, 103, 48" in page.eval_on_selector(
-                  '#h1 [data-role="hit"]', "e => getComputedStyle(e).stroke"))
+                  '#h3 [data-role="hit"]', "e => getComputedStyle(e).stroke"))
 
         page.keyboard.press("Tab")
         page.keyboard.press("Tab")
-        page.keyboard.press("Enter")
+        page.keyboard.press("ArrowRight")
         page.wait_for_timeout(100)
         check("reduced motion: hotspots still function",
-              page.get_attribute("#h1", "aria-expanded") == "true")
+              page.get_attribute("#h2", "aria-selected") == "true")
         page.close()
         browser.close()
 
