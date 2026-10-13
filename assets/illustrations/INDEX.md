@@ -1,3 +1,13 @@
+---
+id: illustration-index
+status: current
+read_when: >-
+  Choosing artwork for a section — the per-file subject and topic table. Read
+  this before placing any illustration, and before deciding none matches.
+depends_on: assets/manifest.json
+verified: 2026-10-13
+---
+
 # Illustration selection index
 
 For agents choosing artwork. One row per file: what it depicts, the topics it

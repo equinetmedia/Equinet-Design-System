@@ -1,3 +1,13 @@
+---
+id: prompt-template
+status: current
+read_when: >-
+  Writing the prompt that generates a page from this system. Not a rules
+  document — the rules live in README.md; this is brief-level direction only.
+depends_on: README.md, skills/equinet-layout/SKILL.md
+verified: 2026-10-13
+---
+
 # Claude Design prompt template
 
 For generating pages against this design system. Replace `{CONTEXT}` with the
@@ -179,7 +189,7 @@ against the system on 2026-09-24:
 | Your line | Status |
 | --- | --- |
 | "Pull updated GitRep from [URL]" | **Can't work either way.** Private repo, read through a configured import. Refresh before prompting; the line does nothing in a prompt and can't be a rule. |
-| "Enhance layout with assets in illustrations and icons" | **Built in** — rules 8–11 of the README digest, plus `INDEX.md` and `ICON-REFERENCE.md`. Includes the use-none fallback and the 1px/48px icon rule. |
+| "Enhance layout with assets in illustrations and icons" | **Built in** — the README digest rules on icons, illustrations, every-section-gets-a-visual and backgrounds, plus `INDEX.md` and `ICON-REFERENCE.md`. Includes the compose-from-primitives fallback and the 1px/48px icon rule. |
 | "Best practice UI/UX methodologies" | **Built in** — contrast, alignment, hierarchy and density are all in the instructions section. |
 | "Reorder graphical layouts…" | **Built in** — the kit-of-parts rule plus the `.eq-stagger` pointer. |
 | "AEO principles" | **Not built in, on purpose.** Editorial, not design. Must be in the prompt. |

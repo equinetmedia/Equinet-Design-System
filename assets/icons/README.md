@@ -1,3 +1,13 @@
+---
+id: icon-assets
+status: current
+read_when: >-
+  Inlining an icon. Says which groups take currentColor, which hardcode their
+  ink, and which are brand marks that must not be recoloured.
+depends_on: assets/icons/ICON-REFERENCE.md
+verified: 2026-10-13
+---
+
 # Icons
 
 Small glyphs that sit inside or beside a control, as opposed to the standalone

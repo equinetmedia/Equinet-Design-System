@@ -67,7 +67,15 @@ still renders at its exact intended value.
 Three rules hold this together:
 
 - `tokens.css` owns the only `:root` block in the system. A module never
-  declares one.
+  declares one. **It is the sole source of truth for token names and
+  values.** `tokens.json` is generated from it by
+  `tools/build-tokens-json.py` — never hand-edit the JSON; edit the CSS and
+  regenerate. The JSON owns one thing the CSS can't: the hand-written
+  `usage` prose on each token, which the generator carries forward by name.
+  Claude Design's schema cannot express every category — typography,
+  easing curves and unitless values have no token form — so
+  `tools/tokens-unrepresentable.md` lists what is left out and why. A token
+  absent from the JSON is not a token the system lacks.
 - Names are `--equinet-<category>-<role>`, with modifiers after a double
   hyphen — `--equinet-color-orange--dark`. Lowercase throughout.
 - Semantic roles alias the palette rather than repeating a hex, so each literal
@@ -536,7 +544,7 @@ the real exports existed.
 
 The classes there are unscoped, for Claude Design previews and reference.
 Inside a HubSpot module every selector is namespaced under that module's root
-class — see **Module anatomy**.
+class — see **Engineering contract**, "CSS scoping".
 
 ## Illustrations
 
@@ -547,7 +555,7 @@ illustrations), `sectors/` (4, 16:9 vertical pictographs), `systems/`
 horizontal four-step sequences) and `heroes/` (4, near-square service-page
 heroes, whose card labels are baked into the artwork). All are
 multi-colour and stand alone, distinct from the single-ink glyphs in
-`assets/icons/`. Every colour across all 24 resolves to an existing token —
+`assets/icons/`. Every colour across all 36 resolves to an existing token —
 but to the marketing and chart palettes, not the UI one, which is itself the
 clue that they're collateral rather than interface. Full per-group breakdown,
 palette mapping and usage rules in that folder's own `README.md`.
@@ -608,10 +616,11 @@ without media.
 
 ## Module comps
 
-`assets/comps/` holds three Figma exports of complete modules —
-`2-column-hero-banner`, `5_column_block_methodology` and
-`sector-three-column-case-study`, all 1920px wide. They are the design source
-of record those modules were built from.
+`assets/comps/` holds five Figma exports, all 1920px wide: four complete
+modules — `2-column-hero-banner`, `5_column_block_methodology`,
+`2-column-comparison` and `sector-three-column-case-study` — plus
+`Global-Navigation`, the site header. They are the design source of record
+those modules were built from.
 
 **Use them as layout blueprints — rebuild, don't paste.** Each is a real,
 shipped Equinet composition, so reproducing its structure and hierarchy with
@@ -664,7 +673,7 @@ Three files make the asset folders usable by a model, not just a person:
   transcribed / not-quotable status. The SVGs' figures are outlined and
   unreadable, so charts are rebuilt live from `data.json`. See the charts
   README for errors found in the artwork — one chart isn't drawn to scale.
-- **`data-role` on every drawn element** of the 45 reworkable assets
+- **`data-role` on every drawn element** of the reworkable assets
   (illustrations, service tiles, nodes), plus `data-asset` / `data-group` on
   each root. Assigned from colour tokens and proven non-destructive: stripping
   them reproduces each original byte-for-byte.
@@ -678,7 +687,8 @@ layer-ID names. `assets/RENAMES.md` maps every old name to its new one.
 
 ## Interactive components — card, FAQ, reveal
 
-Added 2026-10-02 and part of every build by default (digest rule 7).
+Added 2026-10-02 and part of every build by default — see the digest rule
+*"Every page is interactive and moves"*.
 
 **`.eq-card`** — the card lift documented under **Cards** had never been built
 as a component; now it is. It lifts `translateY(-6px)` (in 0.3s, out 0.6s) and
@@ -785,9 +795,10 @@ of them, just the mandate to use them.
 - Wordmark: `assets/brand/wordmark-light.svg` or `wordmark-dark.svg`, picked
   by background contrast (see **Brand mark**). Never render the name as
   styled text standing in for the logo.
-- Icons: `assets/icons/` holds 16 files in three groups — three control icons
-  that take `currentColor`, five 43 × 43 concept marks (`nodes/`) and eight
-  65 × 65 service tiles (`service-tiles/`). Read that folder's `README.md`
+- Icons: `assets/icons/` holds four groups — three control icons at the root
+  that take `currentColor`, five 43 × 43 concept marks (`nodes/`), eight
+  65 × 65 service tiles (`service-tiles/`) and five 69 × 69 service-line
+  marks (`service-marks/`). `assets/manifest.json` is the live count. Read that folder's `README.md`
   first: only the three root icons recolour with their control; the nodes
   hardcode their ink; and the tiles are white-on-navy artwork that must not be
   recoloured — though the **glyph inside a tile is substitutable**, and may be
@@ -805,7 +816,8 @@ of them, just the mandate to use them.
 **Spacing and frame — token values only, nothing arbitrary.**
 - Padding and gaps: the `equinet-space-*` scale (see **Spacing**). A raw
   pixel value not on that scale is a promotion candidate, not a free choice.
-- Corners: `equinet-radius-card` or `equinet-btn-radius` (see **Surface**).
+- Corners: `equinet-radius-card` (7px) or `equinet-btn-radius` (7px, growing
+  to 8px on primary hover only) — both defined in `tokens.css`.
 - Elevation: `equinet-shadow-*`, matched to the resolved card-lift pattern
   (see **Cards**) — not a new shadow invented to taste.
 - Borders and dividers: `equinet-color-border` for UI; the `diagram-line`

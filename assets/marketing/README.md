@@ -1,3 +1,13 @@
+---
+id: marketing-assets
+status: current
+read_when: >-
+  Matching the visual style of a composed infographic, or tracing where a
+  chart or diagram token came from. Reference material, never a reusable
+  module asset.
+verified: 2026-10-13
+---
+
 # Marketing reference
 
 Infographics and marketing graphics — not icons, not the brand mark, and not

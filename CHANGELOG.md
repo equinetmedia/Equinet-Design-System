@@ -1,36 +1,177 @@
+---
+id: changelog
+status: historical
+read_when: >-
+  Tracing when and why a value, rule or decision changed. Never for current
+  rules — entries describe the system on their own date and several record
+  rules since reversed.
+supersedes: none
+superseded_by: README.md for anything stated as a rule
+verified: 2026-10-13
+---
+
 # Changelog
+
+> **Historical record. Do not read a rule from this file.**
+> Entries describe the state of the system *on the date of the entry*. Several
+> record rules that have since been reversed, counts that have since changed,
+> and files that have since been renamed or deleted. They are kept so a
+> decision can be traced back to the evidence that caused it — not so the
+> decision can be re-derived from here.
+>
+> **The current rules live in `README.md` and `tokens.css`, and nowhere else.**
+> Where this file and `README.md` disagree, `README.md` is right by
+> definition. Entries are newest first.
 
 This repo has no live connection to the Equinet Module Development Claude.ai
 Project. Every entry below represents a manual reconciliation pass — someone
 asked Claude, in that Project, to fold new development work into
 `tokens.css` / `README.md`, then committed the result here.
 
-## 2026-09-24 — Removed a `---` that would have marked the brand book as regenerable
+## 2026-10-13 — tokens.json generated from tokens.css; 145 tokens, up from 60
 
-Checked the design-system format spec to answer whether the prompt could be
-built in, and found a bug introduced an hour earlier by the rules digest.
+`tokens.json` and `tokens.css` were both hand-kept and only one was true. The
+JSON carried **60** of the CSS's **215** variables — every token promoted since
+2026-09-23 was invisible to anything reading it, including the entire primitive
+scale, all seven letter-spacing values, the button geometry and
+`motion-travel--arrow`. Flagged that day as "a full parity pass is still
+outstanding"; it had widened since, because a transcription pass fixes one day
+and nothing after it.
 
-**The format treats the first `---` in `README.md` as the boundary between
-author text and generated sections, and rewrites everything below it on
-save.** The digest ended with a `---` separator before the introduction —
-the only horizontal rule in the file — which marked the entire 815-line brand
-book as regenerable content. A save from the page, or a `make.ts` build,
-could have replaced all of it with generated "Consuming this system" and
-"Index" sections.
+**`tokens.json` is now generated.** `tools/build-tokens-json.py` reads
+`tokens.css` and emits the JSON. Never hand-edit it again — edit the CSS and
+rerun.
 
-Replaced with an `## About this system` heading, and added a warning in the
-file itself so the rule isn't reintroduced. Zero horizontal rules in
-`README.md` now.
+**It merges rather than overwrites, which is the whole design.** `tokens.css`
+owns every name and value; the generator invents neither. But `tokens.json`
+owns the hand-written `usage` prose — the contrast measurements, the "this
+module has drifted" warnings, the provenance notes — and none of that is
+derivable from CSS. All **62** existing usage strings were carried forward by
+token name and verified unchanged, byte for byte. Two more came from CSS
+comments that said something; comments that only restate the value (`/* #F5844D
+*/`, `/* 4px */`) are dropped rather than emitted as a `usage` that tells a
+reader nothing.
 
-Other docs carry `---` rules (`PROMPT-TEMPLATE.md`, two asset READMEs,
-`INDEX.md`) and are unaffected — only `README.md` is parsed for that
-boundary.
+**Coverage: 145 emitted, 70 genuinely unrepresentable.** Colour 89, spacing 26,
+shadow 9, radius 8, size 8, duration 5. The other 70 are typography (the `type`
+block is a curated structure of named styles, not a token array), paragraph
+spacing, text transforms, easing curves and unitless values like
+`--equinet-btn-scale--hover` — none has a form in this schema.
 
-Also confirmed from the same spec, which answers the original question:
-agents **read `README.md` first**, so design-system rules genuinely are
-built in rather than needing restatement each session. What can't be is
-brief-level direction — the AEO structure and `{CONTEXT}` — which describes
-a page, not the brand.
+**The schema fails silently, so the omissions are written down.** An
+unsupported family or field is dropped without an error, which is how the
+`motion` family and the h2 `textTransform` were both lost on 2026-09-23. A
+token missing from `tokens.json` would therefore look identical whether it was
+a schema limit or an oversight. `tools/tokens-unrepresentable.md` is generated
+alongside the JSON and lists all 70 with the reason for each, so the gap is
+visible rather than assumed.
+
+**The `type` block is preserved, then validated.** There is no 1:1 mapping from
+the CSS's `fontsize`/`fontweight`/`lineheight` variables to Claude Design's
+grouped type styles, so the generator carries the block through unchanged and
+checks it instead: every declared `fontSize`, `fontWeight` and `letterSpacing`
+must exist as a value somewhere in `tokens.css`, and `textTransform` or
+`textShadow` on a style is rejected outright. The 48px/36px section-heading bug
+of 2026-09-24 was exactly the shape this catches.
+
+**Three guards, each tested against a deliberately broken `tokens.css`:**
+
+- a name declared twice — the schema silently drops duplicates, so the
+  generator refuses to emit one;
+- a `var()` reference to a token the CSS doesn't define, including one with a
+  typo'd case that an earlier draft of the alias regex read as a literal;
+- an unroutable name — a new token whose prefix matches no rule stops the
+  build rather than being quietly skipped. Adding a category means adding a
+  routing rule, deliberately.
+
+The run is idempotent and `--check` fails when the committed file is stale, so
+`tools/check-docs.py` now delegates its parity check to the generator instead
+of re-deriving the mapping. Three existing colour aliases whose names don't
+start with `color-` (`--equinet-text-action`, `-hover`, `--equinet-icon-primary`)
+surfaced during routing and are now carried.
+
+One fidelity improvement worth noting: `equinet-color-navy` was stored as a
+literal `#00426C`. The CSS defines it as an alias of
+`--equinet-color-blue-default`, and the generated file now says so — the
+palette's one-definition-per-literal rule is visible in the JSON for the first
+time.
+
+## 2026-10-13 — Documentation audited for machine readability; a checker added
+
+An audit of whether an agent reading this repo reads something true. The code
+layer held up: `assets/manifest.json` regenerates byte-identically from its
+generator, every `--equinet-*` token named anywhere in prose resolves in
+`tokens.css`, and `components/bundle.css` uses 69 tokens with no undefined
+reference and no `var()` without a fallback. Every problem found was in the
+prose.
+
+**Eight fixes, all of them things a model would have read as fact:**
+
+- **Seven stale counts.** `HANDOFF.md` claimed 81 assets (99), 32
+  illustrations in five subgroups (36 in six) and 16 icons in three groups
+  (four groups). `README.md` claimed 24 illustrations, three comps (five) and
+  45 reworkable assets. `SKILL.md` said "the four comps". Where a count was
+  genuinely useful it was corrected; where it was decoration it was removed
+  and the reader pointed at the manifest, which cannot go stale.
+- **`HANDOFF.md` described `tokens.json`'s shape wrongly** — as a flat
+  `{"tokens":[…]}` array. It is family-grouped. Anyone writing a parser from
+  that description would have written a broken one.
+- **A malformed table row.** The `assets/comps/` row of `HANDOFF.md`'s file
+  table had two cells in a three-column table, so anything parsing it dropped
+  or misaligned that record.
+- **Two dangling section pointers.** `README.md` and `bundle.css` both sent a
+  reader to **Module anatomy**; no such section exists — repointed at
+  **Engineering contract** > CSS scoping. `README.md` sent a reader to
+  **Surface** for corner radius; also absent — the two radius tokens are now
+  named inline.
+- **Digest rules cited by number, again.** `README.md` said "digest rule 7"
+  and `PROMPT-TEMPLATE.md` "rules 8–11". The 2026-10-02 pass fixed exactly
+  this class of breakage and it came straight back, because nothing stopped
+  it. Both now cite rules by name, and `check-docs.py` refuses the pattern.
+- **`CHANGELOG.md` was out of order and unlabelled.** Its top entry was
+  2026-09-24 while the newest was 2026-10-02, so a model skimming the top for
+  current state landed on a stale entry. Worse, the file states reversed
+  rules in the present tense — "if nothing matches the page's subject, use no
+  illustration", "`assets/icons` has no real SVGs yet" — with nothing marking
+  them historical. Reordered newest-first and given a header that says
+  plainly: do not read a rule from this file.
+- **No routing layer.** `README.md` is 961 lines and this file is longer; an
+  agent had no way to decide which file answers which question without
+  reading them. Seventeen markdown files now carry frontmatter with `id`,
+  `status`, `read_when`, `verified` and, where it applies, `depends_on`.
+
+**Two files deliberately exempt from frontmatter, because it would break
+them.** `README.md`: the design-system format treats its first `---` as the
+author/generated boundary, and YAML frontmatter opens with one — the exact
+bug caught on 2026-09-24, which would have been reintroduced by the fix.
+`SKILL.md`: its frontmatter is validated against the Agent Skills schema, a
+YAML error there stops the skill loading (2026-09-26), and its `description`
+already does what `read_when` does. Both exemptions are encoded in the
+checker with their reasons, so neither reads as an oversight.
+
+**New: `tools/check-docs.py`.** Companion to `build-manifest.py` — that one
+makes the assets machine-readable, this one stops the prose contradicting
+them. Eleven checks, each corresponding to a class of error this repo has
+actually produced: stale counts against the manifest, token names that don't
+resolve in `tokens.css`, `tokens.css`↔`tokens.json` parity, dangling section
+and file references, malformed tables, digest rules cited by number,
+changelog ordering and framing, frontmatter presence and YAML validity,
+illustrations missing from `INDEX.md`, and horizontal rules in `README.md`.
+Exits non-zero, so it wires into a pre-commit hook or an Action. It found
+every problem above independently of the hand audit.
+
+**Not done, still open:**
+
+- ~~**`tokens.json` carries 60 of `tokens.css`'s 215 tokens.**~~ **Resolved
+  the same day** — see the entry above. The JSON is generated now.
+- **No SVG carries a `<title>` or `<desc>`** — zero of 99. Lifted out of the
+  repo, every asset is anonymous path data; the subject lives only in the
+  manifest. Not done unilaterally: it edits delivered artwork, which is the
+  designer's call, and it would end the byte-for-byte non-destructiveness
+  proof that currently backs the `data-role` annotations.
+- **Counts still live in prose** where they were genuinely useful. The
+  durable fix is a generated block in `README.md` that `build-manifest.py`
+  rewrites on each run; for now `check-docs.py` catches them going stale.
 
 ## 2026-10-02 — Interaction, motion and an FAQ accordion, built into every page
 
@@ -496,6 +637,33 @@ missing data goes in the brief as a gap for the user.
 
 Validated with the skill-creator checker, and every asset count, token value
 and filename it cites was verified against the repo before packaging (18/18).
+
+## 2026-09-24 — Removed a `---` that would have marked the brand book as regenerable
+
+Checked the design-system format spec to answer whether the prompt could be
+built in, and found a bug introduced an hour earlier by the rules digest.
+
+**The format treats the first `---` in `README.md` as the boundary between
+author text and generated sections, and rewrites everything below it on
+save.** The digest ended with a `---` separator before the introduction —
+the only horizontal rule in the file — which marked the entire 815-line brand
+book as regenerable content. A save from the page, or a `make.ts` build,
+could have replaced all of it with generated "Consuming this system" and
+"Index" sections.
+
+Replaced with an `## About this system` heading, and added a warning in the
+file itself so the rule isn't reintroduced. Zero horizontal rules in
+`README.md` now.
+
+Other docs carry `---` rules (`PROMPT-TEMPLATE.md`, two asset READMEs,
+`INDEX.md`) and are unaffected — only `README.md` is parsed for that
+boundary.
+
+Also confirmed from the same spec, which answers the original question:
+agents **read `README.md` first**, so design-system rules genuinely are
+built in rather than needing restatement each session. What can't be is
+brief-level direction — the AEO structure and `{CONTEXT}` — which describes
+a page, not the brand.
 
 ## 2026-09-24 — Minimum viable prompt recorded
 
@@ -1285,6 +1453,7 @@ elevate), reduced-motion gating pattern, card shadow blur (5px vs. 10px),
 possibly-transposed primary-button shadow tokens, Playfair Display's status,
 and whether `equinet-color-heading` / `equinet-color-text` should merge. See
 `README.md`, "Open decisions."
+
 
 <!--
 Next entry template:

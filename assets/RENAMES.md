@@ -1,3 +1,13 @@
+---
+id: renames
+status: reference
+read_when: >-
+  An older document, commit or conversation references an asset filename that
+  no longer exists. Maps the 2026-09-26 rename, old name to new.
+depends_on: assets/manifest.json
+verified: 2026-10-13
+---
+
 # Asset renames — 2026-09-26
 
 Every asset outside `buttons/`, `comps/` and `brand/` was renamed to one convention:

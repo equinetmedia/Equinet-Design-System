@@ -1,3 +1,13 @@
+---
+id: brief-template
+status: current
+read_when: >-
+  Writing the layout brief phase of the equinet-layout skill. The exact brief
+  format, with a worked section.
+depends_on: skills/equinet-layout/SKILL.md
+verified: 2026-10-13
+---
+
 # Brief template
 
 Use this structure. The brief is what the user approves, so it must be

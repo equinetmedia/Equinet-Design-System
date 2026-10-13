@@ -1,3 +1,13 @@
+---
+id: illustration-assets
+status: current
+read_when: >-
+  Placing or recomposing an illustration — per-group dimensions, backgrounds,
+  palette mapping and the rules that survive any recomposition.
+depends_on: assets/illustrations/INDEX.md
+verified: 2026-10-13
+---
+
 # Illustrations
 
 Standalone graphics — **not icons**. Anything multi-colour, detailed, or meant

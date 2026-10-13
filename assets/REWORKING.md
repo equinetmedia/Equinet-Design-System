@@ -1,3 +1,14 @@
+---
+id: reworking
+status: current
+read_when: >-
+  Adapting an existing SVG asset to the shape of the content — adding or
+  removing cards, nodes or connectors, or moving the accent. Targets elements
+  by data-role.
+depends_on: assets/manifest.json
+verified: 2026-10-13
+---
+
 # Reworking assets to fit the data
 
 How a model adapts Equinet graphics to the content being presented — adding a

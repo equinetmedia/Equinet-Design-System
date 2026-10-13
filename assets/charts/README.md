@@ -1,3 +1,13 @@
+---
+id: chart-assets
+status: current
+read_when: >-
+  Putting a statistic on a page. Records which figures are verified against
+  their source and which must not be quoted. Read with
+  assets/charts/data.json.
+verified: 2026-10-13
+---
+
 # Charts
 
 Seven data charts on AI adoption in manufacturing, added 2026-10-02. A new

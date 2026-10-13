@@ -1,3 +1,13 @@
+---
+id: handoff
+status: current
+read_when: >-
+  Importing this system into Claude Design, or working out how a change gets
+  from a Claude session into this repo and back out.
+depends_on: README.md, tokens.css, assets/manifest.json
+verified: 2026-10-13
+---
+
 # Equinet design system — export for Claude Design import
 
 Prepared 2026-09-22. This is a clean export of the design system rebuilt in
@@ -47,13 +57,13 @@ chat each time, not pulled automatically.
 | File | What it is | Use it for |
 | --- | --- | --- |
 | `tokens.css` | The real, production token file — the original `/modules/tokens.css` with the finalized spacing scale appended (dated 2026-09-22) | A codebase-style or raw-file import; the closest thing to ground truth |
-| `tokens.json` | The same values, reshaped into the `{"tokens":[{"name","value","usage"}]}` format Claude Design's own Design System schema reads | If the import flow asks for this shape instead of CSS |
+| `tokens.json` | **Generated** from `tokens.css` by `tools/build-tokens-json.py`. Claude Design's own Design System schema — a top-level object with `color`, `type`, `spacing`, `duration`, `radius`, `size` and `shadow` families, each holding `{name, value, usage}` entries. Never hand-edit it | If the import flow asks for this shape instead of CSS. Read `tools/tokens-unrepresentable.md` for what the schema can't carry |
 | `README.md` | Opens with a rules digest — the binding rules in one scannable table — then the full brand book: consumption pattern, colour, type, spacing, breakpoints, motion, buttons, cards, backgrounds/parallax, editor-controlled styling, icons, accessibility, the engineering contract, component inventory, and open decisions | Read first — everything else assumes it |
 | `CHANGELOG.md` | Dated log of every reconciliation pass, what it resolved, and what it newly surfaced | Tracing when and why a value or decision changed |
 | `skills/equinet-layout/` | A two-phase skill: content → approved layout brief → build. Maps content shapes to formats, assets and HubSpot elements | Planning any page from content; packaged as `equinet-layout.skill` for Claude chat |
 | `PROMPT-TEMPLATE.md` | A ready prompt for generating pages in Claude Design, with the reasoning behind each constraint | Starting a new page; adapting the wording for a different brief |
 | `components/bundle.css` | The pure-CSS component layer — three button variants with every state, plus `.eq-stagger` alternating content rows sized to the illustration ratios | The actual CSS; loads after `tokens.css` |
-| `assets/icons/` | 16 files in three groups, plus `ICON-REFERENCE.md` — the measured house style and how to match a Lucide or Phosphor substitute to it | Inlining an icon into a module |
+| `assets/icons/` | Four groups — root control icons, `nodes/`, `service-tiles/`, `service-marks/` — plus `ICON-REFERENCE.md` — the measured house style and how to match a Lucide or Phosphor substitute to it | Inlining an icon into a module |
 | `assets/buttons/` | The ten Figma button exports, kept as the measurement source of record | Verifying a geometry claim against its origin |
 | `assets/brand/` | Wordmark, light and dark variants | Any use of the logo |
 | `components/motion.js` | Entrance motion for inline annotated graphics; pairs with "GRAPHIC MOTION" in `bundle.css` | Animating any graphic — no per-file code |
@@ -62,12 +72,14 @@ chat each time, not pulled automatically.
 | `assets/illustrations/heroes/` | Four service-page hero compositions; card labels baked in | Page heroes — read the HubSpot-logo note first |
 | `assets/charts/` | Seven sourced data charts, plus `data.json` holding every figure with source and verification status | Any page using statistics; rebuild charts live from `data.json` |
 | `tools/build-manifest.py` | Regenerates `assets/manifest.json` from the files | After adding, renaming or editing any asset |
-| `assets/manifest.json` | Machine-readable record of all 81 assets — background, roles, palette→tokens, subject | Choosing and reworking assets programmatically |
+| `tools/build-tokens-json.py` | Regenerates `tokens.json` and `tools/tokens-unrepresentable.md` from `tokens.css` | After any change to `tokens.css`. `--check` fails if the JSON is stale |
+| `tools/check-docs.py` | Eleven consistency checks across the prose, the tokens and the manifest | Before every commit; exits non-zero so it wires into a hook or an Action |
+| `assets/manifest.json` | Machine-readable record of every asset — background, roles, palette→tokens, subject. Generated, so it is always the live count | Choosing and reworking assets programmatically |
 | `assets/REWORKING.md` | How to adapt an asset to the data, by `data-role` | Editing a graphic to match content |
 | `assets/RENAMES.md` | Old → new filename map from the 2026-09-26 rename | Resolving older references |
-| `assets/comps/` | Three 1920px Figma module comps — reference for parity QA, never page artwork |
+| `assets/comps/` | Five 1920px Figma comps — four complete modules plus the global navigation | Layout blueprints and parity QA; rebuild with live components, never embed as artwork |
 | `assets/marketing/` | Seventeen infographics, with a per-file audit index | Provenance for the chart and diagram token categories |
-| `assets/illustrations/` | 32 standalone graphics in five subgroups, plus `INDEX.md` — the per-file subject index an agent reads to choose artwork | Standalone graphics — not icons; one file has an unguarded infinite animation, see that folder's README |
+| `assets/illustrations/` | Standalone graphics in six subgroups — `pictonodes/`, `scenes/`, `sectors/`, `systems/`, `flows/`, `heroes/` — plus `INDEX.md` — the per-file subject index an agent reads to choose artwork | Standalone graphics — not icons; one file has an unguarded infinite animation, see that folder's README |
 
 ## Why this isn't already in Claude Design
 

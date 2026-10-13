@@ -12,8 +12,8 @@
 
    Scope note: these are UNSCOPED component classes, for Claude Design
    previews and for reference. Inside a HubSpot module every selector is
-   namespaced under that module's root class — see README.md, "Module
-   anatomy."
+   namespaced under that module's root class — see README.md,
+   "Engineering contract" > CSS scoping.
    ========================================================================== */
 
 

@@ -1,3 +1,12 @@
+---
+id: brand-assets
+status: current
+read_when: >-
+  Placing the Equinet wordmark or the Commercial Intelligence Engine emblem,
+  or choosing between the light and dark variant.
+verified: 2026-10-13
+---
+
 # Brand mark
 
 The Equinet Media wordmark, provided 2026-09-22 as two ready-made variants —

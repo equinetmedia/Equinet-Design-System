@@ -47,7 +47,7 @@ illustration files and assemble a new infographic for this content — see
 tokened elements. A topic the illustrations never covered still gets a
 proper Equinet infographic, built from Equinet parts.
 
-**3. Borrow a layout from `assets/comps/`.** The four comps are real,
+**3. Borrow a layout from `assets/comps/`.** The comps are real,
 shipped Equinet module compositions — hero, two-column comparison, five-column
 methodology, three-column case study. Use them as blueprints: reproduce their
 structure, spacing and hierarchy with live components and this page's

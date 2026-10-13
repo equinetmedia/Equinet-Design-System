@@ -1,3 +1,13 @@
+---
+id: content-to-format
+status: current
+read_when: >-
+  Deciding what format a piece of content becomes — bar vs line, sequence vs
+  flowchart, cards vs table.
+depends_on: skills/equinet-layout/SKILL.md
+verified: 2026-10-13
+---
+
 # Content shape → format
 
 Find the shape first, then read across. Every section ends up with a visual:
