@@ -208,9 +208,32 @@ down, and up when open.
 works), keyboard access, and visible focus. Verified in a real browser by
 `tests/components-test.py` and `tests/motion-test.py`.
 
-**Don't add:** looping or ambient animation, or hover motion on a graphic that
-isn't inside a link. Motion should answer an action or mark an arrival, not
-decorate.
+**Graphics may be interactive — through one of two patterns, and nothing
+else.** The old rule forbade hover motion on any graphic not inside a link.
+The reason behind it survives: something that responds to a cursor promises
+that something happens. What changed is the conclusion. Build the interaction
+properly instead of avoiding it.
+
+- **The whole graphic is a link** — `.eq-graphic` wrapping the inline SVG,
+  with a stretched `.eq-graphic__link` inside. Lifts 6px on hover *and*
+  keyboard focus, exactly like `.eq-card`.
+- **Parts of the graphic are controls** — `.eq-graphic__hotspot` on a `<g>`.
+  Either an SVG `<a href>`, which needs no script, or
+  `<g tabindex="0" role="button" aria-expanded aria-controls>` for an in-page
+  toggle, which `motion.js` wires up for Enter and Space.
+
+Every hotspot must contain `<rect data-role="hit">` — transparent, at least
+24 × 24 user units. It is the target, the highlight shape and the focus ring.
+Give every hotspot an accessible name with a `<title>` or `aria-label`;
+`motion.js` warns in the console when one is missing.
+
+**Still don't add:** looping or ambient animation, or a response on a graphic
+that does nothing. A hover state is a promise — keep it or don't make it.
+
+**Don't highlight with `transform` or `opacity`.** Both are animated by
+`motion.js` on `[data-role]` elements during entrance, so a hover rule
+touching either fights the entrance mid-flight. Stroke and fill only; that's
+what `.eq-graphic__hotspot` uses.
 
 ## The one hard limit: never invent data
 

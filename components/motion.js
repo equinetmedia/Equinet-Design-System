@@ -167,3 +167,75 @@
     reduce.addListener(onPreferenceChange);
   }
 })();
+
+
+/* ============================================================================
+   HOTSPOT ACTIVATION — pairs with .eq-graphic__hotspot in bundle.css.
+   Added 2026-10-13.
+
+   Only needed for the TOGGLE form. A hotspot that navigates is an SVG <a
+   href>, which the browser already makes keyboard-operable — don't wire that
+   one up here.
+
+   A <g role="button" tabindex="0"> is NOT a button to the browser: it has no
+   implicit activation, so Enter and Space do nothing unless handled. That is
+   the whole job of this block.
+
+   Runs regardless of prefers-reduced-motion. Reduced motion means less
+   movement, never less function.
+   ========================================================================== */
+(function () {
+  'use strict';
+
+  var hotspots = document.querySelectorAll(
+    '.eq-graphic__hotspot[role="button"]:not([data-hotspot-ready])'
+  );
+  if (!hotspots.length) return;
+
+  function panelFor(hotspot) {
+    var id = hotspot.getAttribute('aria-controls');
+    return id ? document.getElementById(id) : null;
+  }
+
+  function toggle(hotspot) {
+    var open = hotspot.getAttribute('aria-expanded') === 'true';
+    var panel = panelFor(hotspot);
+    hotspot.setAttribute('aria-expanded', open ? 'false' : 'true');
+    if (panel) {
+      if (open) {
+        panel.setAttribute('hidden', '');
+      } else {
+        panel.removeAttribute('hidden');
+      }
+    }
+  }
+
+  for (var i = 0; i < hotspots.length; i++) {
+    (function (hotspot) {
+      hotspot.setAttribute('data-hotspot-ready', '');
+
+      // An unlabelled control is unusable with a screen reader. Say so loudly
+      // in development rather than shipping a button announced as "button".
+      if (!hotspot.getAttribute('aria-label') && !hotspot.querySelector('title')) {
+        console.warn('[equinet] hotspot has no accessible name:', hotspot);
+      }
+      if (hotspot.getAttribute('aria-expanded') === null) {
+        hotspot.setAttribute('aria-expanded', 'false');
+      }
+      var panel = panelFor(hotspot);
+      if (panel && hotspot.getAttribute('aria-expanded') === 'false') {
+        panel.setAttribute('hidden', '');
+      }
+
+      hotspot.addEventListener('click', function () { toggle(hotspot); });
+
+      hotspot.addEventListener('keydown', function (e) {
+        // Space scrolls the page by default; Enter does nothing on a <g>.
+        if (e.key === 'Enter' || e.key === ' ' || e.key === 'Spacebar') {
+          e.preventDefault();
+          toggle(hotspot);
+        }
+      });
+    })(hotspots[i]);
+  }
+})();

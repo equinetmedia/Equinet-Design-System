@@ -28,6 +28,63 @@ Project. Every entry below represents a manual reconciliation pass — someone
 asked Claude, in that Project, to fold new development work into
 `tokens.css` / `README.md`, then committed the result here.
 
+## 2026-10-13 — Interactive graphics allowed; .eq-graphic built and tested
+
+The rule forbidding hover motion on a graphic not inside a link is withdrawn.
+It had been read as "don't add interactivity" twice — the 2026-10-02 entry
+names that misreading and kept the rule anyway, and it came up again. The
+reason behind it survives: something that responds to a cursor promises that
+something happens. The conclusion changes. Build the interaction properly
+instead of avoiding it.
+
+**New in `bundle.css`: INTERACTIVE GRAPHICS.** Two patterns, nothing else.
+
+- **`.eq-graphic` + `.eq-graphic__link`** — the whole graphic is a link.
+  Mirrors `.eq-card` exactly: 6px lift, shadow to `--equinet-shadow-card--hover`,
+  0.3s in and 0.6s out. The transform sits on the HTML wrapper, never on the
+  SVG, so it cannot collide with the `transform` *attribute* that 44 annotated
+  elements carry — the trap that forced every motion rule to be scoped
+  `:not([transform])` on 2026-09-26.
+- **`.eq-graphic__hotspot`** — parts of the graphic are controls. Either an
+  SVG `<a href>`, keyboard-operable with no script, or
+  `<g tabindex="0" role="button" aria-expanded aria-controls>` for an in-page
+  toggle.
+
+**Every hotspot carries `<rect data-role="hit">`** — transparent, at least
+24 × 24 user units. One element doing three jobs: a target big enough to hit
+(WCAG 2.5.8), one predictable shape to highlight, and a focus ring that
+doesn't depend on `outline` behaving over arbitrary SVG geometry.
+
+**Highlights use stroke and fill only — never `transform` or `opacity`.**
+`motion.js` animates both of those on `[data-role]` elements during entrance,
+so a hover rule touching either would fight the entrance mid-flight. Hover is
+orange (3.4:1 on white, above the 3:1 graphical-object threshold); focus is
+navy, this system's focus colour, drawn thicker so it still reads under a
+hover state.
+
+**New in `motion.js`: HOTSPOT ACTIVATION.** Only the toggle form needs it —
+an SVG `<a>` is already keyboard-operable, but a `<g role="button">` is not a
+button to the browser and has no implicit activation, so Enter and Space do
+nothing unless handled. The block also defaults `aria-expanded`, syncs the
+controlled panel's `hidden` attribute, and warns in the console when a hotspot
+has no accessible name. It runs regardless of `prefers-reduced-motion`:
+reduced motion means less movement, never less function.
+
+**New: `tests/graphics-interaction-test.py`, 24 checks in headless Chromium.**
+It caught one real defect before this shipped: the lift fired on hover but not
+on keyboard focus when the wrapper itself was the anchor rather than
+containing one. Both authoring shapes are now supported, so there is no way to
+write a graphic that silently never lifts. The suite also pins the things that
+would ship invisibly wrong — hover not touching transform or opacity, Space
+activating without scrolling the page, panels staying in the document with no
+JS so answer engines still read them, and reduced motion withdrawing the lift
+while keeping the colour feedback.
+
+`components-test.py` (19) and `motion-test.py` (14) still pass unchanged.
+Digest rule 7 and the layout skill both rewritten. Still forbidden: looping or
+ambient animation, and any response on a graphic that does nothing. A hover
+state is a promise — keep it or don't make it.
+
 ## 2026-10-13 — Chart palette ruled; brief made explicit; builds now report gaps
 
 Three changes that move standing rules out of prompts and into the system.
