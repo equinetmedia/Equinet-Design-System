@@ -79,6 +79,18 @@ rather than drawn from memory. Add a one-line comment naming the icon
 4. **Write the brief** using `references/brief-template.md`.
 5. **Stop and ask for approval** before building.
 
+**The brief is the default. Always offer it; never skip it unasked.** Where
+the prompt hasn't ruled, write the brief and stop — a page is cheaper to
+redirect as a plan than as a build.
+
+**`build direct` is the opt-in exception.** When the prompt says `build
+direct` (or plainly asks to skip the brief), still do steps 1–4 — they decide
+what every section becomes — and skip only step 5's approval stop. Open the
+build with the section plan as a short list, so the thinking is visible and
+correctable even though you didn't wait. "Skip the brief" never means skip the
+planning; a build that goes straight to markup is the one that arrives as
+headings and paragraphs.
+
 ## Phase 2 — Build
 
 1. Build from the approved brief, section by section.
@@ -103,7 +115,17 @@ rather than drawn from memory. Add a one-line comment naming the icon
    page is dead on arrival — fix it before replying, don't report it as a
    caveat. Counting is the only way to catch this, because a page missing all
    of its motion looks completely normal in a screenshot.
-6. Finish with a short list of any new components built.
+6. Finish with three short lists, every build, asked for or not:
+   - **New components built** — anything that didn't already exist, so it can
+     be promoted into `bundle.css` rather than rebuilt next time.
+   - **Data gaps** — figures a section would have carried if the content had
+     them, and any `data.json` value left unused because it is `transcribed`
+     or `not-quotable` rather than `verified`.
+   - **Needs confirmation** — placeholder links, invented service wording,
+     claims about the client, and anything else written to fill a hole rather
+     than supplied. A `#` href and a paragraph describing a service the user
+     never described both belong here. Silence on these reads as "checked",
+     which is the one thing it never means.
 
 ## Built into every page — no prompt needed
 
@@ -210,10 +232,11 @@ new so they can be promoted. Draw bars to scale: one of the seven existing
 charts sizes bars by eye, off by up to 7 points, and a chart that misstates
 its own data undoes the credibility the source lends it. Prefer bars to pies.
 
-Palette: the documented data palette is `--equinet-color-chart-blue-*`, but
-all seven real charts in `assets/charts/` use navy, orange and teal. That's an
-open decision — see `assets/charts/README.md` — so match whichever the user
-confirms, and say which you used.
+Palette: **navy, orange and teal** — `--equinet-color-navy`,
+`--equinet-color-amber-400`, `--equinet-color-teal-default`. Ruled 2026-10-13
+in favour of the seven shipped charts over the `--equinet-color-chart-blue-*`
+tokens, which were sanctioned from a single infographic and which no real
+chart uses. Don't ask which palette; this one.
 
 ## AEO structure
 

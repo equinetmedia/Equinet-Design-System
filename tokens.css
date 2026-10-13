@@ -197,7 +197,10 @@
   /* ==========================================================================
      COLOUR — DATA VIZ (chart/gradient scale, NOT for UI)
      Sanctioned 2026-09-23 from a published marketing infographic. Now mapped
-     to the blue variable ramp. See README.md "Data visualization."
+     to the blue variable ramp. NO LONGER THE DEFAULT CHART PALETTE: ruled
+     2026-10-13 that new charts use navy, amber-400 and teal-default, matching
+     all seven charts in assets/charts/. These three stay for matching that
+     one infographic. See README.md "Data visualization."
      ========================================================================== */
   --equinet-color-chart-blue-light: var(--equinet-color-blue-400); /* #81ACD7 */
   --equinet-color-chart-blue-mid:   var(--equinet-color-blue-500); /* #5688BA */

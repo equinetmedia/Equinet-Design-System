@@ -93,15 +93,18 @@ None of this is corrected in the SVGs: changing delivered artwork is the
 designer's decision. It's recorded here and in `data.json` so the fixes can be
 made at source, and so any rebuild starts from the right figures.
 
-## Palette — an open question
+## Palette — ruled 2026-10-13
 
-These charts use **navy, orange and teal** (`--equinet-color-navy`,
-`--equinet-color-amber-400`, `--equinet-color-teal-default`) for their series.
-The system's sanctioned data-visualisation palette is the three
-`--equinet-color-chart-blue-*` tokens — sanctioned from a single infographic.
-None of the seven charts uses them. Seven real charts are stronger evidence of
-how Equinet draws data than the one file the current rule rests on, so this
-needs a decision rather than either rule being assumed.
+**Charts use navy, orange and teal**: `--equinet-color-navy`,
+`--equinet-color-amber-400`, `--equinet-color-teal-default`. That is what all
+seven charts here use, and it is now the rule for any new one.
+
+The three `--equinet-color-chart-blue-*` tokens were sanctioned from a single
+published infographic and no real chart uses them. Seven files of evidence
+beat one, so the rule follows the charts rather than the other way round. The
+chart-blue tokens stay in `tokens.css` — they are a real measured family and
+the infographic they came from is real — but they are no longer the default
+data palette. Reach for them only when matching that specific collateral.
 
 ## Not annotated with `data-role`, deliberately
 

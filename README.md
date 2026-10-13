@@ -115,6 +115,12 @@ between states.
 
 ## Data visualization
 
+**New charts use navy, orange and teal** — `equinet-color-navy`,
+`equinet-color-amber-400`, `equinet-color-teal-default` — ruled 2026-10-13 on
+the evidence of all seven charts in `assets/charts/`. The `chart-blue` family
+below is kept, but is no longer the default; reach for it only when matching
+the one infographic it came from.
+
 A separate, small palette for charts and data graphics only — never for UI,
 buttons, text, or anything a content editor places in a module. Sanctioned
 2026-09-23, sourced from a published marketing infographic

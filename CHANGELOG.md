@@ -28,6 +28,51 @@ Project. Every entry below represents a manual reconciliation pass — someone
 asked Claude, in that Project, to fold new development work into
 `tokens.css` / `README.md`, then committed the result here.
 
+## 2026-10-13 — Chart palette ruled; brief made explicit; builds now report gaps
+
+Three changes that move standing rules out of prompts and into the system.
+Each had been carried in prompt text, which is how they went missing.
+
+**1. The chart palette is decided: navy, orange and teal.**
+`--equinet-color-navy`, `--equinet-color-amber-400`,
+`--equinet-color-teal-default`. Open since 2026-09-30, when the charts folder
+recorded that all seven real charts use these while the sanctioned palette was
+the three `--equinet-color-chart-blue-*` tokens, drawn from a single published
+infographic. Seven files of evidence beat one; the rule now follows the
+charts. The chart-blue tokens stay in `tokens.css` — a real measured family
+from a real file — but are no longer the default. Reach for them only when
+matching that infographic.
+
+Recorded in four places so a reader can't land on the old ruling: the charts
+README (its "open question" heading is now "ruled"), the root README's data
+visualization section, the layout skill's Charts section (which previously
+told a model to ask the user), and the `tokens.css` comment above the three
+tokens. No token value changed; the chart-blue usage prose in `tokens.json`
+was rewritten and carried through the generator.
+
+**2. The brief is the default, and saying so.** Phase 1 ended with "stop and
+ask for approval" but never said what to do when a prompt asks to skip it, so
+"skip the brief" was being read as "skip the planning" — which is how a build
+goes straight to markup and arrives as headings and paragraphs. Now stated:
+the brief is the default and is never skipped unasked; `build direct` is the
+opt-in exception, and it skips only step 5's approval stop. Steps 1–4 still
+run, and the build opens with the section plan as a short list so the thinking
+stays visible and correctable.
+
+**3. Every build closes with three lists, not one.** Phase 2 asked for new
+components. It now also asks for **data gaps** — including any `data.json`
+value left unused because it is `transcribed` or `not-quotable` — and **needs
+confirmation**: placeholder links, invented service wording, claims about the
+client, anything written to fill a hole rather than supplied. The GEO build
+reported its `#book` placeholder and its own wording of the Commercial
+Diagnostic by good judgement; that shouldn't depend on judgement. Silence on
+these reads as "checked", which is the one thing it never means.
+
+The GEO prompt drops from 46 lines to 14 as a result, and what remains is a
+brief rather than a rulebook: topic, audience, goal, CTA, the named assets and
+the one fact about this subject the system can't know (no GEO-specific
+statistics exist).
+
 ## 2026-10-13 — The GEO page audited; literal-HTML rule added
 
 The rebuilt GEO landing page was checked against the six items it claimed to
