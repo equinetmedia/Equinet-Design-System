@@ -88,13 +88,61 @@ rather than drawn from memory. Add a one-line comment naming the icon
    substantial: an infographic is several related elements with a clear
    visual relationship, not one icon in a box.
 4. Apply AEO structure (below) and the design-system digest throughout.
-5. Finish with a short list of any new components built.
+5. **Count, then report.** Before finishing, count and state these five
+   numbers in the reply:
+
+   - SVG roots on the page, and how many carry `data-asset`
+   - drawn elements inside them, and how many carry `data-role`
+   - blocks carrying `data-reveal`
+   - whether `motion.js` is inlined (yes/no) and its byte count
+   - FAQ items, and whether the `FAQPage` JSON-LD matches them word for word
+   - SVGs carrying a real `viewBox` attribute, out of the total
+   - template loops or `{{ }}` bindings left in the markup (must be 0)
+
+   Any count that reads 0 of N, or a `motion.js` answer of "no", means the
+   page is dead on arrival — fix it before replying, don't report it as a
+   caveat. Counting is the only way to catch this, because a page missing all
+   of its motion looks completely normal in a screenshot.
+6. Finish with a short list of any new components built.
 
 ## Built into every page — no prompt needed
 
 Every build ships these three, whether or not the prompt mentions them.
 They're the difference between a page that looks designed and one that feels
 designed.
+
+**Do this first, before any of the three: inline the CSS and the JS.** Paste
+the needed rules from `bundle.css` and the *whole* of `motion.js` into the
+page. Do not reference them with a `<link>` or a `<script src>` unless the
+page provably resolves repository paths — a standalone HTML file, a Claude
+Design page, an artifact and an emailed deliverable all do not. **This is the
+normal case, not the exception.**
+
+A reference that doesn't resolve **fails silently**: no console error, no
+broken layout, nothing missing on screen. Every rule below can be followed
+perfectly and the page still arrives dead, which is exactly how this went
+wrong twice — see CHANGELOG, 2026-10-02 and 2026-10-13. If you are unsure
+whether the page can reach the repo, inline it. Inlining costs a few
+kilobytes; the alternative costs the whole feature with no symptom.
+
+**Literal HTML, not a template.** Write the page as real markup: real
+`<details>` elements, real cards, real `viewBox` attributes on every SVG. Do
+not express repeated content as a template loop over a data array, and do not
+leave runtime-only attribute spellings in the file. The page must read
+correctly as plain HTML with no runtime, for three reasons that all bite
+later:
+
+- **It's the whole AEO argument.** Content that exists only after JavaScript
+  runs is content an answer engine may never see. A page about being cited,
+  whose source carries no text, fails at the thing it describes.
+- **It's what ports.** A module build lifts this markup into HubSpot. A loop
+  over `{{ items }}` and a non-standard `viewBox` spelling both arrive broken.
+- **It's what the JSON-LD has to match.** Questions bound to a data array
+  can't be diffed against the `FAQPage` block by reading the file.
+
+If the surface you're building on rewrites the markup on export, say so in
+the reply and tell the user the rendered DOM is the deliverable, not the
+saved file.
 
 **1. Interaction states on everything interactive.** Use the components in
 `components/bundle.css`, which already carry hover, focus-visible and active
@@ -104,7 +152,8 @@ states: `.btn-primary`, `.btn-navigation` and `.btn-textual` for actions, and
 makes it lift 6px on hover *and* on keyboard focus. A card that doesn't link
 anywhere gets no link and doesn't lift: rising on hover promises a click.
 
-**2. Entrance motion.** Load `components/motion.js`. It animates two things:
+**2. Entrance motion.** `components/motion.js`, inlined per the rule above.
+It animates two things:
 - **Graphics** — inline every SVG (never `<img>`), put `data-asset="name"` on
   its root, and a `data-role` (card, node, connector, glyph, accent, panel) on
   every drawn element, *including in graphics you compose from scratch*.
@@ -131,11 +180,6 @@ every answer in the document even when collapsed.
 
 The chevron is Equinet's own `arrow-chevron` — the CSS rotates it to point
 down, and up when open.
-
-**If the page can't reference repository files**, paste the needed rules from
-`bundle.css` and the whole of `motion.js` into the page. A `<link>` or
-`<script src>` pointing at a file the page can't reach fails silently: no
-error, just no motion.
 
 **What all three already handle, so don't re-implement it:** reduced motion
 (everything static, feedback kept), no-JS fallback (nothing hidden, FAQ still

@@ -28,6 +28,84 @@ Project. Every entry below represents a manual reconciliation pass — someone
 asked Claude, in that Project, to fold new development work into
 `tokens.css` / `README.md`, then committed the result here.
 
+## 2026-10-13 — The GEO page audited; literal-HTML rule added
+
+The rebuilt GEO landing page was checked against the six items it claimed to
+fix. All six held: 19 inline SVGs with `data-asset` on every root, 139
+`data-role` elements, 23 `data-reveal` blocks, no `<img>`, nine `.eq-card`
+panels with no `eq-card__link` (so none lifts, which is correct for cards that
+link nowhere), `motion.js` inlined at 7.2 kB with the run-once guard removed,
+and a five-item FAQ whose `FAQPage` JSON-LD matches every question *and* every
+answer word for word. 112 tokens used, none invented. The FAQ chevron is
+path-identical to `assets/icons/arrow-chevron.svg`.
+
+**The defect was in what the page was, not in what it contained.** The
+delivered file is a self-extracting bundle: a 948 kB loader wrapping the real
+174 kB page, unpacked by JavaScript at runtime, with a `<noscript>` reading
+"This page requires JavaScript to display." The HTML source carries no
+content. For a page whose subject is being cited by AI answer engines, that is
+the argument undone by the delivery.
+
+**Two runtime constructs also block the HubSpot port.** All 19 SVGs carried
+`sc-camel-view-box` rather than `viewBox` — zero had a real one, so every
+graphic loses its scaling on paste. And the content was template-bound: 12
+loops and 22 `{{ }}` bindings, with the FAQ expressed as a loop over a data
+array rather than five `<details>` elements.
+
+**New rule in the skill: literal HTML, not a template.** Real elements, real
+`viewBox`, no loops over data arrays, with the three reasons stated — the AEO
+argument, the port, and the fact that JSON-LD bound to an array can't be
+diffed against the visible text by reading the file. Where the surface
+rewrites markup on export, the build must say so and name the rendered DOM as
+the deliverable rather than the saved file.
+
+**Phase 2's count gains two lines:** SVGs with a real `viewBox` out of the
+total, and template bindings left in the markup, which must read zero. Both
+are things that look completely normal in a screenshot.
+
+Also noted, not a defect: 54 `var()` calls carry no fallback. Harmless in that
+file, since all 215 tokens are inlined in a `:root` block — but those are
+exactly the ones that break when markup is lifted into HubSpot without
+`tokens.css`.
+
+## 2026-10-13 — A Claude Design page shipped dead again; two changes to stop it
+
+Reported: a GEO landing page built from `equinet-layout` came out with no
+animation and no interaction on the graphics. Same report as 2026-10-02, which
+is the point — that pass made motion, interaction states and the FAQ part of
+every build *without being asked*, and the skill has said so ever since. It
+still didn't happen.
+
+**The rule was right; its placement was wrong.** The instruction to inline
+`bundle.css` and `motion.js` sat at the *end* of "Built into every page",
+written as a conditional — "if the page can't reference repository files". A
+Claude Design page, a standalone HTML file, an artifact and an emailed
+deliverable can none of them resolve a repo path, so that conditional is the
+normal case, not the edge. Phrased as an exception, it reads as one.
+
+**It is now the first instruction in the section**, ahead of all three, and
+says plainly that these surfaces do not resolve repository paths and that
+inlining is the default. The trailing conditional is gone, and rule 2 now says
+"inlined per the rule above" rather than "load", so the two can't drift apart.
+
+**Why this failure mode needs special handling.** A `<link>` or `<script src>`
+that doesn't resolve fails *silently* — no console error, no broken layout,
+nothing visibly absent. Every other rule in the skill can be followed
+perfectly and the page still arrives dead, and a screenshot of a dead page
+looks completely normal. There is no symptom to notice.
+
+**So Phase 2 now ends with a count, not a claim.** New step 5: before
+finishing, state five numbers — SVG roots and how many carry `data-asset`;
+drawn elements and how many carry `data-role`; blocks carrying `data-reveal`;
+whether `motion.js` is inlined and its byte count; FAQ items and whether the
+`FAQPage` JSON-LD matches them word for word. A count reading "0 of 9" is
+visible before the page is ever opened, where "motion applied throughout" is
+not. Any zero means fix it before replying — not report it as a caveat.
+
+Nothing was added to `bundle.css`, `motion.js` or the tokens. This was a
+documentation failure, not a code one: the components worked, and the page
+never loaded them.
+
 ## 2026-10-13 — tokens.json generated from tokens.css; 145 tokens, up from 60
 
 `tokens.json` and `tokens.css` were both hand-kept and only one was true. The
