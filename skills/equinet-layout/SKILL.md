@@ -79,17 +79,10 @@ rather than drawn from memory. Add a one-line comment naming the icon
 4. **Write the brief** using `references/brief-template.md`.
 5. **Stop and ask for approval** before building.
 
-**The brief is the default. Always offer it; never skip it unasked.** Where
-the prompt hasn't ruled, write the brief and stop — a page is cheaper to
-redirect as a plan than as a build.
-
-**`build direct` is the opt-in exception.** When the prompt says `build
-direct` (or plainly asks to skip the brief), still do steps 1–4 — they decide
-what every section becomes — and skip only step 5's approval stop. Open the
-build with the section plan as a short list, so the thinking is visible and
-correctable even though you didn't wait. "Skip the brief" never means skip the
-planning; a build that goes straight to markup is the one that arrives as
-headings and paragraphs.
+**The brief is the default** — never skipped unasked. `build direct` is the
+opt-in exception: still do steps 1–4, skip only step 5's approval stop, and
+open the build with the section plan as a short list. Skipping the brief never
+means skipping the planning.
 
 ## Phase 2 — Build
 
@@ -100,121 +93,66 @@ headings and paragraphs.
    substantial: an infographic is several related elements with a clear
    visual relationship, not one icon in a box.
 4. Apply AEO structure (below) and the design-system digest throughout.
-5. **Count, then report.** Before finishing, count and state these five
-   numbers in the reply:
+5. **Count, then report.** State these in the reply before finishing. Any
+   "0 of N" means the page is dead on arrival — fix it, don't caveat it.
 
-   - SVG roots on the page, and how many carry `data-asset`
-   - drawn elements inside them, and how many carry `data-role`
+   - SVG roots, and how many carry `data-asset`
+   - drawn elements, and how many carry `data-role`
    - blocks carrying `data-reveal`
-   - whether `motion.js` is inlined (yes/no) and its byte count
-   - FAQ items, and whether the `FAQPage` JSON-LD matches them word for word
-   - SVGs carrying a real `viewBox` attribute, out of the total
-   - template loops or `{{ }}` bindings left in the markup (must be 0)
-   - multi-part graphics, and how many are tab sets rather than flat pictures
+   - is `motion.js` inlined? bytes?
+   - SVGs with a real `viewBox`, out of the total
+   - template loops or `{{ }}` left in the markup (must be 0)
+   - hardcoded px font-sizes, spacings and shadows where a token exists
+     (must be 0 — run `tools/check-built-page.py`)
+   - FAQ items, and does the JSON-LD match them word for word?
+   - multi-part graphics, and how many are tab sets
 
-   Any count that reads 0 of N, or a `motion.js` answer of "no", means the
-   page is dead on arrival — fix it before replying, don't report it as a
-   caveat. Counting is the only way to catch this, because a page missing all
-   of its motion looks completely normal in a screenshot.
-6. Finish with three short lists, every build, asked for or not:
-   - **New components built** — anything that didn't already exist, so it can
-     be promoted into `bundle.css` rather than rebuilt next time.
-   - **Data gaps** — figures a section would have carried if the content had
-     them, and any `data.json` value left unused because it is `transcribed`
-     or `not-quotable` rather than `verified`.
-   - **Needs confirmation** — placeholder links, invented service wording,
-     claims about the client, and anything else written to fill a hole rather
-     than supplied. A `#` href and a paragraph describing a service the user
-     never described both belong here. Silence on these reads as "checked",
-     which is the one thing it never means.
+6. **Close with three lists:** new components built; data gaps (including any
+   `data.json` value left unused as `transcribed` or `not-quotable`); and
+   needs confirmation — placeholder links, invented wording, claims about the
+   client. Silence on these reads as "checked".
 
 ## Built into every page — no prompt needed
 
-Every build ships these three, whether or not the prompt mentions them.
-They're the difference between a page that looks designed and one that feels
-designed.
+Every build ships these, whether or not the prompt mentions them.
 
-**Do this first, before any of the three: inline the CSS and the JS.** Paste
-the needed rules from `bundle.css` and the *whole* of `motion.js` into the
-page. Do not reference them with a `<link>` or a `<script src>` unless the
-page provably resolves repository paths — a standalone HTML file, a Claude
-Design page, an artifact and an emailed deliverable all do not. **This is the
-normal case, not the exception.**
+**0. Inline the CSS and the JS — do this first.** The *whole* of
+`bundle.css`, the *whole* of `motion.js`, and the `:root` block from
+`tokens.css`, pasted into the page. Never a `<link>` or `<script src>`: a
+standalone file, a Claude Design page, an artifact and an emailed deliverable
+all fail to resolve repo paths, and they fail **silently** — no error, nothing
+missing on screen, just a dead page. If unsure, inline it.
 
-A reference that doesn't resolve **fails silently**: no console error, no
-broken layout, nothing missing on screen. Every rule below can be followed
-perfectly and the page still arrives dead, which is exactly how this went
-wrong twice — see CHANGELOG, 2026-10-02 and 2026-10-13. If you are unsure
-whether the page can reach the repo, inline it. Inlining costs a few
-kilobytes; the alternative costs the whole feature with no symptom.
+**Use the tokens.** Once `tokens.css` is in the page, every font size,
+spacing value, radius and shadow comes from `var(--equinet-…, fallback)`.
+Writing `font-size: 36px` or `padding: 24px` or a pasted `box-shadow` when a
+token holds that value is the most common way a page drifts off-system while
+looking roughly right. `tools/check-built-page.py` counts these.
 
-**Literal HTML, not a template.** Write the page as real markup: real
-`<details>` elements, real cards, real `viewBox` attributes on every SVG. Do
-not express repeated content as a template loop over a data array, and do not
-leave runtime-only attribute spellings in the file. The page must read
-correctly as plain HTML with no runtime, for three reasons that all bite
-later:
+**1. Literal HTML, not a template.** Real `<details>`, real cards, real
+`viewBox` on every SVG. No loops over data arrays, no `{{ }}` bindings, no
+runtime-only attribute spellings. The page must read correctly with no
+JavaScript — it is the AEO argument, it is what ports into HubSpot, and it is
+what lets the JSON-LD be checked against the visible text. If your surface
+rewrites markup on export, say so and name the rendered DOM as the
+deliverable.
 
-- **It's the whole AEO argument.** Content that exists only after JavaScript
-  runs is content an answer engine may never see. A page about being cited,
-  whose source carries no text, fails at the thing it describes.
-- **It's what ports.** A module build lifts this markup into HubSpot. A loop
-  over `{{ items }}` and a non-standard `viewBox` spelling both arrive broken.
-- **It's what the JSON-LD has to match.** Questions bound to a data array
-  can't be diffed against the `FAQPage` block by reading the file.
+**2. Interaction states on everything interactive.** `.btn-primary`,
+`.btn-navigation`, `.btn-textual` for actions; `.eq-card` for content cards.
+A card that links somewhere gets `.eq-card__link` inside it and lifts 6px on
+hover and keyboard focus. A card that links nowhere gets neither: rising on
+hover promises a click.
 
-If the surface you're building on rewrites the markup on export, say so in
-the reply and tell the user the rendered DOM is the deliverable, not the
-saved file.
+**3. Entrance motion.** `motion.js` animates two things:
+- **Graphics** — inline every SVG (never `<img>`), `data-asset="name"` on the
+  root, and a `data-role` (card, node, connector, glyph, accent, panel) on
+  every drawn element, *including graphics you compose from scratch*. Without
+  these the script has nothing to animate.
+- **Blocks** — `data-reveal` on cards, stat panels and section blocks.
 
-**1. Interaction states on everything interactive.** Use the components in
-`components/bundle.css`, which already carry hover, focus-visible and active
-states: `.btn-primary`, `.btn-navigation` and `.btn-textual` for actions, and
-`.eq-card` for content cards. A card that links somewhere gets
-`.eq-card__link` inside it — that stretches the link over the whole card and
-makes it lift 6px on hover *and* on keyboard focus. A card that doesn't link
-anywhere gets no link and doesn't lift: rising on hover promises a click.
-
-**2. Entrance motion.** `components/motion.js`, inlined per the rule above.
-It animates two things:
-- **Graphics** — inline every SVG (never `<img>`), put `data-asset="name"` on
-  its root, and a `data-role` (card, node, connector, glyph, accent, panel) on
-  every drawn element, *including in graphics you compose from scratch*.
-  Without `data-asset` and roles, the script has nothing to animate.
-- **Blocks** — add `data-reveal` to cards, stat panels and section blocks.
-  Siblings arrive in sequence.
-
-**3. An FAQ as an accordion.** Every page gets an FAQ section built with
-`.eq-faq` on native `<details>`/`<summary>`, plus `FAQPage` JSON-LD whose
-questions and answers match the visible text word for word. It's the
-strongest answer-engine format on the page, and the native element keeps
-every answer in the document even when collapsed.
-
-```html
-<div class="eq-faq">
-  <details class="eq-faq__item">
-    <summary class="eq-faq__question">What is GEO?
-      <span class="eq-faq__icon" aria-hidden="true"><!-- assets/icons/arrow-chevron.svg, inline --></span>
-    </summary>
-    <div class="eq-faq__answer"><p>…</p></div>
-  </details>
-</div>
-```
-
-The chevron is Equinet's own `arrow-chevron` — the CSS rotates it to point
-down, and up when open.
-
-**What all three already handle, so don't re-implement it:** reduced motion
-(everything static, feedback kept), no-JS fallback (nothing hidden, FAQ still
-works), keyboard access, and visible focus. Verified in a real browser by
-`tests/components-test.py`, `tests/motion-test.py` and
-`tests/graphics-interaction-test.py`.
-
-**Graphics are navigable.** The default for any multi-part graphic — a flow,
-a system diagram, a set of stages — is a **tab set**: each part is a hotspot
-revealing a detail panel beside it, one panel showing at a time. It is how a
-diagram stops being a picture and becomes something a reader works through,
-and it earns the space a large graphic takes.
+**4. Navigable graphics.** Any multi-part graphic — a flow, a system diagram,
+a set of stages — is a tab set: each part a hotspot revealing a detail panel,
+one showing at a time.
 
 ```html
 <div class="eq-graphic eq-graphic--tabs">
@@ -224,47 +162,44 @@ and it earns the space a large graphic takes.
       <rect data-role="hit" x="…" y="…" width="…" height="…"></rect>
       …the artwork for this stage…
     </g>
-    …
   </svg>
-  <div class="eq-graphic__panel" id="p1">
-    <p>The detail for that stage.</p>
-  </div>
-  …
+  <div class="eq-graphic__panel" id="p1"><p>The detail for that stage.</p></div>
 </div>
 ```
 
-`motion.js` wires the rest: WAI-ARIA tabs with a roving tabindex, so the whole
-graphic is **one tab stop** rather than one per hotspot, arrow keys move
-between parts, Home and End jump to the ends, and moving selects — the reader
-arrows across the diagram and watches the context change.
+`motion.js` wires the ARIA, the roving tabindex (one tab stop for the whole
+graphic), arrow keys, Home/End, and selection. **Write the panels visible** —
+only the script sets `hidden`, so with no script every panel still reads.
+Every hotspot needs a transparent `<rect data-role="hit">` of at least
+24 × 24 units and an accessible name from `<title>` or `aria-label`.
 
-**Write the panels visible.** Only the script sets `hidden`. With no script
-every panel reads as plain prose and an answer engine gets all of it, which is
-the reason the detail is on the page at all.
+A panel carries the context the graphic can't draw, not a caption restating
+the label. A part with nothing worth revealing isn't a hotspot.
 
-**Every hotspot needs two things:** a `<rect data-role="hit">` — transparent,
-at least 24 × 24 user units, which is the target (WCAG 2.5.8), the highlight
-shape and the focus ring — and an accessible name from a `<title>` or
-`aria-label`. `motion.js` warns in the console when the name is missing.
+`role="button"` on a lone hotspot is the disclosure variant.
+`.eq-graphic__link` makes the whole graphic a link — rare.
 
-**Two other forms, both rarer.** `role="button"` on a lone hotspot is a
-disclosure: one panel, toggled independently, where there is no
-one-of-several relationship to express. `.eq-graphic__link` makes the whole
-graphic a link to somewhere else, lifting 6px exactly like `.eq-card`.
+**5. An FAQ as an accordion.** `.eq-faq` on native `<details>`/`<summary>`,
+plus `FAQPage` JSON-LD matching the visible text word for word.
 
-**What the panels should say.** A panel is the context the graphic cannot draw
-— what happens at that stage, why it is there, what it costs to skip. Not a
-caption restating the label. If a part of the graphic has nothing worth
-revealing, it is not a hotspot; a tab that opens a sentence anyone could have
-guessed is worse than no tab.
+```html
+<div class="eq-faq">
+  <details class="eq-faq__item">
+    <summary class="eq-faq__question">What is GEO?
+      <span class="eq-faq__icon" aria-hidden="true"><!-- arrow-chevron.svg, inline --></span>
+    </summary>
+    <div class="eq-faq__answer"><p>…</p></div>
+  </details>
+</div>
+```
 
-**Still don't add:** looping or ambient animation, or a response on a graphic
-that does nothing. A hover state is a promise — keep it or don't make it.
+**Don't add:** looping or ambient animation, or any response on a graphic
+that does nothing. Don't highlight with `transform` or `opacity` — `motion.js`
+animates both on `[data-role]` during entrance. Stroke and fill only.
 
-**Don't highlight with `transform` or `opacity`.** Both are animated by
-`motion.js` on `[data-role]` elements during entrance, so a hover rule
-touching either fights the entrance mid-flight. Stroke and fill only; that's
-what `.eq-graphic__hotspot` uses.
+**Already handled, so don't re-implement:** reduced motion, no-JS fallback,
+keyboard access, visible focus. Covered by `tests/components-test.py`,
+`tests/motion-test.py` and `tests/graphics-interaction-test.py`.
 
 ## The one hard limit: never invent data
 

@@ -28,6 +28,59 @@ Project. Every entry below represents a manual reconciliation pass — someone
 asked Claude, in that Project, to fold new development work into
 `tokens.css` / `README.md`, then committed the result here.
 
+## 2026-10-14 — Skill trimmed back; built-page auditor added
+
+A GEO page built against the 2 October system came back with the styling
+wrong, and the skill was fairly accused of bloat. Both were true, and they
+were separate problems.
+
+**The skill had grown 71%** — 1,489 words to 2,553 — and every word of it had
+gone into motion, interaction and reporting. The asset kit, AEO structure and
+charts sections, which decide what a page actually looks like, were untouched
+at 2,343 / 447 / 659 bytes. Headings, spacing and shadows aren't in the skill
+at all; they come from the README digest, which had to compete with a 6.9 kB
+section about animation.
+
+**Trimmed to 1,898 words (+27% over the original, down from +71%).** What came
+out was rationale, not rules: why a silent failure is worse than a loud one,
+which changelog entry each rule came from, the three reasons literal HTML
+matters, why a roving tabindex beats eight tab stops. That belongs here, in a
+file written to be read by a person investigating. The skill is read at build
+time by a model deciding what to do next, and rationale there is dilution. No
+rule was dropped; the remaining growth is the interactive-graphics contract
+and its HTML example, which are genuinely new.
+
+**What the page actually showed, measured:**
+
+- `tokens.css` fully inlined — 215 tokens defined, 104 used, zero undefined —
+  and then **100 hardcoded font sizes, 81 hardcoded spacings and 20 hardcoded
+  radii**, every one of them a literal that a token already held.
+- **Six `box-shadow` rules were `--equinet-shadow-card` and
+  `--equinet-shadow-card--hover` pasted into one declaration**, so six cards
+  sat permanently in their hover state.
+- `bundle.css` inlined in full, `motion.js` not at all: no
+  `IntersectionObserver` anywhere in the file. The CSS classes were present
+  and nothing ever applied them. The no-JS fallback is clean, so the page
+  looked entirely normal.
+- 2 of 32 SVG roots carried `data-asset`; 4 graphics were `<img>`.
+- 32 SVGs carried a runtime `viewBox` spelling and 0 carried a real one; 130
+  template bindings remained.
+
+**New: `tools/check-built-page.py`.** Audits a finished page rather than the
+repo, and names the token each literal should have been. It reads a Claude
+Design bundle by unwrapping it first — the 977 kB file is a loader, and
+auditing the wrapper tells you nothing. Three bugs were found and fixed while
+building it, each one a wrong answer rather than a crash: value matching that
+suggested `--equinet-scale-300` for a `font-size`, a zero-unit normaliser that
+turned `20px` into `20`, and element counts that read `<img>` out of
+`bundle.css`'s own comments and reported two images that didn't exist.
+
+**New rule in the skill: use the tokens.** Once `tokens.css` is in the page,
+every size, space, radius and shadow comes from `var(--equinet-…, fallback)`.
+Writing the literal when a token holds that value is how a page drifts
+off-system while still looking roughly right — which is exactly what happened.
+Phase 2's count now includes it.
+
 ## 2026-10-13 — Graphics become navigable: tab sets with detail panels
 
 Reworked the interactive-graphics component the same day it landed. The first

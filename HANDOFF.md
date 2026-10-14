@@ -74,6 +74,7 @@ chat each time, not pulled automatically.
 | `tools/build-manifest.py` | Regenerates `assets/manifest.json` from the files | After adding, renaming or editing any asset |
 | `tools/build-tokens-json.py` | Regenerates `tokens.json` and `tools/tokens-unrepresentable.md` from `tokens.css` | After any change to `tokens.css`. `--check` fails if the JSON is stale |
 | `tools/check-docs.py` | Eleven consistency checks across the prose, the tokens and the manifest | Before every commit; exits non-zero so it wires into a hook or an Action |
+| `tools/check-built-page.py` | Audits a finished page: hardcoded px/shadow values where a token exists, whether `motion.js` is actually in the file, `data-asset` coverage, real `viewBox`, template bindings, FAQ/JSON-LD match. Unwraps a Claude Design bundle first | On every page a build hands back, before accepting it |
 | `assets/manifest.json` | Machine-readable record of every asset — background, roles, palette→tokens, subject. Generated, so it is always the live count | Choosing and reworking assets programmatically |
 | `assets/REWORKING.md` | How to adapt an asset to the data, by `data-role` | Editing a graphic to match content |
 | `assets/RENAMES.md` | Old → new filename map from the 2026-09-26 rename | Resolving older references |
