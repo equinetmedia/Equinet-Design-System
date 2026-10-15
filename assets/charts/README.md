@@ -93,6 +93,16 @@ None of this is corrected in the SVGs: changing delivered artwork is the
 designer's decision. It's recorded here and in `data.json` so the fixes can be
 made at source, and so any rebuild starts from the right figures.
 
+## Donuts — sanctioned 2026-10-14, for a single share only
+
+`chart-ai-results-not-universal` is the reference: three donuts, each one
+figure. A donut is the right format for one percentage of a whole, where
+there is nothing to compare and the ring is a gauge around a number. Several
+shares that sum to 100% stay a stacked bar, and a multi-segment pie is still
+wrong — the objection was always about comparing angles, which a single share
+doesn't ask anyone to do. House style is written up in
+`skills/equinet-layout/references/content-to-format.md`.
+
 ## Palette — ruled 2026-10-13
 
 **Charts use navy, orange and teal**: `--equinet-color-navy`,

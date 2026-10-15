@@ -28,6 +28,106 @@ Project. Every entry below represents a manual reconciliation pass — someone
 asked Claude, in that Project, to fold new development work into
 `tokens.css` / `README.md`, then committed the result here.
 
+## 2026-10-14 — Donuts allowed for a single share
+
+`content-to-format.md` ruled out pies outright and told builds to use a
+stacked bar for anything parts-of-a-whole. Meanwhile
+`assets/charts/chart-ai-results-not-universal` is three donuts, shipped. The
+rule and the artwork disagreed, and the artwork was right.
+
+**The objection to pies was always about comparison.** People read lengths
+more accurately than angles, so a multi-segment pie makes a reader work
+harder to see what a bar shows at once. None of that applies to a **single
+share**: there is nothing to compare, the ring is a gauge, and the number in
+the middle does the reading. Donuts are now the format for one percentage.
+Several shares that sum to 100% stay a stacked bar. A multi-segment pie is
+still wrong.
+
+**House style written up from the real file rather than invented.** Measured
+in `chart-ai-results-not-universal`: 17 filled arc paths, zero `<circle>`,
+zero `stroke-dasharray` — the ring is drawn as arcs, not as a stroked circle
+with a dash offset, which is the obvious way and not the Equinet way. Paint
+order is track then value: a full-circle track in `--equinet-color-night-100`
+(#F6F7F9) with the value arc over it in `--equinet-color-blue-default`
+(#00426C). Starts at twelve o'clock, clockwise, square-cut ends, band about a
+seventh of the diameter. The figure sits large in the middle in
+`--equinet-color-text`; caption below in sentence case, source smaller again
+in `--equinet-color-night-700`. Three across, separated by thin rules.
+
+Added as its own row in the format table — "A single share" — above the
+existing parts-of-a-whole row, so a build reaches for it by content shape
+rather than by remembering an exception. Plus one rule worth keeping: a donut
+with no number in it is a decoration, and a figure not worth setting large
+doesn't need a chart.
+
+Also fixed: the "Change over time" row still cited `chart-blue-*`, the last
+reference to the superseded palette after the 2026-10-13 ruling.
+
+## 2026-10-14 — Motion scoped to graphics; composed-graphic substance rule
+
+A second GEO page came back clean on every mechanical check — `motion.js`
+inlined, 54 of 54 SVGs annotated, no `<img>`, no template bindings, real
+`viewBox` throughout, one hardcoded value in the whole page — and still read
+as boring and jerky with nothing responding to the cursor. All three
+complaints were true, and none of them was a mechanical failure.
+
+**Motion is now scoped to graphics, not icons.** 50 of the page's 54 SVGs
+were icons 64px or smaller — nine `lucide-circle-check`, six
+`arrow-chevron` — each one annotated and animated because the rule said
+"inline every SVG, `data-role` on every drawn element". That put **149 of 234
+animated elements inside line art a few pixels across**. The rule never
+scoped itself; it was written for a handful of illustrations. Icons are now
+inlined but not annotated, and `motion.js` enforces the same 64px gate itself
+so an over-annotating build still produces a smooth page.
+
+**Cards must be decided before they are built.** The page carried 17
+`.eq-card` elements and zero `.eq-card__link`, so not one lifted. That is the
+rule working — no link, no lift — but seventeen inert cards plus eight flat
+graphics is most of the page's surface, and it reads as broken. Either give a
+card a destination or make the content a panel. If most cards end up inert,
+that is a layout problem, not a styling one.
+
+**Every multi-part graphic should be a tab set.** Phase 2 already counted
+them; counting was not enough, because this build would have answered "2, of
+which 1" and shipped. It is a threshold now, and `check-built-page.py` fails
+when a multi-part graphic is left flat.
+
+**New: composed graphics must hold their own.** Measured across the 36
+illustration assets: median **16 drawn elements**, 2 filters, 1 gradient,
+2 clip paths. The page shipped a `hero-answer-spine` of **2 elements** — a
+rect, a line and a circle — and a `method-five-step-flow` of 10 bare `<line>`
+elements **with no arrowheads at all**. Equinet draws arrowheads as filled
+paths at the line end, never with `marker-end`; across 53 real assets there
+is not one `<marker>`. A bare line between two nodes is an unfinished
+connector, and it is the most visible tell that a graphic was sketched rather
+than drawn. The skill now states the benchmark and what the real assets do
+that a thin composition doesn't: arrowheads, depth from `<filter>` and
+gradients, caps and joins, overlap rather than a flat row, labels inside the
+artwork.
+
+**Never crop a whole asset's `viewBox` to fit a slot.** The build narrowed
+`flow-machine-readable-expertise` from `0 0 1209 675` to `20 200 1180 300`,
+which silently removed all four of its labels — "Unstructured Commercial
+Data", "Machine-Readable Structure", "Verified Commercial Data", "Found,
+Understood, Cited". Rendering the source and the built copy side by side was
+the only way to see it. Changing the viewBox is not resizing.
+
+**`check-built-page.py` gains three checks:** thin composed graphics against
+the 16-element benchmark, `<line>` connectors with no arrowheads, and
+multi-part graphics left flat. Two false positives were found and fixed while
+calibrating: transparent hotspot overlays are not artwork, and the substance
+threshold sits at 96px rather than 64 because brand marks and service tiles
+run to 69 x 69 and are meant to be simple.
+
+Also fixed: `references/content-to-format.md` still told builds to draw bar
+charts from `chart-blue-*`, superseded by the 2026-10-13 navy/orange/teal
+ruling.
+
+Measured, for the record: hover states were **not** broken. Primary buttons
+scale and shift shadow, textual buttons go orange, FAQ summaries go navy,
+hotspot hit rects go transparent to orange. Only `.eq-card` did nothing, for
+the reason above.
+
 ## 2026-10-14 — Skill trimmed back; built-page auditor added
 
 A GEO page built against the 2 October system came back with the styling

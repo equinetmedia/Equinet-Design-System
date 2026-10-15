@@ -105,7 +105,8 @@ means skipping the planning.
    - hardcoded px font-sizes, spacings and shadows where a token exists
      (must be 0 — run `tools/check-built-page.py`)
    - FAQ items, and does the JSON-LD match them word for word?
-   - multi-part graphics, and how many are tab sets
+   - multi-part graphics, and how many are tab sets — **every one of them
+     should be**, so anything short of all is a fix, not a statistic
 
 6. **Close with three lists:** new components built; data gaps (including any
    `data.json` value left unused as `transcribed` or `not-quotable`); and
@@ -143,12 +144,53 @@ A card that links somewhere gets `.eq-card__link` inside it and lifts 6px on
 hover and keyboard focus. A card that links nowhere gets neither: rising on
 hover promises a click.
 
+**Decide what a card does before you build it.** A page of seventeen cards
+that all link nowhere is a page where nothing responds to the cursor, and it
+reads as broken even though every rule was followed. Either give a card a
+destination — the section it summarises, the FAQ answer it previews, the
+anchor it belongs to — or make the content a panel rather than a card. If
+most cards on the page end up inert, that is a layout problem, not a styling
+one.
+
 **3. Entrance motion.** `motion.js` animates two things:
-- **Graphics** — inline every SVG (never `<img>`), `data-asset="name"` on the
-  root, and a `data-role` (card, node, connector, glyph, accent, panel) on
-  every drawn element, *including graphics you compose from scratch*. Without
-  these the script has nothing to animate.
+- **Graphics** — inline every SVG (never `<img>`), and on graphics **larger
+  than 64px**, `data-asset="name"` on the root plus a `data-role` (card,
+  node, connector, glyph, accent, panel) on every drawn element, *including
+  graphics you compose from scratch*. Without these the script has nothing to
+  animate.
 - **Blocks** — `data-reveal` on cards, stat panels and section blocks.
+
+**Don't annotate icons.** A 24px tick or chevron gets inlined like everything
+else, but no `data-asset` and no `data-role`. A page carries dozens of them,
+and animating each one's paths adds hundreds of elements to the entrance for
+line art a few pixels across — it buys nothing a reader sees and makes
+scrolling stutter. `motion.js` enforces the same 64px gate itself.
+
+**A composed graphic has to hold its own next to the real ones.** Measured
+across the 36 illustration assets: median **16 drawn elements**, 2 filters,
+1 gradient, 2 clip paths. A graphic you compose should land in that range.
+Three lines and two circles is not an infographic — it is a diagram of one,
+and on a page beside real Equinet artwork it reads as a placeholder.
+
+What the real assets do that a thin composition doesn't:
+
+- **Arrowheads on connectors.** Equinet draws them as filled paths at the end
+  of the line, not with `marker-end`. A bare `<line>` between two nodes is an
+  unfinished connector — this is the single most visible tell.
+- **Depth.** Soft shadows via `<filter>`, subtle gradients on panels, and
+  elements that overlap and layer rather than sitting in a flat row. Pull the
+  `<defs>` from a real asset and reuse them.
+- **Caps and joins.** Small rects where a line meets a card, rounded corners,
+  dots at junctions — the details that make a flow look drawn rather than
+  plotted.
+- **Labels inside the artwork**, as outlined paths, positioned with the
+  geometry.
+
+**Never crop a whole asset's `viewBox` to fit a slot.** Narrowing
+`0 0 1209 675` to `20 200 1180 300` cuts off whatever sits outside the band —
+on 2026-10-14 that silently removed all four labels from a flow and nobody
+saw it until the page was reviewed. Scale the asset, give it a different
+slot, or recompose it properly. Changing the viewBox is not resizing.
 
 **4. Navigable graphics.** Any multi-part graphic — a flow, a system diagram,
 a set of stages — is a tab set: each part a hotspot revealing a detail panel,

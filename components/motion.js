@@ -80,7 +80,29 @@
     window.setTimeout(function () { cleanup(svg); }, CLEANUP_AFTER_MS);
   }
 
-  var graphics = document.querySelectorAll('svg[data-asset]:not([data-motion-ready])');
+  // Entrance motion is for GRAPHICS, not icons. A page can easily carry 50
+  // small icons; annotating each one puts a few hundred elements into the
+  // entrance choreography for line art a few pixels across, which buys
+  // nothing a reader notices and makes scrolling stutter. 2026-10-14: a GEO
+  // page animated 234 elements, 149 of them inside icons 64px or smaller.
+  //
+  // The gate is applied here as well as in the skill, because a build that
+  // over-annotates should still produce a smooth page.
+  var MIN_GRAPHIC_PX = 64;
+
+  function isGraphic(svg) {
+    if (svg.hasAttribute('data-motion-always')) return true;   // deliberate override
+    var box = svg.getBoundingClientRect();
+    // A zero box means it is not laid out yet (display:none, or off-screen in
+    // a collapsed panel). Treat it as a graphic and let the observer decide.
+    if (!box.width && !box.height) return true;
+    return Math.max(box.width, box.height) > MIN_GRAPHIC_PX;
+  }
+
+  var graphics = Array.prototype.filter.call(
+    document.querySelectorAll('svg[data-asset]:not([data-motion-ready])'),
+    isGraphic
+  );
   // HTML blocks marked data-reveal: cards, stat panels, section blocks.
   var blocks = document.querySelectorAll('[data-reveal]:not([data-motion-ready])');
   if (!graphics.length && !blocks.length) return;

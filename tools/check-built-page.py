@@ -242,9 +242,65 @@ def check_graphics(page):
     if not re.search(r"data-reveal", page):
         fail("graphics", "no data-reveal blocks — cards and panels won't stagger in")
 
+    # --- composed-graphic substance -----------------------------------------
+    # Measured across the 36 illustration assets: median 16 drawn elements,
+    # 2 filters, 1 gradient. A composed graphic far below that reads as a
+    # placeholder beside real artwork. 2026-10-14: a page shipped a "hero"
+    # of 2 elements and a five-step flow of 10 with no arrowheads.
+    THIN = 8
+    thin, bare_connectors = [], []
+    for m in re.finditer(r'<svg\b[^>]*data-asset="([^"]+)"[^>]*>(.*?)</svg>', page, re.S):
+        name, body = m.group(1), m.group(2)
+        box = re.search(r'viewBox="[\d.\-]+ [\d.\-]+ ([\d.]+) ([\d.]+)"', m.group(0))
+        # 96, not 64: icons stop at 64 but brand marks and service tiles run to
+        # 69 x 69, and they are meant to be simple. Only judge illustrations.
+        if box and max(float(box.group(1)), float(box.group(2))) <= 96:
+            continue
+        roles = re.findall(r'data-role="([^"]+)"', body)
+        if roles and set(roles) == {"hit"}:
+            continue                   # a transparent hotspot overlay, not artwork
+        drawn = len(re.findall(r"<(path|rect|circle|polygon|ellipse|line)\b", body))
+        if drawn < THIN:
+            thin.append((name, drawn))
+        lines = len(re.findall(r"<line\b", body))
+        heads = len(re.findall(r"<(polygon|marker)\b", body)) + len(
+            re.findall(r'<path[^>]*data-role="connector"[^>]*fill="(?!none)[^"]+"', body)
+        )
+        if lines >= 2 and heads == 0:
+            bare_connectors.append((name, lines))
+
+    fact("composed graphics below 8 elements", len(thin))
+    for name, drawn in thin:
+        fail("thin graphic",
+             f"`{name}` is {drawn} drawn element(s). The 36 real illustrations run "
+             "6 to 110, median 16 — this will read as a placeholder beside them")
+    for name, lines in bare_connectors:
+        fail("bare connectors",
+             f"`{name}` has {lines} <line> connectors and no arrowheads. Equinet draws "
+             "them as filled paths at the line end; a bare line is an unfinished connector")
+
     tabs = len(re.findall(r'role="tab"', page))
     hits = len(re.findall(r'data-role="hit"', page))
     fact("hotspots (role=tab)", tabs)
+    # Every multi-part graphic should be a tab set. Count the candidates: a
+    # graphic over 64px carrying several card/node/step elements.
+    candidates = []
+    for m in re.finditer(r'<svg\b[^>]*data-asset="([^"]+)"[^>]*>(.*?)</svg>', page, re.S):
+        name, body = m.group(1), m.group(2)
+        box = re.search(r'viewBox="[\d.\-]+ [\d.\-]+ ([\d.]+) ([\d.]+)"', m.group(0))
+        if box and max(float(box.group(1)), float(box.group(2))) <= 64:
+            continue
+        parts = len(re.findall(r'data-role="(card|node|tile|panel)"', body))
+        if parts >= 3:
+            candidates.append(name)
+    wired = len(re.findall(r'eq-graphic--tabs', markup_only(page)))
+    fact("multi-part graphics", f"{len(candidates)} ({wired} wired as tab sets)")
+    if candidates and wired < len(candidates):
+        fail("graphics",
+             f"{len(candidates) - wired} of {len(candidates)} multi-part graphic(s) are "
+             f"flat pictures: {', '.join(candidates[:4])}. Every one should be a tab set "
+             "revealing a detail panel — that is what makes the page navigable")
+
     if tabs and not hits:
         fail("graphics", f"{tabs} tab hotspot(s) with no data-role=\"hit\" rect — "
                          "no target, no highlight, no focus ring")
