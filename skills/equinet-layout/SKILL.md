@@ -166,6 +166,14 @@ and animating each one's paths adds hundreds of elements to the entrance for
 line art a few pixels across — it buys nothing a reader sees and makes
 scrolling stutter. `motion.js` enforces the same 64px gate itself.
 
+**The eyebrow above a heading is `.eq-eyebrow`.** The plain orange one is
+the default. `.eq-eyebrow--solid` — the same label in a pale pill — is
+rationed to hero banners, CTA banners and modules carrying exceptional value.
+More than one or two on a page means it is decoration and the plain variant
+was right. Orange at 12px/700 fails AA on every ground this system has, so
+where a build can't carry that, `--solid-safe` and `--on-dark` are the
+compliant forms; see `assets/components/README.md`.
+
 **Module backgrounds are a separate thing from graphics.**
 `assets/backgrounds/` holds draughtsman's line work — construction circles,
 arcs, dashed centre lines — meant to sit behind a section as texture. Place

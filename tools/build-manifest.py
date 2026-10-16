@@ -17,7 +17,7 @@ os.chdir(ROOT)
 CATEGORY = {'illustrations': 'illustration', 'icons': 'icon', 'brand': 'brand',
             'buttons': 'button-source', 'comps': 'layout-blueprint',
             'marketing': 'style-reference', 'charts': 'chart',
-            'backgrounds': 'background'}
+            'backgrounds': 'background', 'components': 'component-source'}
 # Colours decided to be an existing token rather than a separate value.
 FOLDED = {'#FFE6DB': '--equinet-color-orange--pale'}
 
@@ -62,7 +62,13 @@ def background(svg, body, roles, W, H):
         if not (w and h) or re.search(r'\s(x|y)="[1-9]', a): continue
         if abs(float(w.group(1)) - W) < 2 and abs(float(h.group(1)) - H) < 2:
             f = (re.search(r'fill="([^"]+)"', a) or [None, ''])[1].upper()
-            if f in ('WHITE', '#FFFFFF', '#F6F5F5'): return 'opaque light'
+            # Light vs dark is a luminance question, not a whitelist one. The
+            # old list of three literals called the pale #FCE9E0 eyebrow pill
+            # "opaque dark" (2026-10-16). Same threshold as the gradient
+            # branch below, so the two agree.
+            if f == 'WHITE': return 'opaque light'
+            if re.fullmatch(r'#[0-9A-F]{6}', f):
+                return 'opaque light' if sum(rgb(f)) / 3 > 200 else 'opaque dark'
             if f.startswith('URL('):
                 gid = re.search(r'URL\(#([^)]+)\)', f)
                 g = re.search(r'id="' + re.escape(gid.group(1).lower() if gid else '') + r'"[\s\S]*?</(?:linear|radial)Gradient>', svg, re.I) if gid else None

@@ -14,7 +14,7 @@
     "shape": "unclassified (usually invisible bounds)"
   },
   "palette_note": "'unsanctioned' marks a colour found in artwork that is not a token; replace it with nearest_token (by RGB distance \u2014 a suggestion, not a ruling) rather than carrying the raw hex forward.",
-  "count": 102,
+  "count": 104,
   "assets": [
     {
       "name": "draftmans-background-hero-banner",
@@ -659,6 +659,48 @@
         "data": "assets/charts/data.json",
         "note": "Figures are outlined in the SVG. Rebuild live from data.json; never retype from the artwork."
       }
+    },
+    {
+      "name": "eyebrow-plain",
+      "path": "assets/components/eyebrow-plain.svg",
+      "category": "component-source",
+      "group": "components",
+      "width": 115.0,
+      "height": 32.0,
+      "aspect": 3.594,
+      "background": "transparent",
+      "live_text": 1,
+      "reworkable": false,
+      "roles": {},
+      "palette": [
+        {
+          "hex": "#E06730",
+          "token": "--equinet-color-amber-default"
+        }
+      ]
+    },
+    {
+      "name": "eyebrow-solid",
+      "path": "assets/components/eyebrow-solid.svg",
+      "category": "component-source",
+      "group": "components",
+      "width": 115.0,
+      "height": 32.0,
+      "aspect": 3.594,
+      "background": "opaque light",
+      "live_text": 1,
+      "reworkable": false,
+      "roles": {},
+      "palette": [
+        {
+          "hex": "#E06730",
+          "token": "--equinet-color-amber-default"
+        },
+        {
+          "hex": "#FCE9E0",
+          "token": "--equinet-color-amber-100"
+        }
+      ]
     },
     {
       "name": "Global-Navigation",

@@ -29,7 +29,7 @@ ld=json.dumps({"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{
 page=f"""<!doctype html><html><head><meta charset="utf-8">
 <link rel="stylesheet" href="file://{REPO}/tokens.css"><link rel="stylesheet" href="file://{REPO}/components/bundle.css">
 <style>body{{margin:0;font-family:sans-serif}}.spacer{{height:1400px}}.row{{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;padding:40px}}.faq{{padding:40px;max-width:800px}}</style></head>
-<body><div class="spacer"></div><div class="row" id="row">{card(1)}{card(2)}{card(3,link=False)}</div>
+<body><div class="spacer"></div><p class="eq-eyebrow" id="ebp">Why HubSpot</p><p class="eq-eyebrow eq-eyebrow--solid" id="ebs">Why HubSpot</p><p class="eq-eyebrow eq-eyebrow--solid eq-eyebrow--solid-safe" id="ebsafe">Why HubSpot</p><div class="row" id="row">{card(1)}{card(2)}{card(3,link=False)}</div>
 <section class="faq" aria-labelledby="faqh"><h2 id="faqh">FREQUENTLY ASKED QUESTIONS</h2><div class="eq-faq" id="faq">{items}</div></section>
 <script type="application/ld+json">{ld}</script><div class="spacer"></div>__JS__</body></html>"""
 open(os.path.join(TMP,'static.html'),'w').write(page.replace('__JS__',''))
@@ -43,6 +43,27 @@ with sync_playwright() as p:
     # ---------- no JS
     pg=b.new_page(viewport={'width':1200,'height':800}); pg.goto('file://'+TMP+'/static.html'); pg.wait_for_timeout(200)
     ok("C1 no JS: cards fully visible", pg.evaluate("[...document.querySelectorAll('.eq-card')].every(e=>getComputedStyle(e).opacity==='1')"))
+    # ---------- eyebrow, measured against assets/components/eyebrow-*.svg
+    EB="([s,p])=>getComputedStyle(document.querySelector(s))[p]"
+    ok("E1 eyebrow: 12px / 700 / 0.2em, uppercase",
+       pg.evaluate(EB,["#ebp","fontSize"])=="12px" and pg.evaluate(EB,["#ebp","fontWeight"])=="700"
+       and pg.evaluate(EB,["#ebp","letterSpacing"]).startswith("2.4")
+       and pg.evaluate(EB,["#ebp","textTransform"])=="uppercase",
+       f'{pg.evaluate(EB,["#ebp","fontSize"])} / {pg.evaluate(EB,["#ebp","fontWeight"])} / {pg.evaluate(EB,["#ebp","letterSpacing"])}')
+    ok("E2 eyebrow: orange label", pg.evaluate(EB,["#ebp","color"])=="rgb(224, 103, 48)",
+       pg.evaluate(EB,["#ebp","color"]))
+    ok("E3 solid: pale pill, 8px radius, 24px side padding",
+       pg.evaluate(EB,["#ebs","backgroundColor"])=="rgb(252, 233, 224)"
+       and pg.evaluate(EB,["#ebs","borderRadius"])=="8px"
+       and pg.evaluate(EB,["#ebs","paddingLeft"])=="24px",
+       f'{pg.evaluate(EB,["#ebs","backgroundColor"])} / {pg.evaluate(EB,["#ebs","borderRadius"])} / {pg.evaluate(EB,["#ebs","paddingLeft"])}')
+    ok("E4 solid: 32px tall, matching the 115x32 export",
+       abs(pg.evaluate("document.querySelector('#ebs').getBoundingClientRect().height")-32)<1,
+       str(pg.evaluate("document.querySelector('#ebs').getBoundingClientRect().height")))
+    ok("E5 plain: no pill behind it",
+       pg.evaluate(EB,["#ebp","backgroundColor"]) in ("rgba(0, 0, 0, 0)","transparent"))
+    ok("E6 solid-safe: label is the AA-passing text colour",
+       pg.evaluate(EB,["#ebsafe","color"])=="rgb(36, 37, 48)", pg.evaluate(EB,["#ebsafe","color"]))
     ok("F0 no JS: FAQ works natively", pg.evaluate("(()=>{const d=document.querySelector('.eq-faq__item');d.querySelector('summary').click();return d.open})()"))
     pg.close()
     # ---------- motion

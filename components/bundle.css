@@ -961,3 +961,75 @@
 @media (max-width: 767px) {
   .eq-graphic--tabs .eq-graphic__panel { min-height: 0; }
 }
+
+
+/* ============================================================================
+   EYEBROW — .eq-eyebrow
+   The small uppercase label above a heading. Measured from
+   assets/components/eyebrow-plain.svg and eyebrow-solid.svg (both 115 x 32,
+   text at x=24, Figma 2026-10-16).
+
+   .eq-stagger__eyebrow above is the same thing scoped to that one component
+   and predates this. It is left alone so nothing breaks; new work uses
+   .eq-eyebrow, which is the same type treatment unscoped plus the solid
+   variant.
+
+   TWO VARIANTS, AND THE SECOND IS RATIONED:
+     .eq-eyebrow          plain orange text. The default, and almost always
+                          the right one.
+     .eq-eyebrow--solid   the same label in a pale pill. Hero banners, CTA
+                          banners, and modules carrying exceptional value —
+                          nothing else. It reads as emphasis, and emphasis
+                          that appears on every section is not emphasis.
+
+   CONTRAST, MEASURED — READ THIS BEFORE USING ORANGE ON ANY GROUND:
+     orange on orange--pale   2.90:1
+     orange on white          3.41:1
+     orange on surface--alt   3.14:1
+     orange on navy           3.08:1
+   12px at weight 700 is NOT large text (that needs 18.66px bold or 24px
+   regular), so the threshold is 4.5:1 and every one of those fails. This is
+   the "One unresolved" item in README.md, and these assets are what it was
+   about. Until it is ruled on, --solid-safe and --on-dark below are the
+   compliant forms and the orange ones are the client's risk, not an
+   oversight.
+   ========================================================================== */
+
+.eq-eyebrow {
+  display: inline-block;
+  margin: 0;
+  font-family: var(--equinet-font-body, 'Source Sans 3', sans-serif);
+  font-size: var(--equinet-fontsize-kicker, 12px);
+  font-weight: var(--equinet-fontweight-kicker, 700);
+  letter-spacing: var(--equinet-letterspacing-kicker, 0.2em);
+  /* 0.2em of tracking hangs off the last letter. Indenting by the same
+     amount puts it back on the left so the label sits optically centred —
+     visible on the pill, where the gaps are measurable. */
+  text-indent: var(--equinet-letterspacing-kicker, 0.2em);
+  line-height: 1;
+  text-transform: uppercase;
+  color: var(--equinet-color-orange, #E06730);
+}
+
+/* The pill: 115 x 32 frame, text inset 24, rx 8. The vertical padding is
+   derived rather than hardcoded — (32 - 12) / 2 = 10px, which is off the
+   4px scale and so has no token of its own. Writing it as the 32px scale
+   token minus the line keeps the height tied to the measurement instead of
+   to a magic number, and lets a long label wrap rather than overflow. */
+.eq-eyebrow--solid {
+  padding: calc((var(--equinet-scale-800, 32px) - 1em) / 2)
+           var(--equinet-space-md, 24px);
+  border-radius: var(--equinet-radius-pill, 8px);
+  background: var(--equinet-color-orange--pale, #FCE9E0);
+}
+
+/* Compliant alternatives. Same pill, label that passes AA. */
+.eq-eyebrow--solid-safe {
+  color: var(--equinet-color-text, #242530);   /* 12.93:1 on the pale pill */
+}
+
+/* On a dark module ground, orange fails against both navy and night. The
+   pale amber passes comfortably on either. */
+.eq-eyebrow--on-dark {
+  color: var(--equinet-color-orange--pale, #FCE9E0);
+}

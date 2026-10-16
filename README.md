@@ -19,6 +19,7 @@ AI-generated design**.
 | 9 | **Illustrations are reference, not sealed artwork.** Recompose freely — crop, scale, overlap, extract, rearrange. Colour, typography and iconography still follow the system. |
 | 10 | **Every section gets a visual.** Place a whole illustration when its subject matches (`assets/illustrations/INDEX.md`); otherwise **compose** a bespoke graphic from the set's structural primitives — cards, connectors, nodes, panels. Never a mismatched whole illustration, never a bare section. Comps are layout blueprints; marketing infographics are the style reference. |
 | 11 | **Backgrounds:** `scenes/` are opaque **dark** (navy gradient); `sectors/` are opaque **light** (`#F6F5F5`→white); `systems/`, `flows/` are transparent and need a surface; `pictonodes/` are square and never sit in a 16:9 row. |
+| 10a | **The eyebrow** is `.eq-eyebrow`. `--solid` (the pale pill) is for hero banners, CTA banners and modules of exceptional value only — emphasis on every section is not emphasis. Orange on any ground fails AA at 12px/700; `--solid-safe` and `--on-dark` are the compliant forms. |
 | 11a | **Module backgrounds:** `assets/backgrounds/` is draughtsman's line work, placed as a CSS `background-image` — never inlined, never annotated with `data-asset` or `data-role`. Set copy in the open side of the frame; never behind a stat, a chart, or anything to decode. |
 | 12 | **WCAG 2.1 AA**, measured not estimated. One signed-off exception: the primary button's white label. |
 | 13 | **Rework assets by role, from the manifest.** Choose from `assets/manifest.json`; edit via `data-role` (card, node, connector, glyph, accent…), per `assets/REWORKING.md`. Illustrations have no live text — labels go in HTML, never in the SVG. |
@@ -802,6 +803,10 @@ of them, just the mandate to use them.
 - Wordmark: `assets/brand/wordmark-light.svg` or `wordmark-dark.svg`, picked
   by background contrast (see **Brand mark**). Never render the name as
   styled text standing in for the logo.
+- Component sources: `assets/components/` holds the Figma exports a component
+  was measured from — `eyebrow-plain` and `eyebrow-solid`, both 115 × 32.
+  Never placed on a page; they carry live text. See
+  `assets/components/README.md`.
 - Backgrounds: `assets/backgrounds/` holds three draughtsman's line-work
   frames at 1619 wide — hero banner, process flow, market amplification. One
   ink each (`charade-400` or `charade-500`), transparent, decorative only.
@@ -889,8 +894,15 @@ compensated for with a text shadow or stroke, and it does not extend to any othe
 component. Raising the label to 18.66px at weight 700 would bring the default and
 dark-hover fills into the large-text threshold; the light hover would still fail.
 
-**One unresolved.** Orange eyebrow text on the pale orange pill measures 2.9:1.
-This has not been raised with the client.
+**One unresolved.** Orange eyebrow text on the pale orange pill measures
+2.90:1 — and on white 3.41:1, on `surface--alt` 3.14:1, on navy 3.08:1. At
+12px / 700 none of those is large text, so the threshold is 4.5:1 and every
+ground fails. As of 2026-10-16 this is no longer hypothetical: the eyebrow
+ships as `.eq-eyebrow` with the Figma source in `assets/components/`. Still
+not raised with the client. `.eq-eyebrow--solid-safe` (label in
+`--equinet-color-text`, 12.93:1) and `.eq-eyebrow--on-dark` are the compliant
+forms in the meantime. The 2026-09-21 button exception was scoped so it does
+not extend to another component, so this needs its own ruling.
 
 ## Engineering contract
 

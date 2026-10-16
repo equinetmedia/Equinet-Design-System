@@ -28,6 +28,63 @@ Project. Every entry below represents a manual reconciliation pass — someone
 asked Claude, in that Project, to fold new development work into
 `tokens.css` / `README.md`, then committed the result here.
 
+## 2026-10-16 — The eyebrow built as a component; `--solid` rationed
+
+`eyebrow-plain.svg` and `eyebrow-solid.svg` added as `assets/components/`, a
+new category for Figma exports a component is measured from — the role
+`assets/buttons/` already plays. Both 115 x 32, both carrying live `<text>`,
+so neither is ever placed on a page: the type would render from whatever font
+the viewer has.
+
+**Every measurement resolved to an existing token.** 12px to
+`--equinet-fontsize-kicker`, bold to `--equinet-fontweight-kicker`, 0.2em to
+`--equinet-letterspacing-kicker`, `#E06730` to `--equinet-color-orange`,
+`#FCE9E0` to `--equinet-color-orange--pale`, `rx="8"` to
+`--equinet-radius-pill`, the `x="24"` text inset to `--equinet-space-md`.
+Nothing new was needed. One thing deliberately not copied from the export: it
+names the family **Source Sans Pro**, the old name for what this system calls
+`--equinet-font-body` (`'Source Sans 3'`).
+
+**Built as `.eq-eyebrow` in `bundle.css`.** `.eq-stagger__eyebrow` already
+carried the same type treatment scoped to that one component and is left
+alone so nothing breaks; new work uses the unscoped class, which adds the
+solid variant. The pill's vertical padding is derived — `(32px - 1em) / 2`
+from the scale token — rather than hardcoded at 10px, which is off the 4px
+scale and has no token. `check-docs.py` caught the first attempt inventing
+`--equinet-scale-250` to paper over that.
+
+**`--solid` is rationed: hero banners, CTA banners, modules of exceptional
+value.** The plain eyebrow is the default and is almost always right. The
+pill is emphasis, and emphasis on every section is not emphasis — more than
+one or two on a page means it is decoration.
+
+**The contrast problem is no longer hypothetical.** The "One unresolved" note
+in `README.md` said orange eyebrow text on the pale pill measures 2.9:1. The
+full picture, measured: 2.90:1 on the pill, 3.41:1 on white, 3.14:1 on
+`surface--alt`, 3.08:1 on navy. At 12px / 700 none is large text — that needs
+18.66px bold — so the threshold is 4.5:1 and **every ground this system has
+fails it**. That note is now attached to a shipped component, and two
+compliant forms exist for builds that can't carry the risk:
+`.eq-eyebrow--solid-safe` puts the label in `--equinet-color-text` at
+12.93:1, and `.eq-eyebrow--on-dark` uses the pale amber where orange fails
+against navy and night. Still not raised with the client. The 2026-09-21
+button exception was scoped so it does not extend to another component, so
+this needs its own ruling rather than inheriting that one.
+
+**Six checks added to `components-test.py`** (19 to 25), measuring the
+rendered component against the export: size, weight, tracking and case; the
+orange label; the pill's fill, radius and side inset; its 32px height; that
+the plain variant has no pill; and that `--solid-safe` carries the compliant
+colour.
+
+**Bug fixed in `build-manifest.py`.** Light versus dark was a whitelist of
+three literals — WHITE, #FFFFFF, #F6F5F5 — so it filed the pale `#FCE9E0`
+pill as "opaque dark". It is a luminance question and now uses the same
+threshold the gradient branch already used. No existing asset's
+classification changed; verified against the previous manifest.
+
+Manifest at 104 assets.
+
 ## 2026-10-16 — `backgrounds/` added: draughtsman's line work for modules
 
 Three files added as a new asset category: `draftmans-background-hero-banner`,
