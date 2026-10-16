@@ -1,0 +1,39 @@
+<svg width="1619" height="784" viewBox="0 0 1619 784" fill="none" xmlns="http://www.w3.org/2000/svg">
+<g opacity="0.7" clip-path="url(#clip0_842_6464)">
+<path d="M212.094 543.924H-33.9477" stroke="#68728F"/>
+<path d="M90.4963 558.693C90.4963 412.666 205.874 294.287 348.2 294.287C490.526 294.287 605.904 412.666 605.904 558.693" stroke="#68728F" stroke-width="0.526694" stroke-dasharray="7.52 7.52"/>
+<path d="M1144 512C1144 658.028 1259.38 776.406 1401.7 776.406C1544.03 776.406 1659.41 658.028 1659.41 512" stroke="#68728F" stroke-width="0.526694" stroke-dasharray="7.52 7.52"/>
+<g clip-path="url(#clip1_842_6464)">
+<path d="M769.635 490.939L769.635 627.384" stroke="#68728F" stroke-width="0.5" stroke-dasharray="14.06 14.06"/>
+<path d="M908.393 490.939L908.393 627.384" stroke="#68728F" stroke-width="0.5" stroke-dasharray="14.06 14.06"/>
+<path d="M1044.83 490.941L1044.83 627.386" stroke="#68728F" stroke-width="0.5" stroke-dasharray="14.06 14.06"/>
+<path d="M1183 466.344L1183 583.344" stroke="#68728F" stroke-width="0.5" stroke-dasharray="14.06 14.06"/>
+<path d="M1320.04 490.939L1320.04 627.384" stroke="#68728F" stroke-width="0.5" stroke-dasharray="14.06 14.06"/>
+<path d="M320.984 368.373L385.738 368.373" stroke="#68728F" stroke-width="0.5" stroke-dasharray="14.06 14.06"/>
+<circle cx="805.397" cy="273.397" r="110.498" transform="rotate(-48.067 805.397 273.397)" stroke="#68728F" stroke-width="0.5" stroke-dasharray="52 52"/>
+<circle cx="804.954" cy="272.955" r="52.9219" transform="rotate(-15.8074 804.954 272.955)" stroke="#68728F"/>
+</g>
+<circle cx="234.627" cy="234.627" r="234.477" transform="matrix(-0.717 0.697073 0.697073 0.717 809.619 -59)" stroke="#68728F" stroke-width="0.3" stroke-dasharray="13 13"/>
+<path d="M137.604 489.184L137.604 594.473" stroke="#68728F"/>
+<circle cx="355.917" cy="540.761" r="52.9219" transform="rotate(-15.8074 355.917 540.761)" stroke="#68728F"/>
+<circle cx="355.917" cy="540.76" r="18.5605" transform="rotate(-15.8074 355.917 540.76)" stroke="#68728F" stroke-width="0.5"/>
+<path d="M803 276L262.564 597.722" stroke="#68728F" stroke-width="0.37621" stroke-dasharray="12.16 12.16"/>
+<path d="M652 544.344L459 544.344" stroke="#68728F"/>
+<circle cx="355.397" cy="541.397" r="110.498" transform="rotate(-48.067 355.397 541.397)" stroke="#68728F" stroke-width="0.5" stroke-dasharray="52 52"/>
+<path d="M176 240.344L409.511 631.948" stroke="#68728F" stroke-width="0.5" stroke-dasharray="9.03 9.03"/>
+<circle cx="226.394" cy="320.641" r="110.498" transform="rotate(44.1926 226.394 320.641)" stroke="#68728F" stroke-width="0.5" stroke-dasharray="52 52"/>
+<circle cx="226.394" cy="320.641" r="38.4959" transform="rotate(44.1926 226.394 320.641)" stroke="#68728F"/>
+<circle cx="1396.83" cy="547.991" r="110.498" transform="rotate(-48.067 1396.83 547.991)" stroke="#68728F" stroke-width="0.5" stroke-dasharray="52 52"/>
+<circle cx="1396.83" cy="547.991" r="38.4959" transform="rotate(-48.067 1396.83 547.991)" stroke="#68728F"/>
+<path d="M1215.72 454.895L1614.84 657.667" stroke="#68728F" stroke-width="0.5" stroke-dasharray="9.03 9.03"/>
+<path d="M1645 544.344L1452 544.344" stroke="#68728F"/>
+</g>
+<defs>
+<clipPath id="clip0_842_6464">
+<rect width="1619" height="784" fill="white"/>
+</clipPath>
+<clipPath id="clip1_842_6464">
+<rect width="1079.72" height="645.577" fill="white" transform="translate(352.043 -101)"/>
+</clipPath>
+</defs>
+</svg>

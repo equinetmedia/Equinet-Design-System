@@ -16,7 +16,8 @@ os.chdir(ROOT)
 
 CATEGORY = {'illustrations': 'illustration', 'icons': 'icon', 'brand': 'brand',
             'buttons': 'button-source', 'comps': 'layout-blueprint',
-            'marketing': 'style-reference', 'charts': 'chart'}
+            'marketing': 'style-reference', 'charts': 'chart',
+            'backgrounds': 'background'}
 # Colours decided to be an existing token rather than a separate value.
 FOLDED = {'#FFE6DB': '--equinet-color-orange--pale'}
 

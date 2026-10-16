@@ -28,6 +28,55 @@ Project. Every entry below represents a manual reconciliation pass — someone
 asked Claude, in that Project, to fold new development work into
 `tokens.css` / `README.md`, then committed the result here.
 
+## 2026-10-16 — `backgrounds/` added: draughtsman's line work for modules
+
+Three files added as a new asset category: `draftmans-background-hero-banner`,
+`-process-flow` and `-market-amplification`. Construction circles, arcs,
+dashed centre lines and crosshairs — a technical drawing before anything is
+dimensioned. They sit behind a module as texture. The first group in this
+system whose job is to be ignored.
+
+All three are 1619 wide (820 / 784 / 735 tall, aspects 1.97 / 2.07 / 2.20),
+transparent, one ink each: the hero uses `--equinet-color-charade-400`
+(#8790A9), the other two `--equinet-color-charade-500` (#68728F). Both
+already tokens; nothing unsanctioned.
+
+**They go in CSS, not in the markup — and that is not a preference.** Each
+file is 15–21 paths of mostly dashed strokes, well over the 64px graphic
+gate, which is precisely what the connector draw-on targets. Inlined and
+annotated, a background would redraw itself on every scroll. As a
+`background-image` it also stays invisible to assistive technology for free,
+where inline SVG needs an `aria-hidden` somebody has to remember. **Never
+`data-asset`, never `data-role`, under any circumstances.**
+
+**Measured contrast, because one combination fails.** Body text `#242530`
+over the line work on white: charade-400 gives 4.77:1 at full opacity and
+7.10:1 under the 0.7 group; charade-500 gives **3.18:1 at full opacity** —
+below AA — and 5.55:1 under the group. Each file has one group at
+`opacity="0.7"` and the rest at full strength, so body copy crossing a
+full-opacity charade-500 line is non-compliant. The strokes are hairlines and
+the touched area is tiny, but WCAG has no exemption for that. The fix costs
+nothing: all three were drawn with large open areas, and the README names
+which side is open for each. Never behind a stat, a chart, or anything a
+reader has to decode.
+
+**How they are drawn**, recorded so another could be matched: one ink, no
+fills, no gradients, no text; hairline strokes mostly at 0.5 with 0.3,
+0.37621, 0.526694, 1.15893 and 2 for emphasis, deliberately inconsistent the
+way a real construction drawing is; a dash family of 7.52, 9.03, 12.16, 13,
+14.06, 52 and one 293.57 recurring across all three files, which is the
+signature; two `<clipPath>` per file so arcs run off the edge rather than
+resolving inside it; one group at `opacity="0.7"` for the second plane,
+giving depth without a second colour. Below about 900px the finest strokes
+disappear — crop a region rather than scaling the whole frame down.
+
+`tools/build-manifest.py` gained the category and the manifest went to 102
+assets with both colours resolving cleanly. `check-docs.py` then caught two
+mistakes of mine in the same pass: the new README cited a digest rule by
+number, the exact pattern banned on 2026-10-13, and `README.md` still claimed
+99 assets. Both fixed. The checker earning its keep on its author is the
+point of having it.
+
 ## 2026-10-14 — Donuts allowed for a single share
 
 `content-to-format.md` ruled out pies outright and told builds to use a

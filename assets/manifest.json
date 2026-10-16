@@ -14,8 +14,65 @@
     "shape": "unclassified (usually invisible bounds)"
   },
   "palette_note": "'unsanctioned' marks a colour found in artwork that is not a token; replace it with nearest_token (by RGB distance \u2014 a suggestion, not a ruling) rather than carrying the raw hex forward.",
-  "count": 99,
+  "count": 102,
   "assets": [
+    {
+      "name": "draftmans-background-hero-banner",
+      "path": "assets/backgrounds/draftmans-background-hero-banner.svg",
+      "category": "background",
+      "group": "backgrounds",
+      "width": 1619.0,
+      "height": 820.0,
+      "aspect": 1.974,
+      "background": "transparent",
+      "live_text": 0,
+      "reworkable": false,
+      "roles": {},
+      "palette": [
+        {
+          "hex": "#8790A9",
+          "token": "--equinet-color-charade-400"
+        }
+      ]
+    },
+    {
+      "name": "draftmans-background-market-amplification",
+      "path": "assets/backgrounds/draftmans-background-market-amplification.svg",
+      "category": "background",
+      "group": "backgrounds",
+      "width": 1619.0,
+      "height": 735.0,
+      "aspect": 2.203,
+      "background": "transparent",
+      "live_text": 0,
+      "reworkable": false,
+      "roles": {},
+      "palette": [
+        {
+          "hex": "#68728F",
+          "token": "--equinet-color-charade-500"
+        }
+      ]
+    },
+    {
+      "name": "draftmans-background-process-flow",
+      "path": "assets/backgrounds/draftmans-background-process-flow.svg",
+      "category": "background",
+      "group": "backgrounds",
+      "width": 1619.0,
+      "height": 784.0,
+      "aspect": 2.065,
+      "background": "transparent",
+      "live_text": 0,
+      "reworkable": false,
+      "roles": {},
+      "palette": [
+        {
+          "hex": "#68728F",
+          "token": "--equinet-color-charade-500"
+        }
+      ]
+    },
     {
       "name": "emblem-commercial-intelligence-engine",
       "path": "assets/brand/emblem-commercial-intelligence-engine.svg",

@@ -166,6 +166,15 @@ and animating each one's paths adds hundreds of elements to the entrance for
 line art a few pixels across — it buys nothing a reader sees and makes
 scrolling stutter. `motion.js` enforces the same 64px gate itself.
 
+**Module backgrounds are a separate thing from graphics.**
+`assets/backgrounds/` holds draughtsman's line work — construction circles,
+arcs, dashed centre lines — meant to sit behind a section as texture. Place
+one as a CSS `background-image`, never inline, and never give it `data-asset`
+or `data-role`: inlined and annotated it would draw itself on every scroll,
+and it is texture, not a graphic. Set the copy in the open side of the frame
+and keep it away from stats and charts. `assets/backgrounds/README.md` says
+which side is open for each of the three.
+
 **A composed graphic has to hold its own next to the real ones.** Measured
 across the 36 illustration assets: median **16 drawn elements**, 2 filters,
 1 gradient, 2 clip paths. A graphic you compose should land in that range.

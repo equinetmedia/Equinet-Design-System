@@ -19,6 +19,7 @@ AI-generated design**.
 | 9 | **Illustrations are reference, not sealed artwork.** Recompose freely — crop, scale, overlap, extract, rearrange. Colour, typography and iconography still follow the system. |
 | 10 | **Every section gets a visual.** Place a whole illustration when its subject matches (`assets/illustrations/INDEX.md`); otherwise **compose** a bespoke graphic from the set's structural primitives — cards, connectors, nodes, panels. Never a mismatched whole illustration, never a bare section. Comps are layout blueprints; marketing infographics are the style reference. |
 | 11 | **Backgrounds:** `scenes/` are opaque **dark** (navy gradient); `sectors/` are opaque **light** (`#F6F5F5`→white); `systems/`, `flows/` are transparent and need a surface; `pictonodes/` are square and never sit in a 16:9 row. |
+| 11a | **Module backgrounds:** `assets/backgrounds/` is draughtsman's line work, placed as a CSS `background-image` — never inlined, never annotated with `data-asset` or `data-role`. Set copy in the open side of the frame; never behind a stat, a chart, or anything to decode. |
 | 12 | **WCAG 2.1 AA**, measured not estimated. One signed-off exception: the primary button's white label. |
 | 13 | **Rework assets by role, from the manifest.** Choose from `assets/manifest.json`; edit via `data-role` (card, node, connector, glyph, accent…), per `assets/REWORKING.md`. Illustrations have no live text — labels go in HTML, never in the SVG. |
 | 14 | **Never invent data.** Every figure on a page comes from supplied content or from `assets/charts/data.json`, with its source shown. Chart figures are outlined in the SVGs — rebuild charts live from `data.json`, never retype from the artwork, and don't quote a `not-quotable` value. |
@@ -666,7 +667,7 @@ the folder, re-package and reinstall, or the chat copy drifts behind.
 
 Three files make the asset folders usable by a model, not just a person:
 
-- **`assets/manifest.json`** — one entry per asset (99), generated from the
+- **`assets/manifest.json`** — one entry per asset, generated from the
   files by **`tools/build-manifest.py`**: category, dimensions, background (opaque dark / opaque light /
   transparent / dark tile), live-text count, the roles it contains, and its
   palette mapped to tokens. Colours that aren't tokens are marked
@@ -801,6 +802,10 @@ of them, just the mandate to use them.
 - Wordmark: `assets/brand/wordmark-light.svg` or `wordmark-dark.svg`, picked
   by background contrast (see **Brand mark**). Never render the name as
   styled text standing in for the logo.
+- Backgrounds: `assets/backgrounds/` holds three draughtsman's line-work
+  frames at 1619 wide — hero banner, process flow, market amplification. One
+  ink each (`charade-400` or `charade-500`), transparent, decorative only.
+  See `assets/backgrounds/README.md` for placement and the contrast limits.
 - Icons: `assets/icons/` holds four groups — three control icons at the root
   that take `currentColor`, five 43 × 43 concept marks (`nodes/`), eight
   65 × 65 service tiles (`service-tiles/`) and five 69 × 69 service-line
