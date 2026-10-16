@@ -178,3 +178,79 @@ The flat colour sits underneath as `background-color` and the pool on top as
 `background-image`, so an editor's background choice still shows through
 wherever the pool has fallen away — see the digest rule *"Padding and
 background are the editor's"*.
+
+
+## Varying it automatically
+
+The goal is not randomness. It is that **two surfaces a reader sees together
+should not match** — and that whatever a module renders today it renders
+again tomorrow. A background that changes between page loads breaks caching,
+breaks screenshot diffs, and makes a client think something is wrong. Never
+reach for a random value here.
+
+There are four positions: `--01` and `--02` as measured, `--03` and `--04`
+mirrored from them. Three ways to choose between them, in the order to try.
+
+### 1. Siblings — free, no configuration
+
+Where the surfaces are actual siblings, `.eq-surface` with no variant class
+rotates through all four by position and repeats on the fifth. Nothing to
+set. An explicit `--01`…`--04` always beats position, so an editor's choice
+is never overridden.
+
+This is the common case inside one module with several stacked sections. It
+is **not** the case across a HubSpot drag-and-drop area, where each module
+renders inside its own wrapper and the surfaces are not siblings.
+
+### 2. In a module — the editor chooses, with an automatic default
+
+```json
+{
+  "name": "surface_style",
+  "label": "Section surface",
+  "type": "choice",
+  "display": "select",
+  "default": "auto",
+  "help_text": "Auto varies the gradient so stacked modules don't repeat. Pick a position to pin it.",
+  "choices": [
+    ["auto", "Auto — vary by position"],
+    ["01", "Pool upper right"],
+    ["02", "Pool upper left"],
+    ["03", "Pool upper left, wide"],
+    ["04", "Pool upper right, narrow"],
+    ["flat", "Flat — no gradient"]
+  ]
+}
+```
+
+```html
+{% set surface = module.surface_style %}
+<section class="eq-section
+  {%- if surface != 'flat' %} eq-surface{% endif %}
+  {%- if surface not in ['auto', 'flat'] %} eq-surface--{{ surface }}{% endif %}">
+```
+
+`flat` matters: this is a surface treatment, and an editor who wants a plain
+background must be able to say so — the digest rule that padding and
+background are the editor's applies here too.
+
+### 3. `auto` across modules — derive it from the module instance
+
+Siblings don't work across a dnd area, so `auto` needs something that is
+unique per module and stable forever. The module's own `name` is both:
+
+```html
+{% set positions = ['01', '02', '03', '04'] %}
+{% set pick = positions[name|md5|truncate(6, true, '')|int(0, 16) % 4] %}
+```
+
+**Verify `md5` and the base-16 `int` against your HubL version before
+shipping this** — if either is unavailable, the same idea works off any
+stable numeric in `name`, and the fallback when the derivation yields nothing
+is `--01`, never a random pick.
+
+What this does NOT guarantee is that two adjacent modules differ: four
+positions means roughly a one-in-four chance any given pair matches. If a
+page must alternate strictly, the editor sets the position by hand on each
+module — which is what the choice field is for, and why `auto` is a default
+rather than the only option.

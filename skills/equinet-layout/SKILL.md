@@ -181,10 +181,12 @@ where a build can't carry that, `--solid-safe` and `--on-dark` are the
 compliant forms; see `assets/components/README.md`.
 
 **A section that needs depth gets `.eq-surface`**, not a flat fill — an
-off-centre pool of white falling away to `surface--alt`, built in CSS. Use
-`--01` and `--02` alternately down a page so consecutive sections don't
-match, or override the four custom properties for a bespoke pool. Keep the
-2:1 axis ratio and the centre off 50% 50%.
+off-centre pool of white falling away to `surface--alt`, built in CSS. There
+are four positions. Stacked siblings rotate through them on their own, so
+plain `.eq-surface` on each is usually all you need; name `--01`…`--04` to
+pin one, or override the four custom properties for a bespoke pool. Keep the
+2:1 axis ratio and the centre off 50% 50%, and never choose a position at
+random — the same page must render the same way tomorrow.
 
 **Module backgrounds are a separate thing from graphics.**
 `assets/backgrounds/` holds draughtsman's line work — construction circles,

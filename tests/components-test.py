@@ -33,6 +33,7 @@ page=f"""<!doctype html><html><head><meta charset="utf-8">
 <section class="eq-surface eq-surface--01" id="surf1" style="height:200px"></section>
 <section class="eq-surface eq-surface--02" id="surf2" style="height:200px"></section>
 <section class="eq-surface" id="surfD" style="height:200px"></section>
+<div id="auto"><section class="eq-surface" id="a1"></section><section class="eq-surface" id="a2"></section><section class="eq-surface" id="a3"></section><section class="eq-surface" id="a4"></section><section class="eq-surface" id="a5"></section><section class="eq-surface eq-surface--01" id="aX"></section></div>
 <article class="eq-card eq-card--stacked" data-reveal id="stk">
   <div class="eq-card__media"><img src="data:image/gif;base64,R0lGODlhAQABAAAAACw=" alt=""></div>
   <div class="eq-card__body">
@@ -78,6 +79,14 @@ with sync_playwright() as p:
        "44.1:212.5 and 30.9:148.9 against a 1920x805 frame")
     ok("R6 bare .eq-surface carries a usable default",
        pg.evaluate(SF,["#surfD","backgroundImage"]).startswith("radial-gradient"))
+    ok("R8 sibling surfaces rotate through four positions",
+       len({pg.evaluate(SF,[f"#a{i}","backgroundImage"]) for i in (1,2,3,4)})==4,
+       "four consecutive siblings, four different pools")
+    ok("R9 the fifth repeats the first — a cycle, not randomness",
+       pg.evaluate(SF,["#a5","backgroundImage"])==pg.evaluate(SF,["#a1","backgroundImage"]))
+    ok("R10 an explicit variant beats its position",
+       pg.evaluate(SF,["#aX","backgroundImage"])==pg.evaluate(SF,["#surf1","backgroundImage"]),
+       "--01 in slot 6 still renders --01")
     ok("R7 variables are overridable for a bespoke pool",
        pg.evaluate("""()=>{const e=document.querySelector('#surfD');
          e.style.setProperty('--eq-surface-x','10%');

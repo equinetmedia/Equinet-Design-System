@@ -1254,3 +1254,48 @@
    offers it as a choice, not as a hardcoded override — which is why the
    gradient is background-image and the flat colour is background-color, so an
    editor's colour shows through wherever the pool has fallen away. */
+
+/* -------------------------------------------------- automatic variation --
+   Two more positions, derived rather than invented: each is a measured
+   centre mirrored across the vertical axis, so the axes and the 2.02:1
+   ratio are untouched and only the side the pool sits on changes.
+   --03 mirrors --01, --04 mirrors --02. */
+.eq-surface--03 {
+  --eq-surface-x: 26.8%;   /* 100 - 73.2 */
+  --eq-surface-y: 22.4%;
+  --eq-surface-w: 44.1%;
+  --eq-surface-h: 212.5%;
+}
+
+.eq-surface--04 {
+  --eq-surface-x: 66.6%;   /* 100 - 33.4 */
+  --eq-surface-y: 41.1%;
+  --eq-surface-w: 30.9%;
+  --eq-surface-h: 148.9%;
+}
+
+/* Siblings with no explicit variant rotate through the four, so a stack of
+   surfaces never repeats until the fifth. Scoped to :not([class*="--"]) so
+   an explicit --01..--04 always wins and an editor's choice is never
+   overridden by position.
+
+   This only fires where the surfaces are actual siblings. In a HubSpot dnd
+   area each module sits in its own wrapper, so they usually are not — there
+   the module picks its variant in HubL. See assets/backgrounds/README.md,
+   "Varying it automatically". */
+.eq-surface:not([class*="eq-surface--"]):nth-of-type(4n+2) {
+  --eq-surface-x: 33.4%; --eq-surface-y: 41.1%;
+  --eq-surface-w: 30.9%; --eq-surface-h: 148.9%;
+}
+.eq-surface:not([class*="eq-surface--"]):nth-of-type(4n+3) {
+  --eq-surface-x: 26.8%; --eq-surface-y: 22.4%;
+  --eq-surface-w: 44.1%; --eq-surface-h: 212.5%;
+}
+.eq-surface:not([class*="eq-surface--"]):nth-of-type(4n+4) {
+  --eq-surface-x: 66.6%; --eq-surface-y: 41.1%;
+  --eq-surface-w: 30.9%; --eq-surface-h: 148.9%;
+}
+.eq-surface:not([class*="eq-surface--"]):nth-of-type(4n+1) {
+  --eq-surface-x: 73.2%; --eq-surface-y: 22.4%;
+  --eq-surface-w: 44.1%; --eq-surface-h: 212.5%;
+}

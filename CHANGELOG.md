@@ -28,6 +28,48 @@ Project. Every entry below represents a manual reconciliation pass — someone
 asked Claude, in that Project, to fold new development work into
 `tokens.css` / `README.md`, then committed the result here.
 
+## 2026-10-16 — Four surface positions, rotating automatically
+
+`.eq-surface` gains automatic variation, so a stack of sections doesn't
+repeat the same pool.
+
+**Two more positions, derived rather than invented.** `--03` mirrors `--01`
+across the vertical axis and `--04` mirrors `--02`: the axes and the 2.02:1
+ratio are untouched and only the side the pool sits on changes. 73.2% becomes
+26.8%, 33.4% becomes 66.6%. Nothing was guessed.
+
+**Siblings rotate through all four and repeat on the fifth.** Plain
+`.eq-surface` with no variant class picks its position from
+`:nth-of-type(4n+…)`, scoped `:not([class*="eq-surface--"])` so an explicit
+`--01`…`--04` always wins and an editor's choice is never overridden by where
+the section happens to sit.
+
+**This only fires where the surfaces are actual siblings** — true inside one
+module with stacked sections, false across a HubSpot dnd area, where each
+module renders in its own wrapper. The README now documents the module path:
+a `choice` field with `auto`, the four positions and a **`flat`** option,
+because this is a surface treatment and an editor who wants a plain
+background must be able to say so.
+
+**`auto` across modules derives from the module's own `name`,** which is
+unique per instance and stable forever. The HubL is written down with an
+explicit instruction to verify the `md5` and base-16 `int` filters against
+the live HubL version before shipping, and a stated fallback of `--01` rather
+than a random pick. It does not guarantee two adjacent modules differ — four
+positions means about a one-in-four chance of a match — which is exactly why
+`auto` is a default and not the only option.
+
+**Randomness is ruled out explicitly, in the digest and the skill.** A
+background that changes between renders breaks caching, breaks screenshot
+diffs, and makes a client think something is broken. The goal was never
+variety for its own sake; it is that two surfaces seen together shouldn't
+match, and that today's page renders the same tomorrow.
+
+**Three checks added** (40 to 43): four consecutive siblings producing four
+different pools, the fifth repeating the first so it is provably a cycle
+rather than randomness, and an explicit `--01` in the sixth slot still
+rendering `--01`.
+
 ## 2026-10-16 — `.eq-surface` radial gradients, built in CSS not placed
 
 Two radial background exports added, `radial-background-01` and `-02`, both
