@@ -29,7 +29,23 @@ ld=json.dumps({"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{
 page=f"""<!doctype html><html><head><meta charset="utf-8">
 <link rel="stylesheet" href="file://{REPO}/tokens.css"><link rel="stylesheet" href="file://{REPO}/components/bundle.css">
 <style>body{{margin:0;font-family:sans-serif}}.spacer{{height:1400px}}.row{{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;padding:40px}}.faq{{padding:40px;max-width:800px}}</style></head>
-<body><div class="spacer"></div><p class="eq-eyebrow" id="ebp">Why HubSpot</p><p class="eq-eyebrow eq-eyebrow--solid" id="ebs">Why HubSpot</p><p class="eq-eyebrow eq-eyebrow--solid eq-eyebrow--solid-safe" id="ebsafe">Why HubSpot</p><div class="row" id="row">{card(1)}{card(2)}{card(3,link=False)}</div>
+<body><div class="spacer"></div>
+<section class="eq-surface eq-surface--01" id="surf1" style="height:200px"></section>
+<section class="eq-surface eq-surface--02" id="surf2" style="height:200px"></section>
+<section class="eq-surface" id="surfD" style="height:200px"></section>
+<article class="eq-card eq-card--stacked" data-reveal id="stk">
+  <div class="eq-card__media"><img src="data:image/gif;base64,R0lGODlhAQABAAAAACw=" alt=""></div>
+  <div class="eq-card__body">
+    <h3 class="eq-card__title"><a class="eq-card__link" href="#study">Co-Packer</a></h3>
+    <dl class="eq-card__stats">
+      <div class="eq-card__stat" id="st1"><dt>Co-packing</dt><dd>5.0%</dd></div>
+      <div class="eq-card__stat" id="st2"><dt>Contract packaging</dt><dd class="eq-card__stat--aa" id="stAA">6.3%</dd></div>
+    </dl>
+    <ul class="eq-card__sources"><li><a href="#s1" id="src1">2024-2032, Industry Today</a></li></ul>
+    <p class="eq-card__action" id="act">Read More</p>
+  </div>
+</article>
+<p class="eq-eyebrow" id="ebp">Why HubSpot</p><p class="eq-eyebrow eq-eyebrow--solid" id="ebs">Why HubSpot</p><p class="eq-eyebrow eq-eyebrow--solid eq-eyebrow--solid-safe" id="ebsafe">Why HubSpot</p><div class="row" id="row">{card(1)}{card(2)}{card(3,link=False)}</div>
 <section class="faq" aria-labelledby="faqh"><h2 id="faqh">FREQUENTLY ASKED QUESTIONS</h2><div class="eq-faq" id="faq">{items}</div></section>
 <script type="application/ld+json">{ld}</script><div class="spacer"></div>__JS__</body></html>"""
 open(os.path.join(TMP,'static.html'),'w').write(page.replace('__JS__',''))
@@ -43,6 +59,56 @@ with sync_playwright() as p:
     # ---------- no JS
     pg=b.new_page(viewport={'width':1200,'height':800}); pg.goto('file://'+TMP+'/static.html'); pg.wait_for_timeout(200)
     ok("C1 no JS: cards fully visible", pg.evaluate("[...document.querySelectorAll('.eq-card')].every(e=>getComputedStyle(e).opacity==='1')"))
+    # ---------- radial surface, measured against radial-background-0*.svg
+    SF="([s,p])=>getComputedStyle(document.querySelector(s))[p]"
+    ok("R1 surface: flat colour underneath so an editor's choice shows through",
+       pg.evaluate(SF,["#surf1","backgroundColor"])=="rgb(246, 245, 245)",
+       pg.evaluate(SF,["#surf1","backgroundColor"]))
+    ok("R2 surface: the pool is a radial-gradient, not an image request",
+       pg.evaluate(SF,["#surf1","backgroundImage"]).startswith("radial-gradient")
+       and "url(" not in pg.evaluate(SF,["#surf1","backgroundImage"]))
+    ok("R3 --01 pools upper-right at the measured centre",
+       "73.2%" in pg.evaluate(SF,["#surf1","backgroundImage"])
+       and "22.4%" in pg.evaluate(SF,["#surf1","backgroundImage"]))
+    ok("R4 --02 pools upper-left, so consecutive sections differ",
+       "33.4%" in pg.evaluate(SF,["#surf2","backgroundImage"])
+       and pg.evaluate(SF,["#surf1","backgroundImage"])!=pg.evaluate(SF,["#surf2","backgroundImage"]))
+    ok("R5 both variants hold the 2.02:1 axis ratio of the exports",
+       all(abs(h/w-2.02)<0.03 for w,h in [(44.1,212.5/2.4071),(30.9,148.9/2.4071)]),
+       "44.1:212.5 and 30.9:148.9 against a 1920x805 frame")
+    ok("R6 bare .eq-surface carries a usable default",
+       pg.evaluate(SF,["#surfD","backgroundImage"]).startswith("radial-gradient"))
+    ok("R7 variables are overridable for a bespoke pool",
+       pg.evaluate("""()=>{const e=document.querySelector('#surfD');
+         e.style.setProperty('--eq-surface-x','10%');
+         return getComputedStyle(e).backgroundImage.includes('10%')}"""))
+
+    # ---------- stacked card, measured against card-stacked-layout-01.svg
+    SC="([s,p])=>getComputedStyle(document.querySelector(s))[p]"
+    ok("S1 stacked: card padding moves to the body so the image bleeds",
+       pg.evaluate(SC,["#stk","padding"])=="0px"
+       and pg.evaluate(SC,[".eq-card__body","padding"])=="24px",
+       f'card {pg.evaluate(SC,["#stk","padding"])} / body {pg.evaluate(SC,[".eq-card__body","padding"])}')
+    ok("S2 stacked: image clipped to the card radius",
+       pg.evaluate(SC,["#stk","overflow"]).startswith("clip")
+       and pg.evaluate(SC,["#stk","borderRadius"])=="7px")
+    ok("S3 stacked: media holds the comp's 323:181.377 ratio",
+       abs(pg.evaluate("()=>{const r=document.querySelector('.eq-card__media').getBoundingClientRect();return r.width/r.height}")-323/181.377)<0.02,
+       str(pg.evaluate("()=>{const r=document.querySelector('.eq-card__media').getBoundingClientRect();return (r.width/r.height).toFixed(3)}")))
+    ok("S4 stat row: 1px rule, label 16px, value 18px/600 orange",
+       pg.evaluate(SC,["#st1","borderBottomWidth"])=="1px"
+       and pg.evaluate(SC,["#st1 dt","fontSize"])=="16px"
+       and pg.evaluate(SC,["#st1 dd","fontSize"])=="18px"
+       and pg.evaluate(SC,["#st1 dd","fontWeight"])=="600"
+       and pg.evaluate(SC,["#st1 dd","color"])=="rgb(224, 103, 48)")
+    ok("S5 stat value right-aligned against the label",
+       pg.evaluate("()=>{const r=document.querySelector('#st1').getBoundingClientRect(),d=document.querySelector('#st1 dd').getBoundingClientRect();return Math.abs(d.right-r.right)<1}"))
+    ok("S6 sources set at 11px", pg.evaluate(SC,["#src1","fontSize"])=="11px")
+    ok("S7 --aa variant drops the orange for an AA-passing colour",
+       pg.evaluate(SC,["#stAA","color"])=="rgb(36, 37, 48)", pg.evaluate(SC,["#stAA","color"]))
+    ok("S8 the whole card is the link target, so it lifts",
+       pg.evaluate("()=>document.querySelectorAll('#stk .eq-card__link').length")==1)
+
     # ---------- eyebrow, measured against assets/components/eyebrow-*.svg
     EB="([s,p])=>getComputedStyle(document.querySelector(s))[p]"
     ok("E1 eyebrow: 12px / 700 / 0.2em, uppercase",

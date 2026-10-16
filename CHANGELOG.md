@@ -28,6 +28,114 @@ Project. Every entry below represents a manual reconciliation pass — someone
 asked Claude, in that Project, to fold new development work into
 `tokens.css` / `README.md`, then committed the result here.
 
+## 2026-10-16 — `.eq-surface` radial gradients, built in CSS not placed
+
+Two radial background exports added, `radial-background-01` and `-02`, both
+1920 x 805. Each is one rect filled with a two-stop radial gradient — 449 and
+439 bytes, the whole asset.
+
+**Both stops were already tokens.** White is `--equinet-color-surface`,
+`#F6F5F5` is `--equinet-color-surface--alt`, and `tokens.css` has called them
+the "module gradient start/end stop" since 2026-08-07. These exports supply
+the geometry for stops the system already had.
+
+**Built as `.eq-surface` in CSS rather than shipped as files.** Rendered side
+by side at 1920 x 805, the CSS version differs from the SVG by a maximum of
+**5/255 on any channel and 1.07/255 on average** — below the threshold
+`motion-test.py` already treats as identical. CSS costs no asset,
+re-proportions to any module height, and leaves the surface tokens swappable.
+The files stay in `assets/backgrounds/` as reference geometry, which makes
+that folder hold two kinds of thing now: the draughtsman's line work, which
+IS placed as a `background-image`, and these, which are never placed. The
+README opens by saying which is which.
+
+**The signature, from decoding both `gradientTransform` matrices.** `-01`
+centres at 73.2% / 22.4% with semi-axes of 845.8px and 1710.9px; `-02` at
+33.4% / 41.1% with 592.6px and 1198.6px. **Both have an axis ratio of
+2.02 : 1** — not a coincidence, and it is what makes the pool read as a soft
+wash rather than a spotlight. Neither centre sits at 50% 50%: `-01` pools
+upper-right and `-02` upper-left, so alternating them down a page stops
+consecutive sections matching. Both are skewed about 11 degrees off
+perpendicular, which CSS `radial-gradient` cannot express — at a 4% luminance
+delta between the stops it makes no visible difference, which is what the
+pixel comparison measures.
+
+**Sizes are percentages, not pixels**, so the pool re-proportions with the
+module instead of staying a fixed ellipse in a box of unknown height. Four
+custom properties — `--eq-surface-x/y/w/h` — are the documented way to invent
+a variation, with the 2:1 ratio and the off-centre placement as the two rules
+that keep it on-brand.
+
+**The flat colour stays `background-color` and the pool is `background-image`,**
+so an editor's background choice still shows through wherever the pool has
+fallen away. The digest rule that padding and background are the editor's
+holds.
+
+**Seven checks added to `components-test.py`** (33 to 40): the flat colour
+underneath, the pool being a gradient and not an image request, each variant
+at its measured centre, the two variants differing, the 2.02:1 ratio, the
+bare class carrying a usable default, and the custom properties actually
+overriding.
+
+Manifest at 107 assets.
+
+## 2026-10-16 — `.eq-card--stacked` built from card-stacked-layout-01
+
+A card layout comp added to `assets/components/` and built as a `.eq-card`
+variant: full-bleed image, stats table, source links out, read-more. For a
+card carrying more than a title and a line of text.
+
+**Every measurement resolved to an existing token.** 391 x 528 frame around a
+323 x 459.377 card at `rx="7"` (`--equinet-radius-card`); image 323 x 181.377
+full-bleed, ratio 1.781, effectively 16:9; content running x 62 to 337 inside
+a card at x 38 to 361, so 24px either side, `--equinet-space-md` unchanged;
+heading 24/600 `#242630`; stat label 16px `#3B3F51`; stat value 18/600
+`#E06730`; 1px `#B1B7C8` rule under each row, rows 34px tall and 10px apart;
+sources 11px with baselines 24px apart; read-more 16/600. Icons are Lucide
+`external-link` and `book-open` at the house substitute weight.
+
+**`.eq-card` carries 24px padding and this variant needs the image to bleed**,
+so the padding moves to `.eq-card__body`. `overflow: clip` was already on
+`.eq-card`, which clips the image to the radius for free. The read-more is the
+card's single `.eq-card__link`, so the whole card is the target and lifts —
+the first component in this system where a card legitimately links somewhere,
+after a GEO page shipped 17 that linked nowhere.
+
+**Two things in the export deliberately not inherited.** The card's drop
+shadow is `dx-4 dy34 std17 alpha .07` — that is `--equinet-shadow-card--hover`,
+not the resting token, so either the comp was exported in its hover state or
+it drifted; the component uses the resting shadow and lifts to the hover one
+through `.eq-card`. And "CO-PACKER" is clipped mid-word in the export because
+Figma gave the heading's drop-shadow filter a 120.426px region narrower than
+the text — a bounding-box artifact, not a design decision.
+
+**Third component on the same contrast failure.** Stat values at 18px/600 and
+the read-more at 16px/600 are both **3.41:1** on white. 18px at 600 is not
+large text — that needs 18.66px — so both want 4.5:1. `.eq-card__stat--aa` and
+`.eq-card__action--aa` are the compliant forms and they **drop the orange**,
+because no orange in this system reaches 4.5:1 on white:
+`--equinet-color-orange--dark` is nearest at 4.37:1 and still short, so a
+class called "safe" could not honestly use it. The first draft of this
+component did call it `--safe` with `orange--dark` behind it; renaming it was
+the correction. After the primary button and the eyebrow, three components now
+hang off `README.md`'s "One unresolved".
+
+**Eight checks added to `components-test.py`** (25 to 33): padding moving to
+the body, the image clipped to the radius, the media holding the comp's exact
+1.781 ratio, the stat row's rule and type, the value right-aligning against
+its label, sources at 11px, the `--aa` variant dropping the orange, and the
+card having exactly one link target.
+
+Manifest at 105 assets.
+
+**Self-inflicted, worth recording.** While editing the components README I
+wrote `open(p,'w').write(open(p).read().replace(...))` — Python opens for
+writing first, truncating the file, so the read returned nothing and the
+README was wiped to zero bytes. `check-docs.py` caught it on the next run via
+the missing-frontmatter check and the file was rebuilt. The frontmatter rule
+added on 2026-10-13 for routing turned out to double as a tripwire for an
+empty file.
+
 ## 2026-10-16 — tokens.css reconciled with the deployment: 227 tokens
 
 The merge drafted against the deployed `/modules/tokens.css` is now this

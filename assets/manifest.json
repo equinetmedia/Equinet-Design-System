@@ -14,7 +14,7 @@
     "shape": "unclassified (usually invisible bounds)"
   },
   "palette_note": "'unsanctioned' marks a colour found in artwork that is not a token; replace it with nearest_token (by RGB distance \u2014 a suggestion, not a ruling) rather than carrying the raw hex forward.",
-  "count": 104,
+  "count": 107,
   "assets": [
     {
       "name": "draftmans-background-hero-banner",
@@ -70,6 +70,44 @@
         {
           "hex": "#68728F",
           "token": "--equinet-color-charade-500"
+        }
+      ]
+    },
+    {
+      "name": "radial-background-01",
+      "path": "assets/backgrounds/radial-background-01.svg",
+      "category": "background",
+      "group": "backgrounds",
+      "width": 1920.0,
+      "height": 805.0,
+      "aspect": 2.385,
+      "background": "opaque light",
+      "live_text": 0,
+      "reworkable": false,
+      "roles": {},
+      "palette": [
+        {
+          "hex": "#F6F5F5",
+          "token": "--equinet-color-surface-200"
+        }
+      ]
+    },
+    {
+      "name": "radial-background-02",
+      "path": "assets/backgrounds/radial-background-02.svg",
+      "category": "background",
+      "group": "backgrounds",
+      "width": 1920.0,
+      "height": 805.0,
+      "aspect": 2.385,
+      "background": "opaque light",
+      "live_text": 0,
+      "reworkable": false,
+      "roles": {},
+      "palette": [
+        {
+          "hex": "#F6F5F5",
+          "token": "--equinet-color-surface-200"
         }
       ]
     },
@@ -659,6 +697,37 @@
         "data": "assets/charts/data.json",
         "note": "Figures are outlined in the SVG. Rebuild live from data.json; never retype from the artwork."
       }
+    },
+    {
+      "name": "card-stacked-layout-01",
+      "path": "assets/components/card-stacked-layout-01.svg",
+      "category": "component-source",
+      "group": "components",
+      "width": 391.0,
+      "height": 528.0,
+      "aspect": 0.741,
+      "background": "transparent",
+      "live_text": 8,
+      "reworkable": false,
+      "roles": {},
+      "palette": [
+        {
+          "hex": "#242630",
+          "token": "--equinet-color-night-default"
+        },
+        {
+          "hex": "#3B3F51",
+          "token": "--equinet-color-night-700"
+        },
+        {
+          "hex": "#B1B7C8",
+          "token": "--equinet-color-charade-300"
+        },
+        {
+          "hex": "#E06730",
+          "token": "--equinet-color-amber-default"
+        }
+      ]
     },
     {
       "name": "eyebrow-plain",

@@ -19,7 +19,9 @@ AI-generated design**.
 | 9 | **Illustrations are reference, not sealed artwork.** Recompose freely — crop, scale, overlap, extract, rearrange. Colour, typography and iconography still follow the system. |
 | 10 | **Every section gets a visual.** Place a whole illustration when its subject matches (`assets/illustrations/INDEX.md`); otherwise **compose** a bespoke graphic from the set's structural primitives — cards, connectors, nodes, panels. Never a mismatched whole illustration, never a bare section. Comps are layout blueprints; marketing infographics are the style reference. |
 | 11 | **Backgrounds:** `scenes/` are opaque **dark** (navy gradient); `sectors/` are opaque **light** (`#F6F5F5`→white); `systems/`, `flows/` are transparent and need a surface; `pictonodes/` are square and never sit in a 16:9 row. |
+| 10b | **A card with an image, stats, source links and a read-more** is `.eq-card--stacked` — full-bleed 16:9 media, padding on the body not the card, 1px-ruled stat rows, and the read-more as the card's one `.eq-card__link`. |
 | 10a | **The eyebrow** is `.eq-eyebrow`. `--solid` (the pale pill) is for hero banners, CTA banners and modules of exceptional value only — emphasis on every section is not emphasis. Orange on any ground fails AA at 12px/700; `--solid-safe` and `--on-dark` are the compliant forms. |
+| 11b | **Radial surfaces:** `.eq-surface` — an off-centre white pool falling to `surface--alt`, built in CSS not placed as an SVG. Hold the 2:1 axis ratio and keep the centre off 50% 50%. Flat colour stays `background-color` so the editor's choice shows through. |
 | 11a | **Module backgrounds:** `assets/backgrounds/` is draughtsman's line work, placed as a CSS `background-image` — never inlined, never annotated with `data-asset` or `data-role`. Set copy in the open side of the frame; never behind a stat, a chart, or anything to decode. |
 | 12 | **WCAG 2.1 AA**, measured not estimated. One signed-off exception: the primary button's white label. |
 | 13 | **Rework assets by role, from the manifest.** Choose from `assets/manifest.json`; edit via `data-role` (card, node, connector, glyph, accent…), per `assets/REWORKING.md`. Illustrations have no live text — labels go in HTML, never in the SVG. |
@@ -908,8 +910,13 @@ ground fails. As of 2026-10-16 this is no longer hypothetical: the eyebrow
 ships as `.eq-eyebrow` with the Figma source in `assets/components/`. Still
 not raised with the client. `.eq-eyebrow--solid-safe` (label in
 `--equinet-color-text`, 12.93:1) and `.eq-eyebrow--on-dark` are the compliant
-forms in the meantime. The 2026-09-21 button exception was scoped so it does
-not extend to another component, so this needs its own ruling.
+forms in the meantime. `.eq-card--stacked` makes it three: its stat values
+(18px/600) and read-more (16px/600) are both 3.41:1 on white, with
+`.eq-card__stat--aa` and `.eq-card__action--aa` as the compliant forms. Those
+two drop the orange entirely, because no orange here reaches 4.5:1 on white —
+`--equinet-color-orange--dark` is nearest at 4.37:1. The 2026-09-21 button
+exception was scoped so it does not extend to another component, so all three
+need their own ruling.
 
 ## Engineering contract
 

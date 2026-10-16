@@ -166,6 +166,12 @@ and animating each one's paths adds hundreds of elements to the entrance for
 line art a few pixels across — it buys nothing a reader sees and makes
 scrolling stutter. `motion.js` enforces the same 64px gate itself.
 
+**A card that carries more than a title and a line of text** —
+an image, figures, links out, a read-more — is `.eq-card--stacked`. Full-bleed
+16:9 media at the top, padding on the body rather than the card, stat rows
+ruled at 1px, and the read-more as the card's single `.eq-card__link` so the
+whole card is the target. Measurements in `assets/components/README.md`.
+
 **The eyebrow above a heading is `.eq-eyebrow`.** The plain orange one is
 the default. `.eq-eyebrow--solid` — the same label in a pale pill — is
 rationed to hero banners, CTA banners and modules carrying exceptional value.
@@ -173,6 +179,12 @@ More than one or two on a page means it is decoration and the plain variant
 was right. Orange at 12px/700 fails AA on every ground this system has, so
 where a build can't carry that, `--solid-safe` and `--on-dark` are the
 compliant forms; see `assets/components/README.md`.
+
+**A section that needs depth gets `.eq-surface`**, not a flat fill — an
+off-centre pool of white falling away to `surface--alt`, built in CSS. Use
+`--01` and `--02` alternately down a page so consecutive sections don't
+match, or override the four custom properties for a bespoke pool. Keep the
+2:1 axis ratio and the centre off 50% 50%.
 
 **Module backgrounds are a separate thing from graphics.**
 `assets/backgrounds/` holds draughtsman's line work — construction circles,
