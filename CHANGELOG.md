@@ -28,6 +28,117 @@ Project. Every entry below represents a manual reconciliation pass — someone
 asked Claude, in that Project, to fold new development work into
 `tokens.css` / `README.md`, then committed the result here.
 
+## 2026-10-16 — tokens.css reconciled with the deployment: 227 tokens
+
+The merge drafted against the deployed `/modules/tokens.css` is now this
+file. 215 tokens to **227**.
+
+**Twelve folded back from the deployment**, promoted during the
+`image_resizer` and `2-column-page-accordion` builds and never returned: the
+status palette (`success`, `caution`, `danger` and their pale grounds),
+`--equinet-color-muted`, `--equinet-color-navy--pale`,
+`--equinet-color-border--control`, `--equinet-font-mono`,
+`--equinet-fontweight-medium`, `--equinet-lineheight-heading`. Reasoning
+carried over verbatim — particularly why `border--control` exists at 4.17:1
+where `--equinet-color-border` at 2.00:1 fails WCAG 1.4.11 for
+non-decorative boundaries. That was real work sitting outside the repo.
+
+**The five conflicts were resolved by holding the deployed value**, so
+deploying this file moves nothing on the live site: `fontsize-h2` 48px → 36px,
+`fontsize-h3` 32px → 24px, `lineheight-body` 24px → 1.4,
+`letterspacing-display` -0.05em → -0.06em, and `font-body` regains
+`'Myriad Pro'` ahead of Source Sans 3. **These remain open questions**, kept
+in the file as `DECISION 1-5` blocks with both values and the reasoning.
+Holding what ships is a safe default, not a ruling. The h2/h3 pair is the one
+to look at: the repo's own comment called 48px "canonical, but unused in all
+four live-text comps", and holding 36px ratifies that permanently. Note also
+that h3 at 24px now collides with `--equinet-fontsize-h4`, so one of those
+roles is redundant if 24 stands.
+
+**Seven `--equinet-font-body` fallbacks in `bundle.css` were realigned** to
+match the token's new value. A fallback that disagrees with its token is the
+exact class of silent drift this whole pass was about, even though here it
+renders identically because Myriad Pro isn't installed.
+
+**Bug caught during promotion.** Adding the status palette immediately
+changed two `nearest_token` suggestions in the manifest: a warm hex in
+`chart-robotic-arms-roi` moved from `amber-100` to `caution--pale`, and one
+in `marketing-hubspot-agents` to `danger--pale`. Nearest by RGB, wrong by
+meaning — status colours are reserved for UI state and must never be proposed
+as a replacement for ink in artwork. `build-manifest.py` now excludes them
+from the suggestion pool, and the manifest is byte-identical to before the
+promotion again.
+
+`tokens.json` regenerated: 154 emitted, 73 unrepresentable. All checks green
+— `check-docs.py` 0 problems, `check-deployed-tokens.py` **0 conflicts, 0
+orphans**, tests 25 / 14 / 37, `bundle.css` 0 undefined tokens and 0 `var()`
+without a fallback.
+
+Still 151 tokens in this file that the deployment doesn't carry, and 10 that
+differ cosmetically (aliases here, repeated literals there). Both clear the
+moment this file is uploaded — which is now a safe thing to do.
+
+## 2026-10-16 — Deployed tokens diffed: 5 conflicts, 151 missing, 12 orphans
+
+The deployed `/modules/tokens.css` was read for the first time since this repo
+was built. It carries **76 tokens against the repo's 215**, and the two have
+drifted in both directions.
+
+**Why nobody noticed.** Modules read every value as
+`var(--equinet-…, <fallback>)`, and that fallback is deliberate — a module
+whose token is missing from the deployed file renders at exactly the right
+value anyway. The drift is invisible on every page you can look at. It
+surfaces only when someone changes a token, expects the modules to follow,
+and nothing moves.
+
+**Five true conflicts — the same name resolving to different values.**
+Deploying this repo's file as-is would change how live modules render:
+
+| Token | Repo | Deployed |
+| --- | --- | --- |
+| `--equinet-fontsize-h2` | 48px | 36px |
+| `--equinet-fontsize-h3` | 32px | 24px |
+| `--equinet-lineheight-body` | 24px | 1.4 (22.4px on 16px) |
+| `--equinet-letterspacing-display` | -0.05em | -0.06em |
+| `--equinet-font-body` | `'Source Sans 3'` | `'Myriad Pro', 'Source Sans 3'` |
+
+The h2/h3 pair is the Figma heading scale against values promoted from the
+`cagr-four-column` build; this repo's own comment calls 48px "canonical, but
+unused in all four live-text comps", which is the disagreement stated out
+loud and never resolved. `--equinet-font-body` is the more interesting one:
+the deployed file keeps Myriad Pro first so a licensed embed would be picked
+up automatically, and this repo dropped it. None of the five has been ruled
+on.
+
+**151 tokens in the repo are not deployed at all** — the whole primitive
+ramp, every border width and radius, all seven letter-spacings, the button
+geometry, motion travel. Any module referencing one is on its fallback.
+
+**12 tokens are deployed and absent here**, promoted during the
+`image_resizer` and `2-column-page-accordion` builds and never brought back:
+the status palette (`success`, `caution`, `danger` and their pale grounds,
+each documented at ≥ 4.5:1), `--equinet-color-muted`,
+`--equinet-color-navy--pale`, `--equinet-color-border--control` (4.17:1,
+added because `--equinet-color-border` at 2.00:1 fails WCAG 1.4.11 for
+non-decorative boundaries), `--equinet-font-mono`,
+`--equinet-fontweight-medium` and `--equinet-lineheight-heading`. On these
+the repo is behind the deployment, not ahead of it.
+
+**Ten more differ only cosmetically** — the repo aliases a primitive
+(`var(--equinet-color-amber-default)`) where the deployment repeats the hex
+(`#E06730`). Same resolved value, no rendering difference.
+
+**New: `tools/check-deployed-tokens.py`.** Takes the deployed file as an
+argument and sorts the differences into conflict, missing, orphan and
+cosmetic, resolving aliases first so an alias and its literal aren't reported
+as a difference. Conflicts and missing tokens fail the run; orphans don't —
+they are a backlog, not a breakage. Documented in `README.md` under "How it
+is consumed" and in the `HANDOFF.md` tools table.
+
+Nothing was changed in `tokens.css`. The five conflicts are decisions, and
+making them silently by uploading a file is how a heading scale moves under a
+live site.
+
 ## 2026-10-16 — The eyebrow built as a component; `--solid` rationed
 
 `eyebrow-plain.svg` and `eyebrow-solid.svg` added as `assets/components/`, a

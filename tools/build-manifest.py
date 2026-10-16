@@ -26,7 +26,14 @@ hex2tok, sanctioned = {}, {}
 for m in re.finditer(r'(--equinet-[a-z0-9-]+):\s*(#[0-9A-Fa-f]{6})\b', tokens):
     h = m.group(2).upper()
     hex2tok.setdefault(h, m.group(1))
-    if m.group(1).startswith('--equinet-color-'):
+    # Status colours are reserved for UI state and must never be proposed as a
+    # replacement for ink in artwork. Added to tokens.css 2026-10-16, and
+    # without this they immediately out-competed amber-100 on two warm hexes
+    # (chart-robotic-arms-roi -> caution--pale, marketing-hubspot-agents ->
+    # danger--pale), which is nearest by RGB and wrong by meaning.
+    STATUS = ('--equinet-color-success', '--equinet-color-caution',
+              '--equinet-color-danger')
+    if m.group(1).startswith('--equinet-color-') and not m.group(1).startswith(STATUS):
         sanctioned.setdefault(h, m.group(1))
 hex2tok.setdefault('#FFFFFF', '--equinet-color-surface')
 

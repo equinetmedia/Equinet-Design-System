@@ -9,8 +9,8 @@ depends_on: tokens.css
 
 # Tokens that cannot be expressed in tokens.json
 
-`tokens.css` declares **215** variables. **145** are emitted as
-tokens; **70** have no representation in Claude Design's schema
+`tokens.css` declares **227** variables. **154** are emitted as
+tokens; **73** have no representation in Claude Design's schema
 and are listed below with the reason.
 
 This file exists because the schema fails *silently*: an unsupported family or
@@ -21,7 +21,7 @@ is therefore not evidence that it is unimportant — read `tokens.css`.
 | Token | Value | Why it isn't in tokens.json |
 | --- | --- | --- |
 | `--equinet-font-heading` | `'Open Sans', sans-serif` | typography — carried by the `type` block's named styles, which have no token-array equivalent |
-| `--equinet-font-body` | `'Source Sans 3', sans-serif` | typography — carried by the `type` block's named styles, which have no token-array equivalent |
+| `--equinet-font-body` | `'Myriad Pro', 'Source Sans 3', sans-serif` | typography — carried by the `type` block's named styles, which have no token-array equivalent |
 | `--equinet-font-heading-light` | `'Source Sans 3', sans-serif` | typography — carried by the `type` block's named styles, which have no token-array equivalent |
 | `--equinet-fontweight-light` | `300` | typography — carried by the `type` block's named styles, which have no token-array equivalent |
 | `--equinet-fontweight-body` | `400` | typography — carried by the `type` block's named styles, which have no token-array equivalent |
@@ -35,8 +35,8 @@ is therefore not evidence that it is unimportant — read `tokens.css`.
 | `--equinet-fontsize-body` | `16px` | typography — carried by the `type` block's named styles, which have no token-array equivalent |
 | `--equinet-fontsize-body-lg` | `20px` | typography — carried by the `type` block's named styles, which have no token-array equivalent |
 | `--equinet-fontsize-h1` | `56px` | typography — carried by the `type` block's named styles, which have no token-array equivalent |
-| `--equinet-fontsize-h2` | `48px` | typography — carried by the `type` block's named styles, which have no token-array equivalent |
-| `--equinet-fontsize-h3` | `32px` | typography — carried by the `type` block's named styles, which have no token-array equivalent |
+| `--equinet-fontsize-h2` | `36px` | typography — carried by the `type` block's named styles, which have no token-array equivalent |
+| `--equinet-fontsize-h3` | `24px` | typography — carried by the `type` block's named styles, which have no token-array equivalent |
 | `--equinet-fontsize-h4` | `24px` | typography — carried by the `type` block's named styles, which have no token-array equivalent |
 | `--equinet-fontsize-h5` | `20px` | typography — carried by the `type` block's named styles, which have no token-array equivalent |
 | `--equinet-fontsize-h6` | `18px` | typography — carried by the `type` block's named styles, which have no token-array equivalent |
@@ -50,7 +50,7 @@ is therefore not evidence that it is unimportant — read `tokens.css`.
 | `--equinet-fontsize-small` | `14px` | typography — carried by the `type` block's named styles, which have no token-array equivalent |
 | `--equinet-fontsize-caption` | `11px` | typography — carried by the `type` block's named styles, which have no token-array equivalent |
 | `--equinet-lineheight-body-sm` | `20px` | typography — carried by the `type` block's named styles, which have no token-array equivalent |
-| `--equinet-lineheight-body` | `24px` | typography — carried by the `type` block's named styles, which have no token-array equivalent |
+| `--equinet-lineheight-body` | `1.4` | typography — carried by the `type` block's named styles, which have no token-array equivalent |
 | `--equinet-lineheight-body-lg` | `32px` | typography — carried by the `type` block's named styles, which have no token-array equivalent |
 | `--equinet-lineheight-h1` | `56px` | typography — carried by the `type` block's named styles, which have no token-array equivalent |
 | `--equinet-lineheight-h2` | `48px` | typography — carried by the `type` block's named styles, which have no token-array equivalent |
@@ -65,7 +65,7 @@ is therefore not evidence that it is unimportant — read `tokens.css`.
 | `--equinet-letterspacing-h2` | `-2px` | typography — carried by the `type` block's named styles, which have no token-array equivalent |
 | `--equinet-letterspacing-kicker` | `0.2em` | typography — carried by the `type` block's named styles, which have no token-array equivalent |
 | `--equinet-letterspacing-kicker--lg` | `0.1em` | typography — carried by the `type` block's named styles, which have no token-array equivalent |
-| `--equinet-letterspacing-display` | `-0.05em` | typography — carried by the `type` block's named styles, which have no token-array equivalent |
+| `--equinet-letterspacing-display` | `-0.06em` | typography — carried by the `type` block's named styles, which have no token-array equivalent |
 | `--equinet-letterspacing-display--tight` | `-0.07em` | typography — carried by the `type` block's named styles, which have no token-array equivalent |
 | `--equinet-letterspacing-h2--tight` | `-0.03em` | typography — carried by the `type` block's named styles, which have no token-array equivalent |
 | `--equinet-paraspacing-body-sm` | `16px` | paragraph spacing — no field for it on a type style; applied directly in module CSS |
@@ -90,4 +90,7 @@ is therefore not evidence that it is unimportant — read `tokens.css`.
 | `--equinet-btn-scale--hover` | `1.03` | unitless number (a scale factor / stroke width) — no numeric family in the schema |
 | `--equinet-motion-ease--ui` | `ease` | easing curve — no family reads a timing function; consumed directly from tokens.css |
 | `--equinet-motion-ease--enter` | `cubic-bezier(0.33, 0, 0.2, 1)` | easing curve — no family reads a timing function; consumed directly from tokens.css |
+| `--equinet-font-mono` | `'IBM Plex Mono', ui-monospace, 'SF Mono', Men…` | typography — carried by the `type` block's named styles, which have no token-array equivalent |
+| `--equinet-fontweight-medium` | `500` | typography — carried by the `type` block's named styles, which have no token-array equivalent |
+| `--equinet-lineheight-heading` | `0.91` | typography — carried by the `type` block's named styles, which have no token-array equivalent |
 

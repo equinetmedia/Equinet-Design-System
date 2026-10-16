@@ -66,6 +66,13 @@ background: var(--equinet-btn-fill--primary, #E06730);
 The fallback is not decoration. If the token file is ever unreachable the module
 still renders at its exact intended value.
 
+**Which is also why drift between this repo and the deployed file is
+invisible.** A module whose token is missing from `/modules/tokens.css`
+renders perfectly on its fallback — so you cannot see the gap on any page.
+You find it when you change a token, expect the modules to follow, and
+nothing moves. `tools/check-deployed-tokens.py` diffs the two; run it before
+deploying `tokens.css` and after any module build that promotes a token.
+
 Three rules hold this together:
 
 - `tokens.css` owns the only `:root` block in the system. A module never
