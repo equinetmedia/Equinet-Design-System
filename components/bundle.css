@@ -1299,3 +1299,65 @@
   --eq-surface-x: 73.2%; --eq-surface-y: 22.4%;
   --eq-surface-w: 44.1%; --eq-surface-h: 212.5%;
 }
+
+/* ------------------------------------------------------------------ dark --
+   Measured from assets/backgrounds/radial-background-dark.svg (1920 x 805,
+   Figma 2026-10-16). A deep navy surface, darkest at the bottom-left and
+   lifting to --equinet-color-navy across the frame.
+
+   USE IT SPARINGLY — a section or a card that is meant to stand apart, not a
+   second default. It is deliberately excluded from the sibling rotation
+   above (that rule is scoped :not([class*="eq-surface--"])), so a dark
+   surface is only ever something someone chose.
+
+   DIFFERENT SIGNATURE FROM THE LIGHT PAIR, so don't carry their rules over:
+     stops       #011420 -> #00426C, i.e. --equinet-color-blue-950 to
+                 --equinet-color-blue-default. Both already tokens.
+     polarity    INVERTED. The light surfaces put white at the centre; this
+                 puts the DARK stop at the centre and lifts outward.
+     centre      4.3% / 93.2% — bottom-left, almost off-frame.
+     ratio       2.385 : 1, not the light pair's 2.023 : 1.
+     extent      77.8% x 442.5% of the frame, so the pool runs well past the
+                 edges and only part of its range is ever visible. That is
+                 what makes it a slow wash rather than a visible pool.
+
+   CSS reproduces this to within 7/255 on any channel and 1.11/255 on average
+   — close, but not the 5/255 the light pair manage. The -20 degree rotation
+   does more work here because the two stops actually differ in luminance.
+   The values below are a fitted approximation, not a transcription; the SVG
+   stays in assets/backgrounds/ if a build ever needs it exactly.
+
+   TEXT ON IT, measured against BOTH stops (worst case shown):
+     white            10.52:1   body text, fine anywhere
+     surface--alt      9.67:1   fine
+     orange--pale      8.95:1   fine — this is what .eq-eyebrow--on-dark uses
+     teal-default      4.96:1   passes AA for body; the one accent that does
+     orange--light     4.15:1   large text and graphics only
+     orange            3.08:1   FAILS for text at any size. Not an accent here.
+   ========================================================================== */
+
+.eq-surface--dark {
+  --eq-surface-x: 4.3%;
+  --eq-surface-y: 100%;
+  --eq-surface-w: 77.8%;
+  --eq-surface-h: 380%;
+
+  background-color: var(--equinet-color-blue-default, #00426C);
+  background-image: radial-gradient(
+    ellipse var(--eq-surface-w) var(--eq-surface-h)
+    at var(--eq-surface-x) var(--eq-surface-y),
+    var(--equinet-color-blue-950, #011420) 0%,
+    var(--equinet-color-blue-default, #00426C) 100%
+  );
+  /* Content inherits a readable colour instead of each module remembering.
+     An element that needs the accent sets it explicitly. */
+  color: var(--equinet-color-surface, #FFFFFF);
+}
+
+.eq-surface--dark .eq-card__title,
+.eq-surface--dark .eq-card__text,
+.eq-surface--dark .eq-stagger__heading { color: inherit; }
+
+/* The eyebrow's dark-ground form, repeated here so a dark surface carries it
+   without the author having to remember the modifier. */
+.eq-surface--dark .eq-eyebrow { color: var(--equinet-color-orange--pale, #FCE9E0); }

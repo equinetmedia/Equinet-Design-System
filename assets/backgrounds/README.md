@@ -180,6 +180,62 @@ wherever the pool has fallen away — see the digest rule *"Padding and
 background are the editor's"*.
 
 
+## `radial-background-dark` — 1920 × 805
+
+A deep navy surface, darkest at the bottom-left and lifting to
+`--equinet-color-navy` across the frame. Built as `.eq-surface--dark`.
+
+**Use it sparingly** — a section or a card meant to stand apart, never a
+second default. It is deliberately excluded from the sibling rotation, so a
+dark surface is only ever something someone chose.
+
+### A different signature from the light pair
+
+| | Light (`-01`, `-02`) | Dark |
+| --- | --- | --- |
+| Stops | `surface` → `surface--alt` | `blue-950` (#011420) → `blue-default` (#00426C) |
+| Polarity | light at the centre | **dark at the centre**, lifting outward |
+| Centre | upper, off to one side | 4.3% / 93.2% — bottom-left, almost off-frame |
+| Axis ratio | 2.023 : 1 | **2.385 : 1** |
+| Extent | 44% / 31% of width | 77.8% × 442.5% — runs well past the edges |
+
+Both stops are already tokens. The extent is the interesting part: the pool
+is so much larger than the frame that only part of its range is ever visible,
+which is what makes it a slow wash rather than a pool you can see the edge
+of.
+
+**Don't carry the light pair's rules over.** The 2:1 ratio and the
+white-at-centre polarity are theirs, not this one's.
+
+### Closeness
+
+CSS reproduces this to within **7/255 on any channel, 1.11/255 on average** —
+close, but not the 5/255 the light pair manage. The −20° rotation does more
+work here because the two stops genuinely differ in luminance. The values in
+`bundle.css` are a fitted approximation rather than a transcription, found by
+searching centre and extent against the rendered SVG. The file stays here if
+a build ever needs it exactly.
+
+### What can sit on it
+
+Measured against **both** stops; the worst case is shown, because a surface
+that passes at one end and fails at the other has failed.
+
+| | Worst case | |
+| --- | --- | --- |
+| white | 10.52:1 | body text anywhere |
+| `surface--alt` | 9.67:1 | fine |
+| `orange--pale` | 8.95:1 | fine — what `.eq-eyebrow--on-dark` uses |
+| `teal-default` | 4.96:1 | **passes AA for body — the one accent that does** |
+| `orange--light` | 4.15:1 | large text and graphics only |
+| **`orange`** | **3.08:1** | **fails at any size. Not an accent here.** |
+
+`.eq-surface--dark` sets `color` to `--equinet-color-surface` so content
+inherits something readable instead of each module remembering, and gives a
+nested `.eq-eyebrow` its on-dark colour without the modifier. Anything
+wanting the accent sets it explicitly — and on this ground that means teal or
+`orange--pale`, not orange.
+
 ## Varying it automatically
 
 The goal is not randomness. It is that **two surfaces a reader sees together
@@ -188,8 +244,9 @@ again tomorrow. A background that changes between page loads breaks caching,
 breaks screenshot diffs, and makes a client think something is wrong. Never
 reach for a random value here.
 
-There are four positions: `--01` and `--02` as measured, `--03` and `--04`
-mirrored from them. Three ways to choose between them, in the order to try.
+There are four light positions: `--01` and `--02` as measured, `--03` and
+`--04` mirrored from them. `--dark` is not one of them and never enters the
+rotation. Three ways to choose between the four, in the order to try.
 
 ### 1. Siblings — free, no configuration
 

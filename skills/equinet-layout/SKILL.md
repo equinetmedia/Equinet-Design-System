@@ -188,6 +188,11 @@ pin one, or override the four custom properties for a bespoke pool. Keep the
 2:1 axis ratio and the centre off 50% 50%, and never choose a position at
 random — the same page must render the same way tomorrow.
 
+`.eq-surface--dark` is the deep navy version, for a section or card meant to
+stand apart. **Sparingly** — it never joins the rotation. Content on it
+inherits white; the one accent that passes AA there is `teal-default`, and
+orange does not (3.08:1).
+
 **Module backgrounds are a separate thing from graphics.**
 `assets/backgrounds/` holds draughtsman's line work — construction circles,
 arcs, dashed centre lines — meant to sit behind a section as texture. Place

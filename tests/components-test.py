@@ -33,6 +33,7 @@ page=f"""<!doctype html><html><head><meta charset="utf-8">
 <section class="eq-surface eq-surface--01" id="surf1" style="height:200px"></section>
 <section class="eq-surface eq-surface--02" id="surf2" style="height:200px"></section>
 <section class="eq-surface" id="surfD" style="height:200px"></section>
+<section class="eq-surface eq-surface--dark" id="surfDark" style="height:200px"><p class="eq-eyebrow" id="ebDark">On dark</p></section>
 <div id="auto"><section class="eq-surface" id="a1"></section><section class="eq-surface" id="a2"></section><section class="eq-surface" id="a3"></section><section class="eq-surface" id="a4"></section><section class="eq-surface" id="a5"></section><section class="eq-surface eq-surface--01" id="aX"></section></div>
 <article class="eq-card eq-card--stacked" data-reveal id="stk">
   <div class="eq-card__media"><img src="data:image/gif;base64,R0lGODlhAQABAAAAACw=" alt=""></div>
@@ -79,6 +80,19 @@ with sync_playwright() as p:
        "44.1:212.5 and 30.9:148.9 against a 1920x805 frame")
     ok("R6 bare .eq-surface carries a usable default",
        pg.evaluate(SF,["#surfD","backgroundImage"]).startswith("radial-gradient"))
+    ok("R11 dark: navy underneath, blue-950 at the centre",
+       pg.evaluate(SF,["#surfDark","backgroundColor"])=="rgb(0, 66, 108)"
+       and "rgb(1, 20, 32)" in pg.evaluate(SF,["#surfDark","backgroundImage"]),
+       pg.evaluate(SF,["#surfDark","backgroundColor"]))
+    ok("R12 dark: content inherits a readable colour by default",
+       pg.evaluate(SF,["#surfDark","color"])=="rgb(255, 255, 255)",
+       pg.evaluate(SF,["#surfDark","color"]))
+    ok("R13 dark: the eyebrow takes its on-dark colour without a modifier",
+       pg.evaluate(SF,["#ebDark","color"])=="rgb(252, 233, 224)",
+       pg.evaluate(SF,["#ebDark","color"]))
+    ok("R14 dark is excluded from the sibling rotation — never automatic",
+       pg.evaluate("""()=>{const d=document.querySelector('#surfDark');
+         return getComputedStyle(d).getPropertyValue('--eq-surface-y').trim()==='100%'}"""))
     ok("R8 sibling surfaces rotate through four positions",
        len({pg.evaluate(SF,[f"#a{i}","backgroundImage"]) for i in (1,2,3,4)})==4,
        "four consecutive siblings, four different pools")

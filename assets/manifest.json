@@ -14,7 +14,7 @@
     "shape": "unclassified (usually invisible bounds)"
   },
   "palette_note": "'unsanctioned' marks a colour found in artwork that is not a token; replace it with nearest_token (by RGB distance \u2014 a suggestion, not a ruling) rather than carrying the raw hex forward.",
-  "count": 107,
+  "count": 108,
   "assets": [
     {
       "name": "draftmans-background-hero-banner",
@@ -108,6 +108,29 @@
         {
           "hex": "#F6F5F5",
           "token": "--equinet-color-surface-200"
+        }
+      ]
+    },
+    {
+      "name": "radial-background-dark",
+      "path": "assets/backgrounds/radial-background-dark.svg",
+      "category": "background",
+      "group": "backgrounds",
+      "width": 1920.0,
+      "height": 805.0,
+      "aspect": 2.385,
+      "background": "opaque dark",
+      "live_text": 0,
+      "reworkable": false,
+      "roles": {},
+      "palette": [
+        {
+          "hex": "#00426C",
+          "token": "--equinet-color-blue-default"
+        },
+        {
+          "hex": "#011420",
+          "token": "--equinet-color-blue-950"
         }
       ]
     },

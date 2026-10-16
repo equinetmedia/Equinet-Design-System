@@ -28,6 +28,55 @@ Project. Every entry below represents a manual reconciliation pass — someone
 asked Claude, in that Project, to fold new development work into
 `tokens.css` / `README.md`, then committed the result here.
 
+## 2026-10-16 — `.eq-surface--dark`, and the one accent that works on it
+
+A dark radial added: deep navy, darkest at the bottom-left, lifting to
+`--equinet-color-navy` across the frame. **Used sparingly** — a section or a
+card meant to stand apart, never a second default. It is excluded from the
+sibling rotation by construction (that rule is scoped
+`:not([class*="eq-surface--"])`), so a dark surface is only ever something
+someone chose.
+
+**Both stops were already tokens** — `#011420` is
+`--equinet-color-blue-950`, `#00426C` is `--equinet-color-blue-default`.
+Nothing new needed, again.
+
+**A different signature from the light pair, and the light pair's rules do
+not carry over.** Polarity is inverted: the light surfaces put white at the
+centre, this puts the DARK stop at the centre and lifts outward. The axis
+ratio is 2.385 : 1, not 2.023 : 1. The centre sits at 4.3% / 93.2%, almost
+off-frame. And the extent is 77.8% x 442.5%, so the pool runs well past the
+edges and only part of its range is ever visible — which is what makes it a
+slow wash rather than a pool with a visible edge.
+
+**CSS gets within 7/255 here, not 5/255.** The −20° rotation does more work
+because the two stops genuinely differ in luminance, where white to #F6F5F5
+barely does. The values shipped are a fitted approximation rather than a
+transcription — found by searching centre and extent against the rendered SVG
+rather than transcribing the matrix, which landed at 9/255. Mean 1.11/255.
+The file stays in `assets/backgrounds/` if a build ever needs it exactly.
+
+**Measured what can sit on it, against BOTH stops**, because a surface that
+passes at one end and fails at the other has failed. White 10.52:1,
+`surface--alt` 9.67:1, `orange--pale` 8.95:1 — all fine.
+**`teal-default` at 4.96:1 is the one accent that passes AA for body text**,
+which is the first time a compliant accent has existed anywhere in this
+system. `orange--light` manages 4.15:1, large text and graphics only. And
+**plain orange is 3.08:1 — it fails at any size and is not an accent on this
+ground.** That is the fourth component or surface to hit the same orange
+ceiling.
+
+`.eq-surface--dark` sets `color` to `--equinet-color-surface`, so content
+inherits something readable instead of every module remembering, and gives a
+nested `.eq-eyebrow` its on-dark colour without the modifier.
+
+**Four checks added** (43 to 47): navy underneath with blue-950 at the
+centre, content inheriting white, the eyebrow taking its on-dark colour
+unprompted, and the dark surface keeping its own geometry rather than being
+caught by the rotation.
+
+Manifest at 108 assets.
+
 ## 2026-10-16 — Four surface positions, rotating automatically
 
 `.eq-surface` gains automatic variation, so a stack of sections doesn't
