@@ -115,7 +115,7 @@ with sync_playwright() as p:
        pg.evaluate(SF,["#surfDark","color"])=="rgb(255, 255, 255)",
        pg.evaluate(SF,["#surfDark","color"]))
     ok("R13 dark: the eyebrow takes its on-dark colour without a modifier",
-       pg.evaluate(SF,["#ebDark","color"])=="rgb(252, 233, 224)",
+       pg.evaluate(SF,["#ebDark","color"])=="rgb(245, 132, 77)",
        pg.evaluate(SF,["#ebDark","color"]))
     ok("R14 dark is excluded from the sibling rotation — never automatic",
        pg.evaluate("""()=>{const d=document.querySelector('#surfDark');

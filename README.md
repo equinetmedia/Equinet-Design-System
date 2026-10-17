@@ -915,7 +915,11 @@ ground fails. As of 2026-10-16 this is no longer hypothetical: the eyebrow
 ships as `.eq-eyebrow` with the Figma source in `assets/components/`. Still
 not raised with the client. `.eq-eyebrow--solid-safe` (label in
 `--equinet-color-text`, 12.93:1) and `.eq-eyebrow--on-dark` are the compliant
-forms in the meantime. `.eq-card--stacked` makes it three: its stat values
+forms in the meantime — though from 2026-10-17 `--on-dark` is
+`--equinet-color-orange--light` at **4.15:1**, chosen over the compliant pale
+amber because the pale read as off-white rather than as the accent. It misses
+4.5:1 by 0.35. `#F69160`, 4% lighter, clears 4.58:1 and is visually
+indistinguishable if a compliant form is ever wanted. `.eq-card--stacked` makes it three: its stat values
 (18px/600) and read-more (16px/600) are both 3.41:1 on white, with
 `.eq-card__stat--aa` and `.eq-card__action--aa` as the compliant forms. Those
 two drop the orange entirely, because no orange here reaches 4.5:1 on white —

@@ -225,7 +225,8 @@ that passes at one end and fails at the other has failed.
 | --- | --- | --- |
 | white | 10.52:1 | body text anywhere |
 | `surface--alt` | 9.67:1 | fine |
-| `orange--pale` | 8.95:1 | fine — what `.eq-eyebrow--on-dark` uses |
+| `orange--pale` | 8.95:1 | passes, but reads off-white at 12px — not the accent |
+| **`orange--light`** | **4.15:1** | **what `.eq-eyebrow--on-dark` uses from 2026-10-17** — misses 4.5:1 by 0.35, a designer-made call |
 | `teal-default` | 4.96:1 | **passes AA for body — the one accent that does** |
 | `orange--light` | 4.15:1 | large text and graphics only |
 | **`orange`** | **3.08:1** | **fails at any size. Not an accent here.** |

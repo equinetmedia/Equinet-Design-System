@@ -28,6 +28,31 @@ Project. Every entry below represents a manual reconciliation pass — someone
 asked Claude, in that Project, to fold new development work into
 `tokens.css` / `README.md`, then committed the result here.
 
+## 2026-10-17 — The eyebrow on dark moves to amber-400
+
+`.eq-eyebrow--on-dark` and `.eq-surface--dark .eq-eyebrow` change from
+`--equinet-color-orange--pale` (#FCE9E0) to `--equinet-color-orange--light`
+(#F5844D), on the designer's call after seeing it rendered.
+
+**The pale amber was compliant and wrong.** 8.95:1 against the navy, well
+clear of the threshold — and at 12px on a dark ground it reads as off-white
+rather than as the brand accent. An eyebrow that disappears into the
+background is not doing the job an eyebrow exists for.
+
+**The cost, measured and stated rather than buried.** #F5844D is **4.15:1**
+against the gradient's light end and 7.39:1 against its dark end. 12px at
+weight 700 is not large text, so the threshold is 4.5:1 and the light end
+misses by **0.35**. That is a deliberate call, and a far smaller gap than the
+3.41:1 the orange eyebrow already carries on white — but it is a miss.
+
+**There is a 0.35 fix if it is ever wanted.** Raising lightness 4% to
+`#F69160` clears 4.58:1 and is visually indistinguishable from #F5844D. It is
+recorded in `README.md` and the backgrounds README rather than adopted,
+because inventing a colour with no Figma source is not this system's habit.
+
+Nothing else moved. The eyebrow on light grounds is untouched and still
+carries the unresolved 3.41:1.
+
 ## 2026-10-17 — Pointer-tracked card emphasis, rationed to one per group
 
 Two hover treatments that follow the cursor: `.eq-card--spotlight`, a warm

@@ -1031,7 +1031,7 @@
 /* On a dark module ground, orange fails against both navy and night. The
    pale amber passes comfortably on either. */
 .eq-eyebrow--on-dark {
-  color: var(--equinet-color-orange--pale, #FCE9E0);
+  color: var(--equinet-color-orange--light, #F5844D);   /* 4.15:1 light end, 7.39:1 dark */
 }
 
 
@@ -1359,8 +1359,21 @@
 .eq-surface--dark .eq-stagger__heading { color: inherit; }
 
 /* The eyebrow's dark-ground form, repeated here so a dark surface carries it
-   without the author having to remember the modifier. */
-.eq-surface--dark .eq-eyebrow { color: var(--equinet-color-orange--pale, #FCE9E0); }
+   without the author having to remember the modifier.
+
+   CHANGED 2026-10-17 from --equinet-color-orange--pale to
+   --equinet-color-orange--light. The pale amber measured 8.95:1 and passed
+   comfortably, but at 12px on navy it reads as off-white rather than as the
+   brand accent — washed out, which is the opposite of what an eyebrow is for.
+
+   The cost, stated: #F5844D is 4.15:1 against the gradient's light end and
+   7.39:1 against its dark end. 12px/700 is not large text, so the threshold
+   is 4.5:1 and the light end misses it by 0.35. That is a deliberate,
+   designer-made call, and a far smaller gap than the 3.41:1 the orange
+   eyebrow carries on white. Raising lightness by 4% (#F69160) would clear
+   4.58:1 and is visually indistinguishable — see README.md, "One unresolved",
+   if a compliant variant is ever wanted. */
+.eq-surface--dark .eq-eyebrow { color: var(--equinet-color-orange--light, #F5844D); }
 
 
 /* ============================================================================
