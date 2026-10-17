@@ -14,11 +14,16 @@ AI-generated design**.
 | 4 | **Section headings**: `--equinet-fontsize-section-heading` (36px), uppercase, with `--equinet-shadow-heading`. Weight follows family — 800 Open Sans, 900 body family. Not `--equinet-fontsize-h2` (48px, canonical but applied nowhere). |
 | 5 | **Padding and background are the editor's.** Never hardcoded past override. Exposed in Module Style settings, injected at render. |
 | 6 | **Full-bleed background image ⇒ parallax**, via `IntersectionObserver` + `requestAnimationFrame`. Never `background-attachment: fixed`. |
-| 7 | **Every page is interactive and moves — by default.** Interaction states on every control and linked card (`.btn-*`, `.eq-card`); entrance motion via `components/motion.js` (inline SVGs with `data-asset` + `data-role`, `data-reveal` on blocks); an FAQ accordion (`.eq-faq` on native `<details>`, with matching FAQPage JSON-LD). Motion needs both halves — declared under `prefers-reduced-motion: no-preference`, withdrawn under `reduce`. No looping or decorative motion. |
+| 7 | **Every page is interactive and moves — by default.** Interaction states on every control and linked card (`.btn-*`, `.eq-card`); entrance motion via `components/motion.js` (inline SVGs with `data-asset` + `data-role`, `data-reveal` on blocks); an FAQ accordion (`.eq-faq` on native `<details>`, with matching FAQPage JSON-LD). Multi-part graphics are **navigable**: `.eq-graphic--tabs` with `.eq-graphic__hotspot[role="tab"]` revealing a detail panel each — one tab stop, arrow keys between parts, panels written visible so they survive with no JS. Every hotspot needs a `data-role="hit"` rect (≥24×24) and an accessible name. Motion needs both halves — declared under `prefers-reduced-motion: no-preference`, withdrawn under `reduce`. No looping motion, and no response on a graphic that does nothing. |
 | 8 | **Icons — use them generously.** Inline SVG only. Equinet's own first (2px stroke); otherwise **Lucide** at `stroke-width="1"` with a `<!-- lucide/name -->` source comment. Nothing over **48px**. Fetch paths from the library; never draw a glyph by hand. |
 | 9 | **Illustrations are reference, not sealed artwork.** Recompose freely — crop, scale, overlap, extract, rearrange. Colour, typography and iconography still follow the system. |
 | 10 | **Every section gets a visual.** Place a whole illustration when its subject matches (`assets/illustrations/INDEX.md`); otherwise **compose** a bespoke graphic from the set's structural primitives — cards, connectors, nodes, panels. Never a mismatched whole illustration, never a bare section. Comps are layout blueprints; marketing infographics are the style reference. |
 | 11 | **Backgrounds:** `scenes/` are opaque **dark** (navy gradient); `sectors/` are opaque **light** (`#F6F5F5`→white); `systems/`, `flows/` are transparent and need a surface; `pictonodes/` are square and never sit in a 16:9 row. |
+| 10c | **Typography** is `.eq-h1`…`.eq-body`, measured from `assets/type/`. Open Sans 800 at -0.07em uppercase for h1/h2/h3-section; Source Sans for h3-card, h4, lead, body. `--light` (weight 300) is the contrast variant for h2 and h3-section and carries **no shadow** — that is the variant. |
+| 10b | **A card with an image, stats, source links and a read-more** is `.eq-card--stacked` — full-bleed 16:9 media, padding on the body not the card, 1px-ruled stat rows, and the read-more as the card's one `.eq-card__link`. |
+| 10a | **The eyebrow** is `.eq-eyebrow`. `--solid` (the pale pill) is for hero banners, CTA banners and modules of exceptional value only — emphasis on every section is not emphasis. Orange on any ground fails AA at 12px/700; `--solid-safe` and `--on-dark` are the compliant forms. |
+| 11b | **Radial surfaces:** `.eq-surface` — an off-centre white pool falling to `surface--alt`, built in CSS not placed as an SVG. Four positions; siblings rotate through them automatically, an explicit variant always wins, and a module exposes the choice with a `flat` option. Hold the 2:1 axis ratio, keep the centre off 50% 50%, and never pick one at random — a background must render the same tomorrow. `--dark` is a separate signature (inverted polarity, 2.385:1), used sparingly and never automatically; on it, orange fails at 3.08:1 and teal is the one accent that passes. |
+| 11a | **Module backgrounds:** `assets/backgrounds/` is draughtsman's line work, placed as a CSS `background-image` — never inlined, never annotated with `data-asset` or `data-role`. Set copy in the open side of the frame; never behind a stat, a chart, or anything to decode. |
 | 12 | **WCAG 2.1 AA**, measured not estimated. One signed-off exception: the primary button's white label. |
 | 13 | **Rework assets by role, from the manifest.** Choose from `assets/manifest.json`; edit via `data-role` (card, node, connector, glyph, accent…), per `assets/REWORKING.md`. Illustrations have no live text — labels go in HTML, never in the SVG. |
 | 14 | **Never invent data.** Every figure on a page comes from supplied content or from `assets/charts/data.json`, with its source shown. Chart figures are outlined in the SVGs — rebuild charts live from `data.json`, never retype from the artwork, and don't quote a `not-quotable` value. |
@@ -64,10 +69,25 @@ background: var(--equinet-btn-fill--primary, #E06730);
 The fallback is not decoration. If the token file is ever unreachable the module
 still renders at its exact intended value.
 
+**Which is also why drift between this repo and the deployed file is
+invisible.** A module whose token is missing from `/modules/tokens.css`
+renders perfectly on its fallback — so you cannot see the gap on any page.
+You find it when you change a token, expect the modules to follow, and
+nothing moves. `tools/check-deployed-tokens.py` diffs the two; run it before
+deploying `tokens.css` and after any module build that promotes a token.
+
 Three rules hold this together:
 
 - `tokens.css` owns the only `:root` block in the system. A module never
-  declares one.
+  declares one. **It is the sole source of truth for token names and
+  values.** `tokens.json` is generated from it by
+  `tools/build-tokens-json.py` — never hand-edit the JSON; edit the CSS and
+  regenerate. The JSON owns one thing the CSS can't: the hand-written
+  `usage` prose on each token, which the generator carries forward by name.
+  Claude Design's schema cannot express every category — typography,
+  easing curves and unitless values have no token form — so
+  `tools/tokens-unrepresentable.md` lists what is left out and why. A token
+  absent from the JSON is not a token the system lacks.
 - Names are `--equinet-<category>-<role>`, with modifiers after a double
   hyphen — `--equinet-color-orange--dark`. Lowercase throughout.
 - Semantic roles alias the palette rather than repeating a hex, so each literal
@@ -106,6 +126,12 @@ one state unless the override is applied with `!important` across base, `:hover`
 between states.
 
 ## Data visualization
+
+**New charts use navy, orange and teal** — `equinet-color-navy`,
+`equinet-color-amber-400`, `equinet-color-teal-default` — ruled 2026-10-13 on
+the evidence of all seven charts in `assets/charts/`. The `chart-blue` family
+below is kept, but is no longer the default; reach for it only when matching
+the one infographic it came from.
 
 A separate, small palette for charts and data graphics only — never for UI,
 buttons, text, or anything a content editor places in a module. Sanctioned
@@ -536,7 +562,7 @@ the real exports existed.
 
 The classes there are unscoped, for Claude Design previews and reference.
 Inside a HubSpot module every selector is namespaced under that module's root
-class — see **Module anatomy**.
+class — see **Engineering contract**, "CSS scoping".
 
 ## Illustrations
 
@@ -547,7 +573,7 @@ illustrations), `sectors/` (4, 16:9 vertical pictographs), `systems/`
 horizontal four-step sequences) and `heroes/` (4, near-square service-page
 heroes, whose card labels are baked into the artwork). All are
 multi-colour and stand alone, distinct from the single-ink glyphs in
-`assets/icons/`. Every colour across all 24 resolves to an existing token —
+`assets/icons/`. Every colour across all 36 resolves to an existing token —
 but to the marketing and chart palettes, not the UI one, which is itself the
 clue that they're collateral rather than interface. Full per-group breakdown,
 palette mapping and usage rules in that folder's own `README.md`.
@@ -608,10 +634,11 @@ without media.
 
 ## Module comps
 
-`assets/comps/` holds three Figma exports of complete modules —
-`2-column-hero-banner`, `5_column_block_methodology` and
-`sector-three-column-case-study`, all 1920px wide. They are the design source
-of record those modules were built from.
+`assets/comps/` holds five Figma exports, all 1920px wide: four complete
+modules — `2-column-hero-banner`, `5_column_block_methodology`,
+`2-column-comparison` and `sector-three-column-case-study` — plus
+`Global-Navigation`, the site header. They are the design source of record
+those modules were built from.
 
 **Use them as layout blueprints — rebuild, don't paste.** Each is a real,
 shipped Equinet composition, so reproducing its structure and hierarchy with
@@ -651,7 +678,7 @@ the folder, re-package and reinstall, or the chat copy drifts behind.
 
 Three files make the asset folders usable by a model, not just a person:
 
-- **`assets/manifest.json`** — one entry per asset (99), generated from the
+- **`assets/manifest.json`** — one entry per asset, generated from the
   files by **`tools/build-manifest.py`**: category, dimensions, background (opaque dark / opaque light /
   transparent / dark tile), live-text count, the roles it contains, and its
   palette mapped to tokens. Colours that aren't tokens are marked
@@ -664,7 +691,7 @@ Three files make the asset folders usable by a model, not just a person:
   transcribed / not-quotable status. The SVGs' figures are outlined and
   unreadable, so charts are rebuilt live from `data.json`. See the charts
   README for errors found in the artwork — one chart isn't drawn to scale.
-- **`data-role` on every drawn element** of the 45 reworkable assets
+- **`data-role` on every drawn element** of the reworkable assets
   (illustrations, service tiles, nodes), plus `data-asset` / `data-group` on
   each root. Assigned from colour tokens and proven non-destructive: stripping
   them reproduces each original byte-for-byte.
@@ -678,7 +705,8 @@ layer-ID names. `assets/RENAMES.md` maps every old name to its new one.
 
 ## Interactive components — card, FAQ, reveal
 
-Added 2026-10-02 and part of every build by default (digest rule 7).
+Added 2026-10-02 and part of every build by default — see the digest rule
+*"Every page is interactive and moves"*.
 
 **`.eq-card`** — the card lift documented under **Cards** had never been built
 as a component; now it is. It lifts `translateY(-6px)` (in 0.3s, out 0.6s) and
@@ -785,9 +813,21 @@ of them, just the mandate to use them.
 - Wordmark: `assets/brand/wordmark-light.svg` or `wordmark-dark.svg`, picked
   by background contrast (see **Brand mark**). Never render the name as
   styled text standing in for the logo.
-- Icons: `assets/icons/` holds 16 files in three groups — three control icons
-  that take `currentColor`, five 43 × 43 concept marks (`nodes/`) and eight
-  65 × 65 service tiles (`service-tiles/`). Read that folder's `README.md`
+- Type specs: `assets/type/` holds the ten Figma typography exports — the
+  canonical hierarchy, and the source of record where a token disagrees. See
+  `assets/type/README.md`.
+- Component sources: `assets/components/` holds the Figma exports a component
+  was measured from — `eyebrow-plain` and `eyebrow-solid`, both 115 × 32.
+  Never placed on a page; they carry live text. See
+  `assets/components/README.md`.
+- Backgrounds: `assets/backgrounds/` holds three draughtsman's line-work
+  frames at 1619 wide — hero banner, process flow, market amplification. One
+  ink each (`charade-400` or `charade-500`), transparent, decorative only.
+  See `assets/backgrounds/README.md` for placement and the contrast limits.
+- Icons: `assets/icons/` holds four groups — three control icons at the root
+  that take `currentColor`, five 43 × 43 concept marks (`nodes/`), eight
+  65 × 65 service tiles (`service-tiles/`) and five 69 × 69 service-line
+  marks (`service-marks/`). `assets/manifest.json` is the live count. Read that folder's `README.md`
   first: only the three root icons recolour with their control; the nodes
   hardcode their ink; and the tiles are white-on-navy artwork that must not be
   recoloured — though the **glyph inside a tile is substitutable**, and may be
@@ -805,7 +845,8 @@ of them, just the mandate to use them.
 **Spacing and frame — token values only, nothing arbitrary.**
 - Padding and gaps: the `equinet-space-*` scale (see **Spacing**). A raw
   pixel value not on that scale is a promotion candidate, not a free choice.
-- Corners: `equinet-radius-card` or `equinet-btn-radius` (see **Surface**).
+- Corners: `equinet-radius-card` (7px) or `equinet-btn-radius` (7px, growing
+  to 8px on primary hover only) — both defined in `tokens.css`.
 - Elevation: `equinet-shadow-*`, matched to the resolved card-lift pattern
   (see **Cards**) — not a new shadow invented to taste.
 - Borders and dividers: `equinet-color-border` for UI; the `diagram-line`
@@ -866,8 +907,20 @@ compensated for with a text shadow or stroke, and it does not extend to any othe
 component. Raising the label to 18.66px at weight 700 would bring the default and
 dark-hover fills into the large-text threshold; the light hover would still fail.
 
-**One unresolved.** Orange eyebrow text on the pale orange pill measures 2.9:1.
-This has not been raised with the client.
+**One unresolved.** Orange eyebrow text on the pale orange pill measures
+2.90:1 — and on white 3.41:1, on `surface--alt` 3.14:1, on navy 3.08:1. At
+12px / 700 none of those is large text, so the threshold is 4.5:1 and every
+ground fails. As of 2026-10-16 this is no longer hypothetical: the eyebrow
+ships as `.eq-eyebrow` with the Figma source in `assets/components/`. Still
+not raised with the client. `.eq-eyebrow--solid-safe` (label in
+`--equinet-color-text`, 12.93:1) and `.eq-eyebrow--on-dark` are the compliant
+forms in the meantime. `.eq-card--stacked` makes it three: its stat values
+(18px/600) and read-more (16px/600) are both 3.41:1 on white, with
+`.eq-card__stat--aa` and `.eq-card__action--aa` as the compliant forms. Those
+two drop the orange entirely, because no orange here reaches 4.5:1 on white —
+`--equinet-color-orange--dark` is nearest at 4.37:1. The 2026-09-21 button
+exception was scoped so it does not extend to another component, so all three
+need their own ruling.
 
 ## Engineering contract
 

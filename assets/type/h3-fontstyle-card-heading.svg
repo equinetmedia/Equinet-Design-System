@@ -1,0 +1,19 @@
+<svg width="307" height="31" viewBox="0 0 307 31" fill="none" xmlns="http://www.w3.org/2000/svg">
+<g id="h3-fontstyle-card-heading">
+<g id="h1" filter="url(#filter0_d_851_7527)">
+<text fill="#242630" style="white-space: pre" xml:space="preserve" font-family="Source Sans Pro" font-size="24" font-weight="bold" letter-spacing="-0.01em"><tspan x="1.3999" y="23.032">This would be a Card Heading</tspan></text>
+</g>
+</g>
+<defs>
+<filter id="filter0_d_851_7527" x="0" y="5.64795" width="305.407" height="24.416" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+<feFlood flood-opacity="0" result="BackgroundImageFix"/>
+<feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" result="hardAlpha"/>
+<feOffset dx="-1" dy="1"/>
+<feGaussianBlur stdDeviation="0.5"/>
+<feComposite in2="hardAlpha" operator="out"/>
+<feColorMatrix type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.15 0"/>
+<feBlend mode="normal" in2="BackgroundImageFix" result="effect1_dropShadow_851_7527"/>
+<feBlend mode="normal" in="SourceGraphic" in2="effect1_dropShadow_851_7527" result="shape"/>
+</filter>
+</defs>
+</svg>

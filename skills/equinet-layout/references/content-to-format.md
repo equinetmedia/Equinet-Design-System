@@ -1,3 +1,13 @@
+---
+id: content-to-format
+status: current
+read_when: >-
+  Deciding what format a piece of content becomes — bar vs line, sequence vs
+  flowchart, cards vs table.
+depends_on: skills/equinet-layout/SKILL.md
+verified: 2026-10-13
+---
+
 # Content shape → format
 
 Find the shape first, then read across. Every section ends up with a visual:
@@ -11,9 +21,10 @@ it still carries a spot graphic, a pull-quote or an icon — see
 | --- | --- | --- | --- |
 | **One striking number** | A single figure that carries the point on its own | Stat callout — large number, short label, source line | New component; stat styling from `cagr-four-column` |
 | **2–4 comparable numbers** | Several figures measured the same way | Stat row | `cagr-four-column` stat rows (`--equinet-fontsize-stat`, 18px value / 16px label, `--equinet-color-border` rule between) |
-| **Change over time** | Values across dates or periods | Line chart | New — build from `chart-blue-*` tokens |
-| **Comparison across categories** | Same measure, several named items | Bar chart, sorted by value | New — build from `chart-blue-*` tokens |
-| **Parts of a whole** | Shares that sum to 100% | Stacked bar, or a single bar split into segments | New. Avoid pies — see below |
+| **Change over time** | Values across dates or periods | Line chart | New — navy, orange and teal (ruled 2026-10-13) |
+| **Comparison across categories** | Same measure, several named items | Bar chart, sorted by value | New — navy, orange and teal (ruled 2026-10-13) |
+| **A single share** | One percentage of a whole — "95% of…" | Donut | `chart-ai-results-not-universal` (three donuts) — see below |
+| **Parts of a whole** | Several shares that sum to 100% | Stacked bar, or a single bar split into segments | New. Not a pie — see below |
 | **Ordered steps** | "First… then… finally", a numbered method | Process sequence | `5_column_block_process`; `flows/` illustrations; `2_column_intelligence_engine_steps` |
 | **Branching process** | Steps with decisions or alternative paths | Flowchart | New. `systems/` illustrations as style reference |
 | **Cycle or feedback loop** | Output feeds back into input | Loop diagram | `systems/system-insight-feedback-loops`; `pictonodes/pictonode-review` |
@@ -37,11 +48,37 @@ compete; merge them into a row.
 the trajectory. Anything categorical is a bar, even if the categories happen
 to be ordered.
 
-**Why not pies.** People compare lengths far more accurately than angles or
-areas, so a pie makes the reader work harder to see the same thing a bar
-shows at once, and it breaks down past three or four segments. A single
-horizontal bar split into segments carries the same parts-of-a-whole idea
-legibly. Use a pie only if the user asks for one.
+**Donuts, yes — pies, no.** The objection to pies is comparison: people read
+lengths far more accurately than angles or areas, so a multi-segment pie makes
+the reader work harder to see what a bar shows at once, and it falls apart
+past three or four segments. None of that applies to a **single share**, where
+there is nothing to compare — the ring is a gauge, and the number in the
+middle does the reading. Equinet already draws them: three of them, in
+`chart-ai-results-not-universal`.
+
+Use a donut for one figure. Use a stacked bar for several shares that sum to
+100%. Never a multi-segment pie.
+
+**House style, measured from `chart-ai-results-not-universal`:**
+
+- **Filled arc paths, not a stroked circle.** 17 paths, no `<circle>`, no
+  `stroke-dasharray` anywhere in that file. Draw the ring as two arcs.
+- **Track first, then value.** A full-circle track in
+  `--equinet-color-night-100` (#F6F7F9), then the value arc over it in
+  `--equinet-color-blue-default` (#00426C). That paint order is what the real
+  file uses.
+- **Starts at twelve o'clock, runs clockwise.** Square-cut ends, no rounded
+  caps.
+- **Band about one seventh of the diameter** — a generous ring, not a thin
+  line.
+- **The number sits in the middle**, large, in `--equinet-color-text`
+  (#242530). It is the thing being read; the ring is context.
+- **Caption below in sentence case**, three or four short lines, then the
+  source smaller again in `--equinet-color-night-700` (#3B3F51).
+- **In a row of three**, separated by thin vertical rules.
+
+A donut with no number in it is a decoration. If the figure isn't worth
+setting large, it doesn't need a chart.
 
 **Process sequence vs flowchart.** If every reader takes the same path, it's a
 sequence — a flowchart's boxes-and-arrows add nothing. Use a flowchart only

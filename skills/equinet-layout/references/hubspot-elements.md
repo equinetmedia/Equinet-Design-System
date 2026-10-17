@@ -1,3 +1,13 @@
+---
+id: hubspot-elements
+status: current
+read_when: >-
+  Choosing which shipped Equinet module or native HubSpot capability carries
+  the reader's next step.
+depends_on: skills/equinet-layout/SKILL.md
+verified: 2026-10-13
+---
+
 # HubSpot elements
 
 Every section should answer "what does the reader do next?" — and the answer

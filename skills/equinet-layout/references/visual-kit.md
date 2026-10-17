@@ -1,3 +1,13 @@
+---
+id: visual-kit
+status: current
+read_when: >-
+  Composing a bespoke graphic when no whole illustration matches the subject.
+  The structural primitives and seven composition recipes.
+depends_on: skills/equinet-layout/SKILL.md
+verified: 2026-10-13
+---
+
 # Visual kit — building Equinet graphics from parts
 
 The illustration files are a parts bin. Every graphic below is built from

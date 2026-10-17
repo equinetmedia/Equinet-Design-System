@@ -29,7 +29,26 @@ ld=json.dumps({"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{
 page=f"""<!doctype html><html><head><meta charset="utf-8">
 <link rel="stylesheet" href="file://{REPO}/tokens.css"><link rel="stylesheet" href="file://{REPO}/components/bundle.css">
 <style>body{{margin:0;font-family:sans-serif}}.spacer{{height:1400px}}.row{{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;padding:40px}}.faq{{padding:40px;max-width:800px}}</style></head>
-<body><div class="spacer"></div><div class="row" id="row">{card(1)}{card(2)}{card(3,link=False)}</div>
+<body><div class="spacer"></div>
+<section class="eq-surface eq-surface--01" id="surf1" style="height:200px"></section>
+<section class="eq-surface eq-surface--02" id="surf2" style="height:200px"></section>
+<section class="eq-surface" id="surfD" style="height:200px"></section>
+<h1 class="eq-h1" id="t1">Heading</h1><h2 class="eq-h2" id="t2">Heading</h2><h2 class="eq-h2 eq-h2--light" id="t2l">Heading</h2><h3 class="eq-h3" id="t3">Heading</h3><h3 class="eq-h3 eq-h3--light" id="t3l">Heading</h3><h3 class="eq-h3-card" id="t3c">Card</h3><h4 class="eq-h4" id="t4">Sub</h4><p class="eq-lead" id="tl">Lead</p><p class="eq-body" id="tb">Body</p>
+<section class="eq-surface eq-surface--dark" id="surfDark" style="height:200px"><p class="eq-eyebrow" id="ebDark">On dark</p></section>
+<div id="auto"><section class="eq-surface" id="a1"></section><section class="eq-surface" id="a2"></section><section class="eq-surface" id="a3"></section><section class="eq-surface" id="a4"></section><section class="eq-surface" id="a5"></section><section class="eq-surface eq-surface--01" id="aX"></section></div>
+<article class="eq-card eq-card--stacked" data-reveal id="stk">
+  <div class="eq-card__media"><img src="data:image/gif;base64,R0lGODlhAQABAAAAACw=" alt=""></div>
+  <div class="eq-card__body">
+    <h3 class="eq-card__title"><a class="eq-card__link" href="#study">Co-Packer</a></h3>
+    <dl class="eq-card__stats">
+      <div class="eq-card__stat" id="st1"><dt>Co-packing</dt><dd>5.0%</dd></div>
+      <div class="eq-card__stat" id="st2"><dt>Contract packaging</dt><dd class="eq-card__stat--aa" id="stAA">6.3%</dd></div>
+    </dl>
+    <ul class="eq-card__sources"><li><a href="#s1" id="src1">2024-2032, Industry Today</a></li></ul>
+    <p class="eq-card__action" id="act">Read More</p>
+  </div>
+</article>
+<p class="eq-eyebrow" id="ebp">Why HubSpot</p><p class="eq-eyebrow eq-eyebrow--solid" id="ebs">Why HubSpot</p><p class="eq-eyebrow eq-eyebrow--solid eq-eyebrow--solid-safe" id="ebsafe">Why HubSpot</p><div class="row" id="row">{card(1)}{card(2)}{card(3,link=False)}</div>
 <section class="faq" aria-labelledby="faqh"><h2 id="faqh">FREQUENTLY ASKED QUESTIONS</h2><div class="eq-faq" id="faq">{items}</div></section>
 <script type="application/ld+json">{ld}</script><div class="spacer"></div>__JS__</body></html>"""
 open(os.path.join(TMP,'static.html'),'w').write(page.replace('__JS__',''))
@@ -43,6 +62,124 @@ with sync_playwright() as p:
     # ---------- no JS
     pg=b.new_page(viewport={'width':1200,'height':800}); pg.goto('file://'+TMP+'/static.html'); pg.wait_for_timeout(200)
     ok("C1 no JS: cards fully visible", pg.evaluate("[...document.querySelectorAll('.eq-card')].every(e=>getComputedStyle(e).opacity==='1')"))
+    # ---------- type scale, measured against assets/type/
+    TYPO="([s,p])=>getComputedStyle(document.querySelector(s))[p]"
+    for sel,size,weight,fam in [("#t1","60px","800","Open Sans"),("#t2","40px","800","Open Sans"),
+                                ("#t3","32px","800","Open Sans"),("#t3c","24px","700","Myriad Pro"),
+                                ("#t4","20px","600","Myriad Pro"),("#tl","20px","400","Myriad Pro"),
+                                ("#tb","16px","400","Myriad Pro")]:
+        ok(f"T {sel}: {size} / {weight} / {fam.split()[0]}",
+           pg.evaluate(TYPO,[sel,"fontSize"])==size and pg.evaluate(TYPO,[sel,"fontWeight"])==weight
+           and pg.evaluate(TYPO,[sel,"fontFamily"]).replace(chr(34),"").startswith(fam.split()[0]),
+           f'{pg.evaluate(TYPO,[sel,"fontSize"])} / {pg.evaluate(TYPO,[sel,"fontWeight"])} / {pg.evaluate(TYPO,[sel,"fontFamily"])[:18]}')
+    ok("T display tier is uppercase, reading tier is not",
+       pg.evaluate(TYPO,["#t2","textTransform"])=="uppercase"
+       and pg.evaluate(TYPO,["#t3c","textTransform"])=="none")
+    ok("T light variants are weight 300",
+       pg.evaluate(TYPO,["#t2l","fontWeight"])=="300" and pg.evaluate(TYPO,["#t3l","fontWeight"])=="300")
+    ok("T light variants carry NO shadow — that is the variant",
+       pg.evaluate(TYPO,["#t2l","textShadow"])=="none" and pg.evaluate(TYPO,["#t3l","textShadow"])=="none",
+       pg.evaluate(TYPO,["#t2l","textShadow"]))
+    ok("T heavy h2 does carry one", pg.evaluate(TYPO,["#t2","textShadow"])!="none")
+    ok("T lead and body sit in color-body, headings in color-heading",
+       pg.evaluate(TYPO,["#tb","color"])=="rgb(59, 63, 81)"
+       and pg.evaluate(TYPO,["#t2","color"])=="rgb(36, 38, 48)")
+    ok("T display tracking is the spec's -0.07em",
+       abs(float(pg.evaluate(TYPO,["#t2","letterSpacing"]).replace("px",""))-(-0.07*40))<0.1,
+       pg.evaluate(TYPO,["#t2","letterSpacing"]))
+
+    # ---------- radial surface, measured against radial-background-0*.svg
+    SF="([s,p])=>getComputedStyle(document.querySelector(s))[p]"
+    ok("R1 surface: flat colour underneath so an editor's choice shows through",
+       pg.evaluate(SF,["#surf1","backgroundColor"])=="rgb(246, 245, 245)",
+       pg.evaluate(SF,["#surf1","backgroundColor"]))
+    ok("R2 surface: the pool is a radial-gradient, not an image request",
+       pg.evaluate(SF,["#surf1","backgroundImage"]).startswith("radial-gradient")
+       and "url(" not in pg.evaluate(SF,["#surf1","backgroundImage"]))
+    ok("R3 --01 pools upper-right at the measured centre",
+       "73.2%" in pg.evaluate(SF,["#surf1","backgroundImage"])
+       and "22.4%" in pg.evaluate(SF,["#surf1","backgroundImage"]))
+    ok("R4 --02 pools upper-left, so consecutive sections differ",
+       "33.4%" in pg.evaluate(SF,["#surf2","backgroundImage"])
+       and pg.evaluate(SF,["#surf1","backgroundImage"])!=pg.evaluate(SF,["#surf2","backgroundImage"]))
+    ok("R5 both variants hold the 2.02:1 axis ratio of the exports",
+       all(abs(h/w-2.02)<0.03 for w,h in [(44.1,212.5/2.4071),(30.9,148.9/2.4071)]),
+       "44.1:212.5 and 30.9:148.9 against a 1920x805 frame")
+    ok("R6 bare .eq-surface carries a usable default",
+       pg.evaluate(SF,["#surfD","backgroundImage"]).startswith("radial-gradient"))
+    ok("R11 dark: navy underneath, blue-950 at the centre",
+       pg.evaluate(SF,["#surfDark","backgroundColor"])=="rgb(0, 66, 108)"
+       and "rgb(1, 20, 32)" in pg.evaluate(SF,["#surfDark","backgroundImage"]),
+       pg.evaluate(SF,["#surfDark","backgroundColor"]))
+    ok("R12 dark: content inherits a readable colour by default",
+       pg.evaluate(SF,["#surfDark","color"])=="rgb(255, 255, 255)",
+       pg.evaluate(SF,["#surfDark","color"]))
+    ok("R13 dark: the eyebrow takes its on-dark colour without a modifier",
+       pg.evaluate(SF,["#ebDark","color"])=="rgb(252, 233, 224)",
+       pg.evaluate(SF,["#ebDark","color"]))
+    ok("R14 dark is excluded from the sibling rotation — never automatic",
+       pg.evaluate("""()=>{const d=document.querySelector('#surfDark');
+         return getComputedStyle(d).getPropertyValue('--eq-surface-y').trim()==='100%'}"""))
+    ok("R8 sibling surfaces rotate through four positions",
+       len({pg.evaluate(SF,[f"#a{i}","backgroundImage"]) for i in (1,2,3,4)})==4,
+       "four consecutive siblings, four different pools")
+    ok("R9 the fifth repeats the first — a cycle, not randomness",
+       pg.evaluate(SF,["#a5","backgroundImage"])==pg.evaluate(SF,["#a1","backgroundImage"]))
+    ok("R10 an explicit variant beats its position",
+       pg.evaluate(SF,["#aX","backgroundImage"])==pg.evaluate(SF,["#surf1","backgroundImage"]),
+       "--01 in slot 6 still renders --01")
+    ok("R7 variables are overridable for a bespoke pool",
+       pg.evaluate("""()=>{const e=document.querySelector('#surfD');
+         e.style.setProperty('--eq-surface-x','10%');
+         return getComputedStyle(e).backgroundImage.includes('10%')}"""))
+
+    # ---------- stacked card, measured against card-stacked-layout-01.svg
+    SC="([s,p])=>getComputedStyle(document.querySelector(s))[p]"
+    ok("S1 stacked: card padding moves to the body so the image bleeds",
+       pg.evaluate(SC,["#stk","padding"])=="0px"
+       and pg.evaluate(SC,[".eq-card__body","padding"])=="24px",
+       f'card {pg.evaluate(SC,["#stk","padding"])} / body {pg.evaluate(SC,[".eq-card__body","padding"])}')
+    ok("S2 stacked: image clipped to the card radius",
+       pg.evaluate(SC,["#stk","overflow"]).startswith("clip")
+       and pg.evaluate(SC,["#stk","borderRadius"])=="7px")
+    ok("S3 stacked: media holds the comp's 323:181.377 ratio",
+       abs(pg.evaluate("()=>{const r=document.querySelector('.eq-card__media').getBoundingClientRect();return r.width/r.height}")-323/181.377)<0.02,
+       str(pg.evaluate("()=>{const r=document.querySelector('.eq-card__media').getBoundingClientRect();return (r.width/r.height).toFixed(3)}")))
+    ok("S4 stat row: 1px rule, label 16px, value 18px/600 orange",
+       pg.evaluate(SC,["#st1","borderBottomWidth"])=="1px"
+       and pg.evaluate(SC,["#st1 dt","fontSize"])=="16px"
+       and pg.evaluate(SC,["#st1 dd","fontSize"])=="18px"
+       and pg.evaluate(SC,["#st1 dd","fontWeight"])=="600"
+       and pg.evaluate(SC,["#st1 dd","color"])=="rgb(224, 103, 48)")
+    ok("S5 stat value right-aligned against the label",
+       pg.evaluate("()=>{const r=document.querySelector('#st1').getBoundingClientRect(),d=document.querySelector('#st1 dd').getBoundingClientRect();return Math.abs(d.right-r.right)<1}"))
+    ok("S6 sources set at 11px", pg.evaluate(SC,["#src1","fontSize"])=="11px")
+    ok("S7 --aa variant drops the orange for an AA-passing colour",
+       pg.evaluate(SC,["#stAA","color"])=="rgb(36, 37, 48)", pg.evaluate(SC,["#stAA","color"]))
+    ok("S8 the whole card is the link target, so it lifts",
+       pg.evaluate("()=>document.querySelectorAll('#stk .eq-card__link').length")==1)
+
+    # ---------- eyebrow, measured against assets/components/eyebrow-*.svg
+    EB="([s,p])=>getComputedStyle(document.querySelector(s))[p]"
+    ok("E1 eyebrow: 12px / 700 / 0.2em, uppercase",
+       pg.evaluate(EB,["#ebp","fontSize"])=="12px" and pg.evaluate(EB,["#ebp","fontWeight"])=="700"
+       and pg.evaluate(EB,["#ebp","letterSpacing"]).startswith("2.4")
+       and pg.evaluate(EB,["#ebp","textTransform"])=="uppercase",
+       f'{pg.evaluate(EB,["#ebp","fontSize"])} / {pg.evaluate(EB,["#ebp","fontWeight"])} / {pg.evaluate(EB,["#ebp","letterSpacing"])}')
+    ok("E2 eyebrow: orange label", pg.evaluate(EB,["#ebp","color"])=="rgb(224, 103, 48)",
+       pg.evaluate(EB,["#ebp","color"]))
+    ok("E3 solid: pale pill, 8px radius, 24px side padding",
+       pg.evaluate(EB,["#ebs","backgroundColor"])=="rgb(252, 233, 224)"
+       and pg.evaluate(EB,["#ebs","borderRadius"])=="8px"
+       and pg.evaluate(EB,["#ebs","paddingLeft"])=="24px",
+       f'{pg.evaluate(EB,["#ebs","backgroundColor"])} / {pg.evaluate(EB,["#ebs","borderRadius"])} / {pg.evaluate(EB,["#ebs","paddingLeft"])}')
+    ok("E4 solid: 32px tall, matching the 115x32 export",
+       abs(pg.evaluate("document.querySelector('#ebs').getBoundingClientRect().height")-32)<1,
+       str(pg.evaluate("document.querySelector('#ebs').getBoundingClientRect().height")))
+    ok("E5 plain: no pill behind it",
+       pg.evaluate(EB,["#ebp","backgroundColor"]) in ("rgba(0, 0, 0, 0)","transparent"))
+    ok("E6 solid-safe: label is the AA-passing text colour",
+       pg.evaluate(EB,["#ebsafe","color"])=="rgb(36, 37, 48)", pg.evaluate(EB,["#ebsafe","color"]))
     ok("F0 no JS: FAQ works natively", pg.evaluate("(()=>{const d=document.querySelector('.eq-faq__item');d.querySelector('summary').click();return d.open})()"))
     pg.close()
     # ---------- motion

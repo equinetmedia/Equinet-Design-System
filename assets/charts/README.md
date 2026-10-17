@@ -1,3 +1,13 @@
+---
+id: chart-assets
+status: current
+read_when: >-
+  Putting a statistic on a page. Records which figures are verified against
+  their source and which must not be quoted. Read with
+  assets/charts/data.json.
+verified: 2026-10-13
+---
+
 # Charts
 
 Seven data charts on AI adoption in manufacturing, added 2026-10-02. A new
@@ -83,15 +93,28 @@ None of this is corrected in the SVGs: changing delivered artwork is the
 designer's decision. It's recorded here and in `data.json` so the fixes can be
 made at source, and so any rebuild starts from the right figures.
 
-## Palette — an open question
+## Donuts — sanctioned 2026-10-14, for a single share only
 
-These charts use **navy, orange and teal** (`--equinet-color-navy`,
-`--equinet-color-amber-400`, `--equinet-color-teal-default`) for their series.
-The system's sanctioned data-visualisation palette is the three
-`--equinet-color-chart-blue-*` tokens — sanctioned from a single infographic.
-None of the seven charts uses them. Seven real charts are stronger evidence of
-how Equinet draws data than the one file the current rule rests on, so this
-needs a decision rather than either rule being assumed.
+`chart-ai-results-not-universal` is the reference: three donuts, each one
+figure. A donut is the right format for one percentage of a whole, where
+there is nothing to compare and the ring is a gauge around a number. Several
+shares that sum to 100% stay a stacked bar, and a multi-segment pie is still
+wrong — the objection was always about comparing angles, which a single share
+doesn't ask anyone to do. House style is written up in
+`skills/equinet-layout/references/content-to-format.md`.
+
+## Palette — ruled 2026-10-13
+
+**Charts use navy, orange and teal**: `--equinet-color-navy`,
+`--equinet-color-amber-400`, `--equinet-color-teal-default`. That is what all
+seven charts here use, and it is now the rule for any new one.
+
+The three `--equinet-color-chart-blue-*` tokens were sanctioned from a single
+published infographic and no real chart uses them. Seven files of evidence
+beat one, so the rule follows the charts rather than the other way round. The
+chart-blue tokens stay in `tokens.css` — they are a real measured family and
+the infographic they came from is real — but they are no longer the default
+data palette. Reach for them only when matching that specific collateral.
 
 ## Not annotated with `data-role`, deliberately
 

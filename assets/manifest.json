@@ -14,8 +14,126 @@
     "shape": "unclassified (usually invisible bounds)"
   },
   "palette_note": "'unsanctioned' marks a colour found in artwork that is not a token; replace it with nearest_token (by RGB distance \u2014 a suggestion, not a ruling) rather than carrying the raw hex forward.",
-  "count": 99,
+  "count": 118,
   "assets": [
+    {
+      "name": "draftmans-background-hero-banner",
+      "path": "assets/backgrounds/draftmans-background-hero-banner.svg",
+      "category": "background",
+      "group": "backgrounds",
+      "width": 1619.0,
+      "height": 820.0,
+      "aspect": 1.974,
+      "background": "transparent",
+      "live_text": 0,
+      "reworkable": false,
+      "roles": {},
+      "palette": [
+        {
+          "hex": "#8790A9",
+          "token": "--equinet-color-charade-400"
+        }
+      ]
+    },
+    {
+      "name": "draftmans-background-market-amplification",
+      "path": "assets/backgrounds/draftmans-background-market-amplification.svg",
+      "category": "background",
+      "group": "backgrounds",
+      "width": 1619.0,
+      "height": 735.0,
+      "aspect": 2.203,
+      "background": "transparent",
+      "live_text": 0,
+      "reworkable": false,
+      "roles": {},
+      "palette": [
+        {
+          "hex": "#68728F",
+          "token": "--equinet-color-charade-500"
+        }
+      ]
+    },
+    {
+      "name": "draftmans-background-process-flow",
+      "path": "assets/backgrounds/draftmans-background-process-flow.svg",
+      "category": "background",
+      "group": "backgrounds",
+      "width": 1619.0,
+      "height": 784.0,
+      "aspect": 2.065,
+      "background": "transparent",
+      "live_text": 0,
+      "reworkable": false,
+      "roles": {},
+      "palette": [
+        {
+          "hex": "#68728F",
+          "token": "--equinet-color-charade-500"
+        }
+      ]
+    },
+    {
+      "name": "radial-background-01",
+      "path": "assets/backgrounds/radial-background-01.svg",
+      "category": "background",
+      "group": "backgrounds",
+      "width": 1920.0,
+      "height": 805.0,
+      "aspect": 2.385,
+      "background": "opaque light",
+      "live_text": 0,
+      "reworkable": false,
+      "roles": {},
+      "palette": [
+        {
+          "hex": "#F6F5F5",
+          "token": "--equinet-color-surface-200"
+        }
+      ]
+    },
+    {
+      "name": "radial-background-02",
+      "path": "assets/backgrounds/radial-background-02.svg",
+      "category": "background",
+      "group": "backgrounds",
+      "width": 1920.0,
+      "height": 805.0,
+      "aspect": 2.385,
+      "background": "opaque light",
+      "live_text": 0,
+      "reworkable": false,
+      "roles": {},
+      "palette": [
+        {
+          "hex": "#F6F5F5",
+          "token": "--equinet-color-surface-200"
+        }
+      ]
+    },
+    {
+      "name": "radial-background-dark",
+      "path": "assets/backgrounds/radial-background-dark.svg",
+      "category": "background",
+      "group": "backgrounds",
+      "width": 1920.0,
+      "height": 805.0,
+      "aspect": 2.385,
+      "background": "opaque dark",
+      "live_text": 0,
+      "reworkable": false,
+      "roles": {},
+      "palette": [
+        {
+          "hex": "#00426C",
+          "token": "--equinet-color-blue-default"
+        },
+        {
+          "hex": "#011420",
+          "token": "--equinet-color-blue-950"
+        }
+      ]
+    },
     {
       "name": "emblem-commercial-intelligence-engine",
       "path": "assets/brand/emblem-commercial-intelligence-engine.svg",
@@ -602,6 +720,79 @@
         "data": "assets/charts/data.json",
         "note": "Figures are outlined in the SVG. Rebuild live from data.json; never retype from the artwork."
       }
+    },
+    {
+      "name": "card-stacked-layout-01",
+      "path": "assets/components/card-stacked-layout-01.svg",
+      "category": "component-source",
+      "group": "components",
+      "width": 391.0,
+      "height": 528.0,
+      "aspect": 0.741,
+      "background": "transparent",
+      "live_text": 8,
+      "reworkable": false,
+      "roles": {},
+      "palette": [
+        {
+          "hex": "#242630",
+          "token": "--equinet-color-night-default"
+        },
+        {
+          "hex": "#3B3F51",
+          "token": "--equinet-color-night-700"
+        },
+        {
+          "hex": "#B1B7C8",
+          "token": "--equinet-color-charade-300"
+        },
+        {
+          "hex": "#E06730",
+          "token": "--equinet-color-amber-default"
+        }
+      ]
+    },
+    {
+      "name": "eyebrow-plain",
+      "path": "assets/components/eyebrow-plain.svg",
+      "category": "component-source",
+      "group": "components",
+      "width": 115.0,
+      "height": 32.0,
+      "aspect": 3.594,
+      "background": "transparent",
+      "live_text": 1,
+      "reworkable": false,
+      "roles": {},
+      "palette": [
+        {
+          "hex": "#E06730",
+          "token": "--equinet-color-amber-default"
+        }
+      ]
+    },
+    {
+      "name": "eyebrow-solid",
+      "path": "assets/components/eyebrow-solid.svg",
+      "category": "component-source",
+      "group": "components",
+      "width": 115.0,
+      "height": 32.0,
+      "aspect": 3.594,
+      "background": "opaque light",
+      "live_text": 1,
+      "reworkable": false,
+      "roles": {},
+      "palette": [
+        {
+          "hex": "#E06730",
+          "token": "--equinet-color-amber-default"
+        },
+        {
+          "hex": "#FCE9E0",
+          "token": "--equinet-color-amber-100"
+        }
+      ]
     },
     {
       "name": "Global-Navigation",
@@ -3815,6 +4006,196 @@
         {
           "hex": "#F6F5F5",
           "token": "--equinet-color-surface-200"
+        }
+      ]
+    },
+    {
+      "name": "body-fontstyle",
+      "path": "assets/type/body-fontstyle.svg",
+      "category": "type-spec",
+      "group": "type",
+      "width": 540.0,
+      "height": 88.0,
+      "aspect": 6.136,
+      "background": "transparent",
+      "live_text": 1,
+      "reworkable": false,
+      "roles": {},
+      "palette": [
+        {
+          "hex": "#3B3F51",
+          "token": "--equinet-color-night-700"
+        }
+      ]
+    },
+    {
+      "name": "eyebrow-fontstyle",
+      "path": "assets/type/eyebrow-fontstyle.svg",
+      "category": "type-spec",
+      "group": "type",
+      "width": 67.0,
+      "height": 9.0,
+      "aspect": 7.444,
+      "background": "transparent",
+      "live_text": 1,
+      "reworkable": false,
+      "roles": {},
+      "palette": [
+        {
+          "hex": "#242630",
+          "token": "--equinet-color-night-default"
+        }
+      ]
+    },
+    {
+      "name": "h1-fontstyle",
+      "path": "assets/type/h1-fontstyle.svg",
+      "category": "type-spec",
+      "group": "type",
+      "width": 553.0,
+      "height": 223.0,
+      "aspect": 2.48,
+      "background": "transparent",
+      "live_text": 1,
+      "reworkable": false,
+      "roles": {},
+      "palette": [
+        {
+          "hex": "#242630",
+          "token": "--equinet-color-night-default"
+        }
+      ]
+    },
+    {
+      "name": "h2-fontstyle-light",
+      "path": "assets/type/h2-fontstyle-light.svg",
+      "category": "type-spec",
+      "group": "type",
+      "width": 293.0,
+      "height": 144.0,
+      "aspect": 2.035,
+      "background": "transparent",
+      "live_text": 1,
+      "reworkable": false,
+      "roles": {},
+      "palette": [
+        {
+          "hex": "#242630",
+          "token": "--equinet-color-night-default"
+        }
+      ]
+    },
+    {
+      "name": "h2-fontstyle",
+      "path": "assets/type/h2-fontstyle.svg",
+      "category": "type-spec",
+      "group": "type",
+      "width": 333.0,
+      "height": 149.0,
+      "aspect": 2.235,
+      "background": "transparent",
+      "live_text": 1,
+      "reworkable": false,
+      "roles": {},
+      "palette": [
+        {
+          "hex": "#242630",
+          "token": "--equinet-color-night-default"
+        }
+      ]
+    },
+    {
+      "name": "h3-fontstyle-card-heading",
+      "path": "assets/type/h3-fontstyle-card-heading.svg",
+      "category": "type-spec",
+      "group": "type",
+      "width": 307.0,
+      "height": 31.0,
+      "aspect": 9.903,
+      "background": "transparent",
+      "live_text": 1,
+      "reworkable": false,
+      "roles": {},
+      "palette": [
+        {
+          "hex": "#242630",
+          "token": "--equinet-color-night-default"
+        }
+      ]
+    },
+    {
+      "name": "h3-fontstyle-section-heading-light",
+      "path": "assets/type/h3-fontstyle-section-heading-light.svg",
+      "category": "type-spec",
+      "group": "type",
+      "width": 441.0,
+      "height": 58.0,
+      "aspect": 7.603,
+      "background": "transparent",
+      "live_text": 1,
+      "reworkable": false,
+      "roles": {},
+      "palette": [
+        {
+          "hex": "#242630",
+          "token": "--equinet-color-night-default"
+        }
+      ]
+    },
+    {
+      "name": "h3-fontstyle-section-heading",
+      "path": "assets/type/h3-fontstyle-section-heading.svg",
+      "category": "type-spec",
+      "group": "type",
+      "width": 492.0,
+      "height": 59.0,
+      "aspect": 8.339,
+      "background": "transparent",
+      "live_text": 1,
+      "reworkable": false,
+      "roles": {},
+      "palette": [
+        {
+          "hex": "#242630",
+          "token": "--equinet-color-night-default"
+        }
+      ]
+    },
+    {
+      "name": "h4-fontstyle",
+      "path": "assets/type/h4-fontstyle.svg",
+      "category": "type-spec",
+      "group": "type",
+      "width": 222.0,
+      "height": 25.0,
+      "aspect": 8.88,
+      "background": "transparent",
+      "live_text": 1,
+      "reworkable": false,
+      "roles": {},
+      "palette": [
+        {
+          "hex": "#242630",
+          "token": "--equinet-color-night-default"
+        }
+      ]
+    },
+    {
+      "name": "lead-fontstyle",
+      "path": "assets/type/lead-fontstyle.svg",
+      "category": "type-spec",
+      "group": "type",
+      "width": 446.0,
+      "height": 52.0,
+      "aspect": 8.577,
+      "background": "transparent",
+      "live_text": 1,
+      "reworkable": false,
+      "roles": {},
+      "palette": [
+        {
+          "hex": "#3B3F51",
+          "token": "--equinet-color-night-700"
         }
       ]
     }

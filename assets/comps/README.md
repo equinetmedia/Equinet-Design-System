@@ -1,3 +1,12 @@
+---
+id: comp-assets
+status: current
+read_when: >-
+  Using a module comp as a layout blueprint, settling a dispute between a
+  shipped module and a token, or transcribing a comp's outlined labels.
+verified: 2026-10-13
+---
+
 # Module comps
 
 Figma exports of full HubSpot modules — the design source of record the

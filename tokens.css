@@ -11,6 +11,14 @@
 
 /* ============================================================================
    EQUINET — DESIGN TOKENS
+   Reconciled with the deployed /modules/tokens.css on 2026-10-16, which had
+   drifted to 76 tokens against this file's 215. Twelve tokens were folded
+   back from the deployment; five conflicts were resolved by HOLDING THE
+   DEPLOYED VALUE, so deploying this file moves nothing on the live site.
+   Those five are still open questions, marked DECISION 1-5 below — holding
+   what ships is a safe default, not a ruling. Flip one deliberately when it
+   is decided, and check the result with:
+       python tools/check-deployed-tokens.py <deployed file>
    Single source of truth for every reusable Equinet brand value.
    This file owns the ONLY :root block in the system. Modules consume tokens as
    var(--equinet-…, <fallback>) and never redeclare them.
@@ -197,7 +205,10 @@
   /* ==========================================================================
      COLOUR — DATA VIZ (chart/gradient scale, NOT for UI)
      Sanctioned 2026-09-23 from a published marketing infographic. Now mapped
-     to the blue variable ramp. See README.md "Data visualization."
+     to the blue variable ramp. NO LONGER THE DEFAULT CHART PALETTE: ruled
+     2026-10-13 that new charts use navy, amber-400 and teal-default, matching
+     all seven charts in assets/charts/. These three stay for matching that
+     one infographic. See README.md "Data visualization."
      ========================================================================== */
   --equinet-color-chart-blue-light: var(--equinet-color-blue-400); /* #81ACD7 */
   --equinet-color-chart-blue-mid:   var(--equinet-color-blue-500); /* #5688BA */
@@ -293,7 +304,12 @@
      See README.md "Type" for full history.
      ========================================================================== */
   --equinet-font-heading:       'Open Sans', sans-serif;
-  --equinet-font-body:          'Source Sans 3', sans-serif;
+  /* DECISION 1 — repo had 'Source Sans 3', sans-serif. Deployed keeps Myriad
+     Pro first so a licensed embed would be picked up automatically if one is
+     ever added to the theme; nothing renders differently today because the
+     face isn't present. Holding the deployed value: dropping it loses the
+     hook for no gain. */
+  --equinet-font-body:          'Myriad Pro', 'Source Sans 3', sans-serif;
   --equinet-font-heading-light: 'Source Sans 3', sans-serif;
 
   /* ==========================================================================
@@ -333,9 +349,23 @@
      different size, the applied value gets its own token below rather than
      overwriting these — decided 2026-09-24. */
   --equinet-fontsize-h1: 56px;        /* Figma font size/heading/h1 */
-  --equinet-fontsize-h2: 48px;        /* Figma font size/heading/h2 — canonical, but
-                                          unused in all four live-text comps */
-  --equinet-fontsize-h3: 32px;        /* Figma font size/heading/h3 */
+  /* DECISION 2 — h2: repo 48px (Figma heading/h2) vs deployed 36px
+     (promoted from cagr-four-column). The repo's own note already said 48px
+     was "canonical, but unused in all four live-text comps", which is this
+     disagreement stated and never settled. Holding 36px: it is what every
+     live module renders at, and 48px would move them all.
+     DECISION 3 — h3: repo 32px (Figma heading/h3) vs deployed 24px, same
+     origin, same reasoning. Note 24px collides with --equinet-fontsize-h4,
+     so if 24 wins, one of the two roles is redundant. */
+  /* DECISION 2 — RESOLVED 2026-10-16 by assets/type/h2-fontstyle.svg: 40px.
+     Repo had 48px, deployment had 36px; the Figma spec says neither.
+     DECISION 3 — RESOLVED by assets/type/: the repo's 32px and the
+     deployment's 24px were both right. They are two different styles —
+     h3 section heading (Open Sans 32px) and h3 card heading (Source Sans
+     24px) — collapsed into one token. The card heading already had
+     --equinet-fontsize-card-heading; h3 is the section heading. */
+  --equinet-fontsize-h2: 40px;        /* h2-fontstyle.svg · 2026-10-16 (was 36px deployed / 48px repo) */
+  --equinet-fontsize-h3: 32px;        /* h3-fontstyle-section-heading.svg · 2026-10-16 (was 24px deployed) */
   --equinet-fontsize-h4: 24px;        /* Figma font size/heading/h4 */
   --equinet-fontsize-h5: 20px;        /* Figma font size/heading/h5 */
   --equinet-fontsize-h6: 18px;        /* Figma font size/heading/h6 */
@@ -372,7 +402,9 @@
      TYPOGRAPHY — LINE HEIGHTS          [Figma: responsive/line height/*]
      ========================================================================== */
   --equinet-lineheight-body-sm: 20px;
-  --equinet-lineheight-body:    24px;
+  /* DECISION 4 — RESOLVED 2026-10-16 by assets/type/body-fontstyle.svg:
+     baselines 22px apart on 16px = 1.375. Repo had 24px, deployment 1.4. */
+  --equinet-lineheight-body:    1.375; /* body-fontstyle.svg · 2026-10-16 (was 1.4 deployed / 24px repo) */
   --equinet-lineheight-body-lg: 32px;
   --equinet-lineheight-h1:      56px;
   --equinet-lineheight-h2:      48px;
@@ -409,9 +441,12 @@
                                                   case-study (3 of 4 comps) · 2026-09-24 */
   --equinet-letterspacing-kicker--lg: 0.1em;  /* 16px bold eyebrow, and the 16/600 step
                                                   numerals — 5_column_block_methodology · 2026-09-24 */
-  --equinet-letterspacing-display: -0.05em;   /* 56px Open Sans display —
-                                                  5_column_block_methodology, matching
-                                                  plain_hero_banner's shipped -0.05em · 2026-09-24 */
+  /* DECISION 5 — RESOLVED 2026-10-16: every Open Sans heading in
+     assets/type/ (h1, h2, h3 section, and both light variants) carries
+     -0.07em. Repo had -0.05em, deployment -0.06em; both were measurements
+     off rendered artwork rather than the spec. This is also the value
+     --equinet-letterspacing-display--tight already held. */
+  --equinet-letterspacing-display: -0.07em;   /* assets/type/ · 2026-10-16 (was -0.06em deployed / -0.05em repo) */
   --equinet-letterspacing-display--tight: -0.07em; /* 60px Open Sans display —
                                                   2-column-hero-banner only · 2026-09-24 */
   --equinet-letterspacing-h2--tight: -0.03em; /* 36px/900 h2 — sector-three-column-case-study.
@@ -548,4 +583,62 @@
                                      sequence. Capped in bundle.css at 480ms total
                                      so a dense graphic never makes the reader wait
                                      · 2026-09-26 */
+
+  /* ================================================ TYPE SPEC · 2026-10-16 --
+     Promoted from assets/type/, the ten Figma typography exports. Additive
+     only — the three values these corrected are marked DECISION above.
+     ========================================================================== */
+
+  --equinet-letterspacing-h3:           -0.07em;  /* h3-fontstyle-section-heading.svg · 2026-10-16 */
+  --equinet-letterspacing-card-heading: -0.01em;  /* h3-fontstyle-card-heading.svg · 2026-10-16 */
+  --equinet-letterspacing-h4:           -0.015em; /* h4-fontstyle.svg · 2026-10-16 */
+  --equinet-letterspacing-body:          0em;     /* body & lead fontstyle · 2026-10-16 */
+
+  --equinet-lineheight-h2--ratio:        0.9;     /* 36px on 40px · h2-fontstyle.svg · 2026-10-16 */
+  --equinet-lineheight-h3--ratio:        0.90625; /* 29px on 32px · h3-fontstyle-section-heading.svg · 2026-10-16 */
+
+  --equinet-shadow-heading--h3: -1px 1px 1px rgba(0, 0, 0, 0.15);
+                                   /* both h3 styles; dx-1 dy1 std0.5 alpha .15 · 2026-10-16 */
+  --equinet-shadow-heading--h4: -0.5px 0.5px 1px rgba(0, 0, 0, 0.15);
+                                   /* h4-fontstyle.svg. NOT --shadow-heading--sm, which is
+                                      -0.5px 0.5px 2px at alpha .25 from the cagr card h3 —
+                                      same offsets, different blur and alpha · 2026-10-16 */
+
+  /* ================================================ FOLDED BACK FROM DEPLOYMENT · 2026-10-16 --
+     Twelve tokens that were promoted during the image_resizer and
+     2-column-page-accordion module builds, deployed to /modules/tokens.css,
+     and never brought back into this file. The repo was behind the
+     deployment on all of them. Values and reasoning carried over verbatim;
+     nothing here is revalued.
+     ========================================================================== */
+
+  /* -- typography -- */
+  --equinet-font-mono: 'IBM Plex Mono', ui-monospace, 'SF Mono', Menlo, monospace;
+                                     /* numeric / filename display · image_resizer · 2026-10-07 */
+  --equinet-fontweight-medium: 500;  /* control labels, stat values · image_resizer · 2026-10-07 */
+  --equinet-lineheight-heading: 0.91; /* 91% — 32.76 ÷ 36, Figma spec. NEAR-DUPLICATE of
+                                     --equinet-lineheight-display (0.91667, measured 55px on
+                                     60px) but a different value, so kept as its own role
+                                     rather than folded in; worth reconciling at the next
+                                     Token Sync · 2-column-page-accordion · 2026-10-12 */
+
+  /* -- colour -- */
+  --equinet-color-muted: #5D6375;    /* secondary text; 5.99:1 on surface, 5.50:1 on
+                                     surface--alt · image_resizer · 2026-10-07 */
+  --equinet-color-navy--pale: #E3EDF4; /* selected-row tint, mirrors
+                                     --equinet-color-orange--pale · image_resizer · 2026-10-07 */
+  --equinet-color-border--control: #767C8C;
+                                     /* form-control boundary; 4.17:1 on surface, 3.84:1 on
+                                     surface--alt, so it clears WCAG 1.4.11's 3:1 where
+                                     --equinet-color-border (2.00:1) does not. The existing
+                                     border token stays correct for DECORATIVE rules.
+                                     · image_resizer · 2026-10-07 */
+
+  /* -- status colour (text on its own pale ground, all >= 4.5:1) -- */
+  --equinet-color-success: #1D7A46;       /* 4.55:1 on success--pale · image_resizer · 2026-10-07 */
+  --equinet-color-success--pale: #DFF1E6; /* · image_resizer · 2026-10-07 */
+  --equinet-color-caution: #9A5F00;       /* 4.56:1 on caution--pale · image_resizer · 2026-10-07 */
+  --equinet-color-caution--pale: #FBEED3; /* · image_resizer · 2026-10-07 */
+  --equinet-color-danger: #B3261E;        /* 5.14:1 on danger--pale · image_resizer · 2026-10-07 */
+  --equinet-color-danger--pale: #F9DEDB;  /* · image_resizer · 2026-10-07 */
 }

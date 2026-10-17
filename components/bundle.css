@@ -12,8 +12,8 @@
 
    Scope note: these are UNSCOPED component classes, for Claude Design
    previews and for reference. Inside a HubSpot module every selector is
-   namespaced under that module's root class — see README.md, "Module
-   anatomy."
+   namespaced under that module's root class — see README.md,
+   "Engineering contract" > CSS scoping.
    ========================================================================== */
 
 
@@ -26,7 +26,7 @@
   align-items: center;
   justify-content: flex-start;
   box-sizing: border-box;
-  font-family: var(--equinet-font-body, 'Source Sans 3', sans-serif);
+  font-family: var(--equinet-font-body, 'Myriad Pro', 'Source Sans 3', sans-serif);
   font-size: var(--equinet-fontsize-btn, 16px);
   font-weight: var(--equinet-fontweight-btn, 600);
   line-height: 1.1;
@@ -362,7 +362,7 @@
 
 .eq-stagger__eyebrow {
   margin: 0;
-  font-family: var(--equinet-font-body, 'Source Sans 3', sans-serif);
+  font-family: var(--equinet-font-body, 'Myriad Pro', 'Source Sans 3', sans-serif);
   font-size: var(--equinet-fontsize-kicker, 12px);
   font-weight: var(--equinet-fontweight-kicker, 700);
   letter-spacing: var(--equinet-letterspacing-kicker, 0.2em);
@@ -391,7 +391,7 @@
 
 .eq-stagger__text {
   margin: 0;
-  font-family: var(--equinet-font-body, 'Source Sans 3', sans-serif);
+  font-family: var(--equinet-font-body, 'Myriad Pro', 'Source Sans 3', sans-serif);
   font-size: var(--equinet-fontsize-body, 16px);
   font-weight: var(--equinet-fontweight-body, 400);
   line-height: 1.375;
@@ -460,7 +460,7 @@
 .eq-lead {
   margin: 0;
   max-width: 62ch;                              /* a lead is read, not scanned */
-  font-family: var(--equinet-font-body, 'Source Sans 3', sans-serif);
+  font-family: var(--equinet-font-body, 'Myriad Pro', 'Source Sans 3', sans-serif);
   font-size: var(--equinet-fontsize-lead, 20px);
   font-style: var(--equinet-fontstyle-lead, italic);
   font-weight: var(--equinet-fontweight-body, 400);
@@ -616,7 +616,7 @@
 
 .eq-card__text {
   margin: 0;
-  font-family: var(--equinet-font-body, 'Source Sans 3', sans-serif);
+  font-family: var(--equinet-font-body, 'Myriad Pro', 'Source Sans 3', sans-serif);
   font-size: var(--equinet-fontsize-body, 16px);
   line-height: 1.375;
   color: var(--equinet-color-body, #3B3F51);
@@ -736,7 +736,7 @@
 .eq-faq__answer {
   max-width: 68ch;
   padding: 0 0 var(--equinet-space-md, 24px);
-  font-family: var(--equinet-font-body, 'Source Sans 3', sans-serif);
+  font-family: var(--equinet-font-body, 'Myriad Pro', 'Source Sans 3', sans-serif);
   font-size: var(--equinet-fontsize-body, 16px);
   line-height: 1.5;
   color: var(--equinet-color-body, #3B3F51);
@@ -797,4 +797,671 @@
     transform: none !important;
     transition: none !important;
   }
+}
+
+
+/* ============================================================================
+   INTERACTIVE GRAPHICS — .eq-graphic
+   Added 2026-10-13, replacing the rule that forbade hover motion on graphics.
+   That rule existed for a good reason and the reason survives: something that
+   responds to a cursor promises that something happens. What changed is the
+   conclusion. Graphics may now be interactive — but only where the
+   interaction DOES something, and only through one of the two patterns below.
+   A graphic that responds to a pointer and goes nowhere is still wrong.
+
+   THE DEFAULT IS A TAB SET. Parts of the graphic are controls, each revealing
+   a detail panel beside it — .eq-graphic__hotspot with role="tab", wired by
+   motion.js as WAI-ARIA Authoring Practices tabs. One tab stop for the whole
+   graphic, arrow keys between hotspots, one panel showing at a time. That is
+   what "select one of several related panels" already means to a reader, and
+   it is how a diagram becomes navigable rather than merely clickable.
+
+   role="button" on a lone hotspot is the disclosure variant: one panel,
+   toggled independently, for when there is no one-of-several relationship.
+
+   .eq-graphic__link is the third form and the rarest — the whole graphic is
+   a link to somewhere else. It mirrors .eq-card exactly: lifts 6px, shadow
+   deepens, same in/out timings. The transform sits on the HTML wrapper,
+   never on the SVG, so it cannot collide with the `transform` ATTRIBUTE that
+   44 annotated elements carry (a CSS transform replaces the attribute
+   outright — the bug that forced every motion rule to be scoped
+   :not([transform]) on 2026-09-26).
+
+   EVERY HOTSPOT MUST CONTAIN <rect data-role="hit">, transparent, at least
+   24 × 24 user units. It does three jobs: a target big enough to hit (WCAG
+   2.5.8), a single predictable shape to highlight, and a focus ring that
+   doesn't depend on outline support over arbitrary SVG geometry.
+
+   HIGHLIGHTS USE STROKE AND FILL ONLY — never transform, never opacity.
+   Both of those are animated by motion.js on [data-role] elements during
+   entrance; a hover rule touching either would fight the entrance mid-flight.
+
+   Hover is orange (3.4:1 on white — above the 3:1 graphical-object
+   threshold). Focus is navy, which is this system's focus colour.
+   ========================================================================== */
+
+.eq-graphic {
+  position: relative;
+  display: block;
+  outline-offset: 3px;
+}
+
+.eq-graphic > svg { display: block; width: 100%; height: auto; }
+
+/* ---------------------------------------------------------- whole graphic --
+   Stretched link: the entire graphic is the target, and keyboard focus
+   lifts it exactly as hover does. */
+.eq-graphic__link::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+}
+
+/* Canonical form: .eq-graphic is the wrapper, .eq-graphic__link is the <a>
+   inside it — exactly as .eq-card / .eq-card__link. The third selector covers
+   the other reasonable authoring choice, where the wrapper IS the anchor; on
+   a non-focusable wrapper it simply never matches, so it costs nothing and
+   removes a way to ship a graphic that silently never lifts. */
+.eq-graphic:has(.eq-graphic__link):hover,
+.eq-graphic:has(.eq-graphic__link:focus-visible),
+.eq-graphic:focus-visible {
+  box-shadow: var(--equinet-shadow-card--hover, -4px 34px 34px rgba(0, 0, 0, 0.07));
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .eq-graphic {
+    /* Out: slow settle, matching .eq-card. */
+    transition:
+      transform var(--equinet-motion-duration--slow, 0.6s) var(--equinet-motion-ease, ease-in-out),
+      box-shadow var(--equinet-motion-duration--slow, 0.6s) var(--equinet-motion-ease, ease-in-out);
+  }
+  .eq-graphic:has(.eq-graphic__link):hover,
+  .eq-graphic:has(.eq-graphic__link:focus-visible),
+  .eq-graphic:focus-visible {
+    transform: translateY(-6px);
+    /* In: quick response. */
+    transition-duration: var(--equinet-motion-duration, 0.3s);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .eq-graphic { transition: none; }
+  .eq-graphic:has(.eq-graphic__link):hover,
+  .eq-graphic:has(.eq-graphic__link:focus-visible),
+  .eq-graphic:focus-visible { transform: none; }
+}
+
+/* -------------------------------------------------------------- hotspots --
+   The hit rect is the only thing that changes. Colour transitions are
+   feedback, not movement, so they are kept under `reduce`. */
+.eq-graphic__hotspot { cursor: pointer; }
+
+.eq-graphic__hotspot [data-role="hit"] {
+  fill: transparent;
+  stroke: transparent;
+  stroke-width: var(--equinet-border-width-md, 2px);
+  transition:
+    stroke var(--equinet-motion-duration--ui, 200ms) var(--equinet-motion-ease--ui, ease),
+    fill   var(--equinet-motion-duration--ui, 200ms) var(--equinet-motion-ease--ui, ease);
+}
+
+.eq-graphic__hotspot:hover [data-role="hit"] {
+  stroke: var(--equinet-color-orange, #E06730);
+  fill: var(--equinet-color-orange--pale, #FCE9E0);
+}
+
+/* Focus ring: navy, thicker, and never removed by a hover state sitting on
+   top of it. :focus-visible only — a mouse click shouldn't leave a ring. */
+.eq-graphic__hotspot:focus { outline: none; }
+
+.eq-graphic__hotspot:focus-visible [data-role="hit"],
+.eq-graphic__hotspot:focus-visible:hover [data-role="hit"] {
+  stroke: var(--equinet-color-navy, #00426C);
+  stroke-width: var(--equinet-border-width-lg, 4px);
+}
+
+/* The open one stays marked, so the reader can always see which part of the
+   graphic the panel belongs to. Selected (tabs) and expanded (disclosure)
+   read the same way. */
+.eq-graphic__hotspot[aria-selected="true"] [data-role="hit"],
+.eq-graphic__hotspot[aria-expanded="true"] [data-role="hit"] {
+  stroke: var(--equinet-color-navy, #00426C);
+  fill: var(--equinet-color-surface--alt, #F6F5F5);
+}
+
+/* A hotspot not currently selected still invites a cursor. Unselected
+   siblings are NOT dimmed: dimming would need opacity, which motion.js
+   animates on [data-role] during entrance. */
+
+/* ------------------------------------------------------------- panels --
+   Only motion.js sets [hidden]. In markup every panel is visible, so with no
+   script the whole set reads as plain prose and an answer engine gets all of
+   it — the reason the detail is on the page at all. */
+.eq-graphic__panel[hidden] { display: none; }
+
+.eq-graphic__panel {
+  margin-top: var(--equinet-space-md, 24px);
+  padding: var(--equinet-space-md, 24px);
+  border-left: var(--equinet-border-width-lg, 4px) solid var(--equinet-color-navy, #00426C);
+  background: var(--equinet-color-surface--alt, #F6F5F5);
+  border-radius: var(--equinet-radius-card, 7px);
+  outline-offset: 3px;
+}
+
+/* The panel carries tabindex="0" so a reader can tab from the graphic into
+   its content. That makes it focusable, which makes a focus ring necessary. */
+.eq-graphic__panel:focus-visible {
+  outline: var(--equinet-border-width-md, 2px) solid var(--equinet-color-navy, #00426C);
+}
+
+/* Reserve the panel's height so switching tabs doesn't jump the page under
+   the reader's cursor — the single most common complaint about tab sets. */
+.eq-graphic--tabs .eq-graphic__panel { min-height: 7.5rem; }
+
+@media (max-width: 767px) {
+  .eq-graphic--tabs .eq-graphic__panel { min-height: 0; }
+}
+
+
+/* ============================================================================
+   EYEBROW — .eq-eyebrow
+   The small uppercase label above a heading. Measured from
+   assets/components/eyebrow-plain.svg and eyebrow-solid.svg (both 115 x 32,
+   text at x=24, Figma 2026-10-16).
+
+   .eq-stagger__eyebrow above is the same thing scoped to that one component
+   and predates this. It is left alone so nothing breaks; new work uses
+   .eq-eyebrow, which is the same type treatment unscoped plus the solid
+   variant.
+
+   TWO VARIANTS, AND THE SECOND IS RATIONED:
+     .eq-eyebrow          plain orange text. The default, and almost always
+                          the right one.
+     .eq-eyebrow--solid   the same label in a pale pill. Hero banners, CTA
+                          banners, and modules carrying exceptional value —
+                          nothing else. It reads as emphasis, and emphasis
+                          that appears on every section is not emphasis.
+
+   CONTRAST, MEASURED — READ THIS BEFORE USING ORANGE ON ANY GROUND:
+     orange on orange--pale   2.90:1
+     orange on white          3.41:1
+     orange on surface--alt   3.14:1
+     orange on navy           3.08:1
+   12px at weight 700 is NOT large text (that needs 18.66px bold or 24px
+   regular), so the threshold is 4.5:1 and every one of those fails. This is
+   the "One unresolved" item in README.md, and these assets are what it was
+   about. Until it is ruled on, --solid-safe and --on-dark below are the
+   compliant forms and the orange ones are the client's risk, not an
+   oversight.
+   ========================================================================== */
+
+.eq-eyebrow {
+  display: inline-block;
+  margin: 0;
+  font-family: var(--equinet-font-body, 'Myriad Pro', 'Source Sans 3', sans-serif);
+  font-size: var(--equinet-fontsize-kicker, 12px);
+  font-weight: var(--equinet-fontweight-kicker, 700);
+  letter-spacing: var(--equinet-letterspacing-kicker, 0.2em);
+  /* 0.2em of tracking hangs off the last letter. Indenting by the same
+     amount puts it back on the left so the label sits optically centred —
+     visible on the pill, where the gaps are measurable. */
+  text-indent: var(--equinet-letterspacing-kicker, 0.2em);
+  line-height: 1;
+  text-transform: uppercase;
+  color: var(--equinet-color-orange, #E06730);
+}
+
+/* The pill: 115 x 32 frame, text inset 24, rx 8. The vertical padding is
+   derived rather than hardcoded — (32 - 12) / 2 = 10px, which is off the
+   4px scale and so has no token of its own. Writing it as the 32px scale
+   token minus the line keeps the height tied to the measurement instead of
+   to a magic number, and lets a long label wrap rather than overflow. */
+.eq-eyebrow--solid {
+  padding: calc((var(--equinet-scale-800, 32px) - 1em) / 2)
+           var(--equinet-space-md, 24px);
+  border-radius: var(--equinet-radius-pill, 8px);
+  background: var(--equinet-color-orange--pale, #FCE9E0);
+}
+
+/* Compliant alternatives. Same pill, label that passes AA. */
+.eq-eyebrow--solid-safe {
+  color: var(--equinet-color-text, #242530);   /* 12.93:1 on the pale pill */
+}
+
+/* On a dark module ground, orange fails against both navy and night. The
+   pale amber passes comfortably on either. */
+.eq-eyebrow--on-dark {
+  color: var(--equinet-color-orange--pale, #FCE9E0);
+}
+
+
+/* ============================================================================
+   STACKED CARD — .eq-card--stacked
+   Measured from assets/components/card-stacked-layout-01.svg (391 x 528 frame,
+   323 x 459.377 card, Figma 2026-10-16).
+
+   The .eq-card variant for a card that carries more than a title and a line of
+   text: a full-bleed image, a stats table, source links out, and a read-more.
+   Everything below is the comp's geometry, not invention.
+
+     card        323 x 459.377, rx 7, white
+     image       323 x 181.377 full-bleed at the top — 1.781, i.e. 16:9
+     body        content runs x 62 -> 337 inside a card at x 38 -> 361, so
+                 24px either side, which is --equinet-space-md unchanged
+     stat row    34px tall, 275 wide, 1px bottom rule, 10px to the next row
+     sources     11px, baselines 24px apart, icon right
+     read more   16px/600, baseline 421.877, icon right
+
+   .eq-card has 24px padding and this variant needs the image to bleed, so the
+   padding moves to .eq-card__body. overflow: clip on .eq-card already clips
+   the image to the radius.
+
+   CONTRAST — the orange fails, and it is the same failure as the eyebrow:
+     stat value   #E06730 at 18px/600 on white   3.41:1
+     read more    #E06730 at 16px/600 on white   3.41:1
+   18px at weight 700 is not large text either (that needs 18.66px), so both
+   want 4.5:1. --eq-card__stat--aa and --action--aa below are the compliant
+   forms, and they drop the orange because no orange in this system reaches
+   4.5:1 on white — orange--dark is the closest at 4.37:1.
+   See README.md, "One unresolved" — this is now the third component carrying
+   it, after the primary button and the eyebrow.
+
+   TWO THINGS IN THE EXPORT NOT TO INHERIT:
+     1. The card's drop shadow is dx-4 dy34 std17 alpha .07 — that is
+        --equinet-shadow-card--hover, not --equinet-shadow-card. Either the
+        comp is the hover state or it drifted. The resting shadow here is the
+        resting token; a card already lifts to the hover one via .eq-card.
+     2. Figma gave the heading's drop-shadow filter a 120.426px region, so
+        "CO-PACKER" is clipped mid-word in the export. A bounding-box artifact,
+        not a design decision.
+   ========================================================================== */
+
+.eq-card--stacked { padding: 0; gap: 0; }
+
+.eq-card--stacked .eq-card__media {
+  aspect-ratio: 323 / 181.377;        /* the comp's ratio, not a rounded 16/9 */
+  background: var(--equinet-color-surface--alt, #F6F5F5);
+}
+
+.eq-card--stacked .eq-card__media img,
+.eq-card--stacked .eq-card__media svg {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.eq-card--stacked .eq-card__body {
+  display: flex;
+  flex-direction: column;
+  gap: var(--equinet-space-md, 24px);
+  padding: var(--equinet-space-md, 24px);
+}
+
+/* -------------------------------------------------------------- stats --
+   A <dl> so the label/value pairing is in the markup rather than implied by
+   position. Each row is its own container, which is what lets the rule sit
+   under the pair and the value align right. */
+.eq-card__stats { margin: 0; }
+
+.eq-card__stat {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: var(--equinet-space-sm, 16px);
+  min-height: var(--equinet-scale-800, 32px);
+  padding-bottom: var(--equinet-space-2xs, 8px);
+  border-bottom: var(--equinet-border-width-sm, 1px) solid
+                 var(--equinet-color-border, #B1B7C8);
+}
+
+.eq-card__stat + .eq-card__stat { margin-top: var(--equinet-space-2xs, 8px); }
+
+.eq-card__stat dt {
+  font-family: var(--equinet-font-body, 'Myriad Pro', 'Source Sans 3', sans-serif);
+  font-size: var(--equinet-fontsize-body, 16px);
+  color: var(--equinet-color-body, #3B3F51);
+}
+
+.eq-card__stat dd {
+  margin: 0;
+  font-family: var(--equinet-font-body, 'Myriad Pro', 'Source Sans 3', sans-serif);
+  font-size: var(--equinet-fontsize-stat, 18px);
+  font-weight: var(--equinet-fontweight-semibold, 600);
+  color: var(--equinet-color-orange, #E06730);   /* 3.41:1 — see the note above */
+  white-space: nowrap;
+}
+
+/* ------------------------------------------------------------ sources --
+   Attribution lines, each linking out. The icon is Lucide external-link at
+   the house substitute weight (1px stroke), and it is decorative: the link
+   text already says where it goes. */
+.eq-card__sources { margin: 0; padding: 0; list-style: none; }
+
+.eq-card__sources li + li { margin-top: var(--equinet-space-xs, 12px); }
+
+.eq-card__sources a {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--equinet-space-sm, 16px);
+  font-family: var(--equinet-font-body, 'Myriad Pro', 'Source Sans 3', sans-serif);
+  font-size: var(--equinet-fontsize-caption, 11px);
+  color: var(--equinet-color-body, #3B3F51);
+  text-decoration: none;
+}
+
+.eq-card__sources a:hover,
+.eq-card__sources a:focus-visible { text-decoration: underline; }
+
+.eq-card__sources svg { flex: none; width: 16px; height: 16px; }
+
+/* ---------------------------------------------------------- read more --
+   This is the card's .eq-card__link, so the whole card is the target and
+   lifts with it. Nothing else inside the card may be a second link to the
+   same place. */
+.eq-card--stacked .eq-card__action {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--equinet-space-sm, 16px);
+  margin-top: auto;
+  font-family: var(--equinet-font-body, 'Myriad Pro', 'Source Sans 3', sans-serif);
+  font-size: var(--equinet-fontsize-body, 16px);
+  font-weight: var(--equinet-fontweight-semibold, 600);
+  color: var(--equinet-color-orange, #E06730);   /* 3.41:1 — see the note above */
+}
+
+.eq-card--stacked .eq-card__action svg { flex: none; width: 20px; height: 20px; }
+
+/* The compliant alternative. Named for what it is: there is no orange in this
+   system that reaches 4.5:1 on white. --equinet-color-orange--dark is the
+   closest at 4.37:1 and still short, so a class called "safe" cannot use it.
+   This drops the colour and keeps the weight doing the emphasis. */
+.eq-card__stat dd.eq-card__stat--aa,
+.eq-card--stacked .eq-card__action--aa {
+  color: var(--equinet-color-text, #242530);   /* 15.19:1 */
+}
+
+
+/* ============================================================================
+   RADIAL SURFACE — .eq-surface
+   Measured from assets/backgrounds/radial-background-01.svg and -02.svg
+   (both 1920 x 805, Figma 2026-10-16).
+
+   A module surface that is not flat: a soft off-centre pool of white falling
+   away to --equinet-color-surface--alt. It gives a section depth without
+   adding anything a reader has to look at.
+
+   BUILT IN CSS, NOT PLACED AS AN SVG. The two exports are reference geometry.
+   Rendered side by side at 1920 x 805 the CSS version differs from the SVG by
+   a maximum of 5/255 on any channel and 1.07/255 on average — below the
+   threshold the motion tests already treat as identical. CSS costs no asset,
+   scales to any module height, and leaves the surface tokens swappable.
+
+   THE SIGNATURE, from decoding both gradientTransform matrices:
+     stops       white -> #F6F5F5, which are --equinet-color-surface and
+                 --equinet-color-surface--alt — the two stops tokens.css has
+                 called "module gradient start/end" since 2026-08-07
+     ellipse     a 2.02 : 1 axis ratio in BOTH files. Not a coincidence; it
+                 is what makes the pool read as a soft wash rather than a
+                 spotlight. Keep it when inventing a variation.
+     centre      placed off-centre, never at 50% 50%
+     rotation    both are skewed about 10 degrees off perpendicular. CSS
+                 radial-gradient cannot rotate, and at a 4% luminance delta
+                 between the stops it makes no visible difference — hence the
+                 numbers above.
+
+   Sizes are percentages so the pool re-proportions with the module instead of
+   staying a fixed pixel ellipse in a box of unknown height.
+   ========================================================================== */
+
+.eq-surface {
+  /* Override these four to invent a variation. Hold the 2:1 ratio between
+     --eq-surface-w and --eq-surface-h and it will still look like Equinet. */
+  --eq-surface-x: 50%;
+  --eq-surface-y: 40%;
+  --eq-surface-w: 40%;
+  --eq-surface-h: 190%;
+
+  background-color: var(--equinet-color-surface--alt, #F6F5F5);
+  background-image: radial-gradient(
+    ellipse var(--eq-surface-w) var(--eq-surface-h)
+    at var(--eq-surface-x) var(--eq-surface-y),
+    var(--equinet-color-surface, #FFFFFF) 0%,
+    var(--equinet-color-surface--alt, #F6F5F5) 100%
+  );
+}
+
+/* The two measured variants. 01 pools upper-right, 02 upper-left — so
+   alternating them down a page keeps consecutive sections from matching. */
+.eq-surface--01 {
+  --eq-surface-x: 73.2%;
+  --eq-surface-y: 22.4%;
+  --eq-surface-w: 44.1%;   /* 845.8 / 1920 */
+  --eq-surface-h: 212.5%;  /* 1710.9 / 805 */
+}
+
+.eq-surface--02 {
+  --eq-surface-x: 33.4%;
+  --eq-surface-y: 41.1%;
+  --eq-surface-w: 30.9%;   /* 592.6 / 1920 */
+  --eq-surface-h: 148.9%;  /* 1198.6 / 805 */
+}
+
+/* The background colour underneath stays editor-controlled (README digest,
+   "Padding and background are the editor's"). A module offering this surface
+   offers it as a choice, not as a hardcoded override — which is why the
+   gradient is background-image and the flat colour is background-color, so an
+   editor's colour shows through wherever the pool has fallen away. */
+
+/* -------------------------------------------------- automatic variation --
+   Two more positions, derived rather than invented: each is a measured
+   centre mirrored across the vertical axis, so the axes and the 2.02:1
+   ratio are untouched and only the side the pool sits on changes.
+   --03 mirrors --01, --04 mirrors --02. */
+.eq-surface--03 {
+  --eq-surface-x: 26.8%;   /* 100 - 73.2 */
+  --eq-surface-y: 22.4%;
+  --eq-surface-w: 44.1%;
+  --eq-surface-h: 212.5%;
+}
+
+.eq-surface--04 {
+  --eq-surface-x: 66.6%;   /* 100 - 33.4 */
+  --eq-surface-y: 41.1%;
+  --eq-surface-w: 30.9%;
+  --eq-surface-h: 148.9%;
+}
+
+/* Siblings with no explicit variant rotate through the four, so a stack of
+   surfaces never repeats until the fifth. Scoped to :not([class*="--"]) so
+   an explicit --01..--04 always wins and an editor's choice is never
+   overridden by position.
+
+   This only fires where the surfaces are actual siblings. In a HubSpot dnd
+   area each module sits in its own wrapper, so they usually are not — there
+   the module picks its variant in HubL. See assets/backgrounds/README.md,
+   "Varying it automatically". */
+.eq-surface:not([class*="eq-surface--"]):nth-of-type(4n+2) {
+  --eq-surface-x: 33.4%; --eq-surface-y: 41.1%;
+  --eq-surface-w: 30.9%; --eq-surface-h: 148.9%;
+}
+.eq-surface:not([class*="eq-surface--"]):nth-of-type(4n+3) {
+  --eq-surface-x: 26.8%; --eq-surface-y: 22.4%;
+  --eq-surface-w: 44.1%; --eq-surface-h: 212.5%;
+}
+.eq-surface:not([class*="eq-surface--"]):nth-of-type(4n+4) {
+  --eq-surface-x: 66.6%; --eq-surface-y: 41.1%;
+  --eq-surface-w: 30.9%; --eq-surface-h: 148.9%;
+}
+.eq-surface:not([class*="eq-surface--"]):nth-of-type(4n+1) {
+  --eq-surface-x: 73.2%; --eq-surface-y: 22.4%;
+  --eq-surface-w: 44.1%; --eq-surface-h: 212.5%;
+}
+
+/* ------------------------------------------------------------------ dark --
+   Measured from assets/backgrounds/radial-background-dark.svg (1920 x 805,
+   Figma 2026-10-16). A deep navy surface, darkest at the bottom-left and
+   lifting to --equinet-color-navy across the frame.
+
+   USE IT SPARINGLY — a section or a card that is meant to stand apart, not a
+   second default. It is deliberately excluded from the sibling rotation
+   above (that rule is scoped :not([class*="eq-surface--"])), so a dark
+   surface is only ever something someone chose.
+
+   DIFFERENT SIGNATURE FROM THE LIGHT PAIR, so don't carry their rules over:
+     stops       #011420 -> #00426C, i.e. --equinet-color-blue-950 to
+                 --equinet-color-blue-default. Both already tokens.
+     polarity    INVERTED. The light surfaces put white at the centre; this
+                 puts the DARK stop at the centre and lifts outward.
+     centre      4.3% / 93.2% — bottom-left, almost off-frame.
+     ratio       2.385 : 1, not the light pair's 2.023 : 1.
+     extent      77.8% x 442.5% of the frame, so the pool runs well past the
+                 edges and only part of its range is ever visible. That is
+                 what makes it a slow wash rather than a visible pool.
+
+   CSS reproduces this to within 7/255 on any channel and 1.11/255 on average
+   — close, but not the 5/255 the light pair manage. The -20 degree rotation
+   does more work here because the two stops actually differ in luminance.
+   The values below are a fitted approximation, not a transcription; the SVG
+   stays in assets/backgrounds/ if a build ever needs it exactly.
+
+   TEXT ON IT, measured against BOTH stops (worst case shown):
+     white            10.52:1   body text, fine anywhere
+     surface--alt      9.67:1   fine
+     orange--pale      8.95:1   fine — this is what .eq-eyebrow--on-dark uses
+     teal-default      4.96:1   passes AA for body; the one accent that does
+     orange--light     4.15:1   large text and graphics only
+     orange            3.08:1   FAILS for text at any size. Not an accent here.
+   ========================================================================== */
+
+.eq-surface--dark {
+  --eq-surface-x: 4.3%;
+  --eq-surface-y: 100%;
+  --eq-surface-w: 77.8%;
+  --eq-surface-h: 380%;
+
+  background-color: var(--equinet-color-blue-default, #00426C);
+  background-image: radial-gradient(
+    ellipse var(--eq-surface-w) var(--eq-surface-h)
+    at var(--eq-surface-x) var(--eq-surface-y),
+    var(--equinet-color-blue-950, #011420) 0%,
+    var(--equinet-color-blue-default, #00426C) 100%
+  );
+  /* Content inherits a readable colour instead of each module remembering.
+     An element that needs the accent sets it explicitly. */
+  color: var(--equinet-color-surface, #FFFFFF);
+}
+
+.eq-surface--dark .eq-card__title,
+.eq-surface--dark .eq-card__text,
+.eq-surface--dark .eq-stagger__heading { color: inherit; }
+
+/* The eyebrow's dark-ground form, repeated here so a dark surface carries it
+   without the author having to remember the modifier. */
+.eq-surface--dark .eq-eyebrow { color: var(--equinet-color-orange--pale, #FCE9E0); }
+
+
+/* ============================================================================
+   TYPE SCALE — .eq-h1 … .eq-body
+   Measured from the ten exports in assets/type/ (Figma 2026-10-16). This is
+   the canonical hierarchy; everything here traces to one of those files.
+
+   TWO FAMILIES, AND THE SPLIT IS THE POINT:
+     Open Sans 800, -0.07em   h1, h2, h3-section — the shouty display tier,
+                              uppercase in every export, with a drop shadow
+     Source Sans 400-700      h3-card, h4, lead, body, eyebrow — the reading
+                              tier, sentence case, tighter tracking or none
+
+   LIGHT VARIANTS. h2 and h3-section have a weight-300 form for contrast
+   against the 800. They carry NO SHADOW — that is not an oversight in the
+   export, it is the variant: a hairline weight with a drop shadow reads as
+   a mistake. Alternate them against the heavy form; two 800s stacked is
+   what the light variant exists to break up.
+
+   SHADOWS, all rgba(0,0,0,0.15):
+     h1, h2            -2px 2px 4px      --equinet-shadow-heading
+     h3 both           -1px 1px 1px      --equinet-shadow-heading--h3
+     h4                -0.5px 0.5px 1px  --equinet-shadow-heading--h4
+     lead, body,       none
+     eyebrow, lights
+   Never add one to compensate for contrast — see the digest.
+   ========================================================================== */
+
+.eq-h1, .eq-h2, .eq-h3 {
+  font-family: var(--equinet-font-heading, 'Open Sans', sans-serif);
+  font-weight: var(--equinet-fontweight-display, 800);
+  letter-spacing: var(--equinet-letterspacing-display, -0.07em);
+  color: var(--equinet-color-heading, #242630);
+  text-transform: uppercase;
+  margin: 0;
+}
+
+.eq-h1 {
+  font-size: var(--equinet-fontsize-display, 60px);
+  line-height: var(--equinet-lineheight-display, 0.91667);
+  text-shadow: var(--equinet-shadow-heading, -2px 2px 4px rgba(0, 0, 0, 0.15));
+}
+
+.eq-h2 {
+  font-size: var(--equinet-fontsize-h2, 40px);
+  line-height: var(--equinet-lineheight-h2--ratio, 0.9);
+  text-shadow: var(--equinet-shadow-heading, -2px 2px 4px rgba(0, 0, 0, 0.15));
+}
+
+.eq-h3 {
+  font-size: var(--equinet-fontsize-h3, 32px);
+  line-height: var(--equinet-lineheight-h3--ratio, 0.90625);
+  letter-spacing: var(--equinet-letterspacing-h3, -0.07em);
+  text-shadow: var(--equinet-shadow-heading--h3, -1px 1px 1px rgba(0, 0, 0, 0.15));
+}
+
+/* The light variant. Weight and the absence of the shadow are both the
+   variant; dropping only one of them misses the point. */
+.eq-h2--light, .eq-h3--light {
+  font-weight: var(--equinet-fontweight-light, 300);
+  text-shadow: none;
+}
+
+/* Card heading — Source Sans, sentence case, barely tracked. A different
+   tier from .eq-h3 despite the name they share in Figma. */
+.eq-h3-card {
+  font-family: var(--equinet-font-body, 'Myriad Pro', 'Source Sans 3', sans-serif);
+  font-size: var(--equinet-fontsize-card-heading, 24px);
+  font-weight: var(--equinet-fontweight-bold, 700);
+  letter-spacing: var(--equinet-letterspacing-card-heading, -0.01em);
+  color: var(--equinet-color-heading, #242630);
+  text-shadow: var(--equinet-shadow-heading--h3, -1px 1px 1px rgba(0, 0, 0, 0.15));
+  margin: 0;
+}
+
+.eq-h4 {
+  font-family: var(--equinet-font-body, 'Myriad Pro', 'Source Sans 3', sans-serif);
+  font-size: var(--equinet-fontsize-h5, 20px);
+  font-weight: var(--equinet-fontweight-semibold, 600);
+  letter-spacing: var(--equinet-letterspacing-h4, -0.015em);
+  color: var(--equinet-color-heading, #242630);
+  text-shadow: var(--equinet-shadow-heading--h4, -0.5px 0.5px 1px rgba(0, 0, 0, 0.15));
+  margin: 0;
+}
+
+/* Lead and body share everything but size and leading, and both sit in
+   --equinet-color-body, a step lighter than the headings. */
+.eq-lead, .eq-body {
+  font-family: var(--equinet-font-body, 'Myriad Pro', 'Source Sans 3', sans-serif);
+  font-weight: var(--equinet-fontweight-body, 400);
+  letter-spacing: var(--equinet-letterspacing-body, 0em);
+  color: var(--equinet-color-body, #3B3F51);
+  margin: 0;
+}
+
+.eq-lead {
+  font-size: var(--equinet-fontsize-lead, 20px);
+  line-height: var(--equinet-lineheight-lead, 1.3);
+}
+
+.eq-body {
+  font-size: var(--equinet-fontsize-body, 16px);
+  line-height: var(--equinet-lineheight-body, 1.375);
 }

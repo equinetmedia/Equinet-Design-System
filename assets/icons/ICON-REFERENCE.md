@@ -1,3 +1,14 @@
+---
+id: icon-reference
+status: current
+read_when: >-
+  Substituting a Lucide icon for one Equinet has no geometry for, or swapping
+  the glyph inside a node or service tile. Carries the house style and the
+  per-service mapping.
+depends_on: assets/icons/README.md
+verified: 2026-10-13
+---
+
 # Icon reference — matching Lucide or Phosphor to the house style
 
 For choosing a third-party icon where Equinet has no real geometry. The three
