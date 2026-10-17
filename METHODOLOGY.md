@@ -137,6 +137,15 @@ graphics over 64px and to blocks, why the whole thing degrades to visible
 under `prefers-reduced-motion`, and why nothing on the page is hidden until it
 animates.
 
+**A promise and a report are different things.** Norman's affordance /
+signifier distinction cuts both ways. A hover lift is a signifier — it says
+something is actionable — so it may only sit on something that is. But motion
+that reports the reader's own progress signifies nothing about
+actionability; it answers *where am I*, which is Nielsen's first heuristic,
+visibility of system status, applied to a document rather than a system. That
+is why `[data-progress]` is allowed on content that links nowhere and a hover
+lift is not.
+
 **Nothing may exist only in motion.** This follows from the first of Nielsen's
 heuristics, visibility of system status, read in reverse: if the only way to
 learn something is to watch it happen, a reader who looked away has lost it. A

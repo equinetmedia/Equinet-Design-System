@@ -434,3 +434,49 @@
     })(cards[i]);
   }
 })();
+
+
+/* ============================================================================
+   READING PROGRESS — pairs with [data-progress] / [data-step] in bundle.css.
+   Added 2026-10-17.
+
+   Marks each step reached as it crosses the middle of the viewport, for
+   sequences and infographics that link nowhere. This is a REPORT, not a
+   promise: it answers "where am I" and invites nothing, which is why it is
+   allowed on unlinked content where a hover lift is not.
+
+   Once reached, a step stays reached. Scrolling back up should not unlight
+   what a reader has already passed — the emphasis tracks progress through
+   the content, not the scroll position, and flickering steps on an upward
+   scroll is the commonest way this effect becomes nauseating.
+
+   Opts out entirely under prefers-reduced-motion; the CSS then shows every
+   step at its reached state, so nothing is hidden behind scrolling.
+   ========================================================================== */
+(function () {
+  'use strict';
+
+  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  if (!('IntersectionObserver' in window)) return;
+
+  var groups = document.querySelectorAll('[data-progress]:not([data-progress-ready])');
+  if (!groups.length) return;
+
+  // A band across the middle of the viewport: a step counts as reached when it
+  // arrives where a reader is actually looking, not when its first pixel
+  // appears at the bottom of the screen.
+  var observer = new IntersectionObserver(function (entries) {
+    for (var i = 0; i < entries.length; i++) {
+      if (entries[i].isIntersecting) {
+        entries[i].target.classList.add('is-reached');
+        observer.unobserve(entries[i].target);   // reached is permanent
+      }
+    }
+  }, { rootMargin: '-45% 0px -45% 0px', threshold: 0 });
+
+  for (var g = 0; g < groups.length; g++) {
+    groups[g].setAttribute('data-progress-ready', '');
+    var steps = groups[g].querySelectorAll('[data-step]');
+    for (var s = 0; s < steps.length; s++) observer.observe(steps[s]);
+  }
+})();

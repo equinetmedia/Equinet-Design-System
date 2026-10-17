@@ -422,6 +422,27 @@ plus `FAQPage` JSON-LD matching the visible text word for word.
 </div>
 ```
 
+**Unlinked content still moves — just never in answer to a pointer.** The
+distinction is the whole rule:
+
+- **Pointer-responsive motion is a promise.** A lift, a spotlight, a cursor
+  change each say *act on me*. They belong only to things that do something.
+- **Progress-responsive motion is a report.** It answers *where am I*,
+  invites nothing, and carries no affordance.
+
+So a card, stat panel, graphic or infographic that links nowhere gets:
+entrance once on arrival (`data-reveal`), **progress emphasis as it is read**
+(`data-progress` on the group, `data-step` on each part), and transitions when
+its own content changes (the tab set). It never gets a hover lift, a
+spotlight, a pointer-tracked anything or a cursor change.
+
+Progress emphasis is what makes a long graphic worth scrolling — in a
+five-step flow the step you have reached is the one that is lit. Reached is
+permanent: scrolling back up must not unlight what a reader has passed, which
+is the commonest way this effect turns nauseating. An unreached step never
+drops below 0.6 opacity, because a step a reader cannot read is information
+hidden behind scrolling. Under `reduce` every step sits reached at once.
+
 **At most one card per group tracks the pointer.** `.eq-card--spotlight` (a
 warm pool under the cursor) and `.eq-card--edge` (the border lighting where
 the cursor is nearest) are for the card carrying the decision — the

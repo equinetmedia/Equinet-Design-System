@@ -1687,3 +1687,83 @@
    `check-built-page.py` reports it so the mistake is visible rather than
    silently rendered. */
 .eq-eyebrow--solid .eq-eyebrow__icon { display: none; }
+
+
+/* ============================================================================
+   READING PROGRESS — [data-progress] / [data-step]
+   Added 2026-10-17, for cards, panels, graphics and infographics that link
+   nowhere.
+
+   THE DISTINCTION THIS RESTS ON, and it is the whole justification:
+
+     POINTER-RESPONSIVE motion is a PROMISE. A lift, a spotlight, a cursor
+     change — each says "act on me". That is why they belong only to things
+     that do something, and that rule does not move.
+
+     PROGRESS-RESPONSIVE motion is a REPORT. It answers "where am I" rather
+     than inviting an action, so it carries no affordance and promises
+     nothing. A reader is not being asked to click; they are being told what
+     they have reached.
+
+   So an unlinked card, a stat panel or a five-step infographic may absolutely
+   move — just never in answer to a pointer.
+
+   WHAT UNLINKED CONTENT GETS:
+     1. Entrance, once, on arrival        [data-reveal], already in place
+     2. Progress emphasis as it is read   [data-step], below
+     3. Transitions when its OWN content  the tab set, already in place
+        changes
+   WHAT IT NEVER GETS:
+     a hover lift, a spotlight, a pointer-tracked anything, a cursor change.
+
+   Progress emphasis is the one that makes a long graphic worth scrolling: a
+   five-step flow where the step you have reached is the one that is lit
+   reports your position through a sequence that would otherwise be a static
+   picture. It is scroll-linked, which makes it a vestibular risk, so under
+   `reduce` every step sits at its emphasised state at once and nothing
+   travels.
+   ========================================================================== */
+
+[data-progress] [data-step] {
+  /* Unemphasised is the resting state, not a dimmed one: a reader who never
+     scrolls, or who has JavaScript off, sees every step at full strength. */
+  --eq-step-lift: 0;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  [data-progress] [data-step] {
+    transition:
+      opacity var(--equinet-motion-duration--slow, 0.6s) var(--equinet-motion-ease, ease-in-out),
+      transform var(--equinet-motion-duration--slow, 0.6s) var(--equinet-motion-ease, ease-in-out);
+  }
+
+  /* Reached: lifted a little and at full strength. Not reached yet: still
+     perfectly readable, just quieter. Never below 0.6 — a step a reader can't
+     read is information hidden behind scrolling. */
+  [data-progress] [data-step]:not(.is-reached) { opacity: 0.6; }
+
+  [data-progress] [data-step].is-reached {
+    opacity: 1;
+    transform: translateY(-4px);
+  }
+}
+
+/* A marker inside a step, for a flow that wants the node lit rather than the
+   whole card moved. Colour only, so it never fights the entrance animation. */
+[data-progress] [data-step] [data-role="accent"] {
+  transition: fill var(--equinet-motion-duration--ui, 200ms) var(--equinet-motion-ease--ui, ease);
+}
+
+[data-progress] [data-step].is-reached [data-role="accent"] {
+  fill: var(--equinet-color-orange, #E06730);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  /* Everything at its reached state at once. The reader loses the running
+     report and keeps every word. */
+  [data-progress] [data-step] {
+    opacity: 1 !important;
+    transform: none !important;
+    transition: none !important;
+  }
+}

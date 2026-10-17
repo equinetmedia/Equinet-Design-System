@@ -28,6 +28,55 @@ Project. Every entry below represents a manual reconciliation pass — someone
 asked Claude, in that Project, to fold new development work into
 `tokens.css` / `README.md`, then committed the result here.
 
+## 2026-10-17 — Unlinked content gets motion: a promise is not a report
+
+The rule that a card linking nowhere responds to nothing was right about
+hover and wrong as a general statement. It left every unlinked card, stat
+panel, graphic and infographic inert after its entrance, which on a page
+where most content links nowhere is most of the page.
+
+**The distinction that resolves it:**
+
+- **Pointer-responsive motion is a promise.** A lift, a spotlight, a cursor
+  change each say *act on me*. They belong only to things that do something,
+  and that rule does not move.
+- **Progress-responsive motion is a report.** It answers *where am I*,
+  invites nothing, and carries no affordance at all.
+
+Norman's affordance/signifier distinction cuts both ways: a hover lift
+signifies actionability and so may only sit on something actionable, but
+motion reporting the reader's own progress signifies nothing of the kind. It
+is Nielsen's visibility-of-system-status heuristic applied to a document
+rather than a system.
+
+**New: `[data-progress]` / `[data-step]`.** On a group and its parts. Each
+step lights as it crosses the middle of the viewport — not when its first
+pixel appears at the bottom, but when it arrives where a reader is actually
+looking. It is what makes a long graphic worth scrolling: in a five-step flow
+the step you have reached is the one that is lit.
+
+**Three decisions that keep it from becoming nauseating or exclusionary:**
+
+- **Reached is permanent.** The observer unobserves on first intersection, so
+  scrolling back up does not unlight what a reader has passed. Flickering
+  steps on an upward scroll is the commonest way this effect turns sickening.
+- **An unreached step never drops below 0.6 opacity.** A step a reader cannot
+  read is information hidden behind scrolling. With no JavaScript every step
+  sits at full strength.
+- **Under `reduce`, every step is reached at once** and nothing travels. The
+  reader loses the running report and keeps every word. Scroll-linked motion
+  is a vestibular trigger, so the script does not attach at all.
+
+So unlinked content now gets: entrance once on arrival, progress emphasis as
+it is read, and transitions when its own content changes. It still never gets
+a hover lift, a spotlight, a pointer-tracked anything or a cursor change.
+
+**New: `tests/progress-test.py`, 13 checks** — including the three that are
+invisible otherwise: that reached survives an upward scroll, that an unlinked
+step shows no pointer cursor so it still promises nothing, and that with
+JavaScript off nothing is hidden behind scrolling. Five suites now, 142
+checks.
+
 ## 2026-10-17 — The pill takes no icon; Phase 3 makes the methodology executable
 
 **`.eq-eyebrow--solid` is plain text. Ruled.** The pill is already the
