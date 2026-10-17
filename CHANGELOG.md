@@ -1,36 +1,1044 @@
+---
+id: changelog
+status: historical
+read_when: >-
+  Tracing when and why a value, rule or decision changed. Never for current
+  rules — entries describe the system on their own date and several record
+  rules since reversed.
+supersedes: none
+superseded_by: README.md for anything stated as a rule
+verified: 2026-10-13
+---
+
 # Changelog
+
+> **Historical record. Do not read a rule from this file.**
+> Entries describe the state of the system *on the date of the entry*. Several
+> record rules that have since been reversed, counts that have since changed,
+> and files that have since been renamed or deleted. They are kept so a
+> decision can be traced back to the evidence that caused it — not so the
+> decision can be re-derived from here.
+>
+> **The current rules live in `README.md` and `tokens.css`, and nowhere else.**
+> Where this file and `README.md` disagree, `README.md` is right by
+> definition. Entries are newest first.
 
 This repo has no live connection to the Equinet Module Development Claude.ai
 Project. Every entry below represents a manual reconciliation pass — someone
 asked Claude, in that Project, to fold new development work into
 `tokens.css` / `README.md`, then committed the result here.
 
-## 2026-09-24 — Removed a `---` that would have marked the brand book as regenerable
+## 2026-10-16 — The canonical type scale, and three DECISIONs resolved
 
-Checked the design-system format spec to answer whether the prompt could be
-built in, and found a bug introduced an hour earlier by the rules digest.
+Ten Figma typography exports added as `assets/type/`, a new `type-spec`
+category. These are the source of record for typography: where a token and
+one of these disagree, these win. Built as `.eq-h1` … `.eq-body`.
 
-**The format treats the first `---` in `README.md` as the boundary between
-author text and generated sections, and rewrites everything below it on
-save.** The digest ended with a `---` separator before the introduction —
-the only horizontal rule in the file — which marked the entire 815-line brand
-book as regenerable content. A save from the page, or a `make.ts` build,
-could have replaced all of it with generated "Consuming this system" and
-"Index" sections.
+**Two families, and the split is the point.** Open Sans 800 at -0.07em,
+uppercase, carries h1 (60px), h2 (40px) and h3-section (32px) — the display
+tier, always shadowed. Source Sans carries h3-card (24/700), h4 (20/600),
+lead (20/400), body (16/400) and the eyebrow (12/700) — the reading tier,
+sentence case, tracking at or near zero. Every shadow is
+`rgba(0, 0, 0, 0.15)`.
 
-Replaced with an `## About this system` heading, and added a warning in the
-file itself so the rule isn't reintroduced. Zero horizontal rules in
-`README.md` now.
+**`h3` was two different styles sharing a name.** The section heading is Open
+Sans 32px; the card heading is Source Sans 24px. Conflating them is what put
+a wrong value in the deployed token file.
 
-Other docs carry `---` rules (`PROMPT-TEMPLATE.md`, two asset READMEs,
-`INDEX.md`) and are unaffected — only `README.md` is parsed for that
-boundary.
+**Light variants.** h2 and h3-section have a weight-300 form for contrast
+against the 800, and **they carry no shadow — that is the variant, not an
+omission in the export.** A hairline weight under a drop shadow reads as a
+mistake. Open Sans 300 is already in the `@import`.
 
-Also confirmed from the same spec, which answers the original question:
-agents **read `README.md` first**, so design-system rules genuinely are
-built in rather than needing restatement each session. What can't be is
-brief-level direction — the AEO structure and `{CONTEXT}` — which describes
-a page, not the brand.
+**Three of the five open DECISIONs resolved, and in every case the answer was
+neither value in dispute:**
+
+| | Repo | Deployed | Spec |
+| --- | --- | --- | --- |
+| `fontsize-h2` | 48px | 36px | **40px** |
+| `lineheight-body` | 24px | 1.4 | **1.375** |
+| `letterspacing-display` | -0.05em | -0.06em | **-0.07em** |
+
+`fontsize-h3` resolved differently: **both disputed values were right**, for
+two different styles. The repo's 32px is the section heading, the
+deployment's 24px the card heading.
+
+**Eight tokens added** for tracking, leading and shadows the spec defines and
+`tokens.css` had no name for. One worth flagging:
+`--equinet-shadow-heading--h4` is *not* `--equinet-shadow-heading--sm` —
+same offsets, different blur and alpha (1px/0.15 against 2px/0.25).
+
+**Deploying now moves live rendering.** `check-deployed-tokens.py` went from
+0 conflicts to 4: h2 36→40, h3 24→32, lineheight-body 1.4→1.375,
+letterspacing-display -0.06→-0.07em. That is the point — the spec beat two
+sets of measurements taken off rendered artwork — but it is a deliberate
+change to watch for, not a safe upload.
+
+**Two conflicts this does not resolve.** The eyebrow colour: the type spec
+sets it in `#242630` and the component export in `#E06730`. Both are Figma
+exports and they disagree, and it is not cosmetic — orange is 3.41:1 and
+fails, `#242630` is 15.05:1 and passes. If the heading colour is right, the
+eyebrow leaves the "One unresolved" list entirely. `bundle.css` still ships
+orange, because changing it on the strength of the other file would be
+guessing. And `--equinet-fontsize-h1` is 56px where the display token and the
+spec both say 60px — stale duplicate or unused role, untouched.
+
+**Thirteen checks added** (47 to 60): every tier's size, weight and family;
+the display tier uppercase and the reading tier not; the light variants at
+300 with no shadow where the heavy form has one; lead and body in
+`color-body` against the headings' `color-heading`; and the -0.07em tracking
+resolving to -2.8px at 40px.
+
+Caught while writing them: the new `TY` helper shadowed an existing `TY`
+translateY helper further down the file, which broke a card-hover assertion
+with a selector error. Renamed to `TYPO`.
+
+Manifest at 118 assets.
+
+## 2026-10-16 — `.eq-surface--dark`, and the one accent that works on it
+
+A dark radial added: deep navy, darkest at the bottom-left, lifting to
+`--equinet-color-navy` across the frame. **Used sparingly** — a section or a
+card meant to stand apart, never a second default. It is excluded from the
+sibling rotation by construction (that rule is scoped
+`:not([class*="eq-surface--"])`), so a dark surface is only ever something
+someone chose.
+
+**Both stops were already tokens** — `#011420` is
+`--equinet-color-blue-950`, `#00426C` is `--equinet-color-blue-default`.
+Nothing new needed, again.
+
+**A different signature from the light pair, and the light pair's rules do
+not carry over.** Polarity is inverted: the light surfaces put white at the
+centre, this puts the DARK stop at the centre and lifts outward. The axis
+ratio is 2.385 : 1, not 2.023 : 1. The centre sits at 4.3% / 93.2%, almost
+off-frame. And the extent is 77.8% x 442.5%, so the pool runs well past the
+edges and only part of its range is ever visible — which is what makes it a
+slow wash rather than a pool with a visible edge.
+
+**CSS gets within 7/255 here, not 5/255.** The −20° rotation does more work
+because the two stops genuinely differ in luminance, where white to #F6F5F5
+barely does. The values shipped are a fitted approximation rather than a
+transcription — found by searching centre and extent against the rendered SVG
+rather than transcribing the matrix, which landed at 9/255. Mean 1.11/255.
+The file stays in `assets/backgrounds/` if a build ever needs it exactly.
+
+**Measured what can sit on it, against BOTH stops**, because a surface that
+passes at one end and fails at the other has failed. White 10.52:1,
+`surface--alt` 9.67:1, `orange--pale` 8.95:1 — all fine.
+**`teal-default` at 4.96:1 is the one accent that passes AA for body text**,
+which is the first time a compliant accent has existed anywhere in this
+system. `orange--light` manages 4.15:1, large text and graphics only. And
+**plain orange is 3.08:1 — it fails at any size and is not an accent on this
+ground.** That is the fourth component or surface to hit the same orange
+ceiling.
+
+`.eq-surface--dark` sets `color` to `--equinet-color-surface`, so content
+inherits something readable instead of every module remembering, and gives a
+nested `.eq-eyebrow` its on-dark colour without the modifier.
+
+**Four checks added** (43 to 47): navy underneath with blue-950 at the
+centre, content inheriting white, the eyebrow taking its on-dark colour
+unprompted, and the dark surface keeping its own geometry rather than being
+caught by the rotation.
+
+Manifest at 108 assets.
+
+## 2026-10-16 — Four surface positions, rotating automatically
+
+`.eq-surface` gains automatic variation, so a stack of sections doesn't
+repeat the same pool.
+
+**Two more positions, derived rather than invented.** `--03` mirrors `--01`
+across the vertical axis and `--04` mirrors `--02`: the axes and the 2.02:1
+ratio are untouched and only the side the pool sits on changes. 73.2% becomes
+26.8%, 33.4% becomes 66.6%. Nothing was guessed.
+
+**Siblings rotate through all four and repeat on the fifth.** Plain
+`.eq-surface` with no variant class picks its position from
+`:nth-of-type(4n+…)`, scoped `:not([class*="eq-surface--"])` so an explicit
+`--01`…`--04` always wins and an editor's choice is never overridden by where
+the section happens to sit.
+
+**This only fires where the surfaces are actual siblings** — true inside one
+module with stacked sections, false across a HubSpot dnd area, where each
+module renders in its own wrapper. The README now documents the module path:
+a `choice` field with `auto`, the four positions and a **`flat`** option,
+because this is a surface treatment and an editor who wants a plain
+background must be able to say so.
+
+**`auto` across modules derives from the module's own `name`,** which is
+unique per instance and stable forever. The HubL is written down with an
+explicit instruction to verify the `md5` and base-16 `int` filters against
+the live HubL version before shipping, and a stated fallback of `--01` rather
+than a random pick. It does not guarantee two adjacent modules differ — four
+positions means about a one-in-four chance of a match — which is exactly why
+`auto` is a default and not the only option.
+
+**Randomness is ruled out explicitly, in the digest and the skill.** A
+background that changes between renders breaks caching, breaks screenshot
+diffs, and makes a client think something is broken. The goal was never
+variety for its own sake; it is that two surfaces seen together shouldn't
+match, and that today's page renders the same tomorrow.
+
+**Three checks added** (40 to 43): four consecutive siblings producing four
+different pools, the fifth repeating the first so it is provably a cycle
+rather than randomness, and an explicit `--01` in the sixth slot still
+rendering `--01`.
+
+## 2026-10-16 — `.eq-surface` radial gradients, built in CSS not placed
+
+Two radial background exports added, `radial-background-01` and `-02`, both
+1920 x 805. Each is one rect filled with a two-stop radial gradient — 449 and
+439 bytes, the whole asset.
+
+**Both stops were already tokens.** White is `--equinet-color-surface`,
+`#F6F5F5` is `--equinet-color-surface--alt`, and `tokens.css` has called them
+the "module gradient start/end stop" since 2026-08-07. These exports supply
+the geometry for stops the system already had.
+
+**Built as `.eq-surface` in CSS rather than shipped as files.** Rendered side
+by side at 1920 x 805, the CSS version differs from the SVG by a maximum of
+**5/255 on any channel and 1.07/255 on average** — below the threshold
+`motion-test.py` already treats as identical. CSS costs no asset,
+re-proportions to any module height, and leaves the surface tokens swappable.
+The files stay in `assets/backgrounds/` as reference geometry, which makes
+that folder hold two kinds of thing now: the draughtsman's line work, which
+IS placed as a `background-image`, and these, which are never placed. The
+README opens by saying which is which.
+
+**The signature, from decoding both `gradientTransform` matrices.** `-01`
+centres at 73.2% / 22.4% with semi-axes of 845.8px and 1710.9px; `-02` at
+33.4% / 41.1% with 592.6px and 1198.6px. **Both have an axis ratio of
+2.02 : 1** — not a coincidence, and it is what makes the pool read as a soft
+wash rather than a spotlight. Neither centre sits at 50% 50%: `-01` pools
+upper-right and `-02` upper-left, so alternating them down a page stops
+consecutive sections matching. Both are skewed about 11 degrees off
+perpendicular, which CSS `radial-gradient` cannot express — at a 4% luminance
+delta between the stops it makes no visible difference, which is what the
+pixel comparison measures.
+
+**Sizes are percentages, not pixels**, so the pool re-proportions with the
+module instead of staying a fixed ellipse in a box of unknown height. Four
+custom properties — `--eq-surface-x/y/w/h` — are the documented way to invent
+a variation, with the 2:1 ratio and the off-centre placement as the two rules
+that keep it on-brand.
+
+**The flat colour stays `background-color` and the pool is `background-image`,**
+so an editor's background choice still shows through wherever the pool has
+fallen away. The digest rule that padding and background are the editor's
+holds.
+
+**Seven checks added to `components-test.py`** (33 to 40): the flat colour
+underneath, the pool being a gradient and not an image request, each variant
+at its measured centre, the two variants differing, the 2.02:1 ratio, the
+bare class carrying a usable default, and the custom properties actually
+overriding.
+
+Manifest at 107 assets.
+
+## 2026-10-16 — `.eq-card--stacked` built from card-stacked-layout-01
+
+A card layout comp added to `assets/components/` and built as a `.eq-card`
+variant: full-bleed image, stats table, source links out, read-more. For a
+card carrying more than a title and a line of text.
+
+**Every measurement resolved to an existing token.** 391 x 528 frame around a
+323 x 459.377 card at `rx="7"` (`--equinet-radius-card`); image 323 x 181.377
+full-bleed, ratio 1.781, effectively 16:9; content running x 62 to 337 inside
+a card at x 38 to 361, so 24px either side, `--equinet-space-md` unchanged;
+heading 24/600 `#242630`; stat label 16px `#3B3F51`; stat value 18/600
+`#E06730`; 1px `#B1B7C8` rule under each row, rows 34px tall and 10px apart;
+sources 11px with baselines 24px apart; read-more 16/600. Icons are Lucide
+`external-link` and `book-open` at the house substitute weight.
+
+**`.eq-card` carries 24px padding and this variant needs the image to bleed**,
+so the padding moves to `.eq-card__body`. `overflow: clip` was already on
+`.eq-card`, which clips the image to the radius for free. The read-more is the
+card's single `.eq-card__link`, so the whole card is the target and lifts —
+the first component in this system where a card legitimately links somewhere,
+after a GEO page shipped 17 that linked nowhere.
+
+**Two things in the export deliberately not inherited.** The card's drop
+shadow is `dx-4 dy34 std17 alpha .07` — that is `--equinet-shadow-card--hover`,
+not the resting token, so either the comp was exported in its hover state or
+it drifted; the component uses the resting shadow and lifts to the hover one
+through `.eq-card`. And "CO-PACKER" is clipped mid-word in the export because
+Figma gave the heading's drop-shadow filter a 120.426px region narrower than
+the text — a bounding-box artifact, not a design decision.
+
+**Third component on the same contrast failure.** Stat values at 18px/600 and
+the read-more at 16px/600 are both **3.41:1** on white. 18px at 600 is not
+large text — that needs 18.66px — so both want 4.5:1. `.eq-card__stat--aa` and
+`.eq-card__action--aa` are the compliant forms and they **drop the orange**,
+because no orange in this system reaches 4.5:1 on white:
+`--equinet-color-orange--dark` is nearest at 4.37:1 and still short, so a
+class called "safe" could not honestly use it. The first draft of this
+component did call it `--safe` with `orange--dark` behind it; renaming it was
+the correction. After the primary button and the eyebrow, three components now
+hang off `README.md`'s "One unresolved".
+
+**Eight checks added to `components-test.py`** (25 to 33): padding moving to
+the body, the image clipped to the radius, the media holding the comp's exact
+1.781 ratio, the stat row's rule and type, the value right-aligning against
+its label, sources at 11px, the `--aa` variant dropping the orange, and the
+card having exactly one link target.
+
+Manifest at 105 assets.
+
+**Self-inflicted, worth recording.** While editing the components README I
+wrote `open(p,'w').write(open(p).read().replace(...))` — Python opens for
+writing first, truncating the file, so the read returned nothing and the
+README was wiped to zero bytes. `check-docs.py` caught it on the next run via
+the missing-frontmatter check and the file was rebuilt. The frontmatter rule
+added on 2026-10-13 for routing turned out to double as a tripwire for an
+empty file.
+
+## 2026-10-16 — tokens.css reconciled with the deployment: 227 tokens
+
+The merge drafted against the deployed `/modules/tokens.css` is now this
+file. 215 tokens to **227**.
+
+**Twelve folded back from the deployment**, promoted during the
+`image_resizer` and `2-column-page-accordion` builds and never returned: the
+status palette (`success`, `caution`, `danger` and their pale grounds),
+`--equinet-color-muted`, `--equinet-color-navy--pale`,
+`--equinet-color-border--control`, `--equinet-font-mono`,
+`--equinet-fontweight-medium`, `--equinet-lineheight-heading`. Reasoning
+carried over verbatim — particularly why `border--control` exists at 4.17:1
+where `--equinet-color-border` at 2.00:1 fails WCAG 1.4.11 for
+non-decorative boundaries. That was real work sitting outside the repo.
+
+**The five conflicts were resolved by holding the deployed value**, so
+deploying this file moves nothing on the live site: `fontsize-h2` 48px → 36px,
+`fontsize-h3` 32px → 24px, `lineheight-body` 24px → 1.4,
+`letterspacing-display` -0.05em → -0.06em, and `font-body` regains
+`'Myriad Pro'` ahead of Source Sans 3. **These remain open questions**, kept
+in the file as `DECISION 1-5` blocks with both values and the reasoning.
+Holding what ships is a safe default, not a ruling. The h2/h3 pair is the one
+to look at: the repo's own comment called 48px "canonical, but unused in all
+four live-text comps", and holding 36px ratifies that permanently. Note also
+that h3 at 24px now collides with `--equinet-fontsize-h4`, so one of those
+roles is redundant if 24 stands.
+
+**Seven `--equinet-font-body` fallbacks in `bundle.css` were realigned** to
+match the token's new value. A fallback that disagrees with its token is the
+exact class of silent drift this whole pass was about, even though here it
+renders identically because Myriad Pro isn't installed.
+
+**Bug caught during promotion.** Adding the status palette immediately
+changed two `nearest_token` suggestions in the manifest: a warm hex in
+`chart-robotic-arms-roi` moved from `amber-100` to `caution--pale`, and one
+in `marketing-hubspot-agents` to `danger--pale`. Nearest by RGB, wrong by
+meaning — status colours are reserved for UI state and must never be proposed
+as a replacement for ink in artwork. `build-manifest.py` now excludes them
+from the suggestion pool, and the manifest is byte-identical to before the
+promotion again.
+
+`tokens.json` regenerated: 154 emitted, 73 unrepresentable. All checks green
+— `check-docs.py` 0 problems, `check-deployed-tokens.py` **0 conflicts, 0
+orphans**, tests 25 / 14 / 37, `bundle.css` 0 undefined tokens and 0 `var()`
+without a fallback.
+
+Still 151 tokens in this file that the deployment doesn't carry, and 10 that
+differ cosmetically (aliases here, repeated literals there). Both clear the
+moment this file is uploaded — which is now a safe thing to do.
+
+## 2026-10-16 — Deployed tokens diffed: 5 conflicts, 151 missing, 12 orphans
+
+The deployed `/modules/tokens.css` was read for the first time since this repo
+was built. It carries **76 tokens against the repo's 215**, and the two have
+drifted in both directions.
+
+**Why nobody noticed.** Modules read every value as
+`var(--equinet-…, <fallback>)`, and that fallback is deliberate — a module
+whose token is missing from the deployed file renders at exactly the right
+value anyway. The drift is invisible on every page you can look at. It
+surfaces only when someone changes a token, expects the modules to follow,
+and nothing moves.
+
+**Five true conflicts — the same name resolving to different values.**
+Deploying this repo's file as-is would change how live modules render:
+
+| Token | Repo | Deployed |
+| --- | --- | --- |
+| `--equinet-fontsize-h2` | 48px | 36px |
+| `--equinet-fontsize-h3` | 32px | 24px |
+| `--equinet-lineheight-body` | 24px | 1.4 (22.4px on 16px) |
+| `--equinet-letterspacing-display` | -0.05em | -0.06em |
+| `--equinet-font-body` | `'Source Sans 3'` | `'Myriad Pro', 'Source Sans 3'` |
+
+The h2/h3 pair is the Figma heading scale against values promoted from the
+`cagr-four-column` build; this repo's own comment calls 48px "canonical, but
+unused in all four live-text comps", which is the disagreement stated out
+loud and never resolved. `--equinet-font-body` is the more interesting one:
+the deployed file keeps Myriad Pro first so a licensed embed would be picked
+up automatically, and this repo dropped it. None of the five has been ruled
+on.
+
+**151 tokens in the repo are not deployed at all** — the whole primitive
+ramp, every border width and radius, all seven letter-spacings, the button
+geometry, motion travel. Any module referencing one is on its fallback.
+
+**12 tokens are deployed and absent here**, promoted during the
+`image_resizer` and `2-column-page-accordion` builds and never brought back:
+the status palette (`success`, `caution`, `danger` and their pale grounds,
+each documented at ≥ 4.5:1), `--equinet-color-muted`,
+`--equinet-color-navy--pale`, `--equinet-color-border--control` (4.17:1,
+added because `--equinet-color-border` at 2.00:1 fails WCAG 1.4.11 for
+non-decorative boundaries), `--equinet-font-mono`,
+`--equinet-fontweight-medium` and `--equinet-lineheight-heading`. On these
+the repo is behind the deployment, not ahead of it.
+
+**Ten more differ only cosmetically** — the repo aliases a primitive
+(`var(--equinet-color-amber-default)`) where the deployment repeats the hex
+(`#E06730`). Same resolved value, no rendering difference.
+
+**New: `tools/check-deployed-tokens.py`.** Takes the deployed file as an
+argument and sorts the differences into conflict, missing, orphan and
+cosmetic, resolving aliases first so an alias and its literal aren't reported
+as a difference. Conflicts and missing tokens fail the run; orphans don't —
+they are a backlog, not a breakage. Documented in `README.md` under "How it
+is consumed" and in the `HANDOFF.md` tools table.
+
+Nothing was changed in `tokens.css`. The five conflicts are decisions, and
+making them silently by uploading a file is how a heading scale moves under a
+live site.
+
+## 2026-10-16 — The eyebrow built as a component; `--solid` rationed
+
+`eyebrow-plain.svg` and `eyebrow-solid.svg` added as `assets/components/`, a
+new category for Figma exports a component is measured from — the role
+`assets/buttons/` already plays. Both 115 x 32, both carrying live `<text>`,
+so neither is ever placed on a page: the type would render from whatever font
+the viewer has.
+
+**Every measurement resolved to an existing token.** 12px to
+`--equinet-fontsize-kicker`, bold to `--equinet-fontweight-kicker`, 0.2em to
+`--equinet-letterspacing-kicker`, `#E06730` to `--equinet-color-orange`,
+`#FCE9E0` to `--equinet-color-orange--pale`, `rx="8"` to
+`--equinet-radius-pill`, the `x="24"` text inset to `--equinet-space-md`.
+Nothing new was needed. One thing deliberately not copied from the export: it
+names the family **Source Sans Pro**, the old name for what this system calls
+`--equinet-font-body` (`'Source Sans 3'`).
+
+**Built as `.eq-eyebrow` in `bundle.css`.** `.eq-stagger__eyebrow` already
+carried the same type treatment scoped to that one component and is left
+alone so nothing breaks; new work uses the unscoped class, which adds the
+solid variant. The pill's vertical padding is derived — `(32px - 1em) / 2`
+from the scale token — rather than hardcoded at 10px, which is off the 4px
+scale and has no token. `check-docs.py` caught the first attempt inventing
+`--equinet-scale-250` to paper over that.
+
+**`--solid` is rationed: hero banners, CTA banners, modules of exceptional
+value.** The plain eyebrow is the default and is almost always right. The
+pill is emphasis, and emphasis on every section is not emphasis — more than
+one or two on a page means it is decoration.
+
+**The contrast problem is no longer hypothetical.** The "One unresolved" note
+in `README.md` said orange eyebrow text on the pale pill measures 2.9:1. The
+full picture, measured: 2.90:1 on the pill, 3.41:1 on white, 3.14:1 on
+`surface--alt`, 3.08:1 on navy. At 12px / 700 none is large text — that needs
+18.66px bold — so the threshold is 4.5:1 and **every ground this system has
+fails it**. That note is now attached to a shipped component, and two
+compliant forms exist for builds that can't carry the risk:
+`.eq-eyebrow--solid-safe` puts the label in `--equinet-color-text` at
+12.93:1, and `.eq-eyebrow--on-dark` uses the pale amber where orange fails
+against navy and night. Still not raised with the client. The 2026-09-21
+button exception was scoped so it does not extend to another component, so
+this needs its own ruling rather than inheriting that one.
+
+**Six checks added to `components-test.py`** (19 to 25), measuring the
+rendered component against the export: size, weight, tracking and case; the
+orange label; the pill's fill, radius and side inset; its 32px height; that
+the plain variant has no pill; and that `--solid-safe` carries the compliant
+colour.
+
+**Bug fixed in `build-manifest.py`.** Light versus dark was a whitelist of
+three literals — WHITE, #FFFFFF, #F6F5F5 — so it filed the pale `#FCE9E0`
+pill as "opaque dark". It is a luminance question and now uses the same
+threshold the gradient branch already used. No existing asset's
+classification changed; verified against the previous manifest.
+
+Manifest at 104 assets.
+
+## 2026-10-16 — `backgrounds/` added: draughtsman's line work for modules
+
+Three files added as a new asset category: `draftmans-background-hero-banner`,
+`-process-flow` and `-market-amplification`. Construction circles, arcs,
+dashed centre lines and crosshairs — a technical drawing before anything is
+dimensioned. They sit behind a module as texture. The first group in this
+system whose job is to be ignored.
+
+All three are 1619 wide (820 / 784 / 735 tall, aspects 1.97 / 2.07 / 2.20),
+transparent, one ink each: the hero uses `--equinet-color-charade-400`
+(#8790A9), the other two `--equinet-color-charade-500` (#68728F). Both
+already tokens; nothing unsanctioned.
+
+**They go in CSS, not in the markup — and that is not a preference.** Each
+file is 15–21 paths of mostly dashed strokes, well over the 64px graphic
+gate, which is precisely what the connector draw-on targets. Inlined and
+annotated, a background would redraw itself on every scroll. As a
+`background-image` it also stays invisible to assistive technology for free,
+where inline SVG needs an `aria-hidden` somebody has to remember. **Never
+`data-asset`, never `data-role`, under any circumstances.**
+
+**Measured contrast, because one combination fails.** Body text `#242530`
+over the line work on white: charade-400 gives 4.77:1 at full opacity and
+7.10:1 under the 0.7 group; charade-500 gives **3.18:1 at full opacity** —
+below AA — and 5.55:1 under the group. Each file has one group at
+`opacity="0.7"` and the rest at full strength, so body copy crossing a
+full-opacity charade-500 line is non-compliant. The strokes are hairlines and
+the touched area is tiny, but WCAG has no exemption for that. The fix costs
+nothing: all three were drawn with large open areas, and the README names
+which side is open for each. Never behind a stat, a chart, or anything a
+reader has to decode.
+
+**How they are drawn**, recorded so another could be matched: one ink, no
+fills, no gradients, no text; hairline strokes mostly at 0.5 with 0.3,
+0.37621, 0.526694, 1.15893 and 2 for emphasis, deliberately inconsistent the
+way a real construction drawing is; a dash family of 7.52, 9.03, 12.16, 13,
+14.06, 52 and one 293.57 recurring across all three files, which is the
+signature; two `<clipPath>` per file so arcs run off the edge rather than
+resolving inside it; one group at `opacity="0.7"` for the second plane,
+giving depth without a second colour. Below about 900px the finest strokes
+disappear — crop a region rather than scaling the whole frame down.
+
+`tools/build-manifest.py` gained the category and the manifest went to 102
+assets with both colours resolving cleanly. `check-docs.py` then caught two
+mistakes of mine in the same pass: the new README cited a digest rule by
+number, the exact pattern banned on 2026-10-13, and `README.md` still claimed
+99 assets. Both fixed. The checker earning its keep on its author is the
+point of having it.
+
+## 2026-10-14 — Donuts allowed for a single share
+
+`content-to-format.md` ruled out pies outright and told builds to use a
+stacked bar for anything parts-of-a-whole. Meanwhile
+`assets/charts/chart-ai-results-not-universal` is three donuts, shipped. The
+rule and the artwork disagreed, and the artwork was right.
+
+**The objection to pies was always about comparison.** People read lengths
+more accurately than angles, so a multi-segment pie makes a reader work
+harder to see what a bar shows at once. None of that applies to a **single
+share**: there is nothing to compare, the ring is a gauge, and the number in
+the middle does the reading. Donuts are now the format for one percentage.
+Several shares that sum to 100% stay a stacked bar. A multi-segment pie is
+still wrong.
+
+**House style written up from the real file rather than invented.** Measured
+in `chart-ai-results-not-universal`: 17 filled arc paths, zero `<circle>`,
+zero `stroke-dasharray` — the ring is drawn as arcs, not as a stroked circle
+with a dash offset, which is the obvious way and not the Equinet way. Paint
+order is track then value: a full-circle track in `--equinet-color-night-100`
+(#F6F7F9) with the value arc over it in `--equinet-color-blue-default`
+(#00426C). Starts at twelve o'clock, clockwise, square-cut ends, band about a
+seventh of the diameter. The figure sits large in the middle in
+`--equinet-color-text`; caption below in sentence case, source smaller again
+in `--equinet-color-night-700`. Three across, separated by thin rules.
+
+Added as its own row in the format table — "A single share" — above the
+existing parts-of-a-whole row, so a build reaches for it by content shape
+rather than by remembering an exception. Plus one rule worth keeping: a donut
+with no number in it is a decoration, and a figure not worth setting large
+doesn't need a chart.
+
+Also fixed: the "Change over time" row still cited `chart-blue-*`, the last
+reference to the superseded palette after the 2026-10-13 ruling.
+
+## 2026-10-14 — Motion scoped to graphics; composed-graphic substance rule
+
+A second GEO page came back clean on every mechanical check — `motion.js`
+inlined, 54 of 54 SVGs annotated, no `<img>`, no template bindings, real
+`viewBox` throughout, one hardcoded value in the whole page — and still read
+as boring and jerky with nothing responding to the cursor. All three
+complaints were true, and none of them was a mechanical failure.
+
+**Motion is now scoped to graphics, not icons.** 50 of the page's 54 SVGs
+were icons 64px or smaller — nine `lucide-circle-check`, six
+`arrow-chevron` — each one annotated and animated because the rule said
+"inline every SVG, `data-role` on every drawn element". That put **149 of 234
+animated elements inside line art a few pixels across**. The rule never
+scoped itself; it was written for a handful of illustrations. Icons are now
+inlined but not annotated, and `motion.js` enforces the same 64px gate itself
+so an over-annotating build still produces a smooth page.
+
+**Cards must be decided before they are built.** The page carried 17
+`.eq-card` elements and zero `.eq-card__link`, so not one lifted. That is the
+rule working — no link, no lift — but seventeen inert cards plus eight flat
+graphics is most of the page's surface, and it reads as broken. Either give a
+card a destination or make the content a panel. If most cards end up inert,
+that is a layout problem, not a styling one.
+
+**Every multi-part graphic should be a tab set.** Phase 2 already counted
+them; counting was not enough, because this build would have answered "2, of
+which 1" and shipped. It is a threshold now, and `check-built-page.py` fails
+when a multi-part graphic is left flat.
+
+**New: composed graphics must hold their own.** Measured across the 36
+illustration assets: median **16 drawn elements**, 2 filters, 1 gradient,
+2 clip paths. The page shipped a `hero-answer-spine` of **2 elements** — a
+rect, a line and a circle — and a `method-five-step-flow` of 10 bare `<line>`
+elements **with no arrowheads at all**. Equinet draws arrowheads as filled
+paths at the line end, never with `marker-end`; across 53 real assets there
+is not one `<marker>`. A bare line between two nodes is an unfinished
+connector, and it is the most visible tell that a graphic was sketched rather
+than drawn. The skill now states the benchmark and what the real assets do
+that a thin composition doesn't: arrowheads, depth from `<filter>` and
+gradients, caps and joins, overlap rather than a flat row, labels inside the
+artwork.
+
+**Never crop a whole asset's `viewBox` to fit a slot.** The build narrowed
+`flow-machine-readable-expertise` from `0 0 1209 675` to `20 200 1180 300`,
+which silently removed all four of its labels — "Unstructured Commercial
+Data", "Machine-Readable Structure", "Verified Commercial Data", "Found,
+Understood, Cited". Rendering the source and the built copy side by side was
+the only way to see it. Changing the viewBox is not resizing.
+
+**`check-built-page.py` gains three checks:** thin composed graphics against
+the 16-element benchmark, `<line>` connectors with no arrowheads, and
+multi-part graphics left flat. Two false positives were found and fixed while
+calibrating: transparent hotspot overlays are not artwork, and the substance
+threshold sits at 96px rather than 64 because brand marks and service tiles
+run to 69 x 69 and are meant to be simple.
+
+Also fixed: `references/content-to-format.md` still told builds to draw bar
+charts from `chart-blue-*`, superseded by the 2026-10-13 navy/orange/teal
+ruling.
+
+Measured, for the record: hover states were **not** broken. Primary buttons
+scale and shift shadow, textual buttons go orange, FAQ summaries go navy,
+hotspot hit rects go transparent to orange. Only `.eq-card` did nothing, for
+the reason above.
+
+## 2026-10-14 — Skill trimmed back; built-page auditor added
+
+A GEO page built against the 2 October system came back with the styling
+wrong, and the skill was fairly accused of bloat. Both were true, and they
+were separate problems.
+
+**The skill had grown 71%** — 1,489 words to 2,553 — and every word of it had
+gone into motion, interaction and reporting. The asset kit, AEO structure and
+charts sections, which decide what a page actually looks like, were untouched
+at 2,343 / 447 / 659 bytes. Headings, spacing and shadows aren't in the skill
+at all; they come from the README digest, which had to compete with a 6.9 kB
+section about animation.
+
+**Trimmed to 1,898 words (+27% over the original, down from +71%).** What came
+out was rationale, not rules: why a silent failure is worse than a loud one,
+which changelog entry each rule came from, the three reasons literal HTML
+matters, why a roving tabindex beats eight tab stops. That belongs here, in a
+file written to be read by a person investigating. The skill is read at build
+time by a model deciding what to do next, and rationale there is dilution. No
+rule was dropped; the remaining growth is the interactive-graphics contract
+and its HTML example, which are genuinely new.
+
+**What the page actually showed, measured:**
+
+- `tokens.css` fully inlined — 215 tokens defined, 104 used, zero undefined —
+  and then **100 hardcoded font sizes, 81 hardcoded spacings and 20 hardcoded
+  radii**, every one of them a literal that a token already held.
+- **Six `box-shadow` rules were `--equinet-shadow-card` and
+  `--equinet-shadow-card--hover` pasted into one declaration**, so six cards
+  sat permanently in their hover state.
+- `bundle.css` inlined in full, `motion.js` not at all: no
+  `IntersectionObserver` anywhere in the file. The CSS classes were present
+  and nothing ever applied them. The no-JS fallback is clean, so the page
+  looked entirely normal.
+- 2 of 32 SVG roots carried `data-asset`; 4 graphics were `<img>`.
+- 32 SVGs carried a runtime `viewBox` spelling and 0 carried a real one; 130
+  template bindings remained.
+
+**New: `tools/check-built-page.py`.** Audits a finished page rather than the
+repo, and names the token each literal should have been. It reads a Claude
+Design bundle by unwrapping it first — the 977 kB file is a loader, and
+auditing the wrapper tells you nothing. Three bugs were found and fixed while
+building it, each one a wrong answer rather than a crash: value matching that
+suggested `--equinet-scale-300` for a `font-size`, a zero-unit normaliser that
+turned `20px` into `20`, and element counts that read `<img>` out of
+`bundle.css`'s own comments and reported two images that didn't exist.
+
+**New rule in the skill: use the tokens.** Once `tokens.css` is in the page,
+every size, space, radius and shadow comes from `var(--equinet-…, fallback)`.
+Writing the literal when a token holds that value is how a page drifts
+off-system while still looking roughly right — which is exactly what happened.
+Phase 2's count now includes it.
+
+## 2026-10-13 — Graphics become navigable: tab sets with detail panels
+
+Reworked the interactive-graphics component the same day it landed. The first
+version offered a link or an independent toggle; what was actually wanted is a
+diagram a reader works through — each part revealing context, nothing
+navigating away. Rebuilt on the WAI-ARIA Authoring Practices **tabs** pattern,
+because that is literally what it is: select one of several related panels.
+
+**`.eq-graphic--tabs` is now the default for any multi-part graphic.** Each
+part is `.eq-graphic__hotspot[role="tab"]` controlling a
+`.eq-graphic__panel`; the SVG is the `tablist`.
+
+**Roving tabindex, because eight tab stops is not accessible, it is just
+operable.** The whole graphic takes ONE tab stop. Arrow keys move between
+parts, Home and End jump to the ends, and moving selects — automatic
+activation, which APG sanctions where switching is instantaneous and local.
+Arrowing across a flow and watching the detail change is the behaviour that
+makes a diagram worth the space it takes.
+
+**Panels are written visible; only the script hides them.** With no JavaScript
+every panel reads as plain prose and an answer engine gets all of the detail,
+which is the reason the detail is on the page. Panels carry `tabindex="0"` so
+a reader can tab from the graphic into the content, `role="tabpanel"` and
+`aria-labelledby` pointing at their tab — all applied by `motion.js`, so the
+author writes four attributes, not twelve.
+
+**Selection outranks hover.** The selected hotspot stays navy; an unselected
+one highlights orange under the cursor. Unselected siblings are deliberately
+NOT dimmed, because dimming needs `opacity`, which `motion.js` animates on
+`[data-role]` elements during entrance.
+
+**The panel has a reserved min-height** on desktop so switching tabs doesn't
+jump the page under the reader's cursor — the commonest complaint about tab
+sets — released at mobile width where the reserve would just be a gap.
+
+`.eq-graphic__link` survives as the rare third form, for a graphic that really
+is a link somewhere. `role="button"` survives as the disclosure variant for a
+lone hotspot with no one-of-several relationship to express.
+
+**`tests/graphics-interaction-test.py` grows to 37 checks**, all passing. It
+pins the tab semantics (tablist/tab/tabpanel wired, panels labelled by their
+tab), the roving tabindex, arrow/Home/End including wraparound, automatic
+activation revealing one panel and hiding the last, Space never scrolling the
+page, selection outranking hover, panels surviving with no JS, and reduced
+motion withdrawing the lift while keeping colour feedback and full function.
+`components-test.py` (19) and `motion-test.py` (14) unchanged.
+
+Skill and digest rule 7 rewritten around the tab set, with a note on what a
+panel should contain: the context the graphic cannot draw, not a caption
+restating the label. A part with nothing worth revealing is not a hotspot.
+
+## 2026-10-13 — Interactive graphics allowed; .eq-graphic built and tested
+
+The rule forbidding hover motion on a graphic not inside a link is withdrawn.
+It had been read as "don't add interactivity" twice — the 2026-10-02 entry
+names that misreading and kept the rule anyway, and it came up again. The
+reason behind it survives: something that responds to a cursor promises that
+something happens. The conclusion changes. Build the interaction properly
+instead of avoiding it.
+
+**New in `bundle.css`: INTERACTIVE GRAPHICS.** Two patterns, nothing else.
+
+- **`.eq-graphic` + `.eq-graphic__link`** — the whole graphic is a link.
+  Mirrors `.eq-card` exactly: 6px lift, shadow to `--equinet-shadow-card--hover`,
+  0.3s in and 0.6s out. The transform sits on the HTML wrapper, never on the
+  SVG, so it cannot collide with the `transform` *attribute* that 44 annotated
+  elements carry — the trap that forced every motion rule to be scoped
+  `:not([transform])` on 2026-09-26.
+- **`.eq-graphic__hotspot`** — parts of the graphic are controls. Either an
+  SVG `<a href>`, keyboard-operable with no script, or
+  `<g tabindex="0" role="button" aria-expanded aria-controls>` for an in-page
+  toggle.
+
+**Every hotspot carries `<rect data-role="hit">`** — transparent, at least
+24 × 24 user units. One element doing three jobs: a target big enough to hit
+(WCAG 2.5.8), one predictable shape to highlight, and a focus ring that
+doesn't depend on `outline` behaving over arbitrary SVG geometry.
+
+**Highlights use stroke and fill only — never `transform` or `opacity`.**
+`motion.js` animates both of those on `[data-role]` elements during entrance,
+so a hover rule touching either would fight the entrance mid-flight. Hover is
+orange (3.4:1 on white, above the 3:1 graphical-object threshold); focus is
+navy, this system's focus colour, drawn thicker so it still reads under a
+hover state.
+
+**New in `motion.js`: HOTSPOT ACTIVATION.** Only the toggle form needs it —
+an SVG `<a>` is already keyboard-operable, but a `<g role="button">` is not a
+button to the browser and has no implicit activation, so Enter and Space do
+nothing unless handled. The block also defaults `aria-expanded`, syncs the
+controlled panel's `hidden` attribute, and warns in the console when a hotspot
+has no accessible name. It runs regardless of `prefers-reduced-motion`:
+reduced motion means less movement, never less function.
+
+**New: `tests/graphics-interaction-test.py`, 24 checks in headless Chromium.**
+It caught one real defect before this shipped: the lift fired on hover but not
+on keyboard focus when the wrapper itself was the anchor rather than
+containing one. Both authoring shapes are now supported, so there is no way to
+write a graphic that silently never lifts. The suite also pins the things that
+would ship invisibly wrong — hover not touching transform or opacity, Space
+activating without scrolling the page, panels staying in the document with no
+JS so answer engines still read them, and reduced motion withdrawing the lift
+while keeping the colour feedback.
+
+`components-test.py` (19) and `motion-test.py` (14) still pass unchanged.
+Digest rule 7 and the layout skill both rewritten. Still forbidden: looping or
+ambient animation, and any response on a graphic that does nothing. A hover
+state is a promise — keep it or don't make it.
+
+## 2026-10-13 — Chart palette ruled; brief made explicit; builds now report gaps
+
+Three changes that move standing rules out of prompts and into the system.
+Each had been carried in prompt text, which is how they went missing.
+
+**1. The chart palette is decided: navy, orange and teal.**
+`--equinet-color-navy`, `--equinet-color-amber-400`,
+`--equinet-color-teal-default`. Open since 2026-09-30, when the charts folder
+recorded that all seven real charts use these while the sanctioned palette was
+the three `--equinet-color-chart-blue-*` tokens, drawn from a single published
+infographic. Seven files of evidence beat one; the rule now follows the
+charts. The chart-blue tokens stay in `tokens.css` — a real measured family
+from a real file — but are no longer the default. Reach for them only when
+matching that infographic.
+
+Recorded in four places so a reader can't land on the old ruling: the charts
+README (its "open question" heading is now "ruled"), the root README's data
+visualization section, the layout skill's Charts section (which previously
+told a model to ask the user), and the `tokens.css` comment above the three
+tokens. No token value changed; the chart-blue usage prose in `tokens.json`
+was rewritten and carried through the generator.
+
+**2. The brief is the default, and saying so.** Phase 1 ended with "stop and
+ask for approval" but never said what to do when a prompt asks to skip it, so
+"skip the brief" was being read as "skip the planning" — which is how a build
+goes straight to markup and arrives as headings and paragraphs. Now stated:
+the brief is the default and is never skipped unasked; `build direct` is the
+opt-in exception, and it skips only step 5's approval stop. Steps 1–4 still
+run, and the build opens with the section plan as a short list so the thinking
+stays visible and correctable.
+
+**3. Every build closes with three lists, not one.** Phase 2 asked for new
+components. It now also asks for **data gaps** — including any `data.json`
+value left unused because it is `transcribed` or `not-quotable` — and **needs
+confirmation**: placeholder links, invented service wording, claims about the
+client, anything written to fill a hole rather than supplied. The GEO build
+reported its `#book` placeholder and its own wording of the Commercial
+Diagnostic by good judgement; that shouldn't depend on judgement. Silence on
+these reads as "checked", which is the one thing it never means.
+
+The GEO prompt drops from 46 lines to 14 as a result, and what remains is a
+brief rather than a rulebook: topic, audience, goal, CTA, the named assets and
+the one fact about this subject the system can't know (no GEO-specific
+statistics exist).
+
+## 2026-10-13 — The GEO page audited; literal-HTML rule added
+
+The rebuilt GEO landing page was checked against the six items it claimed to
+fix. All six held: 19 inline SVGs with `data-asset` on every root, 139
+`data-role` elements, 23 `data-reveal` blocks, no `<img>`, nine `.eq-card`
+panels with no `eq-card__link` (so none lifts, which is correct for cards that
+link nowhere), `motion.js` inlined at 7.2 kB with the run-once guard removed,
+and a five-item FAQ whose `FAQPage` JSON-LD matches every question *and* every
+answer word for word. 112 tokens used, none invented. The FAQ chevron is
+path-identical to `assets/icons/arrow-chevron.svg`.
+
+**The defect was in what the page was, not in what it contained.** The
+delivered file is a self-extracting bundle: a 948 kB loader wrapping the real
+174 kB page, unpacked by JavaScript at runtime, with a `<noscript>` reading
+"This page requires JavaScript to display." The HTML source carries no
+content. For a page whose subject is being cited by AI answer engines, that is
+the argument undone by the delivery.
+
+**Two runtime constructs also block the HubSpot port.** All 19 SVGs carried
+`sc-camel-view-box` rather than `viewBox` — zero had a real one, so every
+graphic loses its scaling on paste. And the content was template-bound: 12
+loops and 22 `{{ }}` bindings, with the FAQ expressed as a loop over a data
+array rather than five `<details>` elements.
+
+**New rule in the skill: literal HTML, not a template.** Real elements, real
+`viewBox`, no loops over data arrays, with the three reasons stated — the AEO
+argument, the port, and the fact that JSON-LD bound to an array can't be
+diffed against the visible text by reading the file. Where the surface
+rewrites markup on export, the build must say so and name the rendered DOM as
+the deliverable rather than the saved file.
+
+**Phase 2's count gains two lines:** SVGs with a real `viewBox` out of the
+total, and template bindings left in the markup, which must read zero. Both
+are things that look completely normal in a screenshot.
+
+Also noted, not a defect: 54 `var()` calls carry no fallback. Harmless in that
+file, since all 215 tokens are inlined in a `:root` block — but those are
+exactly the ones that break when markup is lifted into HubSpot without
+`tokens.css`.
+
+## 2026-10-13 — A Claude Design page shipped dead again; two changes to stop it
+
+Reported: a GEO landing page built from `equinet-layout` came out with no
+animation and no interaction on the graphics. Same report as 2026-10-02, which
+is the point — that pass made motion, interaction states and the FAQ part of
+every build *without being asked*, and the skill has said so ever since. It
+still didn't happen.
+
+**The rule was right; its placement was wrong.** The instruction to inline
+`bundle.css` and `motion.js` sat at the *end* of "Built into every page",
+written as a conditional — "if the page can't reference repository files". A
+Claude Design page, a standalone HTML file, an artifact and an emailed
+deliverable can none of them resolve a repo path, so that conditional is the
+normal case, not the edge. Phrased as an exception, it reads as one.
+
+**It is now the first instruction in the section**, ahead of all three, and
+says plainly that these surfaces do not resolve repository paths and that
+inlining is the default. The trailing conditional is gone, and rule 2 now says
+"inlined per the rule above" rather than "load", so the two can't drift apart.
+
+**Why this failure mode needs special handling.** A `<link>` or `<script src>`
+that doesn't resolve fails *silently* — no console error, no broken layout,
+nothing visibly absent. Every other rule in the skill can be followed
+perfectly and the page still arrives dead, and a screenshot of a dead page
+looks completely normal. There is no symptom to notice.
+
+**So Phase 2 now ends with a count, not a claim.** New step 5: before
+finishing, state five numbers — SVG roots and how many carry `data-asset`;
+drawn elements and how many carry `data-role`; blocks carrying `data-reveal`;
+whether `motion.js` is inlined and its byte count; FAQ items and whether the
+`FAQPage` JSON-LD matches them word for word. A count reading "0 of 9" is
+visible before the page is ever opened, where "motion applied throughout" is
+not. Any zero means fix it before replying — not report it as a caveat.
+
+Nothing was added to `bundle.css`, `motion.js` or the tokens. This was a
+documentation failure, not a code one: the components worked, and the page
+never loaded them.
+
+## 2026-10-13 — tokens.json generated from tokens.css; 145 tokens, up from 60
+
+`tokens.json` and `tokens.css` were both hand-kept and only one was true. The
+JSON carried **60** of the CSS's **215** variables — every token promoted since
+2026-09-23 was invisible to anything reading it, including the entire primitive
+scale, all seven letter-spacing values, the button geometry and
+`motion-travel--arrow`. Flagged that day as "a full parity pass is still
+outstanding"; it had widened since, because a transcription pass fixes one day
+and nothing after it.
+
+**`tokens.json` is now generated.** `tools/build-tokens-json.py` reads
+`tokens.css` and emits the JSON. Never hand-edit it again — edit the CSS and
+rerun.
+
+**It merges rather than overwrites, which is the whole design.** `tokens.css`
+owns every name and value; the generator invents neither. But `tokens.json`
+owns the hand-written `usage` prose — the contrast measurements, the "this
+module has drifted" warnings, the provenance notes — and none of that is
+derivable from CSS. All **62** existing usage strings were carried forward by
+token name and verified unchanged, byte for byte. Two more came from CSS
+comments that said something; comments that only restate the value (`/* #F5844D
+*/`, `/* 4px */`) are dropped rather than emitted as a `usage` that tells a
+reader nothing.
+
+**Coverage: 145 emitted, 70 genuinely unrepresentable.** Colour 89, spacing 26,
+shadow 9, radius 8, size 8, duration 5. The other 70 are typography (the `type`
+block is a curated structure of named styles, not a token array), paragraph
+spacing, text transforms, easing curves and unitless values like
+`--equinet-btn-scale--hover` — none has a form in this schema.
+
+**The schema fails silently, so the omissions are written down.** An
+unsupported family or field is dropped without an error, which is how the
+`motion` family and the h2 `textTransform` were both lost on 2026-09-23. A
+token missing from `tokens.json` would therefore look identical whether it was
+a schema limit or an oversight. `tools/tokens-unrepresentable.md` is generated
+alongside the JSON and lists all 70 with the reason for each, so the gap is
+visible rather than assumed.
+
+**The `type` block is preserved, then validated.** There is no 1:1 mapping from
+the CSS's `fontsize`/`fontweight`/`lineheight` variables to Claude Design's
+grouped type styles, so the generator carries the block through unchanged and
+checks it instead: every declared `fontSize`, `fontWeight` and `letterSpacing`
+must exist as a value somewhere in `tokens.css`, and `textTransform` or
+`textShadow` on a style is rejected outright. The 48px/36px section-heading bug
+of 2026-09-24 was exactly the shape this catches.
+
+**Three guards, each tested against a deliberately broken `tokens.css`:**
+
+- a name declared twice — the schema silently drops duplicates, so the
+  generator refuses to emit one;
+- a `var()` reference to a token the CSS doesn't define, including one with a
+  typo'd case that an earlier draft of the alias regex read as a literal;
+- an unroutable name — a new token whose prefix matches no rule stops the
+  build rather than being quietly skipped. Adding a category means adding a
+  routing rule, deliberately.
+
+The run is idempotent and `--check` fails when the committed file is stale, so
+`tools/check-docs.py` now delegates its parity check to the generator instead
+of re-deriving the mapping. Three existing colour aliases whose names don't
+start with `color-` (`--equinet-text-action`, `-hover`, `--equinet-icon-primary`)
+surfaced during routing and are now carried.
+
+One fidelity improvement worth noting: `equinet-color-navy` was stored as a
+literal `#00426C`. The CSS defines it as an alias of
+`--equinet-color-blue-default`, and the generated file now says so — the
+palette's one-definition-per-literal rule is visible in the JSON for the first
+time.
+
+## 2026-10-13 — Documentation audited for machine readability; a checker added
+
+An audit of whether an agent reading this repo reads something true. The code
+layer held up: `assets/manifest.json` regenerates byte-identically from its
+generator, every `--equinet-*` token named anywhere in prose resolves in
+`tokens.css`, and `components/bundle.css` uses 69 tokens with no undefined
+reference and no `var()` without a fallback. Every problem found was in the
+prose.
+
+**Eight fixes, all of them things a model would have read as fact:**
+
+- **Seven stale counts.** `HANDOFF.md` claimed 81 assets (99), 32
+  illustrations in five subgroups (36 in six) and 16 icons in three groups
+  (four groups). `README.md` claimed 24 illustrations, three comps (five) and
+  45 reworkable assets. `SKILL.md` said "the four comps". Where a count was
+  genuinely useful it was corrected; where it was decoration it was removed
+  and the reader pointed at the manifest, which cannot go stale.
+- **`HANDOFF.md` described `tokens.json`'s shape wrongly** — as a flat
+  `{"tokens":[…]}` array. It is family-grouped. Anyone writing a parser from
+  that description would have written a broken one.
+- **A malformed table row.** The `assets/comps/` row of `HANDOFF.md`'s file
+  table had two cells in a three-column table, so anything parsing it dropped
+  or misaligned that record.
+- **Two dangling section pointers.** `README.md` and `bundle.css` both sent a
+  reader to **Module anatomy**; no such section exists — repointed at
+  **Engineering contract** > CSS scoping. `README.md` sent a reader to
+  **Surface** for corner radius; also absent — the two radius tokens are now
+  named inline.
+- **Digest rules cited by number, again.** `README.md` said "digest rule 7"
+  and `PROMPT-TEMPLATE.md` "rules 8–11". The 2026-10-02 pass fixed exactly
+  this class of breakage and it came straight back, because nothing stopped
+  it. Both now cite rules by name, and `check-docs.py` refuses the pattern.
+- **`CHANGELOG.md` was out of order and unlabelled.** Its top entry was
+  2026-09-24 while the newest was 2026-10-02, so a model skimming the top for
+  current state landed on a stale entry. Worse, the file states reversed
+  rules in the present tense — "if nothing matches the page's subject, use no
+  illustration", "`assets/icons` has no real SVGs yet" — with nothing marking
+  them historical. Reordered newest-first and given a header that says
+  plainly: do not read a rule from this file.
+- **No routing layer.** `README.md` is 961 lines and this file is longer; an
+  agent had no way to decide which file answers which question without
+  reading them. Seventeen markdown files now carry frontmatter with `id`,
+  `status`, `read_when`, `verified` and, where it applies, `depends_on`.
+
+**Two files deliberately exempt from frontmatter, because it would break
+them.** `README.md`: the design-system format treats its first `---` as the
+author/generated boundary, and YAML frontmatter opens with one — the exact
+bug caught on 2026-09-24, which would have been reintroduced by the fix.
+`SKILL.md`: its frontmatter is validated against the Agent Skills schema, a
+YAML error there stops the skill loading (2026-09-26), and its `description`
+already does what `read_when` does. Both exemptions are encoded in the
+checker with their reasons, so neither reads as an oversight.
+
+**New: `tools/check-docs.py`.** Companion to `build-manifest.py` — that one
+makes the assets machine-readable, this one stops the prose contradicting
+them. Eleven checks, each corresponding to a class of error this repo has
+actually produced: stale counts against the manifest, token names that don't
+resolve in `tokens.css`, `tokens.css`↔`tokens.json` parity, dangling section
+and file references, malformed tables, digest rules cited by number,
+changelog ordering and framing, frontmatter presence and YAML validity,
+illustrations missing from `INDEX.md`, and horizontal rules in `README.md`.
+Exits non-zero, so it wires into a pre-commit hook or an Action. It found
+every problem above independently of the hand audit.
+
+**Not done, still open:**
+
+- ~~**`tokens.json` carries 60 of `tokens.css`'s 215 tokens.**~~ **Resolved
+  the same day** — see the entry above. The JSON is generated now.
+- **No SVG carries a `<title>` or `<desc>`** — zero of 99. Lifted out of the
+  repo, every asset is anonymous path data; the subject lives only in the
+  manifest. Not done unilaterally: it edits delivered artwork, which is the
+  designer's call, and it would end the byte-for-byte non-destructiveness
+  proof that currently backs the `data-role` annotations.
+- **Counts still live in prose** where they were genuinely useful. The
+  durable fix is a generated block in `README.md` that `build-manifest.py`
+  rewrites on each run; for now `check-docs.py` catches them going stale.
 
 ## 2026-10-02 — Interaction, motion and an FAQ accordion, built into every page
 
@@ -496,6 +1504,33 @@ missing data goes in the brief as a gap for the user.
 
 Validated with the skill-creator checker, and every asset count, token value
 and filename it cites was verified against the repo before packaging (18/18).
+
+## 2026-09-24 — Removed a `---` that would have marked the brand book as regenerable
+
+Checked the design-system format spec to answer whether the prompt could be
+built in, and found a bug introduced an hour earlier by the rules digest.
+
+**The format treats the first `---` in `README.md` as the boundary between
+author text and generated sections, and rewrites everything below it on
+save.** The digest ended with a `---` separator before the introduction —
+the only horizontal rule in the file — which marked the entire 815-line brand
+book as regenerable content. A save from the page, or a `make.ts` build,
+could have replaced all of it with generated "Consuming this system" and
+"Index" sections.
+
+Replaced with an `## About this system` heading, and added a warning in the
+file itself so the rule isn't reintroduced. Zero horizontal rules in
+`README.md` now.
+
+Other docs carry `---` rules (`PROMPT-TEMPLATE.md`, two asset READMEs,
+`INDEX.md`) and are unaffected — only `README.md` is parsed for that
+boundary.
+
+Also confirmed from the same spec, which answers the original question:
+agents **read `README.md` first**, so design-system rules genuinely are
+built in rather than needing restatement each session. What can't be is
+brief-level direction — the AEO structure and `{CONTEXT}` — which describes
+a page, not the brand.
 
 ## 2026-09-24 — Minimum viable prompt recorded
 
@@ -1285,6 +2320,7 @@ elevate), reduced-motion gating pattern, card shadow blur (5px vs. 10px),
 possibly-transposed primary-button shadow tokens, Playfair Display's status,
 and whether `equinet-color-heading` / `equinet-color-text` should merge. See
 `README.md`, "Open decisions."
+
 
 <!--
 Next entry template:
