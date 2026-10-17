@@ -97,6 +97,31 @@ Tokens: `--equinet-icon-stroke` (2), `--equinet-icon-stroke--substitute` (1),
 
 ## Picking a substitute
 
+0. **The whole Lucide library is in `assets/icons/lucide/` — all 2159
+   glyphs.** Vendored 2026-10-17 because the instruction to "search Lucide"
+   was unfollowable: a build has no network and no package, so it resolved to
+   recalling path data from memory, and most builds sensibly declined. That
+   is why pages arrived with no substituted icons.
+
+   `assets/icons/lucide/INDEX.md` lists everything, with a 76-glyph shortlist
+   at the top covering most Equinet pages — if one of those fits, take it and
+   stop reading. Otherwise search the full list by what the icon *does*;
+   Lucide's keywords follow each name.
+
+   **Inline the file. Never reproduce path data from memory**, even for an
+   icon you think you know. The files are **unmodified Lucide v1.59.0** (ISC,
+   licence alongside them) so they stay diffable against upstream, which is
+   why they ship at Lucide's native `stroke-width="2"` — the house weight of
+   1 is applied by `.eq-icon` in `bundle.css`, not by editing 2159 files.
+
+   The library is deliberately **not** in `manifest.json`: that file
+   catalogues Equinet's own artwork, and a third-party library would take it
+   past 1 MB and bury the 118 assets whose discovery is its entire job.
+
+   Nothing should now be unfindable. If a glyph genuinely is not there, say
+   so in the close-out — `tools/vendor-lucide.py` re-vendors from a newer
+   Lucide in one command.
+
 1. Search Lucide first, by what the icon *does*, not by name.
 2. Keep Lucide's own root attributes — don't restate `fill` or `stroke` on
    inner paths; the wrapper applies them, and duplicating them breaks colour

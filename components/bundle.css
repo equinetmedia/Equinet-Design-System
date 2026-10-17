@@ -1639,3 +1639,31 @@
 .eq-eyebrow__icon svg [fill]:not([fill="none"]) { fill: currentColor; }
 
 .eq-eyebrow:has(.eq-eyebrow__icon) { display: inline-flex; align-items: center; }
+
+/* ------------------------------------------------------------- icon host --
+   Added 2026-10-17 with assets/icons/lucide/.
+
+   The house rule since 2026-09-24 is that a substituted icon renders at
+   stroke-width 1, not Lucide's native 2 — finer than Equinet's own marks, on
+   purpose. That rule was documented and forgotten, because it asked a build
+   to edit an attribute on every icon it placed.
+
+   The vendored files are UNMODIFIED Lucide, so they can be diffed against
+   upstream, and the weight is applied here instead. One rule, nothing to
+   remember, and a file that is still verifiably the icon it claims to be. */
+.eq-icon {
+  display: inline-flex;
+  flex: none;
+  width: 1.5em;
+  height: 1.5em;
+  color: inherit;
+}
+
+.eq-icon svg { width: 100%; height: 100%; }
+
+/* Only strokes are overridden; Equinet's own 2px marks are not .eq-icon and
+   keep their weight. 48px is the ceiling from the same ruling. */
+.eq-icon svg[stroke-width] { stroke-width: var(--equinet-icon-stroke--substitute, 1); }
+.eq-icon { max-width: 48px; max-height: 48px; }
+
+.eq-eyebrow__icon svg[stroke-width] { stroke-width: var(--equinet-icon-stroke--substitute, 1); }

@@ -90,6 +90,12 @@ def background(svg, body, roles, W, H):
 
 assets = []
 for p in sorted(glob.glob('assets/**/*.svg', recursive=True)):
+    # assets/icons/lucide/ is the vendored Lucide library — 2159 third-party
+    # glyphs. Cataloguing them here would take manifest.json past 1 MB and
+    # bury Equinet's own 118 assets in a file whose whole job is to surface
+    # them. The library has its own INDEX.md.
+    if p.startswith('assets/icons/lucide/'):
+        continue
     s = open(p, encoding='utf-8').read()
     rel = p[len('assets/'):]; parts = rel.split('/')
     group = parts[1] if len(parts) > 2 else parts[0]

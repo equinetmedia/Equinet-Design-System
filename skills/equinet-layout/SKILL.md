@@ -124,7 +124,8 @@ means skipping the planning.
      (must be 0 — run `tools/check-built-page.py`)
    - FAQ items, and does the JSON-LD match them word for word?
    - sections opening with an eyebrow, out of the total (every one)
-   - icons placed, and how many came from `assets/icons/` vs Lucide
+   - icons placed: Equinet's own, vendored Lucide, and any you could not
+     find (that last number should be 0 — name them if not)
    - sections carrying a draughtsman's background (2–3 expected; 0 is a fix)
    - does a reader of only the headings get the whole argument? yes/no
    - primary CTAs (one action, repeated) and whether the offer's shape —
@@ -258,8 +259,14 @@ The `--solid` pill stays rationed to hero and CTA banners.
 can carry.** `.eq-eyebrow__icon` before the label, taking `currentColor` so
 it follows the eyebrow onto a dark surface without a second rule. Reach into
 `assets/icons/` first — the service marks and concept nodes are Equinet's
-own — and substitute a Lucide glyph at the house weight only when nothing
-there matches (`assets/icons/ICON-REFERENCE.md`).
+own — and otherwise take one of the **2159 Lucide glyphs
+vendored in `assets/icons/lucide/`** — the whole library is there. Its
+`INDEX.md` opens with a 76-glyph shortlist covering most pages; search the
+full list only if none of those fit. Inline the file. Never reproduce an icon's path
+data from memory, even one you think you know: that is why pages were coming
+back with no substituted icons at all. If the glyph you need is not in the
+folder, say so in the close-out instead of inventing it
+(`assets/icons/ICON-REFERENCE.md`).
 
 **Icons are not confined to eyebrows.** A card with a subject takes one, a
 stat panel takes one, a list of steps takes one per step. The system ships

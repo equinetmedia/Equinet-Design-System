@@ -374,7 +374,11 @@ def check_asset_discoverability():
                 f"{a['path']} is not named in assets/illustrations/INDEX.md — "
                 "it can only be found by guessing its filename",
             )
-        if a["category"] in {"illustration", "icon"} and a["group"] != "root":
+        # Lucide icons are named by what they do — `calendar-clock` needs no
+        # subject line. The check exists for Equinet's own artwork, where the
+        # filename and the subject are not the same thing.
+        if (a["category"] in {"illustration", "icon"}
+                and a["group"] not in {"root", "lucide"}):
             if not (a.get("subject") or a.get("topics")):
                 note(f"{a['path']} has no subject/topics in the manifest")
 

@@ -28,6 +28,92 @@ Project. Every entry below represents a manual reconciliation pass — someone
 asked Claude, in that Project, to fold new development work into
 `tokens.css` / `README.md`, then committed the result here.
 
+## 2026-10-17 — The whole Lucide library vendored: 2159 glyphs
+
+A build cannot fetch. Claude Design has no network and no package manager, so
+"fetch the appropriate icon from Lucide when building" is not something a
+build can be instructed into — the repo has to already contain the thing it
+is told to reach for. The 76-glyph shortlist added earlier today was the half
+measure; this is the whole library.
+
+**All 2159 glyphs, unmodified, Lucide v1.59.0, ISC with the licence beside
+them.** Pulled from the real package rather than written out, because writing
+path data from memory is precisely the unreliability being fixed.
+
+**`assets/icons/lucide/INDEX.md` is two-tier.** It opens with the 76-glyph
+shortlist covering most Equinet pages — if one fits, take it and stop reading
+— then lists everything else with Lucide's own keywords after each name, so
+the full set is searchable by what an icon *does*. 103 kB; the shortlist
+means a build rarely reads past the first screen of it.
+
+**Deliberately not in `manifest.json`.** That file catalogues Equinet's own
+artwork with background, roles and palette mapped to tokens. A third-party
+library would take it past 1 MB and bury the 118 assets whose discovery is
+its entire job. `build-manifest.py` skips the folder explicitly, with the
+reason in a comment so nobody "fixes" it later. The manifest stays at 118.
+
+**New: `tools/vendor-lucide.py`.** Re-vendors from `npm install
+lucide-static` in one command, regenerates the index, and warns if a
+shortlist name has disappeared from the new version. Run it when Lucide ships
+something worth taking, or when a build reports a glyph it could not find —
+which the Phase 2 close-out now asks for by number.
+
+The zip goes from 1.5 MB to 2.5 MB and from 194 files to 2352. That is the
+cost of a build never having to guess, and SVG compresses well enough that it
+is mostly file count rather than size.
+
+**Where the limit actually is.** If Equinet ever needs an icon Lucide does
+not have, no amount of instruction solves it — someone draws it and it joins
+`assets/icons/` as Equinet's own. The close-out number is how that surfaces.
+
+## 2026-10-17 — 76 Lucide glyphs vendored: the instruction was unfollowable
+
+No Lucide icons were appearing. The cause was not discretion or a missing
+trigger — this time the rule was **impossible to follow.**
+
+`ICON-REFERENCE.md` said to search Lucide, keep its root attributes, and use
+it freely. A Claude Design session has no network and no Lucide package, so
+"search Lucide" resolved to "recall 24 x 24 path data from memory". Most
+builds sensibly declined, and the repo contained **zero** Lucide path data to
+fall back on. The one build that did produce eight Lucide icons was
+reconstructing them from memory, which is exactly as reliable as it sounds.
+
+**76 glyphs are now vendored in `assets/icons/lucide/`**, chosen to cover the
+three substitutions `ICON-REFERENCE.md` already named plus the subject matter
+Equinet pages actually carry — calendars and clocks, charts, workflow and
+network, shields and checks, quotes and documents. 34 kB in total.
+
+**They are unmodified Lucide v1.59.0**, ISC, with the licence file beside
+them, so any one of them can be diffed against upstream and shown to be the
+icon it claims to be. That means they ship at Lucide's native
+`stroke-width="2"`.
+
+**The house weight is applied by CSS, not by the build.** The rule since
+2026-09-24 has been that a substituted icon renders at stroke-width 1 — finer
+than Equinet's own 2px marks, deliberately. It was documented and forgotten,
+because it asked a build to edit an attribute on every icon it placed. New
+`.eq-icon` does it in one rule, along with the 48px ceiling from the same
+ruling. Nothing to remember, and the file stays verifiable.
+
+**The close-out count changes shape.** It now asks for icons placed from
+Equinet's own set, from the vendored Lucide set, and **any the build could
+not find** — a number that should be 0, with the names listed if it isn't.
+That is how the next gap in the set surfaces, rather than silently becoming
+another page with no icons.
+
+`check-docs.py` was adjusted so the vendored icons don't flood the notes: a
+Lucide glyph is named by what it does, and `calendar-clock` needs no subject
+line. The check exists for Equinet's own artwork, where the filename and the
+subject are different things. Notes stay at 13.
+
+Manifest at 194 assets.
+
+**A fifth variant of the same pattern.** The previous four were rules with no
+trigger. This one had a trigger and no means: a build was told to reach for
+something the system did not contain. Worth adding to the rule written
+yesterday — **when adding a capability, write the trigger before the
+technique, and ship the material before either.**
+
 ## 2026-10-17 — Icons and eyebrows given triggers; the pattern named for the fourth time
 
 A fresh Design build came back with no iconography, no eyebrows, and little
