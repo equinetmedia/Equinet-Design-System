@@ -14,7 +14,11 @@
     "shape": "unclassified (usually invisible bounds)"
   },
   "palette_note": "'unsanctioned' marks a colour found in artwork that is not a token; replace it with nearest_token (by RGB distance \u2014 a suggestion, not a ruling) rather than carrying the raw hex forward.",
+<<<<<<< HEAD
   "count": 118,
+=======
+  "count": 108,
+>>>>>>> 6bc8ca6622d77dfef0b77781179258bf68b49ff0
   "assets": [
     {
       "name": "draftmans-background-hero-banner",

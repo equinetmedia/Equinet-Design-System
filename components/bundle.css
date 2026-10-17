@@ -1361,6 +1361,7 @@
 /* The eyebrow's dark-ground form, repeated here so a dark surface carries it
    without the author having to remember the modifier. */
 .eq-surface--dark .eq-eyebrow { color: var(--equinet-color-orange--pale, #FCE9E0); }
+<<<<<<< HEAD
 
 
 /* ============================================================================
@@ -1465,3 +1466,5 @@
   font-size: var(--equinet-fontsize-body, 16px);
   line-height: var(--equinet-lineheight-body, 1.375);
 }
+=======
+>>>>>>> 6bc8ca6622d77dfef0b77781179258bf68b49ff0

@@ -172,12 +172,15 @@ an image, figures, links out, a read-more — is `.eq-card--stacked`. Full-bleed
 ruled at 1px, and the read-more as the card's single `.eq-card__link` so the
 whole card is the target. Measurements in `assets/components/README.md`.
 
+<<<<<<< HEAD
 **Typography is `.eq-h1` … `.eq-body`**, not hand-set sizes. Open Sans 800
 at -0.07em, uppercase, for h1/h2/h3-section; Source Sans for the card
 heading, h4, lead and body. Where two display headings would stack, make one
 `--light` (weight 300) — and leave its shadow off, which is the variant
 rather than an omission. Full scale in `assets/type/README.md`.
 
+=======
+>>>>>>> 6bc8ca6622d77dfef0b77781179258bf68b49ff0
 **The eyebrow above a heading is `.eq-eyebrow`.** The plain orange one is
 the default. `.eq-eyebrow--solid` — the same label in a pale pill — is
 rationed to hero banners, CTA banners and modules carrying exceptional value.
