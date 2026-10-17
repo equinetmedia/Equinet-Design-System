@@ -20,6 +20,7 @@ AI-generated design**.
 | 10 | **Every section gets a visual.** Place a whole illustration when its subject matches (`assets/illustrations/INDEX.md`); otherwise **compose** a bespoke graphic from the set's structural primitives — cards, connectors, nodes, panels. Never a mismatched whole illustration, never a bare section. Comps are layout blueprints; marketing infographics are the style reference. |
 | 11 | **Backgrounds:** `scenes/` are opaque **dark** (navy gradient); `sectors/` are opaque **light** (`#F6F5F5`→white); `systems/`, `flows/` are transparent and need a surface; `pictonodes/` are square and never sit in a 16:9 row. |
 | 10d | **Pointer response:** `.eq-card--spotlight` / `.eq-card--edge` track the cursor, for **one card per group** — the one carrying the decision. In 120ms, out 0.6s, transform and opacity only, fine pointers only, keyboard focus gets the same emphasis centred. Nothing lives only in hover. |
+| 10e | **Heading level and type size are independent.** `<h1>`–`<h6>` is document structure — descending, never skipping, one `<h1>` per page, a WCAG requirement. Size comes from a **role** token. Never reach for `--equinet-fontsize-h3` because the element is an `<h3>`. See `TYPE-ROLES.md`. |
 | 10c | **Typography** is `.eq-h1`…`.eq-body`, measured from `assets/type/`. Open Sans 800 at -0.07em uppercase for h1/h2/h3-section; Source Sans for h3-card, h4, lead, body. `--light` (weight 300) is the contrast variant for h2 and h3-section and carries **no shadow** — that is the variant. |
 | 10b | **A card with an image, stats, source links and a read-more** is `.eq-card--stacked` — full-bleed 16:9 media, padding on the body not the card, 1px-ruled stat rows, and the read-more as the card's one `.eq-card__link`. |
 | 10a | **The eyebrow** is `.eq-eyebrow`. `--solid` (the pale pill) is for hero banners, CTA banners and modules of exceptional value only — emphasis on every section is not emphasis. Orange on any ground fails AA at 12px/700; `--solid-safe` and `--on-dark` are the compliant forms. |
@@ -814,6 +815,10 @@ of them, just the mandate to use them.
 - Wordmark: `assets/brand/wordmark-light.svg` or `wordmark-dark.svg`, picked
   by background contrast (see **Brand mark**). Never render the name as
   styled text standing in for the logo.
+- `TYPE-ROLES.md` — the role contract: which token sizes what, the h2
+  ruling (40px opens a section, 36px is a sub-heading inside one, 48px is
+  retired as a heading and survives only as `--equinet-fontsize-price`), the
+  spacing ladder, and the known gaps.
 - Type specs: `assets/type/` holds the ten Figma typography exports — the
   canonical hierarchy, and the source of record where a token disagrees. See
   `assets/type/README.md`.

@@ -28,6 +28,65 @@ Project. Every entry below represents a manual reconciliation pass — someone
 asked Claude, in that Project, to fold new development work into
 `tokens.css` / `README.md`, then committed the result here.
 
+## 2026-10-17 — TYPE-ROLES.md: heading level and type size made independent
+
+Two updates baked in: a revised `tokens.css` and a new `TYPE-ROLES.md`, now a
+first-class document alongside `README.md`.
+
+**The ruling, and it is the important part.** Heading level and type size are
+independent choices. `<h1>`–`<h6>` is document structure — descending, never
+skipping, one `<h1>` per page, a WCAG 2.1 AA requirement rather than a style
+preference. Size comes from a **role** token naming what a piece of text *is*:
+card heading, eyebrow, price. The two rarely agree, and that is correct — one
+`<h3>` can legitimately render at four sizes on one page because four roles
+happened to sit at the same outline depth.
+
+Getting it backwards ships one of two failures, and both do ship: breaking
+the heading order to get the right size, or accepting the wrong size to keep
+the order.
+
+**The h2 question is now closed properly.** 40px opens a section; 36px
+(`--equinet-fontsize-section-heading`, weight 900) is a sub-heading *inside*
+one. **48px is retired as a heading size** and survives only as
+`--equinet-fontsize-price`, a `<p>` and never an `<hN>`. Comps that shipped
+36px section headings — `2-column-comparison`,
+`sector-three-column-case-study`, `cagr-four-column`, and all seven `<h2>`
+on the pricing page — predate the ruling and are drift to correct at build
+time. **The one place in this system where a comp is not ground truth.**
+
+**The tokens update was strictly additive**: four new tokens
+(`--equinet-fontsize-price`, `--equinet-scale-2000` at 80px,
+`--equinet-space-3xs`, `--equinet-space-grid-column`), nothing removed,
+nothing revalued. Checked token by token before installing — every value from
+the 2026-10-16 type-spec pass survives, including the resolved DECISION
+entries. `tokens.json` regenerated.
+
+**Two gaps recorded rather than papered over.** 20px spacing appears nine
+times on the pricing page and sits between `sm` and `md`, both already used
+heavily on the same page — treated as drift, defaulting to `md`, to be named
+before a token is added rather than after. And 80px cannot enter the t-shirt
+ladder without resequencing every name and breaking every consuming module,
+so it is named by role instead; a third off-ladder value would mean the
+ladder is the wrong abstraction.
+
+**A fourth gap added during the merge: this document and `assets/type/`
+disagree on family and weight.** Every size agrees; nothing is a size
+dispute. But the block heading is 700 here and 800 in the export, and the
+card heading, minor heading and eyebrow are **Open Sans here and Source Sans
+in the export** — a whole typeface, on four roles. The provenance differs and
+both are legitimate: this table is what shipped comps declare, `assets/type/`
+is what the Figma type styles declare.
+
+**It already ships both ways.** `.eq-card__title` sets Open Sans 600 from
+`cagr-four-column`; `.eq-h3-card` sets Source Sans 700 from
+`h3-fontstyle-card-heading.svg`. A card heading renders in a different
+typeface depending on which class a module reaches for. Recorded in both
+documents as needing a ruling before the next module build, because two
+typefaces for one role is not cosmetic.
+
+Digest rule 10e, the layout skill and the `HANDOFF.md` file table all now
+point at `TYPE-ROLES.md`.
+
 ## 2026-10-17 — The eyebrow on dark moves to amber-400
 
 `.eq-eyebrow--on-dark` and `.eq-surface--dark .eq-eyebrow` change from

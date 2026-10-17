@@ -62,6 +62,7 @@
   --equinet-scale-1100: 44px;
   --equinet-scale-1200: 48px;
   --equinet-scale-1600: 64px;
+  --equinet-scale-2000: 80px;
 
 
   /* ==========================================================================
@@ -284,6 +285,7 @@
      spacing/md = 16px (our sm), its spacing/lg = 24px (our md), etc.
      The module-derived names below are what shipped modules consume.
      ========================================================================== */
+  --equinet-space-3xs: var(--equinet-scale-100);  /* 4px  · label-to-value gap; tight stack */
   --equinet-space-2xs: var(--equinet-scale-200);  /* 8px  · heading accent-line gap */
   --equinet-space-xs:  var(--equinet-scale-300);  /* 12px · modal close inset */
   --equinet-space-sm:  var(--equinet-scale-400);  /* 16px · laptop card gap; icon box */
@@ -293,6 +295,11 @@
   --equinet-space-2xl: var(--equinet-scale-1200); /* 48px · cards-to-CTA gap */
   --equinet-space-3xl: 56px;                      /* mobile section padding clamp (off-scale) */
   --equinet-space-4xl: 96px;                      /* desktop section padding (off-scale) */
+  /* Off-ladder. 80px sits between 3xl (56px) and 4xl (96px); the t-shirt ladder cannot
+     absorb it without resequencing, which would be a breaking change. Named by role
+     instead. See TYPE-ROLES.md § Known gaps. */
+  --equinet-space-grid-column: var(--equinet-scale-2000); /* 80px · wide multi-column grid
+                                                              column-gap · pricing 2026-10-17 */
 
 
   /* ==========================================================================
@@ -364,7 +371,10 @@
      h3 section heading (Open Sans 32px) and h3 card heading (Source Sans
      24px) — collapsed into one token. The card heading already had
      --equinet-fontsize-card-heading; h3 is the section heading. */
-  --equinet-fontsize-h2: 40px;        /* h2-fontstyle.svg · 2026-10-16 (was 36px deployed / 48px repo) */
+  --equinet-fontsize-h2: 40px;        /* CANONICAL section heading. Every <h2> that opens a
+                                         section uses this. h2-fontstyle.svg · 2026-10-16.
+                                         Supersedes the 36px deployed / 48px repo values —
+                                         neither is current. Ruling: 2026-10-17. */
   --equinet-fontsize-h3: 32px;        /* h3-fontstyle-section-heading.svg · 2026-10-16 (was 24px deployed) */
   --equinet-fontsize-h4: 24px;        /* Figma font size/heading/h4 */
   --equinet-fontsize-h5: 20px;        /* Figma font size/heading/h5 */
@@ -373,12 +383,11 @@
   /* -- headings (applied) --
      What the artwork actually sets, read from live <text> declarations in the
      comps rather than estimated from outlined glyphs. */
-  --equinet-fontsize-section-heading: 36px;  /* the real h2 in practice — 2-column-comparison
-                                                 and sector-three-column-case-study, both at
-                                                 weight 900; matches cagr-four-column's shipped
-                                                 36px. Use this for a section heading; reach for
-                                                 --equinet-fontsize-h2 only if a design genuinely
-                                                 calls for the 48px canonical size. · 2026-09-24 */
+  --equinet-fontsize-section-heading: 36px;  /* SUB-HEADING. A second-level heading INSIDE a
+                                                 section, below a 40px --equinet-fontsize-h2.
+                                                 Weight 900. Not a substitute for h2: if a
+                                                 heading opens a section it takes h2, whatever
+                                                 earlier comps shipped. Ruling: 2026-10-17. */
   --equinet-fontsize-card-heading: 24px;     /* card / column headings at weight 600 —
                                                  methodology and sector comps · 2026-09-24 */
 
@@ -390,6 +399,9 @@
                                           module's larger lead (.eq-lead--lg), not a conflict. */
   --equinet-fontsize-btn:     16px;   /* button label · 2-column-hero-banner · 2026-08-07 */
   --equinet-fontsize-kicker:  12px;   /* pencilBar label · 2-column-hero-banner · 2026-08-07 */
+  --equinet-fontsize-price:   48px;   /* price / headline figure · Open Sans 800 · pricing page
+                                         2026-10-17. A ROLE, not a heading level — it sits on a
+                                         <p>, never an <hN>. See TYPE-ROLES.md. */
   --equinet-fontsize-stat:    18px;   /* sectorStats value · cagr-four-column · 2026-09-18 */
   --equinet-fontsize-small:   14px;   /* section-Author role · pencil_testimonial · 2026-08-19 */
   --equinet-fontsize-caption: 11px;   /* pill-Link label · cagr-four-column · 2026-09-18 */

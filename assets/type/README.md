@@ -78,6 +78,16 @@ and `tokens.css` had no name for — including `--equinet-shadow-heading--h4`,
 which is *not* `--equinet-shadow-heading--sm`: same offsets, different blur
 and alpha (1px/0.15 against 2px/0.25).
 
+## Where this and `TYPE-ROLES.md` disagree
+
+Every size agrees. Family and weight do not, on four roles — the block
+heading (800 here, 700 there), the card heading (Source Sans 700 here, Open
+Sans 600 there), the minor heading and the eyebrow (Source Sans here, Open
+Sans there). `TYPE-ROLES.md` reports what the shipped comps declare; these
+files are the Figma type styles. See that file's "Known gaps" item 4 — and
+note the disagreement already ships, in `.eq-h3-card` against
+`.eq-card__title`.
+
 ## Two conflicts this does not resolve
 
 **1. The eyebrow colour.** `assets/type/eyebrow-fontstyle.svg` sets it in

@@ -172,6 +172,24 @@ an image, figures, links out, a read-more — is `.eq-card--stacked`. Full-bleed
 ruled at 1px, and the read-more as the card's single `.eq-card__link` so the
 whole card is the target. Measurements in `assets/components/README.md`.
 
+**Heading level and type size are two different decisions.** The element
+(`<h1>`–`<h6>`) comes from document structure: descending, never skipping,
+one `<h1>` per page. The size comes from a **role** token — card heading,
+eyebrow, price. They rarely agree, and that is correct: one `<h3>` can
+legitimately render at four different sizes on one page. Never size text by
+reaching for `--equinet-fontsize-h3` because the element is an `<h3>`.
+Getting this backwards ships one of two failures: a broken heading order to
+get the right size, or the wrong size to keep the order. Roles are tabled in
+`TYPE-ROLES.md`.
+
+**Two things that ruling settles.** A heading that *opens* a section is 40px
+(`--equinet-fontsize-h2`); one *inside* a section is 36px
+(`--equinet-fontsize-section-heading`). And 48px is no longer a heading size
+at all — it survives only as `--equinet-fontsize-price`, which is a `<p>`,
+never an `<hN>`. Comps that shipped 36px section headings predate this; treat
+that as drift to correct, not intent to reproduce. It is the one place a comp
+is not ground truth.
+
 **Typography is `.eq-h1` … `.eq-body`**, not hand-set sizes. Open Sans 800
 at -0.07em, uppercase, for h1/h2/h3-section; Source Sans for the card
 heading, h4, lead and body. Where two display headings would stack, make one
