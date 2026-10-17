@@ -352,3 +352,85 @@
     if (buttons.length) initButtons(buttons);
   }
 })();
+
+
+/* ============================================================================
+   POINTER TRACKING — pairs with .eq-card--spotlight / .eq-card--edge.
+   Added 2026-10-17.
+
+   Writes the pointer's position, relative to the card, into two custom
+   properties the CSS reads. That is all it does: no animation lives here,
+   because easing a tracked effect toward the cursor reads as lag rather than
+   polish.
+
+   Four things it is careful about:
+
+     ONE WRITE PER FRAME. pointermove can fire faster than the display
+     refreshes. Coordinates are stored on every event and written inside a
+     single requestAnimationFrame, so a 120Hz mouse costs the same as a 60Hz
+     one.
+
+     ONLY WHILE INSIDE. The move listener is attached on pointerenter and
+     removed on pointerleave, so a page of cards has at most one live
+     listener rather than one per card forever.
+
+     FINE POINTERS ONLY. Matches the CSS guard. On a touch screen there is no
+     cursor to follow, and a latched hover state after a tap is worse than
+     none.
+
+     REDUCED MOTION OPTS OUT ENTIRELY. The CSS still shows a centred, static
+     emphasis, so the reader learns the card is live without anything moving.
+   ========================================================================== */
+(function () {
+  'use strict';
+
+  var fine = window.matchMedia('(hover: hover) and (pointer: fine)');
+  var reduce = window.matchMedia('(prefers-reduced-motion: reduce)');
+  if (!fine.matches || reduce.matches) return;
+
+  var cards = document.querySelectorAll(
+    '.eq-card--spotlight:not([data-pointer-ready]), .eq-card--edge:not([data-pointer-ready])'
+  );
+  if (!cards.length) return;
+
+  for (var i = 0; i < cards.length; i++) {
+    (function (card) {
+      card.setAttribute('data-pointer-ready', '');
+
+      var frame = null;
+      var x = 0;
+      var y = 0;
+
+      function write() {
+        frame = null;
+        card.style.setProperty('--eq-pointer-x', x + 'px');
+        card.style.setProperty('--eq-pointer-y', y + 'px');
+      }
+
+      function onMove(e) {
+        // getBoundingClientRect per move is a read in the same frame as the
+        // write; acceptable here because it is one element, and layout is
+        // already clean by the time a pointermove is dispatched.
+        var r = card.getBoundingClientRect();
+        x = e.clientX - r.left;
+        y = e.clientY - r.top;
+        if (frame === null) frame = requestAnimationFrame(write);
+      }
+
+      card.addEventListener('pointerenter', function (e) {
+        if (e.pointerType !== 'mouse') return;   // pen and touch opt out
+        onMove(e);
+        card.addEventListener('pointermove', onMove, { passive: true });
+      });
+
+      card.addEventListener('pointerleave', function () {
+        card.removeEventListener('pointermove', onMove);
+        if (frame !== null) { cancelAnimationFrame(frame); frame = null; }
+        // Back to centre so the next entry, and any keyboard focus, starts
+        // from a sane place rather than wherever the pointer last left.
+        card.style.removeProperty('--eq-pointer-x');
+        card.style.removeProperty('--eq-pointer-y');
+      });
+    })(cards[i]);
+  }
+})();

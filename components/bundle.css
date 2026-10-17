@@ -1465,3 +1465,136 @@
   font-size: var(--equinet-fontsize-body, 16px);
   line-height: var(--equinet-lineheight-body, 1.375);
 }
+
+
+/* ============================================================================
+   POINTER RESPONSE — .eq-card--spotlight, .eq-card--edge
+   Added 2026-10-17. Hover treatments that track the cursor, for the card in a
+   group that carries the decision.
+
+   USE DISCRETION — AT MOST ONE PER GROUP.
+   A row of four cards where all four glow under the cursor has emphasised
+   nothing; it has just made the page busy. These are for the card a reader
+   should land on: the recommended option, the live case study, the one with
+   the figure that matters. Everything else keeps the plain lift, and a card
+   that links nowhere keeps responding to nothing at all — the false-affordance
+   rule is unchanged and applies here harder, because a tracked spotlight is a
+   much louder promise than a 6px lift.
+
+   PRINCIPLES THESE FOLLOW, and the reason for each:
+
+   1. IN FAST, OUT SLOW. The pointer arriving is a question and the answer has
+      to feel instant: 120ms in, 0.6s out. Matching durations make a card feel
+      sticky. (Same asymmetry .eq-card already uses for its lift.)
+   2. THE EFFECT FOLLOWS, IT DOES NOT LAG DELIBERATELY. The spotlight is moved
+      by transform with no transition on the movement itself — only opacity is
+      animated. A tracked effect that eases toward the cursor reads as lag,
+      not as polish.
+   3. COMPOSITOR ONLY. Movement is transform, appearance is opacity. Neither
+      touches layout or paint, so a mousemove at 120Hz costs nothing. Values
+      are written once per frame from requestAnimationFrame; the listener is
+      passive and only runs while the pointer is inside.
+   4. NOTHING LIVES ONLY IN HOVER. Everything a spotlight emphasises is
+      already readable without it — it directs attention, it never carries
+      information. Keyboard focus gets the same treatment centred, so a reader
+      tabbing through sees what a reader pointing sees.
+   5. FINE POINTERS ONLY. Guarded by (hover: hover) and (pointer: fine). On a
+      touch screen there is no cursor to track, and a hover state that latches
+      after a tap is worse than none.
+   6. REDUCED MOTION REMOVES THE TRACKING, NOT THE FEEDBACK. Under `reduce`
+      the spotlight stops following and simply sits centred, fading in. The
+      reader still learns the card is live.
+   ========================================================================== */
+
+.eq-card--spotlight,
+.eq-card--edge { --eq-pointer-x: 50%; --eq-pointer-y: 50%; }
+
+/* ------------------------------------------------------------- spotlight --
+   A soft pool of warmth under the cursor. Sits above the card background and
+   below its content, so text never dims. */
+.eq-card--spotlight::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 60%;
+  aspect-ratio: 1;
+  pointer-events: none;
+  opacity: 0;
+  z-index: 0;
+  background: radial-gradient(
+    circle closest-side,
+    var(--equinet-color-orange--pale, #FCE9E0) 0%,
+    transparent 100%
+  );
+  /* -50% centres the pool on the pointer; the custom properties carry the
+     position in px from the card's own top-left. */
+  transform: translate(calc(var(--eq-pointer-x) - 50%),
+                       calc(var(--eq-pointer-y) - 50%));
+}
+
+.eq-card--spotlight > * { position: relative; z-index: 1; }
+
+/* ------------------------------------------------------------------ edge --
+   The quieter one: the card's border lights where the pointer is nearest.
+   For a card already carrying a lot, where a wash of colour would be noise. */
+.eq-card--edge::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0;
+  z-index: 2;
+  border-radius: inherit;
+  padding: var(--equinet-border-width-sm, 1px);
+  background: radial-gradient(
+    120px circle at var(--eq-pointer-x) var(--eq-pointer-y),
+    var(--equinet-color-orange, #E06730) 0%,
+    transparent 100%
+  );
+  /* Mask the fill away so only the 1px frame shows. */
+  -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .eq-card--spotlight::before,
+  .eq-card--edge::after {
+    /* Only opacity transitions. The movement is deliberately instant. */
+    transition: opacity var(--equinet-motion-duration--slow, 0.6s)
+                var(--equinet-motion-ease, ease-in-out);
+  }
+
+  .eq-card--spotlight:hover::before,
+  .eq-card--edge:hover::after {
+    opacity: 1;
+    transition-duration: 120ms;        /* in fast, out slow */
+  }
+}
+
+/* Keyboard parity: the same emphasis, centred, since there is no pointer to
+   follow. Outside the hover guard so it works on every device. */
+.eq-card--spotlight:focus-within::before,
+.eq-card--edge:focus-within::after {
+  opacity: 1;
+  transition: opacity 120ms var(--equinet-motion-ease, ease-in-out);
+}
+
+.eq-card--spotlight:focus-within:not(:hover),
+.eq-card--edge:focus-within:not(:hover) {
+  --eq-pointer-x: 50%;
+  --eq-pointer-y: 50%;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  /* Tracking off, feedback kept — the reader still learns the card is live.
+     motion.js checks the same query and does not attach its listeners. */
+  .eq-card--spotlight::before,
+  .eq-card--edge::after { transition: none; }
+  .eq-card--spotlight:hover::before,
+  .eq-card--edge:hover::after { opacity: 1; }
+  .eq-card--spotlight:hover,
+  .eq-card--edge:hover { --eq-pointer-x: 50%; --eq-pointer-y: 50%; }
+}

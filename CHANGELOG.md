@@ -28,6 +28,54 @@ Project. Every entry below represents a manual reconciliation pass — someone
 asked Claude, in that Project, to fold new development work into
 `tokens.css` / `README.md`, then committed the result here.
 
+## 2026-10-17 — Pointer-tracked card emphasis, rationed to one per group
+
+Two hover treatments that follow the cursor: `.eq-card--spotlight`, a warm
+pool under the pointer, and `.eq-card--edge`, the border lighting where the
+pointer is nearest. For the card in a group that carries the decision.
+
+**Rationed by design, not by convention.** A row of four cards all glowing
+has emphasised nothing. These are for the recommended option, the live case
+study, the figure that matters; everything else keeps the plain lift. The
+false-affordance rule applies harder here — a card linking nowhere still
+responds to nothing, because a tracked spotlight is a far louder promise than
+a 6px rise.
+
+**Principles applied, each for a reason:**
+
+- **In fast, out slow** — 120ms in, 0.6s out. The pointer arriving is a
+  question and the answer must feel instant; matching durations make a card
+  feel sticky. Same asymmetry the lift already uses.
+- **The effect follows, it does not ease toward the cursor.** Movement
+  carries no transition at all; only opacity is animated. A tracked effect
+  that eases behind the pointer reads as lag, not polish.
+- **Compositor only.** Movement is `transform`, appearance is `opacity`.
+  Neither touches layout or paint.
+- **One write per frame.** `pointermove` outruns the display; coordinates are
+  stored on every event and written inside a single `requestAnimationFrame`,
+  so a 120Hz mouse costs what a 60Hz one does. The listener is passive and
+  attaches on `pointerenter`, detaches on `pointerleave` — a page of cards
+  has one live listener, not one per card forever.
+- **Nothing lives only in hover.** Whatever a spotlight emphasises reads
+  without it, and keyboard focus gets the same emphasis centred.
+- **Fine pointers only**, guarded in both the CSS and the script. On a touch
+  screen there is no cursor, and a hover state latching after a tap is worse
+  than none.
+- **Reduced motion removes the tracking, not the feedback.** The emphasis
+  still appears, centred and still, so the reader learns the card is live.
+
+The edge variant masks its own fill away with `mask-composite: exclude`, so
+only the 1px frame lights — for a card already carrying a lot, where a wash
+of colour would be noise.
+
+**New: `tests/pointer-test.py`, 15 checks.** Tracking that actually follows
+on both axes, coordinates being card-relative rather than page-relative, the
+position resetting to centre on leave so the next entry starts somewhere
+sane, a plain card getting nothing, keyboard parity, and two separate browser
+contexts for the cases that fail silently — a touch device, where the script
+must not attach, and reduced motion, where it must not attach but the
+feedback must survive.
+
 ## 2026-10-16 — The canonical type scale, and three DECISIONs resolved
 
 Ten Figma typography exports added as `assets/type/`, a new `type-spec`

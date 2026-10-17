@@ -277,6 +277,17 @@ plus `FAQPage` JSON-LD matching the visible text word for word.
 </div>
 ```
 
+**At most one card per group tracks the pointer.** `.eq-card--spotlight` (a
+warm pool under the cursor) and `.eq-card--edge` (the border lighting where
+the cursor is nearest) are for the card carrying the decision — the
+recommended option, the live case study, the figure that matters. A row where
+all four glow has emphasised nothing. Everything else keeps the plain lift,
+and a card linking nowhere still responds to nothing: a tracked spotlight is
+a far louder promise than a 6px rise.
+
+Nothing may live only in a hover state. Whatever a spotlight emphasises has
+to read without it.
+
 **Don't add:** looping or ambient animation, or any response on a graphic
 that does nothing. Don't highlight with `transform` or `opacity` — `motion.js`
 animates both on `[data-role]` during entrance. Stroke and fill only.
