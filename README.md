@@ -816,6 +816,10 @@ of them, just the mandate to use them.
 - Wordmark: `assets/brand/wordmark-light.svg` or `wordmark-dark.svg`, picked
   by background contrast (see **Brand mark**). Never render the name as
   styled text standing in for the logo.
+- `METHODOLOGY.md` — how this system thinks about layout, motion,
+  interaction and conversion, synthesised from NN/g, Baymard and IxDF. The
+  reasoning behind the digest; read it when a rule needs applying to a case it
+  doesn't cover.
 - `TYPE-ROLES.md` — the role contract: which token sizes what, the h2
   ruling (40px opens a section, 36px is a sub-heading inside one, 48px is
   retired as a heading and survives only as `--equinet-fontsize-price`), the

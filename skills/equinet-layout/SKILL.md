@@ -66,6 +66,24 @@ rather than drawn from memory. Add a one-line comment naming the icon
 (`<!-- lucide/target -->`) so its source is traceable. Equinet's own icons
 (`assets/icons/`) take priority where one fits.
 
+## Before any of this: why the rules are the rules
+
+`METHODOLOGY.md` holds the reasoning behind everything below — how a page is
+read (NN/g), what a component looks like it does (IxDF), and how the offer
+earns the next step (Baymard). **Read it when a rule has to be applied to a
+case it does not cover, or when a rule looks wrong.** Where a rule covers the
+case, follow the rule: it is more specific and already measured.
+
+The short version, because it decides most calls:
+
+- Readers scan headings and the left edge. Headings carry the argument.
+- Group by proximity and shared surface. A border is the last resort.
+- Make depth reachable, not present — tabs, accordions, panels.
+- Every visual promise must be keepable. A hover state is a promise.
+- Respond within 120ms; release over 600ms.
+- One primary action, repeated, never competing.
+- Nothing may exist only in motion or hover.
+
 ## Phase 1 — Brief
 
 1. **Find the content's shapes** — numbers, ordered steps, comparisons,

@@ -28,6 +28,54 @@ Project. Every entry below represents a manual reconciliation pass — someone
 asked Claude, in that Project, to fold new development work into
 `tokens.css` / `README.md`, then committed the result here.
 
+## 2026-10-17 — METHODOLOGY.md: the reasoning under the rules
+
+A new top-level document holding how this system thinks about layout, motion,
+interaction and conversion, synthesised from Nielsen Norman Group, Baymard
+Institute and the Interaction Design Foundation.
+
+**Why it was missing and why it matters.** `README.md` says what to do and the
+skill says how; neither said *why*. That is fine until a build meets a case
+the rules don't cover, at which point it has nothing to reason from and
+invents something. Three of this month's failures were that shape — a rule
+existed, was correct, and did nothing because nothing connected it to the
+situation in front of the build.
+
+**Each organisation is used for one thing**, not cited as a general
+authority: NN/g for how a page is read (F-pattern and layer-cake scanning,
+banner blindness, progressive disclosure, information scent, the 0.1/1/10
+second response limits); IxDF for what a component looks like it does
+(Gestalt grouping, affordance against signifier, Fitts's and Hick's laws, the
+Doherty threshold); Baymard for the conversion path (form completion, and how
+an offer is evaluated before commitment).
+
+**Every principle is tied to a rule this system already has**, which is what
+keeps it from being decorative. Nielsen's visibility heuristic read in reverse
+is why nothing may exist only in motion. Norman's affordance/signifier
+distinction is why a card lifts only if it links somewhere — and the document
+names the seventeen inert cards as the failure case. Hick's Law is why there
+is one primary action. Gestalt proximity is why `.eq-surface` exists at all,
+a shared ground grouping sections more cleanly than giving each a frame.
+
+**Two things stated plainly rather than glossed.** Baymard's evidence base is
+overwhelmingly e-commerce; its form and offer-evaluation findings transfer to
+a booked call, its cart and checkout findings do not and are not invoked.
+And Equinet has not usability-tested its own pages, so the document says
+outright that where a rule here conflicts with observed behaviour on a real
+page, **the observation wins and this document is what gets updated.**
+
+It closes on the failure mode a document like this invites: a principle
+invoked to justify a decision already made is decoration of a different kind.
+"Hick's Law" is not an argument for cutting a section someone needs.
+
+Nothing reproduces any of the three organisations' material; each principle
+is restated in this system's terms, and named where it is theirs.
+
+The layout skill now opens with a seven-line summary and a pointer, before
+Phase 1 — **read the methodology when a rule has to be applied to a case it
+does not cover, or when a rule looks wrong.** Where a rule covers the case,
+the rule wins: it is more specific and already measured.
+
 ## 2026-10-17 — Eyebrow ruled orange; the line work given a reason to be used
 
 Two fixes from a build that came back wrong in both directions.
