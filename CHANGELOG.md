@@ -28,6 +28,43 @@ Project. Every entry below represents a manual reconciliation pass — someone
 asked Claude, in that Project, to fold new development work into
 `tokens.css` / `README.md`, then committed the result here.
 
+## 2026-10-17 — Eyebrow ruled orange; the line work given a reason to be used
+
+Two fixes from a build that came back wrong in both directions.
+
+**The eyebrow is `#E06730`. Ruled.** A build had set it in `#242630`, and it
+was following the documentation: `assets/type/eyebrow-fontstyle.svg` shows
+the eyebrow in the heading colour, the conflict with
+`assets/components/eyebrow-plain.svg` was recorded as open, and
+`.eq-eyebrow--solid-safe` sat there described as the compliant form. Three
+separate nudges toward the dark label and no statement that orange wins.
+
+Now stated in the digest, the skill, `bundle.css` and
+`assets/type/README.md`: the eyebrow is orange on every light ground, the
+`#242630` in that export is **superseded on colour**, and the 3.41:1 is a
+known accepted cost rather than a defect to route around. `--solid-safe`
+survives for a build explicitly told to be compliant and for nothing else.
+Everything in the type export besides the colour still stands.
+
+That closes the first of the two conflicts `assets/type/README.md` recorded
+on 2026-10-16.
+
+**The draughtsman's backgrounds were documented but never used,** and the
+reason is the same shape as the motion failures: placement was specified in
+detail and **selection never was**. A build knew exactly how to place one and
+had no instruction to reach for one, so it didn't.
+
+Now a rule: every page carries the line work on **two or three sections**,
+matched by subject — the hero takes `hero-banner`, a method or sequence takes
+`process-flow`, a reach or results section takes `market-amplification`. Not
+one, not every one. It pairs with `.eq-surface`: the surface gives a section
+depth, the line work gives it a subject. Phase 2's count now reports sections
+carrying one, with 0 flagged as a fix rather than a statistic.
+
+This is the third time a rule existed, was correct, and did nothing because
+nothing triggered it. The pattern is worth naming: **documenting how to do
+something is not the same as saying when.**
+
 ## 2026-10-17 — TYPE-ROLES.md: heading level and type size made independent
 
 Two updates baked in: a revised `tokens.css` and a new `TYPE-ROLES.md`, now a

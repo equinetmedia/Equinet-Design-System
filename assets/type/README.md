@@ -30,7 +30,7 @@ Like `assets/components/`, they carry live `<text>` and are never placed.
 | h4 | Source Sans | 20px | 600 | -0.015em | — | `#242630` | -0.5px 0.5px 1px |
 | lead | Source Sans | 20px | 400 | 0em | 26px (1.3) | `#3B3F51` | none |
 | body | Source Sans | 16px | 400 | 0em | 22px (1.375) | `#3B3F51` | none |
-| eyebrow | Source Sans | 12px | 700 | 0.2em | — | `#242630` | none |
+| eyebrow | Source Sans | 12px | 700 | 0.2em | — | ~~`#242630`~~ **`#E06730`** | none |
 
 Every shadow is `rgba(0, 0, 0, 0.15)`.
 
@@ -90,16 +90,17 @@ note the disagreement already ships, in `.eq-h3-card` against
 
 ## Two conflicts this does not resolve
 
-**1. The eyebrow colour.** `assets/type/eyebrow-fontstyle.svg` sets it in
-`#242630`, the heading colour. `assets/components/eyebrow-plain.svg` sets it
-in `#E06730`, orange. Both are Figma exports and they disagree.
+**1. ~~The eyebrow colour.~~ RULED 2026-10-17: `#E06730`, orange.**
+`eyebrow-fontstyle.svg` in this folder sets it in `#242630` and
+`assets/components/eyebrow-plain.svg` sets it in orange; the two exports
+disagreed and the designer has ruled for orange. **The `#242630` in this
+folder's export is superseded — do not use it.** Everything else in that file
+stands.
 
-This is not cosmetic. Orange at 12px/700 is 3.41:1 on white and fails AA;
-`#242630` is 15.05:1 and passes comfortably. If the heading colour is right,
-the eyebrow's share of `README.md`'s "One unresolved" disappears entirely.
-`bundle.css` still ships orange, because that is what the component export
-says and changing it on the strength of the other file would be guessing.
-**Needs a ruling.**
+The contrast cost is unchanged and accepted: orange at 12px/700 is 3.41:1 on
+white, below the 4.5:1 threshold. `.eq-eyebrow--solid-safe` still exists for
+a build that must be compliant, but it is **not** the default and must not be
+reached for on its own initiative.
 
 **2. `--equinet-fontsize-h1` is 56px** while the display token and this spec
 both say 60px. Either it is a stale duplicate or it is a role nothing uses.

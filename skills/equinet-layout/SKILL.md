@@ -105,6 +105,7 @@ means skipping the planning.
    - hardcoded px font-sizes, spacings and shadows where a token exists
      (must be 0 — run `tools/check-built-page.py`)
    - FAQ items, and does the JSON-LD match them word for word?
+   - sections carrying a draughtsman's background (2–3 expected; 0 is a fix)
    - multi-part graphics, and how many are tab sets — **every one of them
      should be**, so anything short of all is a fix, not a statistic
 
@@ -196,6 +197,13 @@ heading, h4, lead and body. Where two display headings would stack, make one
 `--light` (weight 300) — and leave its shadow off, which is the variant
 rather than an omission. Full scale in `assets/type/README.md`.
 
+**The eyebrow is orange, `#E06730`.** Ruled 2026-10-17. One Figma export
+(`assets/type/eyebrow-fontstyle.svg`) shows it in the heading colour; that
+export is superseded on colour. Orange measures 3.41:1 on white, below AA,
+and that is a known accepted cost — **do not substitute a darker colour to
+satisfy contrast**. `--solid-safe` exists for a build explicitly told to be
+compliant, and for nothing else.
+
 **The eyebrow above a heading is `.eq-eyebrow`.** The plain orange one is
 the default. `.eq-eyebrow--solid` — the same label in a pale pill — is
 rationed to hero banners, CTA banners and modules carrying exceptional value.
@@ -216,6 +224,25 @@ random — the same page must render the same way tomorrow.
 stand apart. **Sparingly** — it never joins the rotation. Content on it
 inherits white; the one accent that passes AA there is `teal-default`, and
 orange does not (3.08:1).
+
+**Every page uses the draughtsman's line work — on two or three sections,
+not one and not every one.** It was going unused because nothing here said to
+reach for it; placement was documented and selection was not. A page without
+it is a page of flat panels.
+
+Match the file to what the section is about:
+
+| File | The section it belongs behind |
+| --- | --- |
+| `draftmans-background-hero-banner` | the hero, almost always |
+| `draftmans-background-process-flow` | a method, a sequence, a how-it-works |
+| `draftmans-background-market-amplification` | reach, growth, distribution, results |
+
+Two or three across a page. More and it stops being texture. Set the copy in
+the open side of the frame — `assets/backgrounds/README.md` names which side
+that is for each — and never put it behind a stat, a chart, or anything a
+reader has to decode. It pairs with `.eq-surface`: the surface gives the
+section its depth, the line work gives it a subject.
 
 **Module backgrounds are a separate thing from graphics.**
 `assets/backgrounds/` holds draughtsman's line work — construction circles,

@@ -975,8 +975,9 @@
    variant.
 
    TWO VARIANTS, AND THE SECOND IS RATIONED:
-     .eq-eyebrow          plain orange text. The default, and almost always
-                          the right one.
+     .eq-eyebrow          plain orange text, #E06730. The default, the
+                          ruling of 2026-10-17, and almost always the right
+                          one. Never substitute the heading colour for it.
      .eq-eyebrow--solid   the same label in a pale pill. Hero banners, CTA
                           banners, and modules carrying exceptional value —
                           nothing else. It reads as emphasis, and emphasis
@@ -1023,7 +1024,11 @@
   background: var(--equinet-color-orange--pale, #FCE9E0);
 }
 
-/* Compliant alternatives. Same pill, label that passes AA. */
+/* Compliant alternative, OPT-IN ONLY. RULED 2026-10-17: the eyebrow is
+   orange, #E06730, on every light ground. assets/type/eyebrow-fontstyle.svg
+   shows it in #242630; that export is superseded on colour. A build must not
+   reach for --solid-safe on its own initiative to satisfy contrast — the
+   3.41:1 is a known, accepted cost, not a defect to route around. */
 .eq-eyebrow--solid-safe {
   color: var(--equinet-color-text, #242530);   /* 12.93:1 on the pale pill */
 }
