@@ -28,6 +28,51 @@ Project. Every entry below represents a manual reconciliation pass — someone
 asked Claude, in that Project, to fold new development work into
 `tokens.css` / `README.md`, then committed the result here.
 
+## 2026-10-17 — Icons and eyebrows given triggers; the pattern named for the fourth time
+
+A fresh Design build came back with no iconography, no eyebrows, and little
+sign of the methodology. All three have the same cause, and it is the one
+written into yesterday's entry: **documenting how to do something is not the
+same as saying when.**
+
+**Icons.** `SKILL.md` mentioned them twelve times — stroke weight,
+substitution rules, the 48px ceiling, which groups take `currentColor`. Every
+one of those is *how*. Nothing said a section should have one. The system
+ships 21 icons across four groups and a build had no reason to open the
+folder.
+
+**Eyebrows.** Digest rule 10a said what colour they are and when the `--solid`
+pill is allowed. It never said every section opens with one. A build reading
+it learned the constraints on a thing it was never told to place.
+
+Now stated: **every section opens with an eyebrow**, plain and orange, naming
+what the section *is* before the heading claims anything — the pattern across
+every shipped pencilBar module. And **pair it with an icon wherever the
+section has a subject an icon can carry**, reaching into `assets/icons/`
+first and substituting a Lucide glyph only when nothing there matches. Icons
+are not confined to eyebrows: a card with a subject takes one, a stat panel
+takes one, a list of steps takes one per step. The limit is meaning, not
+quantity — an icon illustrating nothing is noise, and the same icon used
+twice for two different things is worse than none.
+
+**New `.eq-eyebrow__icon`.** Sized to 1.5em so it tracks the cap height
+rather than the line box, and taking `currentColor` so it follows the eyebrow
+onto a dark surface without a second rule. Two checks added (60 to 62).
+
+**The methodology showing little effect has a different cause.**
+`METHODOLOGY.md` is reasoning, and reasoning does not produce output on its
+own. Three of its principles are now checkable items in Phase 2's count —
+whether a reader of only the headings gets the whole argument, how many
+primary CTAs there are, and whether the offer's shape is stated before the
+button. A principle that cannot be counted cannot be caught.
+
+**Four occurrences is a pattern worth a rule of its own.** Motion, tab sets,
+backgrounds, and now icons and eyebrows: each time a rule existed, was
+correct, and did nothing because nothing connected it to a moment in the
+build. The count is what has caught every one, because a zero in a list is
+visible where an absence on a page is not. **When adding any capability to
+this system, write the trigger before the technique.**
+
 ## 2026-10-17 — METHODOLOGY.md: the reasoning under the rules
 
 A new top-level document holding how this system thinks about layout, motion,

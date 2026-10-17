@@ -123,7 +123,12 @@ means skipping the planning.
    - hardcoded px font-sizes, spacings and shadows where a token exists
      (must be 0 — run `tools/check-built-page.py`)
    - FAQ items, and does the JSON-LD match them word for word?
+   - sections opening with an eyebrow, out of the total (every one)
+   - icons placed, and how many came from `assets/icons/` vs Lucide
    - sections carrying a draughtsman's background (2–3 expected; 0 is a fix)
+   - does a reader of only the headings get the whole argument? yes/no
+   - primary CTAs (one action, repeated) and whether the offer's shape —
+     duration, what you leave with, what it costs — is stated before it
    - multi-part graphics, and how many are tab sets — **every one of them
      should be**, so anything short of all is a fix, not a statistic
 
@@ -242,6 +247,26 @@ random — the same page must render the same way tomorrow.
 stand apart. **Sparingly** — it never joins the rotation. Content on it
 inherits white; the one accent that passes AA there is `teal-default`, and
 orange does not (3.08:1).
+
+**Every section opens with an eyebrow.** `.eq-eyebrow`, plain and orange. It
+names what the section *is* before the heading claims anything — the pattern
+across every shipped pencilBar module. A section that opens straight into a
+heading reads as a wall; the eyebrow is what lets a scanning reader place it.
+The `--solid` pill stays rationed to hero and CTA banners.
+
+**Pair the eyebrow with an icon wherever the section has a subject an icon
+can carry.** `.eq-eyebrow__icon` before the label, taking `currentColor` so
+it follows the eyebrow onto a dark surface without a second rule. Reach into
+`assets/icons/` first — the service marks and concept nodes are Equinet's
+own — and substitute a Lucide glyph at the house weight only when nothing
+there matches (`assets/icons/ICON-REFERENCE.md`).
+
+**Icons are not confined to eyebrows.** A card with a subject takes one, a
+stat panel takes one, a list of steps takes one per step. The system ships
+21 icons across four groups and they are the cheapest way to give a section
+a face. The limit is meaning, not quantity: an icon that illustrates nothing
+is noise, and the same icon used twice on a page for two different things is
+worse than none.
 
 **Every page uses the draughtsman's line work — on two or three sections,
 not one and not every one.** It was going unused because nothing here said to

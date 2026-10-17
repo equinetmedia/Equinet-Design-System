@@ -48,7 +48,7 @@ page=f"""<!doctype html><html><head><meta charset="utf-8">
     <p class="eq-card__action" id="act">Read More</p>
   </div>
 </article>
-<p class="eq-eyebrow" id="ebp">Why HubSpot</p><p class="eq-eyebrow eq-eyebrow--solid" id="ebs">Why HubSpot</p><p class="eq-eyebrow eq-eyebrow--solid eq-eyebrow--solid-safe" id="ebsafe">Why HubSpot</p><div class="row" id="row">{card(1)}{card(2)}{card(3,link=False)}</div>
+<p class="eq-eyebrow" id="ebi"><span class="eq-eyebrow__icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M4 4h16v16H4z" stroke="#000" fill="none"/></svg></span>With icon</p><p class="eq-eyebrow" id="ebp">Why HubSpot</p><p class="eq-eyebrow eq-eyebrow--solid" id="ebs">Why HubSpot</p><p class="eq-eyebrow eq-eyebrow--solid eq-eyebrow--solid-safe" id="ebsafe">Why HubSpot</p><div class="row" id="row">{card(1)}{card(2)}{card(3,link=False)}</div>
 <section class="faq" aria-labelledby="faqh"><h2 id="faqh">FREQUENTLY ASKED QUESTIONS</h2><div class="eq-faq" id="faq">{items}</div></section>
 <script type="application/ld+json">{ld}</script><div class="spacer"></div>__JS__</body></html>"""
 open(os.path.join(TMP,'static.html'),'w').write(page.replace('__JS__',''))
@@ -166,6 +166,12 @@ with sync_playwright() as p:
        and pg.evaluate(EB,["#ebp","letterSpacing"]).startswith("2.4")
        and pg.evaluate(EB,["#ebp","textTransform"])=="uppercase",
        f'{pg.evaluate(EB,["#ebp","fontSize"])} / {pg.evaluate(EB,["#ebp","fontWeight"])} / {pg.evaluate(EB,["#ebp","letterSpacing"])}')
+    ok("E7 eyebrow icon: sized to the label, not the line box",
+       pg.evaluate(TYPO,["#ebi .eq-eyebrow__icon","width"])=="18px",
+       pg.evaluate(TYPO,["#ebi .eq-eyebrow__icon","width"]))
+    ok("E8 eyebrow icon takes currentColor, so it follows onto a dark surface",
+       pg.evaluate("()=>getComputedStyle(document.querySelector('#ebi .eq-eyebrow__icon path')).stroke")=="rgb(224, 103, 48)",
+       pg.evaluate("()=>getComputedStyle(document.querySelector('#ebi .eq-eyebrow__icon path')).stroke"))
     ok("E2 eyebrow: orange label", pg.evaluate(EB,["#ebp","color"])=="rgb(224, 103, 48)",
        pg.evaluate(EB,["#ebp","color"]))
     ok("E3 solid: pale pill, 8px radius, 24px side padding",

@@ -1616,3 +1616,26 @@
   .eq-card--spotlight:hover,
   .eq-card--edge:hover { --eq-pointer-x: 50%; --eq-pointer-y: 50%; }
 }
+
+/* An eyebrow may carry an icon before its label — the pattern in the shipped
+   pencilBar modules and the CTA panel comps. The icon is decorative: the
+   label already says what the section is, so it takes aria-hidden and never
+   a title. Sized to the cap height of the label, not to the line box, so it
+   optically aligns rather than sitting proud. */
+.eq-eyebrow__icon {
+  display: inline-flex;
+  flex: none;
+  width: 1.5em;
+  height: 1.5em;
+  margin-right: var(--equinet-space-2xs, 8px);
+  vertical-align: -0.35em;
+}
+
+.eq-eyebrow__icon svg { width: 100%; height: 100%; }
+
+/* currentColor so the icon follows the eyebrow wherever it sits — orange on
+   light, orange--light on a dark surface, without a second rule. */
+.eq-eyebrow__icon svg [stroke]:not([stroke="none"]) { stroke: currentColor; }
+.eq-eyebrow__icon svg [fill]:not([fill="none"]) { fill: currentColor; }
+
+.eq-eyebrow:has(.eq-eyebrow__icon) { display: inline-flex; align-items: center; }
