@@ -138,6 +138,53 @@ means skipping the planning.
    needs confirmation — placeholder links, invented wording, claims about the
    client. Silence on these reads as "checked".
 
+## Phase 3 — Review before you hand it back
+
+Phase 2's count catches what is missing. This catches what is wrong. Answer
+each line yes or no **about the page you just built**, and fix anything that
+answers no before replying. A no you report instead of fixing is a defect you
+noticed and shipped.
+
+Fifteen questions, grouped by where the reasoning comes from. The long form
+is `METHODOLOGY.md`.
+
+**How it is read — NN/g**
+
+1. Does a reader of only the headings get the whole argument? If the headings
+   are labels rather than claims, rewrite them.
+2. Does every section open with its answer, before any throat-clearing?
+3. Does the first screenful carry the claim *and* a reason to believe it —
+   not the whole argument, but enough to earn the scroll?
+4. Is anything that looks like decoration actually decoration? A real offer
+   styled like a banner gets skipped.
+5. Is the detail reachable rather than present — tabs, accordions, panels —
+   so the reader wanting the summary is not taxed by the one wanting depth?
+
+**What things look like they do — IxDF**
+
+6. Does every hover state, cursor change and lift belong to something that
+   actually does something? Count the inert ones; the answer should be zero.
+7. Is grouping done by proximity and shared surface before borders? A box
+   around things already close is noise.
+8. Is every target at least 24 x 24, and is the whole card the target rather
+   than just its title?
+9. Does every control have a visible hover, focus-visible and active state?
+10. Can a keyboard reach everything a pointer can, with focus as visible as
+    hover?
+
+**Whether it earns the next step — Baymard**
+
+11. Is there exactly one primary action, repeated, with nothing competing for
+    the same styling?
+12. Does the CTA say where it goes? "Submit" and "Learn more" carry no scent.
+13. Is the shape of the offer — how long, what you leave with, what it costs —
+    stated *before* the button, not after?
+14. Does every figure carry its source beside it?
+15. Does the page still work with no JavaScript, no pointer and no motion?
+
+Report the numbers you answered no to and what you changed. If all fifteen
+are yes, say so in one line.
+
 ## Built into every page — no prompt needed
 
 Every build ships these, whether or not the prompt mentions them.
@@ -253,7 +300,10 @@ orange does not (3.08:1).
 names what the section *is* before the heading claims anything — the pattern
 across every shipped pencilBar module. A section that opens straight into a
 heading reads as a wall; the eyebrow is what lets a scanning reader place it.
-The `--solid` pill stays rationed to hero and CTA banners.
+The `--solid` pill stays rationed to hero and CTA banners, **and takes no
+icon — plain text only.** The pill is already the emphasis; a glyph inside it
+is emphasis decorating emphasis, and the two compete rather than compound.
+Icons belong on the plain eyebrow.
 
 **Pair the eyebrow with an icon wherever the section has a subject an icon
 can carry.** `.eq-eyebrow__icon` before the label, taking `currentColor` so

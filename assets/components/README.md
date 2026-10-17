@@ -46,6 +46,19 @@ letter, so the CSS indents by the same amount to put it back on the left —
 without that the label sits 2.4px right of centre in the pill, which is
 visible at this size.
 
+### `--solid` takes no icon
+
+Plain text, ruled 2026-10-17. The pill is already the emphasis — it is
+rationed precisely because it shouts — and a glyph inside it is emphasis
+decorating emphasis. In Gestalt terms the pill is a common region doing the
+grouping on its own; a second focal point inside a shape whose purpose is to
+have one works against it.
+
+`bundle.css` hides an icon placed there, so a page renders correctly either
+way, and `check-built-page.py` reports it so the mistake is visible rather
+than silently absorbed. Icons belong on the plain eyebrow, where
+`.eq-eyebrow__icon` is built for them.
+
 ### When `--solid` is allowed
 
 **Hero banners, CTA banners, and modules carrying exceptional value. Nothing

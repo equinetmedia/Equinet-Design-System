@@ -28,6 +28,50 @@ Project. Every entry below represents a manual reconciliation pass — someone
 asked Claude, in that Project, to fold new development work into
 `tokens.css` / `README.md`, then committed the result here.
 
+## 2026-10-17 — The pill takes no icon; Phase 3 makes the methodology executable
+
+**`.eq-eyebrow--solid` is plain text. Ruled.** The pill is already the
+emphasis — it is rationed to hero banners, CTA banners and modules of
+exceptional value precisely because it shouts — and a glyph inside it is
+emphasis decorating emphasis. The two compete rather than compound. In
+Gestalt terms the pill is a common region doing the grouping on its own, and
+an icon adds a second focal point to a shape whose whole purpose is to have
+one. Icons belong on the plain eyebrow, where `.eq-eyebrow__icon` is built
+for them.
+
+**Stated in four places and enforced in two.** `bundle.css` hides an icon
+placed in a pill, so a page renders correctly whatever the build did, and
+`check-built-page.py` reports the count so the mistake is visible rather than
+silently absorbed. A rule that only asks a build to remember has been
+forgotten five times this month; this one does not depend on memory. One
+check added (62 to 63).
+
+**New: Phase 3 — Review.** `METHODOLOGY.md` was reasoning, and reasoning
+produces no output on its own — which is why a build showed little sign of
+it. The principles are now fifteen yes/no questions a build answers about the
+page it just made, grouped by where the reasoning comes from:
+
+- **NN/g, how it is read** — do the headings alone carry the argument; does
+  each section open with its answer; does the first screenful earn the
+  scroll; is decoration actually decoration; is depth reachable rather than
+  present.
+- **IxDF, what things look like they do** — does every hover state belong to
+  something that does something; is grouping done by proximity before
+  borders; is every target 24 x 24 and is the whole card the target; does
+  every control show hover, focus-visible and active; can a keyboard reach
+  everything.
+- **Baymard, whether it earns the next step** — exactly one primary action;
+  does the CTA say where it goes; is the offer's shape stated before the
+  button; does every figure carry its source; does the page work with no JS,
+  no pointer and no motion.
+
+**The instruction that makes it bite: a no is fixed, not reported.** A defect
+noticed and shipped is worse than one missed, and the previous close-out
+format invited exactly that by asking for a list. Phase 2 counts what is
+missing; Phase 3 catches what is wrong.
+
+Digest rule 10g carries it.
+
 ## 2026-10-17 — The whole Lucide library vendored: 2159 glyphs
 
 A build cannot fetch. Claude Design has no network and no package manager, so

@@ -1667,3 +1667,23 @@
 .eq-icon { max-width: 48px; max-height: 48px; }
 
 .eq-eyebrow__icon svg[stroke-width] { stroke-width: var(--equinet-icon-stroke--substitute, 1); }
+
+/* ---------------------------------------------- the pill takes no icon --
+   RULED 2026-10-17. `.eq-eyebrow--solid` is plain text. Never an icon.
+
+   The pill is already the emphasis. It is rationed to hero banners, CTA
+   banners and modules of exceptional value precisely because it shouts; an
+   icon inside it is emphasis decorating emphasis, and the two compete rather
+   than compound. In Gestalt terms the pill is a common region doing the
+   grouping work on its own — a glyph inside adds a second focal point to a
+   shape whose whole purpose is to have one.
+
+   The plain eyebrow is where an icon belongs, and `.eq-eyebrow__icon` is
+   built for exactly that.
+
+   Enforced here as well as stated, because a documented rule that asks a
+   build to remember something has been forgotten five times this month. A
+   build that inlines one anyway gets a page that is still correct, and
+   `check-built-page.py` reports it so the mistake is visible rather than
+   silently rendered. */
+.eq-eyebrow--solid .eq-eyebrow__icon { display: none; }

@@ -279,6 +279,18 @@ def check_graphics(page):
              f"`{name}` has {lines} <line> connectors and no arrowheads. Equinet draws "
              "them as filled paths at the line end; a bare line is an unfinished connector")
 
+    # The pill eyebrow takes no icon (ruled 2026-10-17). bundle.css hides it,
+    # so the page renders correctly either way — but a build that inlined one
+    # has misread the rule and should hear about it.
+    pills = re.findall(r'<[^>]*class="[^"]*eq-eyebrow--solid[^"]*"[^>]*>(.{0,400}?)</', page, re.S)
+    iced = sum(1 for p_ in pills if 'eq-eyebrow__icon' in p_ or '<svg' in p_)
+    fact("solid eyebrows", f"{len(pills)} ({iced} carrying an icon — should be 0)")
+    if iced:
+        fail("eyebrow", f"{iced} solid eyebrow(s) contain an icon. The pill is plain text: "
+                        "it is already the emphasis, and a glyph inside competes with it. "
+                        "bundle.css hides the icon, so the page is correct — but move it to "
+                        "a plain .eq-eyebrow or drop it")
+
     tabs = len(re.findall(r'role="tab"', page))
     hits = len(re.findall(r'data-role="hit"', page))
     fact("hotspots (role=tab)", tabs)
