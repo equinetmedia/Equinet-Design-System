@@ -33,10 +33,7 @@ page=f"""<!doctype html><html><head><meta charset="utf-8">
 <section class="eq-surface eq-surface--01" id="surf1" style="height:200px"></section>
 <section class="eq-surface eq-surface--02" id="surf2" style="height:200px"></section>
 <section class="eq-surface" id="surfD" style="height:200px"></section>
-<<<<<<< HEAD
 <h1 class="eq-h1" id="t1">Heading</h1><h2 class="eq-h2" id="t2">Heading</h2><h2 class="eq-h2 eq-h2--light" id="t2l">Heading</h2><h3 class="eq-h3" id="t3">Heading</h3><h3 class="eq-h3 eq-h3--light" id="t3l">Heading</h3><h3 class="eq-h3-card" id="t3c">Card</h3><h4 class="eq-h4" id="t4">Sub</h4><p class="eq-lead" id="tl">Lead</p><p class="eq-body" id="tb">Body</p>
-=======
->>>>>>> 6bc8ca6622d77dfef0b77781179258bf68b49ff0
 <section class="eq-surface eq-surface--dark" id="surfDark" style="height:200px"><p class="eq-eyebrow" id="ebDark">On dark</p></section>
 <div id="auto"><section class="eq-surface" id="a1"></section><section class="eq-surface" id="a2"></section><section class="eq-surface" id="a3"></section><section class="eq-surface" id="a4"></section><section class="eq-surface" id="a5"></section><section class="eq-surface eq-surface--01" id="aX"></section></div>
 <article class="eq-card eq-card--stacked" data-reveal id="stk">
@@ -65,7 +62,6 @@ with sync_playwright() as p:
     # ---------- no JS
     pg=b.new_page(viewport={'width':1200,'height':800}); pg.goto('file://'+TMP+'/static.html'); pg.wait_for_timeout(200)
     ok("C1 no JS: cards fully visible", pg.evaluate("[...document.querySelectorAll('.eq-card')].every(e=>getComputedStyle(e).opacity==='1')"))
-<<<<<<< HEAD
     # ---------- type scale, measured against assets/type/
     TYPO="([s,p])=>getComputedStyle(document.querySelector(s))[p]"
     for sel,size,weight,fam in [("#t1","60px","800","Open Sans"),("#t2","40px","800","Open Sans"),
@@ -92,8 +88,6 @@ with sync_playwright() as p:
        abs(float(pg.evaluate(TYPO,["#t2","letterSpacing"]).replace("px",""))-(-0.07*40))<0.1,
        pg.evaluate(TYPO,["#t2","letterSpacing"]))
 
-=======
->>>>>>> 6bc8ca6622d77dfef0b77781179258bf68b49ff0
     # ---------- radial surface, measured against radial-background-0*.svg
     SF="([s,p])=>getComputedStyle(document.querySelector(s))[p]"
     ok("R1 surface: flat colour underneath so an editor's choice shows through",

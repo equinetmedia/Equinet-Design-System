@@ -357,7 +357,6 @@
      DECISION 3 — h3: repo 32px (Figma heading/h3) vs deployed 24px, same
      origin, same reasoning. Note 24px collides with --equinet-fontsize-h4,
      so if 24 wins, one of the two roles is redundant. */
-<<<<<<< HEAD
   /* DECISION 2 — RESOLVED 2026-10-16 by assets/type/h2-fontstyle.svg: 40px.
      Repo had 48px, deployment had 36px; the Figma spec says neither.
      DECISION 3 — RESOLVED by assets/type/: the repo's 32px and the
@@ -367,10 +366,6 @@
      --equinet-fontsize-card-heading; h3 is the section heading. */
   --equinet-fontsize-h2: 40px;        /* h2-fontstyle.svg · 2026-10-16 (was 36px deployed / 48px repo) */
   --equinet-fontsize-h3: 32px;        /* h3-fontstyle-section-heading.svg · 2026-10-16 (was 24px deployed) */
-=======
-  --equinet-fontsize-h2: 36px;        /* was 48px in repo — see DECISION 2 */
-  --equinet-fontsize-h3: 24px;        /* was 32px in repo — see DECISION 3 */
->>>>>>> 6bc8ca6622d77dfef0b77781179258bf68b49ff0
   --equinet-fontsize-h4: 24px;        /* Figma font size/heading/h4 */
   --equinet-fontsize-h5: 20px;        /* Figma font size/heading/h5 */
   --equinet-fontsize-h6: 18px;        /* Figma font size/heading/h6 */
@@ -407,17 +402,9 @@
      TYPOGRAPHY — LINE HEIGHTS          [Figma: responsive/line height/*]
      ========================================================================== */
   --equinet-lineheight-body-sm: 20px;
-<<<<<<< HEAD
   /* DECISION 4 — RESOLVED 2026-10-16 by assets/type/body-fontstyle.svg:
      baselines 22px apart on 16px = 1.375. Repo had 24px, deployment 1.4. */
   --equinet-lineheight-body:    1.375; /* body-fontstyle.svg · 2026-10-16 (was 1.4 deployed / 24px repo) */
-=======
-  /* DECISION 4 — repo 24px (1.5 on 16px) vs deployed 1.4 (22.4px on 16px),
-     taken from 2-column-page-accordion's shipped .custom-bullet p rule. A
-     unitless value also inherits differently from an absolute one. Holding
-     1.4: it is the rhythm live copy renders at. */
-  --equinet-lineheight-body:    1.4;  /* was 24px in repo — see DECISION 4 */
->>>>>>> 6bc8ca6622d77dfef0b77781179258bf68b49ff0
   --equinet-lineheight-body-lg: 32px;
   --equinet-lineheight-h1:      56px;
   --equinet-lineheight-h2:      48px;
@@ -454,20 +441,12 @@
                                                   case-study (3 of 4 comps) · 2026-09-24 */
   --equinet-letterspacing-kicker--lg: 0.1em;  /* 16px bold eyebrow, and the 16/600 step
                                                   numerals — 5_column_block_methodology · 2026-09-24 */
-<<<<<<< HEAD
   /* DECISION 5 — RESOLVED 2026-10-16: every Open Sans heading in
      assets/type/ (h1, h2, h3 section, and both light variants) carries
      -0.07em. Repo had -0.05em, deployment -0.06em; both were measurements
      off rendered artwork rather than the spec. This is also the value
      --equinet-letterspacing-display--tight already held. */
   --equinet-letterspacing-display: -0.07em;   /* assets/type/ · 2026-10-16 (was -0.06em deployed / -0.05em repo) */
-=======
-  /* DECISION 5 — repo -0.05em (5_column_block_methodology, matching
-     plain_hero_banner's shipped value) vs deployed -0.06em (measured from
-     reference graphic SCR-20260930-nsxj, -2.67px at 44.8px, cagr-four-column
-     2026-09-30). The deployed value is the later measurement. Holding it. */
-  --equinet-letterspacing-display: -0.06em;   /* was -0.05em in repo — see DECISION 5 */
->>>>>>> 6bc8ca6622d77dfef0b77781179258bf68b49ff0
   --equinet-letterspacing-display--tight: -0.07em; /* 60px Open Sans display —
                                                   2-column-hero-banner only · 2026-09-24 */
   --equinet-letterspacing-h2--tight: -0.03em; /* 36px/900 h2 — sector-three-column-case-study.
@@ -605,7 +584,6 @@
                                      so a dense graphic never makes the reader wait
                                      · 2026-09-26 */
 
-<<<<<<< HEAD
   /* ================================================ TYPE SPEC · 2026-10-16 --
      Promoted from assets/type/, the ten Figma typography exports. Additive
      only — the three values these corrected are marked DECISION above.
@@ -626,8 +604,6 @@
                                       -0.5px 0.5px 2px at alpha .25 from the cagr card h3 —
                                       same offsets, different blur and alpha · 2026-10-16 */
 
-=======
->>>>>>> 6bc8ca6622d77dfef0b77781179258bf68b49ff0
   /* ================================================ FOLDED BACK FROM DEPLOYMENT · 2026-10-16 --
      Twelve tokens that were promoted during the image_resizer and
      2-column-page-accordion module builds, deployed to /modules/tokens.css,
