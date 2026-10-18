@@ -1,4 +1,11 @@
-@import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;800&family=Source+Sans+3:ital,wght@0,400;0,600;0,700;1,400&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300;0,400;0,600;0,700;0,800;1,400&family=Source+Sans+3:ital,wght@0,400;0,600;0,700;0,900;1,400&display=swap');
+/* 2026-10-18: added Open Sans 600 + 700 and Source Sans 3 900.
+   The previous import loaded Open Sans 300/400/800 only, so every
+   --equinet-fontweight-semibold (600), -btn (600), -bold (700) and
+   -kicker (700) reference had no real face and was synthesised by the
+   browser. Source Sans 3 900 backs --equinet-fontweight-black, used by
+   the 36px section sub-heading. Open Sans italic 400 is included because
+   the Claude Design export shipped it. */
 
 /***********************************************/
 /* CSS @imports must be at the top of the file */
