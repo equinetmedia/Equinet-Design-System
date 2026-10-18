@@ -613,6 +613,17 @@
   --equinet-letterspacing-h4:           -0.015em; /* h4-fontstyle.svg · 2026-10-16 */
   --equinet-letterspacing-body:          0em;     /* body & lead fontstyle · 2026-10-16 */
   --equinet-letterspacing-tag:           0.02em;  /* tag*.svg · 2026-10-17 */
+  /* ---------------------------------------------------------------- caps --
+     RULED 2026-10-18: h1 and h2 are uppercase in every instance. Caps have no
+     descenders and wider average glyph width, so the display tracking
+     (-0.07em) crushes them. These two are the caps-specific replacements and
+     are used ONLY by .eq-h1 / .eq-h2. Sentence-case roles keep their own
+     values. */
+  --equinet-letterspacing-caps:         -0.04em;  /* h1/h2 uppercase · 2026-10-18.
+                                                     Was -0.02em on first render — too open
+                                                     against the brand's -0.07em sentence-case
+                                                     display tracking. -0.04em at 60px = -2.4px. */
+  --equinet-lineheight-caps:             1.0;     /* caps fill the em box; 0.9 clips · 2026-10-18 */
 
   --equinet-lineheight-h2--ratio:        0.9;     /* 36px on 40px · h2-fontstyle.svg · 2026-10-16 */
   --equinet-lineheight-h3--ratio:        0.90625; /* 29px on 32px · h3-fontstyle-section-heading.svg · 2026-10-16 */
