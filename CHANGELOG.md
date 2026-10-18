@@ -28,6 +28,56 @@ Project. Every entry below represents a manual reconciliation pass — someone
 asked Claude, in that Project, to fold new development work into
 `tokens.css` / `README.md`, then committed the result here.
 
+## 2026-10-17 — `.eq-tag`: four variants, and a tag is not an eyebrow
+
+Four tag exports added to `assets/components/` and built as `.eq-tag`. All
+162 x 32, Source Sans 12px / 600 / +0.02em, `rx="3.5"` on a rect inset 0.5 —
+a 4px outer radius with a crisp 1px stroke. One new token,
+`--equinet-letterspacing-tag`; every other value already had one.
+
+**The distinction that needed writing down.** A tag and an eyebrow are both
+small 12px pills and they do opposite jobs. The eyebrow is UPPERCASE, 0.2em
+tracked and orange, names what a *section* is, and appears once above the
+heading — a label on a container. The tag is sentence case, 0.02em, grey or
+navy, carries a fact about an *item*, and appears zero or several times with
+that item — a label on a thing. **"Scoped before set-up" is a tag. "PRICING"
+is an eyebrow.** The usable test: if the words would read oddly in capitals,
+it is a tag.
+
+**Four variants in ascending weight** — `.eq-tag` (pale fill, the default),
+`--outline` (border only, for several together where filled pills become a
+block of colour), `--solid` (grey, the one that matters among several), and
+`--blue` (navy ground, amber label, a commercial claim, rare). **At most one
+emphasised tag in a group**, the same discretion rule as the spotlight: four
+blue tags in a row have emphasised nothing.
+
+**A tag states a fact; it is not a control.** No hover, no cursor change, no
+lift. One that genuinely filters something is a `<button>` and takes button
+styling. Checked in the test suite rather than only asserted.
+
+**Three of the four sit just under 4.5:1**, and 12px at 600 is not large
+text: the default and the grey solid at **4.46:1** (short by 0.04), the blue
+at **4.15:1** (short by 0.35, the same number the eyebrow on dark carries).
+
+**And the ground matters, which is new.** The outline variant measures
+**4.78:1 on white and 4.39:1 on `surface--alt`** — it passes or fails
+depending on what it sits on. A page that moves a tag onto a tinted surface
+has changed its compliance without changing the tag. First component in this
+system where that is true, and worth watching for in others.
+
+**The fix here is close to free.** `--equinet-color-muted` (#5D6375) clears
+5.59:1 and 5.50:1 on both pale grounds, is visually a half-step darker, and
+already exists described as "secondary text" — which is exactly what a tag
+label is. `.eq-tag--aa` applies it, opt-in. The comp values ship as drawn.
+
+**One geometry trap caught by the test.** The export's 32px frame *includes*
+its 1px stroke, so the obvious padding arithmetic renders a 34px tag that
+sits a shade taller than the eyebrow it so often stands beside. The CSS
+subtracts the border; the test measures the rendered height rather than the
+declared padding, which is why it was caught at all.
+
+Nine checks added (63 to 72). Manifest at 122.
+
 ## 2026-10-17 — Unlinked content gets motion: a promise is not a report
 
 The rule that a card linking nowhere responds to nothing was right about

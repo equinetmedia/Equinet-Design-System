@@ -605,6 +605,7 @@
   --equinet-letterspacing-card-heading: -0.01em;  /* h3-fontstyle-card-heading.svg · 2026-10-16 */
   --equinet-letterspacing-h4:           -0.015em; /* h4-fontstyle.svg · 2026-10-16 */
   --equinet-letterspacing-body:          0em;     /* body & lead fontstyle · 2026-10-16 */
+  --equinet-letterspacing-tag:           0.02em;  /* tag*.svg · 2026-10-17 */
 
   --equinet-lineheight-h2--ratio:        0.9;     /* 36px on 40px · h2-fontstyle.svg · 2026-10-16 */
   --equinet-lineheight-h3--ratio:        0.90625; /* 29px on 32px · h3-fontstyle-section-heading.svg · 2026-10-16 */

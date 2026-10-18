@@ -105,6 +105,77 @@ same place.
    heading's drop-shadow filter a 120.426px region and the text is wider. A
    bounding-box artifact, not a design decision.
 
+## `tag` / `tag-grey-outline` / `tag-grey-solid` / `tag-blue-solid` — 162 × 32
+
+A small label carrying a fact about an item. Built as `.eq-tag` in
+`components/bundle.css`.
+
+### A tag is not an eyebrow
+
+Both are 12px pills and they do opposite jobs:
+
+| | `.eq-eyebrow` | `.eq-tag` |
+| --- | --- | --- |
+| Case | UPPERCASE | Sentence |
+| Tracking | 0.2em | 0.02em |
+| Colour | orange | grey, or navy/amber |
+| Radius | 8px | 4px |
+| Names | what a **section** is | a fact about an **item** |
+| How many | one, above the heading | zero or several, with the item |
+
+"Scoped before set-up" is a tag. "PRICING" is an eyebrow. If the words would
+read oddly in capitals, it is a tag.
+
+### Four variants, ascending weight
+
+| Class | Ground | Border | Label | For |
+| --- | --- | --- | --- | --- |
+| `.eq-tag` | `charade-50` | `charade-300` | `charade-500` | the default, a neutral fact |
+| `.eq-tag--outline` | none | `charade-300` | `charade-500` | several together, where filled pills become a block of colour |
+| `.eq-tag--solid` | `charade-500` | same | `charade-50` | the one tag that matters among several |
+| `.eq-tag--blue` | `blue-default` | same | `amber-400` | a commercial claim. Rare. |
+
+**At most one emphasised tag in a group** — the same discretion rule as the
+spotlight. Four blue tags in a row have emphasised nothing.
+
+**A tag states a fact; it is not a control.** No hover, no cursor change, no
+lift. A tag that genuinely filters something is a `<button>` and takes button
+styling instead.
+
+### Measured
+
+162 × 32, text inset 24, `rx="3.5"` on a rect inset 0.5 — a 4px outer radius
+with a crisp 1px stroke. 12px / 600 / +0.02em, Source Sans. One new token:
+`--equinet-letterspacing-tag`.
+
+The export's 32px frame **includes** its 1px stroke, so the CSS subtracts the
+border from the vertical padding. Without that the tag renders 34px and sits
+a shade taller than the eyebrow it so often stands beside.
+
+### Contrast — three of the four sit just under the line
+
+| | | |
+| --- | --- | --- |
+| `.eq-tag` | 4.46:1 | short by 0.04 |
+| `.eq-tag--outline` **on white** | 4.78:1 | passes |
+| `.eq-tag--outline` **on `surface--alt`** | 4.39:1 | short by 0.11 |
+| `.eq-tag--solid` | 4.46:1 | short by 0.04 |
+| `.eq-tag--blue` | 4.15:1 | short by 0.35 |
+
+12px at 600 is not large text, so the threshold is 4.5:1.
+
+**Note the ground matters.** The outline variant passes on white and fails on
+`surface--alt`. A tag is not independent of what it sits on, and a page that
+moves one onto a tinted surface has changed its compliance without changing
+the tag.
+
+A 0.04 miss is a rounding artifact; a 0.35 one is not. But all four are
+misses, and **the fix here is close to free**: `--equinet-color-muted`
+(#5D6375) clears 5.59:1 and 5.50:1 on both pale grounds, is visually a
+half-step darker, and already exists in this system described as "secondary
+text" — which is exactly what a tag label is. `.eq-tag--aa` applies it,
+opt-in. The comp values ship as drawn.
+
 ## Contrast — three components now carry the same failure
 
 The eyebrow, 12px / 700:

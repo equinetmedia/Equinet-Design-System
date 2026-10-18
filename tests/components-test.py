@@ -48,7 +48,8 @@ page=f"""<!doctype html><html><head><meta charset="utf-8">
     <p class="eq-card__action" id="act">Read More</p>
   </div>
 </article>
-<p class="eq-eyebrow" id="ebi"><span class="eq-eyebrow__icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M4 4h16v16H4z" stroke="#000" fill="none"/></svg></span>With icon</p><p class="eq-eyebrow" id="ebp">Why HubSpot</p><p class="eq-eyebrow eq-eyebrow--solid" id="ebs"><span class="eq-eyebrow__icon" id="ebsIcon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M4 4h16v16H4z"/></svg></span>Why HubSpot</p><p class="eq-eyebrow eq-eyebrow--solid eq-eyebrow--solid-safe" id="ebsafe">Why HubSpot</p><div class="row" id="row">{card(1)}{card(2)}{card(3,link=False)}</div>
+<p class="eq-eyebrow" id="ebi"><span class="eq-eyebrow__icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M4 4h16v16H4z" stroke="#000" fill="none"/></svg></span>With icon</p><span class="eq-tag" id="tg">Scoped before set-up</span><span class="eq-tag eq-tag--outline" id="tgo">Outline</span><span class="eq-tag eq-tag--solid" id="tgs">Solid</span><span class="eq-tag eq-tag--blue" id="tgb">Blue</span><span class="eq-tag eq-tag--aa" id="tgaa">AA</span>
+<p class="eq-eyebrow" id="ebp">Why HubSpot</p><p class="eq-eyebrow eq-eyebrow--solid" id="ebs"><span class="eq-eyebrow__icon" id="ebsIcon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M4 4h16v16H4z"/></svg></span>Why HubSpot</p><p class="eq-eyebrow eq-eyebrow--solid eq-eyebrow--solid-safe" id="ebsafe">Why HubSpot</p><div class="row" id="row">{card(1)}{card(2)}{card(3,link=False)}</div>
 <section class="faq" aria-labelledby="faqh"><h2 id="faqh">FREQUENTLY ASKED QUESTIONS</h2><div class="eq-faq" id="faq">{items}</div></section>
 <script type="application/ld+json">{ld}</script><div class="spacer"></div>__JS__</body></html>"""
 open(os.path.join(TMP,'static.html'),'w').write(page.replace('__JS__',''))
@@ -132,6 +133,33 @@ with sync_playwright() as p:
        pg.evaluate("""()=>{const e=document.querySelector('#surfD');
          e.style.setProperty('--eq-surface-x','10%');
          return getComputedStyle(e).backgroundImage.includes('10%')}"""))
+
+    # ---------- tag, measured against assets/components/tag*.svg
+    TG="([s,p])=>getComputedStyle(document.querySelector(s))[p]"
+    ok("G1 tag: 12px / 600 / +0.02em, sentence case — not an eyebrow",
+       pg.evaluate(TG,["#tg","fontSize"])=="12px" and pg.evaluate(TG,["#tg","fontWeight"])=="600"
+       and pg.evaluate(TG,["#tg","textTransform"])=="none",
+       f'{pg.evaluate(TG,["#tg","fontSize"])} / {pg.evaluate(TG,["#tg","fontWeight"])} / {pg.evaluate(TG,["#tg","textTransform"])}')
+    ok("G2 tag: 4px radius and 24px inset, matching the 162x32 export",
+       pg.evaluate(TG,["#tg","borderRadius"])=="4px" and pg.evaluate(TG,["#tg","paddingLeft"])=="24px")
+    ok("G3 tag: 32px tall",
+       abs(pg.evaluate("()=>document.querySelector('#tg').getBoundingClientRect().height")-32)<1)
+    ok("G4 default: pale fill, charade border, charade label",
+       pg.evaluate(TG,["#tg","backgroundColor"])=="rgb(246, 247, 249)"
+       and pg.evaluate(TG,["#tg","color"])=="rgb(104, 114, 143)")
+    ok("G5 outline: border kept, fill dropped",
+       pg.evaluate(TG,["#tgo","backgroundColor"])=="rgba(0, 0, 0, 0)"
+       and pg.evaluate(TG,["#tgo","borderTopWidth"])=="1px")
+    ok("G6 solid: grey ground, pale label",
+       pg.evaluate(TG,["#tgs","backgroundColor"])=="rgb(104, 114, 143)"
+       and pg.evaluate(TG,["#tgs","color"])=="rgb(246, 247, 249)")
+    ok("G7 blue: navy ground, amber label",
+       pg.evaluate(TG,["#tgb","backgroundColor"])=="rgb(0, 66, 108)"
+       and pg.evaluate(TG,["#tgb","color"])=="rgb(245, 132, 77)")
+    ok("G8 --aa swaps the label for the compliant grey",
+       pg.evaluate(TG,["#tgaa","color"])=="rgb(93, 99, 117)", pg.evaluate(TG,["#tgaa","color"]))
+    ok("G9 a tag states a fact — no pointer cursor, it is not a control",
+       pg.evaluate(TG,["#tg","cursor"]) in ("auto","default"), pg.evaluate(TG,["#tg","cursor"]))
 
     # ---------- stacked card, measured against card-stacked-layout-01.svg
     SC="([s,p])=>getComputedStyle(document.querySelector(s))[p]"

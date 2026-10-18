@@ -268,6 +268,14 @@ heading, h4, lead and body. Where two display headings would stack, make one
 `--light` (weight 300) — and leave its shadow off, which is the variant
 rather than an omission. Full scale in `assets/type/README.md`.
 
+**A fact about an item is a `.eq-tag`, not an eyebrow.** Sentence case,
+grey, 4px radius — "Scoped before set-up". An eyebrow is UPPERCASE and names
+what a *section* is — "PRICING". If the words would read oddly in capitals,
+it is a tag. Four variants in ascending weight (`--outline`, `--solid`,
+`--blue`), and **at most one emphasised tag in a group**. A tag is not a
+control: no hover, no cursor change. One that genuinely filters is a
+`<button>`.
+
 **The eyebrow is orange, `#E06730`.** Ruled 2026-10-17. One Figma export
 (`assets/type/eyebrow-fontstyle.svg`) shows it in the heading colour; that
 export is superseded on colour. Orange measures 3.41:1 on white, below AA,

@@ -1767,3 +1767,96 @@
     transition: none !important;
   }
 }
+
+
+/* ============================================================================
+   TAG — .eq-tag
+   Measured from assets/components/tag*.svg (all 162 x 32, Figma 2026-10-17).
+
+   A TAG IS NOT AN EYEBROW. They are both small 12px pills and they do
+   opposite jobs:
+
+     .eq-eyebrow   UPPERCASE, 0.2em tracked, orange. Names what a SECTION
+                   is, one per section, above the heading. It is a label on
+                   a container.
+     .eq-tag       Sentence case, 0.02em, grey or blue. Carries a FACT about
+                   an ITEM — a status, a qualifier, a category. Zero or
+                   several per item, sitting with the item. It is a label on
+                   a thing.
+
+   "Scoped before set-up" is a tag. "PRICING" is an eyebrow. If the words
+   would read oddly in capitals, it is a tag.
+
+   FOUR VARIANTS, in ascending weight. The discretion rule is the one that
+   applies everywhere else in this system: at most one emphasised tag in a
+   group. Four blue tags in a row have emphasised nothing.
+
+     .eq-tag              pale fill + border. The default, a neutral fact.
+     .eq-tag--outline     border only. For several tags together, where four
+                          filled pills become a block of colour.
+     .eq-tag--solid       grey fill. The one tag that matters among several.
+     .eq-tag--blue        navy fill, amber label. A commercial claim. Rare.
+
+   MEASURED: 162 x 32 frame, text inset 24, rx 4 (the export draws rx 3.5 on
+   a rect inset 0.5, which is a 4px outer radius with a crisp 1px stroke),
+   12px / 600 / +0.02em, Source Sans.
+
+   CONTRAST — three of the four sit just under the line, and 12px at 600 is
+   not large text, so the threshold is 4.5:1:
+     .eq-tag          charade-500 on night-100   4.46:1   short by 0.04
+     .eq-tag--outline charade-500 on white       4.78:1   passes
+                      charade-500 on surface--alt 4.39:1  short by 0.11
+     .eq-tag--solid   night-100 on charade-500   4.46:1   short by 0.04
+     .eq-tag--blue    amber-400 on blue-default  4.15:1   short by 0.35
+   A 0.04 miss is a rounding artifact and a 0.35 one is not, but all four are
+   misses. --equinet-color-muted (#5D6375) clears 5.59:1 and 5.50:1 on both
+   pale grounds, is visually a half-step darker, and already exists for
+   exactly this role — see .eq-tag--aa below and README.md, "One unresolved".
+
+   NOTE THE GROUND MATTERS: the outline variant passes on white and fails on
+   surface--alt. A tag is not independent of what it sits on.
+   ========================================================================== */
+
+.eq-tag {
+  display: inline-flex;
+  align-items: center;
+  font-family: var(--equinet-font-body, 'Myriad Pro', 'Source Sans 3', sans-serif);
+  font-size: var(--equinet-fontsize-kicker, 12px);
+  font-weight: var(--equinet-fontweight-semibold, 600);
+  letter-spacing: var(--equinet-letterspacing-tag, 0.02em);
+  line-height: 1;
+  /* Derived, as the eyebrow is: (32 - 12) / 2 = 10px is off the 4px scale.
+     The border is subtracted because the export's 32px frame INCLUDES its
+     1px stroke — without this the tag renders 34px and sits a shade taller
+     than the eyebrow it so often stands beside. */
+  padding: calc((var(--equinet-scale-800, 32px) - 1em) / 2
+                - var(--equinet-border-width-sm, 1px))
+           var(--equinet-space-md, 24px);
+  border: var(--equinet-border-width-sm, 1px) solid var(--equinet-color-charade-300, #B1B7C8);
+  border-radius: var(--equinet-border-radius-sm, 4px);
+  background: var(--equinet-color-charade-50, #F6F7F9);
+  color: var(--equinet-color-charade-500, #68728F);
+}
+
+.eq-tag--outline { background: transparent; }
+
+.eq-tag--solid {
+  background: var(--equinet-color-charade-500, #68728F);
+  border-color: var(--equinet-color-charade-500, #68728F);
+  color: var(--equinet-color-charade-50, #F6F7F9);
+}
+
+.eq-tag--blue {
+  background: var(--equinet-color-blue-default, #00426C);
+  border-color: var(--equinet-color-blue-default, #00426C);
+  color: var(--equinet-color-amber-400, #F5844D);
+}
+
+/* Opt-in compliant label for the pale variants. Not the default: the comp
+   values ship, the numbers are stated, and swapping a colour to satisfy
+   contrast is a decision someone makes rather than a build takes. */
+.eq-tag--aa { color: var(--equinet-color-muted, #5D6375); }
+
+/* A tag states a fact; it is not a control. No hover, no cursor change, no
+   lift — the same promise rule as everywhere else. A tag that genuinely
+   filters something is a <button> and takes button styling instead. */

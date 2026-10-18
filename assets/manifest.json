@@ -14,7 +14,7 @@
     "shape": "unclassified (usually invisible bounds)"
   },
   "palette_note": "'unsanctioned' marks a colour found in artwork that is not a token; replace it with nearest_token (by RGB distance \u2014 a suggestion, not a ruling) rather than carrying the raw hex forward.",
-  "count": 118,
+  "count": 122,
   "assets": [
     {
       "name": "draftmans-background-hero-banner",
@@ -791,6 +791,102 @@
         {
           "hex": "#FCE9E0",
           "token": "--equinet-color-amber-100"
+        }
+      ]
+    },
+    {
+      "name": "tag-blue-solid",
+      "path": "assets/components/tag-blue-solid.svg",
+      "category": "component-source",
+      "group": "components",
+      "width": 162.0,
+      "height": 32.0,
+      "aspect": 5.062,
+      "background": "opaque dark",
+      "live_text": 1,
+      "reworkable": false,
+      "roles": {},
+      "palette": [
+        {
+          "hex": "#00426C",
+          "token": "--equinet-color-blue-default"
+        },
+        {
+          "hex": "#F5844D",
+          "token": "--equinet-color-amber-400"
+        }
+      ]
+    },
+    {
+      "name": "tag-grey-oultine",
+      "path": "assets/components/tag-grey-oultine.svg",
+      "category": "component-source",
+      "group": "components",
+      "width": 162.0,
+      "height": 32.0,
+      "aspect": 5.062,
+      "background": "transparent",
+      "live_text": 1,
+      "reworkable": false,
+      "roles": {},
+      "palette": [
+        {
+          "hex": "#68728F",
+          "token": "--equinet-color-charade-500"
+        },
+        {
+          "hex": "#B1B7C8",
+          "token": "--equinet-color-charade-300"
+        }
+      ]
+    },
+    {
+      "name": "tag-grey-solid",
+      "path": "assets/components/tag-grey-solid.svg",
+      "category": "component-source",
+      "group": "components",
+      "width": 162.0,
+      "height": 32.0,
+      "aspect": 5.062,
+      "background": "opaque dark",
+      "live_text": 1,
+      "reworkable": false,
+      "roles": {},
+      "palette": [
+        {
+          "hex": "#68728F",
+          "token": "--equinet-color-charade-500"
+        },
+        {
+          "hex": "#F6F7F9",
+          "token": "--equinet-color-night-100"
+        }
+      ]
+    },
+    {
+      "name": "tag",
+      "path": "assets/components/tag.svg",
+      "category": "component-source",
+      "group": "components",
+      "width": 162.0,
+      "height": 32.0,
+      "aspect": 5.062,
+      "background": "opaque light",
+      "live_text": 1,
+      "reworkable": false,
+      "roles": {},
+      "palette": [
+        {
+          "hex": "#68728F",
+          "token": "--equinet-color-charade-500"
+        },
+        {
+          "hex": "#B1B7C8",
+          "token": "--equinet-color-charade-300"
+        },
+        {
+          "hex": "#F6F7F9",
+          "token": "--equinet-color-night-100"
         }
       ]
     },
