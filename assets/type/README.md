@@ -21,8 +21,8 @@ Like `assets/components/`, they carry live `<text>` and are never placed.
 
 | Style | Family | Size | Weight | Tracking | Leading | Colour | Shadow |
 | --- | --- | --- | --- | --- | --- | --- | --- |
-| h1 | Open Sans | 60px | 800 | -0.07em | 55px (0.9167) | `#242630` | -2px 2px 4px |
-| h2 | Open Sans | 40px | 800 | -0.07em | 36px (0.9) | `#242630` | -2px 2px 4px |
+| h1 | Open Sans | 60px | 800 | ~~-0.07em~~ **-0.04em** | ~~0.9167~~ **1.0** | `#242630` | -2px 2px 4px |
+| h2 | Open Sans | 40px | 800 | ~~-0.07em~~ **-0.04em** | ~~0.9~~ **1.0** | `#242630` | -2px 2px 4px |
 | h2 light | Open Sans | 40px | **300** | -0.07em | 36px | `#242630` | **none** |
 | h3 section | Open Sans | 32px | 800 | -0.07em | 29px (0.90625) | `#242630` | -1px 1px 1px |
 | h3 section light | Open Sans | 32px | **300** | -0.07em | 29px | `#242630` | **none** |
@@ -77,6 +77,44 @@ Eight tokens were added for tracking, leading and shadows the spec defines
 and `tokens.css` had no name for — including `--equinet-shadow-heading--h4`,
 which is *not* `--equinet-shadow-heading--sm`: same offsets, different blur
 and alpha (1px/0.15 against 2px/0.25).
+
+## `price-fontstyle` — 168 × 53
+
+The headline figure. 48px / 800 / Open Sans per `TYPE-ROLES.md`, in
+`--equinet-color-heading`. Built as `.eq-price`.
+
+**Never an `<hN>`.** `TYPE-ROLES.md` is explicit: the price is a role, not an
+outline level, and wrapping a number in a heading tag to make it large breaks
+the document structure for a visual effect. It is a `<p>`.
+
+**Its shadow is a value of its own** — `-1px 1px 3px` at alpha .15, now
+`--equinet-shadow-heading--price`. Same offsets as the h3's with three times
+the blur, and shallower than the h1/h2's 4px: it sits between them, which is
+where a 48px figure sits in the hierarchy.
+
+**Tracking could not be read from the file.** The export is outlined text, so
+there is no `letter-spacing` attribute to transcribe, and inferring it from
+glyph widths needs the exact face rendering, which this environment could not
+reproduce reliably. `.eq-price` inherits
+`--equinet-letterspacing-display` (-0.07em), which every other Open Sans
+display style carries. **If the comp intends something looser, that is a
+measurement to take in Figma rather than a guess this file should make.**
+
+`.eq-price` sets `tabular-nums`: a column of prices whose digits do not line
+up is the commonest typographic fault on a pricing page, and 48px makes it
+obvious.
+
+## Superseded 2026-10-18: uppercase h1/h2 metrics
+
+The exports above give -0.07em tracking and 0.9167/0.9 line-height for h1 and
+h2. Both are superseded for the **uppercase** forms, which is all of them:
+`--equinet-letterspacing-caps` (-0.04em) and `--equinet-lineheight-caps`
+(1.0). Capitals need more air than lowercase at the same optical size, and
+0.9 clips them. Applied with `!important` in `bundle.css`, because module CSS
+loads afterwards and a descendant selector there outranks a bare class —
+which silently killed the caps line-height on a first render.
+
+The sizes, weights, colours and shadows in the table stand.
 
 ## Where this and `TYPE-ROLES.md` disagree
 

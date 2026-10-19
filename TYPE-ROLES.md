@@ -59,7 +59,7 @@ to keep the order.
 
 | Role | Token | Size | Weight | Family | Typical element |
 |---|---|---|---|---|---|
-| Price / headline figure | `--equinet-fontsize-price` | 48px | 800 | Open Sans | `<p>` — **never** an `<hN>` |
+| Price / headline figure | `--equinet-fontsize-price` | 48px | 800 | Open Sans | `<p>` — **never** an `<hN>`. Built as `.eq-price`; shadow `--equinet-shadow-heading--price`, tabular figures on |
 | Lead paragraph | `--equinet-fontsize-lead` | 20px | 400 | Source Sans 3 | `<p>` after a heading |
 | Body large | `--equinet-fontsize-body-lg` | 20px | 400 | Source Sans 3 | `<p>` |
 | Body | `--equinet-fontsize-body` | 16px | 400 | Source Sans 3 | `<p>` |

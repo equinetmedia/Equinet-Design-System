@@ -28,6 +28,60 @@ Project. Every entry below represents a manual reconciliation pass — someone
 asked Claude, in that Project, to fold new development work into
 `tokens.css` / `README.md`, then committed the result here.
 
+## 2026-10-18 — `.eq-price`; the caps ruling absorbed; PROMPT-TEMPLATE refreshed
+
+**Both uploaded files were strict supersets** — checked token by token and
+class by class before installing, because the risk with a round trip is
+silently losing work. `tokens.css` gained `--equinet-letterspacing-caps` and
+`--equinet-lineheight-caps`; `bundle.css` gained `.eq-h5`, `.eq-h6`,
+`.eq-h1--sentence`, `.eq-h2--sentence` and a theme-isolation pass. Nothing of
+either side was lost, no value changed.
+
+**The caps ruling is the substantive one.** Uppercase h1 and h2 now take
+`-0.04em` and line-height 1.0, not the `-0.07em` and 0.9/0.9167 of the type
+exports. Capitals need more air than lowercase at the same optical size, and
+0.9 clips them. Applied with `!important`, because module CSS loads after
+`bundle.css` and a descendant selector there outranks a bare class — which
+had silently killed the caps line-height on a first render. The type export
+README now records the supersession; its sizes, weights, colours and shadows
+stand.
+
+**`.eq-price` built from `price-fontstyle.svg`.** 48px / 800 / Open Sans in
+`--equinet-color-heading`, per `TYPE-ROLES.md`. Never an `<hN>`: the price is
+a role, not an outline level, and wrapping a number in a heading tag to make
+it large breaks the document structure for a visual effect.
+
+**Its shadow is a value of its own** — `-1px 1px 3px` at alpha .15, now
+`--equinet-shadow-heading--price`. Same offsets as the h3's with three times
+the blur, shallower than the h1/h2's 4px. It sits between them, which is
+where a 48px figure sits in the hierarchy. Fourth distinct heading shadow in
+the system; none is a duplicate.
+
+**Tabular figures are on deliberately.** A column of prices whose digits do
+not line up is the commonest typographic fault on a pricing page, and 48px
+makes it obvious.
+
+**One measurement not taken.** The export is outlined text, so its tracking
+cannot be read from the file, and inferring it from glyph widths needs the
+exact face rendering — which this environment could not reproduce reliably
+(two attempts, both inconclusive). `.eq-price` inherits
+`--equinet-letterspacing-display`. **Recorded as a measurement to take in
+Figma rather than a guess the file should make.**
+
+**`PROMPT-TEMPLATE.md` refreshed.** It was written 2026-10-13 and had drifted
+into telling a build things that are now wrong — section headings at 36px,
+the Open-Sans-800-or-body-900 heading rule — and claiming "best practice
+UI/UX" meant contrast and alignment, which `METHODOLOGY.md` and Phase 3 have
+since superseded. It now opens with what changed under it, points at the type
+classes rather than restating sizes, and credits the vendored Lucide library.
+
+Four checks added for the price, and the h2 tracking check was rewritten
+against the caps ruling rather than "fixed" — the old assertion was correct
+when written and is simply superseded. 77 checks in that suite, 155 across
+five.
+
+Manifest at 123.
+
 ## 2026-10-17 — `.eq-tag`: four variants, and a tag is not an eyebrow
 
 Four tag exports added to `assets/components/` and built as `.eq-tag`. All

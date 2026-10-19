@@ -630,6 +630,10 @@
 
   --equinet-shadow-heading--h3: -1px 1px 1px rgba(0, 0, 0, 0.15);
                                    /* both h3 styles; dx-1 dy1 std0.5 alpha .15 · 2026-10-16 */
+  --equinet-shadow-heading--price: -1px 1px 3px rgba(0, 0, 0, 0.15);
+                                   /* price-fontstyle.svg; dx-1 dy1 std1.5 alpha .15. Its own
+                                      value — deeper blur than --h3 (1px) at the same offsets,
+                                      shallower than --heading (4px) · 2026-10-18 */
   --equinet-shadow-heading--h4: -0.5px 0.5px 1px rgba(0, 0, 0, 0.15);
                                    /* h4-fontstyle.svg. NOT --shadow-heading--sm, which is
                                       -0.5px 0.5px 2px at alpha .25 from the cagr card h3 —

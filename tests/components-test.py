@@ -33,7 +33,7 @@ page=f"""<!doctype html><html><head><meta charset="utf-8">
 <section class="eq-surface eq-surface--01" id="surf1" style="height:200px"></section>
 <section class="eq-surface eq-surface--02" id="surf2" style="height:200px"></section>
 <section class="eq-surface" id="surfD" style="height:200px"></section>
-<h1 class="eq-h1" id="t1">Heading</h1><h2 class="eq-h2" id="t2">Heading</h2><h2 class="eq-h2 eq-h2--light" id="t2l">Heading</h2><h3 class="eq-h3" id="t3">Heading</h3><h3 class="eq-h3 eq-h3--light" id="t3l">Heading</h3><h3 class="eq-h3-card" id="t3c">Card</h3><h4 class="eq-h4" id="t4">Sub</h4><p class="eq-lead" id="tl">Lead</p><p class="eq-body" id="tb">Body</p>
+<h1 class="eq-h1" id="t1">Heading</h1><h2 class="eq-h2" id="t2">Heading</h2><h2 class="eq-h2 eq-h2--light" id="t2l">Heading</h2><h3 class="eq-h3" id="t3">Heading</h3><h3 class="eq-h3 eq-h3--light" id="t3l">Heading</h3><h3 class="eq-h3-card" id="t3c">Card</h3><h4 class="eq-h4" id="t4">Sub</h4><p class="eq-price" id="tp">&pound;72,000</p><p class="eq-lead" id="tl">Lead</p><p class="eq-body" id="tb">Body</p>
 <section class="eq-surface eq-surface--dark" id="surfDark" style="height:200px"><p class="eq-eyebrow" id="ebDark">On dark</p></section>
 <div id="auto"><section class="eq-surface" id="a1"></section><section class="eq-surface" id="a2"></section><section class="eq-surface" id="a3"></section><section class="eq-surface" id="a4"></section><section class="eq-surface" id="a5"></section><section class="eq-surface eq-surface--01" id="aX"></section></div>
 <article class="eq-card eq-card--stacked" data-reveal id="stk">
@@ -73,6 +73,17 @@ with sync_playwright() as p:
            pg.evaluate(TYPO,[sel,"fontSize"])==size and pg.evaluate(TYPO,[sel,"fontWeight"])==weight
            and pg.evaluate(TYPO,[sel,"fontFamily"]).replace(chr(34),"").startswith(fam.split()[0]),
            f'{pg.evaluate(TYPO,[sel,"fontSize"])} / {pg.evaluate(TYPO,[sel,"fontWeight"])} / {pg.evaluate(TYPO,[sel,"fontFamily"])[:18]}')
+    ok("T price: 48px / 800 / Open Sans",
+       pg.evaluate(TYPO,["#tp","fontSize"])=="48px" and pg.evaluate(TYPO,["#tp","fontWeight"])=="800"
+       and pg.evaluate(TYPO,["#tp","fontFamily"]).replace(chr(34),"").startswith("Open"),
+       f'{pg.evaluate(TYPO,["#tp","fontSize"])} / {pg.evaluate(TYPO,["#tp","fontWeight"])}')
+    ok("T price: its own shadow — 3px blur, between the h3 and the h1",
+       "3px" in pg.evaluate(TYPO,["#tp","textShadow"]), pg.evaluate(TYPO,["#tp","textShadow"]))
+    ok("T price: tabular figures, so a column of prices lines up",
+       "tabular-nums" in pg.evaluate(TYPO,["#tp","fontVariantNumeric"]),
+       pg.evaluate(TYPO,["#tp","fontVariantNumeric"]))
+    ok("T price: sentence case — it is a figure, not a shouted heading",
+       pg.evaluate(TYPO,["#tp","textTransform"])=="none")
     ok("T display tier is uppercase, reading tier is not",
        pg.evaluate(TYPO,["#t2","textTransform"])=="uppercase"
        and pg.evaluate(TYPO,["#t3c","textTransform"])=="none")
@@ -85,9 +96,13 @@ with sync_playwright() as p:
     ok("T lead and body sit in color-body, headings in color-heading",
        pg.evaluate(TYPO,["#tb","color"])=="rgb(59, 63, 81)"
        and pg.evaluate(TYPO,["#t2","color"])=="rgb(36, 38, 48)")
-    ok("T display tracking is the spec's -0.07em",
-       abs(float(pg.evaluate(TYPO,["#t2","letterSpacing"]).replace("px",""))-(-0.07*40))<0.1,
+    # Superseded 2026-10-18: uppercase h1/h2 take --letterspacing-caps
+    # (-0.04em), not the -0.07em of the type export. Capitals need the air.
+    ok("T uppercase h1/h2 track at the caps value, not the display value",
+       abs(float(pg.evaluate(TYPO,["#t2","letterSpacing"]).replace("px",""))-(-0.04*40))<0.1,
        pg.evaluate(TYPO,["#t2","letterSpacing"]))
+    ok("T caps take the full em box — 0.9 clips them",
+       pg.evaluate(TYPO,["#t2","lineHeight"])=="40px", pg.evaluate(TYPO,["#t2","lineHeight"]))
 
     # ---------- radial surface, measured against radial-background-0*.svg
     SF="([s,p])=>getComputedStyle(document.querySelector(s))[p]"

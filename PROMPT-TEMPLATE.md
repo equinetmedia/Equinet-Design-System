@@ -5,7 +5,7 @@ read_when: >-
   Writing the prompt that generates a page from this system. Not a rules
   document — the rules live in README.md; this is brief-level direction only.
 depends_on: README.md, skills/equinet-layout/SKILL.md
-verified: 2026-10-13
+verified: 2026-10-18
 ---
 
 # Claude Design prompt template
@@ -64,11 +64,10 @@ clone) *before* starting, then prompt normally.
 >
 > **Design system — non-negotiable.** Every colour, type size, weight,
 > tracking and spacing value comes from `tokens.css`. No invented hues, no
-> third typeface. Headings: Open Sans at weight 800, or the body family at
-> 900 — never mix the two rules. Section headings are 36px
-> (`--equinet-fontsize-section-heading`), uppercase, with
-> `text-shadow: -2px 2px 4px rgba(0,0,0,0.15)`. Eyebrows are uppercase with
-> `0.2em` tracking at 12px.
+> third typeface. Use the type classes rather than setting sizes by hand:
+> `.eq-h1`…`.eq-body`, `.eq-price` for a headline figure, `.eq-eyebrow` for
+> a section label, `.eq-tag` for a fact about an item. Heading **level** and
+> type **size** are independent decisions — see `TYPE-ROLES.md`.
 >
 > **Every section gets a visual.** Place a whole illustration from
 > `assets/illustrations/INDEX.md` when its subject matches {CONTEXT}. When none
@@ -130,6 +129,27 @@ clone) *before* starting, then prompt normally.
 
 ---
 
+## What changed under this template since it was written
+
+It was written on 2026-10-13 and the system has moved. Rules it used to be
+worth restating are now carried by the repo, which is the point of the
+"built in" table below — but three are worth knowing about specifically:
+
+- **Headings.** `TYPE-ROLES.md` (2026-10-17) separated heading *level* from
+  type *size*, ruled h2 at 40px and section sub-headings at 36px, and retired
+  48px as a heading size. The uppercase h1/h2 metrics were superseded again
+  on 2026-10-18: `--equinet-letterspacing-caps` (-0.04em) and
+  `--equinet-lineheight-caps` (1.0), because capitals need more air and 0.9
+  clips them.
+- **Review.** Phase 3 in the layout skill runs fifteen checks grouped by
+  NN/g, IxDF and Baymard before a build hands anything back, and a failing
+  answer is fixed rather than reported. Asking a prompt for "best practice
+  UI/UX" now duplicates it.
+- **Components.** `.eq-eyebrow`, `.eq-tag`, `.eq-price`, `.eq-surface`,
+  `.eq-card--stacked` and the pointer and progress motion all postdate this
+  template. Name them if a page needs one specifically; otherwise the skill
+  reaches for them.
+
 ## Does this need pasting every session?
 
 **Mostly no.** The design-system format specifies that an agent reads
@@ -189,8 +209,8 @@ against the system on 2026-09-24:
 | Your line | Status |
 | --- | --- |
 | "Pull updated GitRep from [URL]" | **Can't work either way.** Private repo, read through a configured import. Refresh before prompting; the line does nothing in a prompt and can't be a rule. |
-| "Enhance layout with assets in illustrations and icons" | **Built in** — the README digest rules on icons, illustrations, every-section-gets-a-visual and backgrounds, plus `INDEX.md` and `ICON-REFERENCE.md`. Includes the compose-from-primitives fallback and the 1px/48px icon rule. |
-| "Best practice UI/UX methodologies" | **Built in** — contrast, alignment, hierarchy and density are all in the instructions section. |
+| "Enhance layout with assets in illustrations and icons" | **Built in** — the digest rules on icons, illustrations, every-section-gets-a-visual and backgrounds, plus `INDEX.md`, `ICON-REFERENCE.md` and the **2159 vendored Lucide glyphs** with their own index. Includes the compose-from-primitives fallback and the 1px/48px icon rule. |
+| "Best practice UI/UX methodologies" | **Built in** — `METHODOLOGY.md` holds the reasoning (NN/g, Baymard, IxDF) and **Phase 3** turns it into fifteen yes/no questions a build answers before handing back. Asking for it in a prompt adds nothing. |
 | "Reorder graphical layouts…" | **Built in** — the kit-of-parts rule plus the `.eq-stagger` pointer. |
 | "AEO principles" | **Not built in, on purpose.** Editorial, not design. Must be in the prompt. |
 

@@ -1,3 +1,5 @@
+
+/* components/bundle.css — inlined whole */
 /* ============================================================================
    EQUINET — COMPONENT STYLESHEET
    Pure CSS. No build step, no preprocessor, no JavaScript.
@@ -1860,3 +1862,140 @@
 /* A tag states a fact; it is not a control. No hover, no cursor change, no
    lift — the same promise rule as everywhere else. A tag that genuinely
    filters something is a <button> and takes button styling instead. */
+
+/* ============================================================================
+   TYPE SCALE — CASE RULING + THEME ISOLATION
+   Revised 2026-10-18.
+
+   RULED: h1 and h2 are UPPERCASE in every instance. h3–h6 stay sentence case.
+
+   The design system declares this itself rather than inheriting it from the
+   portal theme, so the rendering is the same in Claude Design, in HubSpot and
+   in any other host. !important is used because there is no field behind these
+   values and the theme's selectors are outside our control.
+
+   Caps need their own metrics. --equinet-letterspacing-display (-0.07em) and
+   --equinet-lineheight-h2--ratio (0.9) are both tuned for sentence case with
+   descenders; on caps they crush and clip respectively. The caps tokens
+   replace them for h1/h2 only.
+
+   Source copy stays sentence case. text-transform is presentational, so
+   screen readers announce the authored text, not the shouted version.
+   ========================================================================== */
+
+.eq-h1,
+.eq-h2 {
+  font-family: var(--equinet-font-heading, 'Open Sans', sans-serif) !important;
+  text-transform: uppercase !important;
+  /* !important on both: module.css loads after bundle.css, and any
+     descendant selector there (.pp-head .eq-h1 and the like) outranks a bare
+     class. On the first render that silently killed the caps line-height.
+     The case ruling's metrics are not negotiable by a page layer. */
+  letter-spacing: var(--equinet-letterspacing-caps, -0.04em) !important;
+  line-height: var(--equinet-lineheight-caps, 1.0) !important;
+  font-style: normal !important;
+  font-variant: normal !important;
+  text-decoration: none !important;
+  margin: 0;
+}
+
+/* h3 and below are sentence case. The theme must not shout them. */
+.eq-h3,
+.eq-h4,
+.eq-h5,
+.eq-h6,
+.eq-h3-card {
+  text-transform: none !important;
+  font-style: normal !important;
+  font-variant: normal !important;
+  text-decoration: none !important;
+  margin: 0;
+}
+
+/* Opt-out, for the rare h1/h2 that must read as sentence case — a long
+   heading, or one containing a product name whose casing carries meaning. */
+.eq-h1--sentence,
+.eq-h2--sentence {
+  text-transform: none !important;
+  letter-spacing: var(--equinet-letterspacing-display, -0.07em) !important;
+  line-height: var(--equinet-lineheight-h2--ratio, 0.9) !important;
+}
+
+/* Body copy is equally exposed to a theme that sets case on paragraphs. */
+.eq-lead,
+.eq-body {
+  text-transform: none !important;
+}
+
+/* ============================================================================
+   CARD LINKS — THEME ISOLATION
+   Added 2026-10-18. Second leak found in the same render as the uppercase one.
+
+   Headings inside a linked card rendered in the theme's anchor blue, with the
+   theme's arrow affordance. bundle.css already sets .eq-card__link { color:
+   inherit } but does not claim every state, so :link and :visited were still
+   reachable by the theme.
+
+   Colour is claimed here only for links; surface context still governs the
+   colour of headings that are not inside a link.
+   ========================================================================== */
+
+.eq-card__link,
+.eq-card__link:link,
+.eq-card__link:visited,
+.eq-card__link:hover,
+.eq-card__link:focus,
+.eq-card__link:active,
+.eq-card__link :is(h1,h2,h3,h4,h5,h6),
+.eq-card__link:link :is(h1,h2,h3,h4,h5,h6),
+.eq-card__link:visited :is(h1,h2,h3,h4,h5,h6),
+.eq-card :is(a:link, a:visited) :is(h1,h2,h3,h4,h5,h6) {
+  color: inherit !important;
+  text-decoration: none !important;
+}
+
+/* The theme may append a generated arrow or external-link glyph to anchors. */
+.eq-card__link::before,
+.eq-card :is(a)::before {
+  content: none !important;
+}
+
+
+/* ============================================================================
+   PRICE — .eq-price
+   Measured from assets/type/price-fontstyle.svg (168 x 53, Figma 2026-10-18).
+
+   A headline figure. NEVER AN <hN> — TYPE-ROLES.md is explicit: the price is
+   a role, not an outline level, and wrapping a number in a heading tag to get
+   it large breaks the document structure for a visual effect. It is a <p>.
+
+   48px / 800 / Open Sans per TYPE-ROLES.md, in --equinet-color-heading, with
+   its own drop shadow: -1px 1px 3px at alpha .15. That shadow is a value of
+   its own — the same offsets as the h3's but three times the blur, and
+   shallower than the h1/h2's 4px. It sits between them, which is where a
+   48px figure sits in the hierarchy.
+
+   The export is outlined text, so its tracking cannot be read back from the
+   file. It inherits --equinet-letterspacing-display (-0.07em), which is what
+   every other Open Sans display style in this system carries. If the comp
+   intends something looser, that is a measurement someone takes in Figma,
+   not one this file should guess.
+
+   Tabular figures are on deliberately: a column of prices whose digits do
+   not line up is the commonest typographic fault on a pricing page, and
+   48px makes it obvious.
+   ========================================================================== */
+
+.eq-price {
+  margin: 0;
+  font-family: var(--equinet-font-heading, 'Open Sans', sans-serif);
+  font-size: var(--equinet-fontsize-price, 48px);
+  font-weight: var(--equinet-fontweight-display, 800);
+  letter-spacing: var(--equinet-letterspacing-display, -0.07em);
+  line-height: var(--equinet-lineheight-h2--ratio, 0.9);
+  color: var(--equinet-color-heading, #242630);
+  text-shadow: var(--equinet-shadow-heading--price, -1px 1px 3px rgba(0, 0, 0, 0.15));
+  font-variant-numeric: tabular-nums;
+  font-feature-settings: 'tnum' 1;
+  text-transform: none !important;   /* theme isolation, as the headings have */
+}

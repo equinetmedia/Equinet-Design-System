@@ -14,7 +14,7 @@
     "shape": "unclassified (usually invisible bounds)"
   },
   "palette_note": "'unsanctioned' marks a colour found in artwork that is not a token; replace it with nearest_token (by RGB distance \u2014 a suggestion, not a ruling) rather than carrying the raw hex forward.",
-  "count": 122,
+  "count": 123,
   "assets": [
     {
       "name": "draftmans-background-hero-banner",
@@ -4292,6 +4292,25 @@
         {
           "hex": "#3B3F51",
           "token": "--equinet-color-night-700"
+        }
+      ]
+    },
+    {
+      "name": "price-fontstyle",
+      "path": "assets/type/price-fontstyle.svg",
+      "category": "type-spec",
+      "group": "type",
+      "width": 168.0,
+      "height": 53.0,
+      "aspect": 3.17,
+      "background": "transparent",
+      "live_text": 0,
+      "reworkable": false,
+      "roles": {},
+      "palette": [
+        {
+          "hex": "#242630",
+          "token": "--equinet-color-night-default"
         }
       ]
     }
