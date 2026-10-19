@@ -73,14 +73,20 @@ with sync_playwright() as p:
            pg.evaluate(TYPO,[sel,"fontSize"])==size and pg.evaluate(TYPO,[sel,"fontWeight"])==weight
            and pg.evaluate(TYPO,[sel,"fontFamily"]).replace(chr(34),"").startswith(fam.split()[0]),
            f'{pg.evaluate(TYPO,[sel,"fontSize"])} / {pg.evaluate(TYPO,[sel,"fontWeight"])} / {pg.evaluate(TYPO,[sel,"fontFamily"])[:18]}')
-    ok("T price: 48px / 800 / Open Sans",
-       pg.evaluate(TYPO,["#tp","fontSize"])=="48px" and pg.evaluate(TYPO,["#tp","fontWeight"])=="800"
-       and pg.evaluate(TYPO,["#tp","fontFamily"]).replace(chr(34),"").startswith("Open"),
-       f'{pg.evaluate(TYPO,["#tp","fontSize"])} / {pg.evaluate(TYPO,["#tp","fontWeight"])}')
+    # Corrected 2026-10-19 by the live-text export: Source Sans 900, not
+    # Open Sans 800. The price belongs to the reading tier.
+    ok("T price: 48px / 900 / Source Sans — the reading tier, not display",
+       pg.evaluate(TYPO,["#tp","fontSize"])=="48px" and pg.evaluate(TYPO,["#tp","fontWeight"])=="900"
+       and "Open Sans" not in pg.evaluate(TYPO,["#tp","fontFamily"]),
+       f'{pg.evaluate(TYPO,["#tp","fontSize"])} / {pg.evaluate(TYPO,["#tp","fontWeight"])} / {pg.evaluate(TYPO,["#tp","fontFamily"])[:24]}')
+    ok("T price: its own tracking, -0.05em not the display -0.07em",
+       abs(float(pg.evaluate(TYPO,["#tp","letterSpacing"]).replace("px",""))-(-0.05*48))<0.1,
+       pg.evaluate(TYPO,["#tp","letterSpacing"]))
     ok("T price: its own shadow — 3px blur, between the h3 and the h1",
        "3px" in pg.evaluate(TYPO,["#tp","textShadow"]), pg.evaluate(TYPO,["#tp","textShadow"]))
-    ok("T price: tabular figures, so a column of prices lines up",
-       "tabular-nums" in pg.evaluate(TYPO,["#tp","fontVariantNumeric"]),
+    ok("T price: old-style proportional figures — a stated fact, not a stamp",
+       "oldstyle-nums" in pg.evaluate(TYPO,["#tp","fontVariantNumeric"])
+       and "proportional-nums" in pg.evaluate(TYPO,["#tp","fontVariantNumeric"]),
        pg.evaluate(TYPO,["#tp","fontVariantNumeric"]))
     ok("T price: sentence case — it is a figure, not a shouted heading",
        pg.evaluate(TYPO,["#tp","textTransform"])=="none")

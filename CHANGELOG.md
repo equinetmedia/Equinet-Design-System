@@ -28,6 +28,57 @@ Project. Every entry below represents a manual reconciliation pass — someone
 asked Claude, in that Project, to fold new development work into
 `tokens.css` / `README.md`, then committed the result here.
 
+## 2026-10-19 — The price corrected by a live-text export, and given old-style figures
+
+A second `price-fontstyle.svg`, this one **live text instead of outlines**,
+which turned out to correct two things `.eq-price` had wrong.
+
+**Yesterday's export was outlined**, so only its size, colour and shadow
+could be read and the rest came from `TYPE-ROLES.md`. That file said 48px /
+800 / Open Sans. The new export declares its own attributes:
+
+| | Assumed | The export says |
+| --- | --- | --- |
+| Family | Open Sans | **Source Sans** |
+| Weight | 800 | **900** |
+| Tracking | inherited -0.07em | **-0.05em** |
+
+The size holds. **The price belongs to the reading tier, not the display
+tier** — which is why it reads as a figure being stated rather than a shouted
+heading, and it is a better answer than the one the role table carried.
+`TYPE-ROLES.md`'s price row is corrected, and
+`--equinet-letterspacing-price` added for the tracking I recorded yesterday
+as "a measurement to take in Figma rather than a guess this file should
+make". It was taken.
+
+**Old-style, proportional figures, on the designer's instruction.** Old-style
+figures sit on the baseline with ascenders and descenders like lowercase,
+instead of all standing at cap height. At 48px they read as part of the prose
+rather than as a number stamped into it: a price is a fact being stated, not
+a label.
+
+**It reverses a choice I made yesterday, and the reversal is right.** I had
+set `tabular-nums` on the argument that a column of prices must line up.
+Proportional figures do not line up — that is the trade — but a *table* of
+prices is a different component from a headline figure, and I had optimised
+the wrong one.
+
+**One thing I could not verify, stated rather than glossed.** This container
+cannot reach `fonts.googleapis.com`, so whether Google's served Source Sans 3
+exposes `onum` and `pnum` was untestable. A first attempt appeared to confirm
+it and was a **false positive** — the page had fallen back to a serif, whose
+own old-style figures produced the width difference I read as success.
+Caught by looking at the rendered image rather than trusting the number. The
+desktop family has both features; if the web font does not, the declaration
+is inert and the figures render lining, so it fails safe. Ten seconds in a
+browser settles it.
+
+The same fallback explains why yesterday's attempt to infer tracking from
+glyph widths was inconclusive: no web font was loading at all, so every
+weight returned identical metrics.
+
+Two checks rewritten, one added. 78 in that suite, 156 across five.
+
 ## 2026-10-18 — `.eq-price`; the caps ruling absorbed; PROMPT-TEMPLATE refreshed
 
 **Both uploaded files were strict supersets** — checked token by token and

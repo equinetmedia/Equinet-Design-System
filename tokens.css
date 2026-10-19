@@ -613,6 +613,7 @@
   --equinet-letterspacing-h4:           -0.015em; /* h4-fontstyle.svg · 2026-10-16 */
   --equinet-letterspacing-body:          0em;     /* body & lead fontstyle · 2026-10-16 */
   --equinet-letterspacing-tag:           0.02em;  /* tag*.svg · 2026-10-17 */
+  --equinet-letterspacing-price:        -0.05em;  /* price-fontstyle.svg · 2026-10-19 */
   /* ---------------------------------------------------------------- caps --
      RULED 2026-10-18: h1 and h2 are uppercase in every instance. Caps have no
      descenders and wider average glyph width, so the display tracking

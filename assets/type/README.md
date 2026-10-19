@@ -78,10 +78,44 @@ and `tokens.css` had no name for — including `--equinet-shadow-heading--h4`,
 which is *not* `--equinet-shadow-heading--sm`: same offsets, different blur
 and alpha (1px/0.15 against 2px/0.25).
 
-## `price-fontstyle` — 168 × 53
+## `price-fontstyle` — 149 × 53
 
-The headline figure. 48px / 800 / Open Sans per `TYPE-ROLES.md`, in
+The headline figure. **48px / 900 / Source Sans**, tracking **-0.05em**, in
 `--equinet-color-heading`. Built as `.eq-price`.
+
+### The second export corrected three things
+
+The first export was outlined text, so only its size, colour and shadow could
+be read and the rest came from `TYPE-ROLES.md` — which was wrong on two of
+them. This one is live text and declares its own attributes:
+
+| | Assumed from TYPE-ROLES | The export says |
+| --- | --- | --- |
+| Family | Open Sans | **Source Sans** |
+| Weight | 800 | **900** |
+| Tracking | inherited -0.07em | **-0.05em** |
+
+The size holds. **The price belongs to the reading tier, not the display
+tier** — which is why it reads as a figure being stated rather than as a
+shouted heading. `TYPE-ROLES.md`'s price row is corrected.
+
+### Old-style, proportional figures — ruled 2026-10-19
+
+Old-style figures sit on the baseline with ascenders and descenders like
+lowercase letters, instead of all standing at cap height. At 48px they read
+as part of the prose rather than as a number stamped into it, which is the
+point: a price is a fact being stated, not a label.
+
+**The trade-off is deliberate.** Proportional figures do not line up in a
+column. A table of prices wants tabular figures, and that is a different
+component from this one.
+
+**Not verified here.** This environment cannot reach `fonts.googleapis.com`,
+so whether Google's served Source Sans 3 exposes `onum` and `pnum` could not
+be tested — a first attempt fell back to a serif and reported a false
+positive. The desktop family has both. If the web font does not, the
+declaration is inert and the figures render lining, so it fails safe. Worth
+ten seconds in a browser to confirm.
 
 **Never an `<hN>`.** `TYPE-ROLES.md` is explicit: the price is a role, not an
 outline level, and wrapping a number in a heading tag to make it large breaks
@@ -92,17 +126,8 @@ the document structure for a visual effect. It is a `<p>`.
 the blur, and shallower than the h1/h2's 4px: it sits between them, which is
 where a 48px figure sits in the hierarchy.
 
-**Tracking could not be read from the file.** The export is outlined text, so
-there is no `letter-spacing` attribute to transcribe, and inferring it from
-glyph widths needs the exact face rendering, which this environment could not
-reproduce reliably. `.eq-price` inherits
-`--equinet-letterspacing-display` (-0.07em), which every other Open Sans
-display style carries. **If the comp intends something looser, that is a
-measurement to take in Figma rather than a guess this file should make.**
-
-`.eq-price` sets `tabular-nums`: a column of prices whose digits do not line
-up is the commonest typographic fault on a pricing page, and 48px makes it
-obvious.
+**Its shadow is still its own value** — `-1px 1px 3px` at alpha .15,
+unchanged between the two exports.
 
 ## Superseded 2026-10-18: uppercase h1/h2 metrics
 

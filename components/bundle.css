@@ -1963,39 +1963,57 @@
 
 /* ============================================================================
    PRICE — .eq-price
-   Measured from assets/type/price-fontstyle.svg (168 x 53, Figma 2026-10-18).
+   Measured from assets/type/price-fontstyle.svg (149 x 53, Figma 2026-10-19).
 
-   A headline figure. NEVER AN <hN> — TYPE-ROLES.md is explicit: the price is
-   a role, not an outline level, and wrapping a number in a heading tag to get
-   it large breaks the document structure for a visual effect. It is a <p>.
+   THE SECOND EXPORT CORRECTED THREE THINGS. The first was outlined text, so
+   only its size, colour and shadow could be read; the rest came from
+   TYPE-ROLES.md, which turned out to be wrong on two of them. This one is
+   live text and declares its own attributes:
 
-   48px / 800 / Open Sans per TYPE-ROLES.md, in --equinet-color-heading, with
-   its own drop shadow: -1px 1px 3px at alpha .15. That shadow is a value of
-   its own — the same offsets as the h3's but three times the blur, and
-   shallower than the h1/h2's 4px. It sits between them, which is where a
-   48px figure sits in the hierarchy.
+     family   Source Sans, NOT Open Sans. The price belongs to the reading
+              tier, not the display tier — which is why it reads as a figure
+              rather than as a shouted heading.
+     weight   900, not 800. --equinet-fontweight-black.
+     tracking -0.05em. Its own value: tighter than the tag's and looser than
+              the -0.07em display tracking it was inheriting by default.
 
-   The export is outlined text, so its tracking cannot be read back from the
-   file. It inherits --equinet-letterspacing-display (-0.07em), which is what
-   every other Open Sans display style in this system carries. If the comp
-   intends something looser, that is a measurement someone takes in Figma,
-   not one this file should guess.
+   TYPE-ROLES.md's price row said 48px / 800 / Open Sans. The size holds; the
+   family and weight are superseded by this export.
 
-   Tabular figures are on deliberately: a column of prices whose digits do
-   not line up is the commonest typographic fault on a pricing page, and
-   48px makes it obvious.
+   NEVER AN <hN>. That part of TYPE-ROLES.md stands: the price is a role, not
+   an outline level, and wrapping a number in a heading tag to make it large
+   breaks the document structure for a visual effect. It is a <p>.
+
+   OLD-STYLE, PROPORTIONAL FIGURES — ruled 2026-10-19.
+   Old-style figures sit on the baseline with ascenders and descenders like
+   lowercase letters, instead of all standing at cap height. At 48px in a
+   sentence-like context they read as part of the prose rather than as a
+   number stamped into it, which is the point: a price is a fact being
+   stated, not a label. Proportional spacing follows from the same choice —
+   each figure takes the width it wants.
+
+   The trade-off is real and deliberate: proportional figures do NOT line up
+   in a column. A table of prices wants tabular figures, and that is a
+   different component from this one.
+
+   NOT VERIFIED HERE. This container cannot reach fonts.googleapis.com, so
+   whether Google's served Source Sans 3 exposes `onum` and `pnum` could not
+   be tested — the first attempt fell back to a serif and reported a false
+   positive. The desktop family has both. If the web font does not, the
+   declaration is inert and the figures render lining; it fails safe. Worth
+   ten seconds in a browser to confirm.
    ========================================================================== */
 
 .eq-price {
   margin: 0;
-  font-family: var(--equinet-font-heading, 'Open Sans', sans-serif);
+  font-family: var(--equinet-font-body, 'Myriad Pro', 'Source Sans 3', sans-serif);
   font-size: var(--equinet-fontsize-price, 48px);
-  font-weight: var(--equinet-fontweight-display, 800);
-  letter-spacing: var(--equinet-letterspacing-display, -0.07em);
+  font-weight: var(--equinet-fontweight-black, 900);
+  letter-spacing: var(--equinet-letterspacing-price, -0.05em);
   line-height: var(--equinet-lineheight-h2--ratio, 0.9);
   color: var(--equinet-color-heading, #242630);
   text-shadow: var(--equinet-shadow-heading--price, -1px 1px 3px rgba(0, 0, 0, 0.15));
-  font-variant-numeric: tabular-nums;
-  font-feature-settings: 'tnum' 1;
+  font-variant-numeric: oldstyle-nums proportional-nums;
+  font-feature-settings: 'onum' 1, 'pnum' 1;
   text-transform: none !important;   /* theme isolation, as the headings have */
 }

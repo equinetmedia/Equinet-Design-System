@@ -9,8 +9,8 @@ depends_on: tokens.css
 
 # Tokens that cannot be expressed in tokens.json
 
-`tokens.css` declares **243** variables. **160** are emitted as
-tokens; **83** have no representation in Claude Design's schema
+`tokens.css` declares **244** variables. **160** are emitted as
+tokens; **84** have no representation in Claude Design's schema
 and are listed below with the reason.
 
 This file exists because the schema fails *silently*: an unsupported family or
@@ -96,6 +96,7 @@ is therefore not evidence that it is unimportant — read `tokens.css`.
 | `--equinet-letterspacing-h4` | `-0.015em` | typography — carried by the `type` block's named styles, which have no token-array equivalent |
 | `--equinet-letterspacing-body` | `0em` | typography — carried by the `type` block's named styles, which have no token-array equivalent |
 | `--equinet-letterspacing-tag` | `0.02em` | typography — carried by the `type` block's named styles, which have no token-array equivalent |
+| `--equinet-letterspacing-price` | `-0.05em` | typography — carried by the `type` block's named styles, which have no token-array equivalent |
 | `--equinet-letterspacing-caps` | `-0.04em` | typography — carried by the `type` block's named styles, which have no token-array equivalent |
 | `--equinet-lineheight-caps` | `1.0` | typography — carried by the `type` block's named styles, which have no token-array equivalent |
 | `--equinet-lineheight-h2--ratio` | `0.9` | typography — carried by the `type` block's named styles, which have no token-array equivalent |
