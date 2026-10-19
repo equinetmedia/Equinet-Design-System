@@ -600,7 +600,13 @@
   flex-direction: column;
   gap: var(--equinet-space-sm, 16px);
   padding: var(--equinet-space-md, 24px);
-  background: var(--equinet-color-surface, #FFFFFF);
+  /* Default card ground is white at 80%. The fallback line comes first so a
+     browser without color-mix() keeps a solid white card instead of dropping
+     the declaration and rendering transparent. background-color, not the
+     `background` shorthand: the shorthand also resets background-image, which
+     would wipe a gradient on any card that carries .eq-surface. */
+  background-color: var(--equinet-color-surface, #FFFFFF);
+  background-color: color-mix(in srgb, var(--equinet-color-surface, #FFFFFF) 80%, transparent);
   border-radius: var(--equinet-radius-card, 7px);
   box-shadow: var(--equinet-shadow-card, 1px 1px 5px 0 rgba(0, 0, 0, 0.13));
   overflow: clip;
@@ -647,6 +653,12 @@
 .eq-card:has(.eq-card__link):hover,
 .eq-card:has(.eq-card__link:focus-visible) {
   box-shadow: var(--equinet-shadow-card--hover, -4px 34px 34px rgba(0, 0, 0, 0.07));
+  /* Full white, so the card reads as lifting off the page. Same promise rule
+     as the shadow: only a card that is a link responds. Feedback, not
+     movement, so it holds under reduced motion. On a pale ground the change
+     is about 2/255 and effectively invisible; it shows over line work, the
+     radial pool and the dark surface. */
+  background-color: var(--equinet-color-surface, #FFFFFF);
 }
 
 @media (prefers-reduced-motion: no-preference) {
@@ -654,7 +666,8 @@
     /* Out: slow settle (0.6s). */
     transition:
       transform var(--equinet-motion-duration--slow, 0.6s) var(--equinet-motion-ease, ease-in-out),
-      box-shadow var(--equinet-motion-duration--slow, 0.6s) var(--equinet-motion-ease, ease-in-out);
+      box-shadow var(--equinet-motion-duration--slow, 0.6s) var(--equinet-motion-ease, ease-in-out),
+      background-color var(--equinet-motion-duration--slow, 0.6s) var(--equinet-motion-ease, ease-in-out);
   }
   .eq-card:has(.eq-card__link):hover,
   .eq-card:has(.eq-card__link:focus-visible) {
@@ -1361,9 +1374,13 @@
   color: var(--equinet-color-surface, #FFFFFF);
 }
 
-.eq-surface--dark .eq-card__title,
-.eq-surface--dark .eq-card__text,
 .eq-surface--dark .eq-stagger__heading { color: inherit; }
+
+/* FIXED 2026-10-19. This rule used to include .eq-card__title and
+   .eq-card__text, which handed white text to a card whose ground is white (or,
+   now, white at 80% over navy). Measured at 1.00:1 and 1.44:1. A card is a
+   light panel on a dark surface and keeps its own text colours; only content
+   sitting directly on the dark ground inherits white. */
 
 /* The eyebrow's dark-ground form, repeated here so a dark surface carries it
    without the author having to remember the modifier.

@@ -34,6 +34,7 @@ page=f"""<!doctype html><html><head><meta charset="utf-8">
 <section class="eq-surface eq-surface--02" id="surf2" style="height:200px"></section>
 <section class="eq-surface" id="surfD" style="height:200px"></section>
 <h1 class="eq-h1" id="t1">Heading</h1><h2 class="eq-h2" id="t2">Heading</h2><h2 class="eq-h2 eq-h2--light" id="t2l">Heading</h2><h3 class="eq-h3" id="t3">Heading</h3><h3 class="eq-h3 eq-h3--light" id="t3l">Heading</h3><h3 class="eq-h3-card" id="t3c">Card</h3><h4 class="eq-h4" id="t4">Sub</h4><p class="eq-price" id="tp">&pound;72,000</p><p class="eq-lead" id="tl">Lead</p><p class="eq-body" id="tb">Body</p>
+<section class="eq-surface eq-surface--dark" id="surfDarkCard" style="padding:20px"><div id="dkc"><h3 class="eq-card__title" id="dkt">Title</h3><p class="eq-card__text" id="dkp">Text</p></div></section>
 <section class="eq-surface eq-surface--dark" id="surfDark" style="height:200px"><p class="eq-eyebrow" id="ebDark">On dark</p></section>
 <div id="auto"><section class="eq-surface" id="a1"></section><section class="eq-surface" id="a2"></section><section class="eq-surface" id="a3"></section><section class="eq-surface" id="a4"></section><section class="eq-surface" id="a5"></section><section class="eq-surface eq-surface--01" id="aX"></section></div>
 <article class="eq-card eq-card--stacked" data-reveal id="stk">
@@ -109,6 +110,21 @@ with sync_playwright() as p:
        pg.evaluate(TYPO,["#t2","letterSpacing"]))
     ok("T caps take the full em box — 0.9 clips them",
        pg.evaluate(TYPO,["#t2","lineHeight"])=="40px", pg.evaluate(TYPO,["#t2","lineHeight"]))
+
+    # ---------- card ground: white at 80%, full white on a linked card's hover
+    CG="([s,p])=>getComputedStyle(document.querySelector(s))[p]"
+    ok("K1 card ground is white at 80%",
+       "0.8" in pg.evaluate(CG,["#card3","backgroundColor"]),
+       pg.evaluate(CG,["#card3","backgroundColor"]))
+    ok("K2 a card with no link keeps 80% — the promise rule",
+       "0.8" in pg.evaluate(CG,["#card3","backgroundColor"]))
+    ok("K3 card title and text classes keep their own colours on a dark surface (were inheriting white)",
+       pg.evaluate(CG,["#dkt","color"])=="rgb(36, 38, 48)"
+       and pg.evaluate(CG,["#dkp","color"])=="rgb(59, 63, 81)",
+       f'{pg.evaluate(CG,["#dkt","color"])} / {pg.evaluate(CG,["#dkp","color"])}')
+    ok("K4 the card transitions its ground along with the shadow",
+       "background-color" in pg.evaluate(CG,["#card2","transitionProperty"]),
+       pg.evaluate(CG,["#card2","transitionProperty"]))
 
     # ---------- radial surface, measured against radial-background-0*.svg
     SF="([s,p])=>getComputedStyle(document.querySelector(s))[p]"
@@ -252,8 +268,13 @@ with sync_playwright() as p:
        pg.evaluate("getComputedStyle(document.querySelector('#card2')).transitionDelay"))
     pg.hover('#card1'); pg.wait_for_timeout(450)
     ok("C3 linked card lifts 6px on hover", abs(pg.evaluate(TY,'#card1')+6)<0.5, f"translateY {pg.evaluate(TY,'#card1')}")
+    ok("K5 linked card goes to full white on hover",
+       pg.evaluate("()=>getComputedStyle(document.querySelector('#card1')).backgroundColor")=="rgb(255, 255, 255)",
+       pg.evaluate("()=>getComputedStyle(document.querySelector('#card1')).backgroundColor"))
     pg.hover('#card3'); pg.wait_for_timeout(450)
     ok("C3 unlinked card does NOT lift", pg.evaluate(TY,'#card3')==0)
+    ok("K6 unlinked card hover does NOT change its ground",
+       "0.8" in pg.evaluate("()=>getComputedStyle(document.querySelector('#card3')).backgroundColor"))
     pg.mouse.move(5,5); pg.wait_for_timeout(800)
     pg.evaluate("document.querySelector('#card2 .eq-card__link').focus({focusVisible:true})"); pg.keyboard.press('Shift+Tab'); pg.keyboard.press('Tab'); pg.wait_for_timeout(450)
     focused=pg.evaluate("document.activeElement.closest('.eq-card')?.id")

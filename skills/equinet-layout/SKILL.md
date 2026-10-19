@@ -214,7 +214,11 @@ deliverable.
 `.btn-navigation`, `.btn-textual` for actions; `.eq-card` for content cards.
 A card that links somewhere gets `.eq-card__link` inside it and lifts 6px on
 hover and keyboard focus. A card that links nowhere gets neither: rising on
-hover promises a click.
+hover promises a click. The card's ground is white at 80%, and a linked card
+goes to full white on hover and focus. On a pale page the difference is about
+2/255 and effectively invisible; it shows over the draughtsman's line work,
+the radial pool and the dark surface, so don't count on it to carry emphasis
+on a flat white section.
 
 **Decide what a card does before you build it.** A page of seventeen cards
 that all link nowhere is a page where nothing responds to the cursor, and it

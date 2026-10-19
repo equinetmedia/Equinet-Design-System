@@ -28,6 +28,55 @@ Project. Every entry below represents a manual reconciliation pass — someone
 asked Claude, in that Project, to fold new development work into
 `tokens.css` / `README.md`, then committed the result here.
 
+## 2026-10-19 — Card ground at 80% white; hover to full white; a dark-surface bug fixed
+
+`.eq-card` ground changes from opaque white to white at 80%, via
+`color-mix(in srgb, var(--equinet-color-surface) 80%, transparent)`. A linked
+card goes to full white on hover and keyboard focus, so it reads as lifting
+off the page, and the ground joins the shadow and transform in the transition.
+The change sits outside the motion query like the shadow does: it is feedback,
+not movement, so it holds under `reduce`. An unlinked card keeps its 80% ground
+under the pointer, which is the same promise rule as everywhere else.
+
+**Two small deviations from the rule as written, both behaviour-neutral today.**
+The ground is set with `background-color`, not the `background` shorthand,
+because the shorthand also resets `background-image` and would wipe the
+gradient on any card that carries `.eq-surface`. And a solid-white declaration
+sits above the `color-mix()` line, so a browser without `color-mix()` keeps a
+white card instead of dropping the declaration and rendering transparent.
+
+**Measured effect, which is smaller than it looks on a pale page.** At 80% over
+white the card renders `#FFFFFF`; over `surface--alt` it renders `#FDFDFD`.
+Hover then moves it by about 2/255, which is not perceptible. The change shows
+where the ground behind the card has something in it: the draughtsman's line
+work, the radial pool, and above all the dark surface, where the card renders
+`#CCD9E2` and hover takes it to white. Don't rely on it to carry emphasis on a
+flat white section. The skill now says so.
+
+**Text contrast on a card over a dark ground drops, and the orange takes the
+worst of it.** Orange stat values and read-more links measure 3.41:1 on a white
+card and **2.37:1** on a card over navy. Muted grey text falls to 4.16:1 there,
+under the 4.5:1 line, while heading and body text stay comfortable at 10.46:1
+and 7.24:1. This is the same pattern the tag showed: contrast depends on the
+ground, not only on the element. The `--aa` forms of the stat value and
+read-more use the heading colour and are unaffected.
+
+**A bug of mine found while testing this, and fixed.** `.eq-surface--dark` set
+`color: inherit` on `.eq-card__title` and `.eq-card__text` so that content on
+the dark ground would be readable. A card is a light panel, so it handed white
+text to a white card: measured at **1.00:1** before this change and 1.44:1
+after it. Anything built as a card inside the dark surface had invisible text.
+The rule now covers only `.eq-stagger__heading`, and a card keeps its own text
+colours. It existed since the dark surface was added on 2026-10-16 and no test
+covered it.
+
+Six checks added (78 to 84): the 80% ground, an unlinked card keeping it on
+hover, a linked card reaching full white, the ground being part of the
+transition, and card text classes keeping their colours on a dark surface. One
+fixture detail worth recording: the dark-surface check uses a plain host
+element rather than an `.eq-card`, because an extra card in that fixture
+changes which cards the reveal test sees.
+
 ## 2026-10-19 — The price corrected by a live-text export, and given old-style figures
 
 A second `price-fontstyle.svg`, this one **live text instead of outlines**,
