@@ -6,7 +6,7 @@ read_when: >-
   choices, the role token for each, the h2 ruling, the spacing ladder, and the
   three known gaps.
 depends_on: tokens.css, assets/type/README.md
-verified: 2026-10-17
+verified: 2026-10-22
 ---
 
 # TYPE-ROLES.md
@@ -38,6 +38,56 @@ the structure happens to line up.
 Getting this backwards produces one of two failures, and both ship:
 breaking the heading order to get the right size, or accepting the wrong size
 to keep the order.
+
+---
+
+## The case ruling
+
+**RULED 2026-10-18: `h1` and `h2` are UPPERCASE in every instance.** `h3` and
+below are sentence case.
+
+| Role | Case |
+|---|---|
+| Hero display, page title (`.eq-h1`) | **UPPERCASE** |
+| Section heading, section sub-heading (`.eq-h2`) | **UPPERCASE** |
+| Block, card, minor heading, stat label (`.eq-h3`–`.eq-h6`) | Sentence case |
+| Eyebrow / kicker (`.pp-kicker`, `.eq-eyebrow`) | UPPERCASE (unchanged) |
+| Lead, body, caption, button label | Sentence case |
+
+**The design system declares the case, not the host.** `.eq-h1` and `.eq-h2`
+set `text-transform: uppercase` in `bundle.css`. Before this ruling the caps
+were arriving from the HubSpot theme by accident, so the same markup rendered
+differently in Claude Design and in HubSpot. Declaring it makes the rendering
+identical wherever the system loads.
+
+**Caps need their own metrics.** `--equinet-letterspacing-display` (-0.07em)
+and the 0.9 line-height are tuned for sentence case with descenders; on caps
+they crush horizontally and clip vertically. Two tokens replace them, for
+`.eq-h1` and `.eq-h2` only:
+
+| Token | Value | Note |
+|---|---|---|
+| `--equinet-letterspacing-caps` | -0.04em | proposed, not measured. Was -0.02em on the first render, too open against the brand's -0.07em sentence-case tracking |
+| `--equinet-lineheight-caps` | 1.0 | caps fill the em box |
+
+Both are judgement values pending a render check. Every sentence-case role
+keeps its existing tracking and leading.
+
+**Both caps metrics carry `!important`.** `module.css` loads after
+`bundle.css`, so any descendant selector in the page layer (`.pp-head .eq-h1`
+and the like) outranks a bare class and silently killed the caps line-height on
+the first render. The case ruling's metrics are not negotiable by a page layer.
+
+**Source copy stays sentence case.** Write `What the Engine costs` in the
+field, never `WHAT THE ENGINE COSTS`. `text-transform` is presentational, so
+assistive technology announces the authored text rather than the shouted
+version, and the copy survives if the ruling is ever reversed.
+
+**Opt-out.** `.eq-h1--sentence` and `.eq-h2--sentence` restore sentence case
+along with the sentence-case tracking and leading. Use them only for a heading
+long enough that caps hurt reading, or one containing a product name whose
+casing carries meaning. A page full of opt-outs means the ruling is wrong, not
+the heading.
 
 ---
 
@@ -137,10 +187,19 @@ breaks every module already consuming them. It is named by role instead
 ladder itself is the wrong abstraction and should be replaced with
 scale-numbered space tokens in one deliberate breaking change.
 
-**3. Line-height is not yet role-mapped.** The table above covers size,
-weight and family only.
+**3. `h2` is being used as a kicker.** Three `<h2>` elements on the pricing
+page carry `class="pp-kicker"` rather than `.eq-h2` — the "Your first sector",
+"Each sector after" and "Running it" labels. They are `h2` in the outline and
+kicker in visual role, at 12px Source Sans 3. That is the level-versus-role
+split this document exists to describe, so it is not wrong. But it means "all
+`h2` are uppercase" is now true for two different reasons in two places:
+`.eq-h2` via the case ruling, `.pp-kicker` via its own long-standing uppercase.
+Changing one will not change the other.
 
-**4. This document and `assets/type/` disagree on family and weight.** Added
+**4. Line-height is not yet role-mapped.** The tables above cover size, weight
+and family only.
+
+**5. This document and `assets/type/` disagree on family and weight.** Added
 2026-10-17 when the two were put side by side. Every SIZE agrees; nothing
 below is a size dispute.
 

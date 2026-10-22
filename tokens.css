@@ -25,11 +25,14 @@
    EQUINET — DESIGN TOKENS
    Reconciled with the deployed /modules/tokens.css on 2026-10-16, which had
    drifted to 76 tokens against this file's 215. Twelve tokens were folded
-   back from the deployment; five conflicts were resolved by HOLDING THE
-   DEPLOYED VALUE, so deploying this file moves nothing on the live site.
-   Those five are still open questions, marked DECISION 1-5 below — holding
-   what ships is a safe default, not a ruling. Flip one deliberately when it
-   is decided, and check the result with:
+   back from the deployment; five conflicts were first resolved by HOLDING THE
+   DEPLOYED VALUE.
+   STATUS OF THE FIVE, as of 2026-10-22: DECISIONS 2, 3, 4 and 5 are RESOLVED
+   by the Figma type specs in assets/type/ (each block below says how).
+   ONLY DECISION 1 — Myriad Pro at the front of --equinet-font-body — is
+   still open. Deploying this file now DOES change live rendering: the h2, h3,
+   body line-height and display tracking values differ from the deployed
+   ones. Check the effect with:
        python tools/check-deployed-tokens.py <deployed file>
    Single source of truth for every reusable Equinet brand value.
    This file owns the ONLY :root block in the system. Modules consume tokens as

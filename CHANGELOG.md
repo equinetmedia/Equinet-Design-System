@@ -28,6 +28,51 @@ Project. Every entry below represents a manual reconciliation pass — someone
 asked Claude, in that Project, to fold new development work into
 `tokens.css` / `README.md`, then committed the result here.
 
+## 2026-10-22 — MAINTENANCE.md: the state of the build, and thirteen gaps in keeping it true
+
+A new top-level document recording where the system stands, how a change
+actually travels from a design decision to a live page, and what is missing
+from keeping it true. Every figure was measured from the repository that day:
+248 tokens, 127 manifest assets, 93 component classes, six tools, five suites
+and 176 checks, 71 changelog entries over four weeks.
+
+**The central finding is a chain, not a list.** A change passes through seven
+steps, and every one depends on someone remembering: edit, run the checks, zip
+and push, re-upload into Claude Design, audit the build, mirror to Notion,
+deploy tokens to HubSpot. Most failures on record happened at the handoffs.
+The thirteen gaps are those handoffs, ranked.
+
+**Reconciled while writing it, because the document would otherwise have been
+untrue:**
+
+- `TYPE-ROLES.md` and its Notion mirror had diverged in both directions. The
+  mirror still gave the price as 800 Open Sans, which the repo had corrected on
+  the 19th; the repo lacked the 18 October case ruling, the opt-out classes and
+  the h2-as-kicker gap that the mirror carried. Both now agree. The
+  family-and-weight conflict that only the repo knew about was added to the
+  mirror as gap 5.
+- The `tokens.css` header still claimed five open decisions. Four were resolved
+  on 16 October by the Figma type specs; only the Myriad Pro question remains.
+  Comment-only change, no value touched. It also now says plainly that
+  deploying the file changes live rendering.
+
+**Three things worth knowing from the survey:**
+
+- `PROMPT.md` v34, the module-generation prompt, is a different file from
+  `PROMPT-TEMPLATE.md`, which is the Claude Design page prompt refreshed on
+  the 18th. The earlier instruction to make `PROMPT.md` current was carried out
+  on the wrong file; the real one is not in this repo.
+- `PROMPT.md` v34 expects comps to carry `data-field` and `data-module`
+  attributes. Neither string appears anywhere in this repo or its skill, so the
+  two systems share a contract that only one of them states.
+- The layout skill was trimmed to 12.5 KB on 14 October and is 29.5 KB now.
+  The trim lasted a week.
+
+**Nothing in this change alters a component or a value.** One document added,
+one header comment corrected, one repo document reconciled to its mirror, and
+the document linked from the README and the handoff table. No assets were
+touched.
+
 ## 2026-10-19 — `.eq-check`: the system's touch of teal, and the ground decides the variant
 
 Four exports of a check in a circle, added as `assets/icons/status/` and built

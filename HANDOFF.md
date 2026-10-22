@@ -74,6 +74,7 @@ chat each time, not pulled automatically.
 | `tools/build-manifest.py` | Regenerates `assets/manifest.json` from the files | After adding, renaming or editing any asset |
 | `tools/build-tokens-json.py` | Regenerates `tokens.json` and `tools/tokens-unrepresentable.md` from `tokens.css` | After any change to `tokens.css`. `--check` fails if the JSON is stale |
 | `tools/check-docs.py` | Eleven consistency checks across the prose, the tokens and the manifest | Before every commit; exits non-zero so it wires into a hook or an Action |
+| `MAINTENANCE.md` | State of the build, how a change travels, ranked maintenance gaps, open decisions, and what could not be verified | Before deciding what to work on next, or when checking a claim about the system |
 | `METHODOLOGY.md` | The reasoning behind the rules — scanning and layout (NN/g), affordance and targets (IxDF), the conversion path (Baymard), plus where the evidence is weaker than it sounds | When a rule needs applying to a case it doesn't cover, or looks wrong |
 | `TYPE-ROLES.md` | The role contract — which token sizes what, why heading level and size are independent, the h2 ruling, the spacing ladder, known gaps | Before sizing any text |
 | `tests/progress-test.py` | Reading-progress emphasis for unlinked content — reached is permanent, nothing hidden behind scrolling, no false affordance | After touching `[data-progress]` or the reveal logic |

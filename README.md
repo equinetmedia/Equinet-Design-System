@@ -822,6 +822,9 @@ of them, just the mandate to use them.
 - Wordmark: `assets/brand/wordmark-light.svg` or `wordmark-dark.svg`, picked
   by background contrast (see **Brand mark**). Never render the name as
   styled text standing in for the logo.
+- `MAINTENANCE.md` — the state of the build to date, how a change actually
+  travels, the thirteen gaps that make the system hard to maintain, and the
+  open decisions. Read it before deciding what to work on next.
 - `METHODOLOGY.md` — how this system thinks about layout, motion,
   interaction and conversion, synthesised from NN/g, Baymard and IxDF. The
   reasoning behind the digest; read it when a rule needs applying to a case it
