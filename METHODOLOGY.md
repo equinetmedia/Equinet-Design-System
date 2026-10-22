@@ -186,6 +186,19 @@ time on other sites, and arrive expecting what those sites do. Native
 arrow keys. An invented interaction has to be better than the familiar one by
 enough to pay for the learning, and almost nothing is.
 
+**A status mark is a signifier with no spare channels.** A check says
+*included*, and for it to work three things must hold, none of them about
+looks. It must be **keepable**: a check on something that isn't included is
+the same false promise as a hover state on something inert. It must be
+**non-visual too**: colour is not the only signal — inclusion is a shape and
+absence is a different shape — and a mark that is the only indicator in a cell
+needs a text name, or it is an empty cell to a screen reader (WCAG 1.4.1 and
+1.1.1). And **absence must be marked**: a blank cell is ambiguous between not
+included, not applicable and not known, so the reader has to guess, and
+guessing is the work a comparison table exists to remove. That last point is
+reasoning from the ambiguity, not a cited finding — nothing here claims an
+NN/g or Baymard study on blank cells.
+
 **Recognition over recall.** Nielsen's heuristic. The tab set keeps all four
 labels visible while showing one panel; the reader never has to remember what
 was in the others. An accordion that collapses everything and shows nothing

@@ -34,6 +34,14 @@ page=f"""<!doctype html><html><head><meta charset="utf-8">
 <section class="eq-surface eq-surface--02" id="surf2" style="height:200px"></section>
 <section class="eq-surface" id="surfD" style="height:200px"></section>
 <h1 class="eq-h1" id="t1">Heading</h1><h2 class="eq-h2" id="t2">Heading</h2><h2 class="eq-h2 eq-h2--light" id="t2l">Heading</h2><h3 class="eq-h3" id="t3">Heading</h3><h3 class="eq-h3 eq-h3--light" id="t3l">Heading</h3><h3 class="eq-h3-card" id="t3c">Card</h3><h4 class="eq-h4" id="t4">Sub</h4><p class="eq-price" id="tp">&pound;72,000</p><p class="eq-lead" id="tl">Lead</p><p class="eq-body" id="tb">Body</p>
+<div id="ckl" style="padding:10px;background:#fff">
+<span class="eq-check" role="img" aria-label="Included" id="ck1"><svg viewBox="0 0 32 32" aria-hidden="true" focusable="false"><circle class="eq-check__ring" cx="16" cy="16" r="13.3333"/><path class="eq-check__mark" d="M21.3334 12L14 19.3333L10.6667 16"/></svg></span>
+<span class="eq-check eq-check--duotone" role="img" aria-label="Included" id="ck2"><svg viewBox="0 0 32 32" aria-hidden="true" focusable="false"><circle class="eq-check__ring" cx="16" cy="16" r="13.3333"/><path class="eq-check__mark" d="M21.3334 12L14 19.3333L10.6667 16"/></svg></span>
+<span class="eq-check eq-check--ink" role="img" aria-label="Included" id="ck3"><svg viewBox="0 0 32 32" aria-hidden="true" focusable="false"><circle class="eq-check__ring" cx="16" cy="16" r="13.3333"/><path class="eq-check__mark" d="M21.3334 12L14 19.3333L10.6667 16"/></svg></span>
+<span class="eq-check eq-check--fill" role="img" aria-label="Included" id="ck4"><svg viewBox="0 0 32 32" aria-hidden="true" focusable="false"><circle class="eq-check__ring" cx="16" cy="16" r="13.3333"/><path class="eq-check__mark" d="M21.3334 12L14 19.3333L10.6667 16"/></svg></span>
+<span class="eq-check eq-check--none" role="img" aria-label="Not included" id="ck5"></span>
+<ul class="eq-list--check" id="lst"><li id="li1">First item<br>second line</li><li>Second item</li></ul></div>
+<section class="eq-surface eq-surface--dark" id="ckdark" style="padding:10px"><span class="eq-check eq-check--ink" role="img" aria-label="Included" id="ckd1"><svg viewBox="0 0 32 32" aria-hidden="true" focusable="false"><circle class="eq-check__ring" cx="16" cy="16" r="13.3333"/><path class="eq-check__mark" d="M21.3334 12L14 19.3333L10.6667 16"/></svg></span><span class="eq-check eq-check--none" role="img" aria-label="Not included" id="ckd2"></span><ul class="eq-list--check" id="lstd"><li id="lid1">Dark item</li></ul></section>
 <section class="eq-surface eq-surface--dark" id="surfDarkCard" style="padding:20px"><div id="dkc"><h3 class="eq-card__title" id="dkt">Title</h3><p class="eq-card__text" id="dkp">Text</p></div></section>
 <section class="eq-surface eq-surface--dark" id="surfDark" style="height:200px"><p class="eq-eyebrow" id="ebDark">On dark</p></section>
 <div id="auto"><section class="eq-surface" id="a1"></section><section class="eq-surface" id="a2"></section><section class="eq-surface" id="a3"></section><section class="eq-surface" id="a4"></section><section class="eq-surface" id="a5"></section><section class="eq-surface eq-surface--01" id="aX"></section></div>
@@ -197,6 +205,63 @@ with sync_playwright() as p:
        pg.evaluate(TG,["#tgaa","color"])=="rgb(93, 99, 117)", pg.evaluate(TG,["#tgaa","color"]))
     ok("G9 a tag states a fact — no pointer cursor, it is not a control",
        pg.evaluate(TG,["#tg","cursor"]) in ("auto","default"), pg.evaluate(TG,["#tg","cursor"]))
+
+    # ---------- check, measured against assets/icons/status/CheckCircle-*.svg
+    CK="([s,p,q])=>getComputedStyle(document.querySelector(s))[p]"
+    def shape(sel, part, prop):
+        return pg.evaluate("([s,p])=>getComputedStyle(document.querySelector(s+' '+p))."+prop, [sel, part])
+    def pseudo(sel, ps, prop):
+        return pg.evaluate("([s,ps,p])=>getComputedStyle(document.querySelector(s),ps)[p]", [sel, ps, prop])
+    TEAL600="rgb(42, 121, 137)"; TEAL200="rgb(186, 228, 231)"; TEALDEF="rgb(107, 191, 198)"
+    INK="rgb(36, 38, 48)"; B950="rgb(1, 20, 32)"; CLEAR="rgba(0, 0, 0, 0)"
+
+    ok("Q1 default: teal-600 outline, no fill, teal-600 mark",
+       shape("#ck1",".eq-check__ring","stroke")==TEAL600 and shape("#ck1",".eq-check__ring","fill")==CLEAR
+       and shape("#ck1",".eq-check__mark","stroke")==TEAL600,
+       f'{shape("#ck1",".eq-check__ring","stroke")} / {shape("#ck1",".eq-check__ring","fill")}')
+    ok("Q2 duotone: teal-200 fill under the teal-600 outline",
+       shape("#ck2",".eq-check__ring","fill")==TEAL200 and shape("#ck2",".eq-check__ring","stroke")==TEAL600,
+       shape("#ck2",".eq-check__ring","fill"))
+    ok("Q3 ink: heading-colour outline and mark",
+       shape("#ck3",".eq-check__ring","stroke")==INK and shape("#ck3",".eq-check__mark","stroke")==INK)
+    ok("Q4 fill: teal-default circle, blue-950 mark, no ring",
+       shape("#ck4",".eq-check__ring","fill")==TEALDEF and shape("#ck4",".eq-check__mark","stroke")==B950
+       and shape("#ck4",".eq-check__ring","stroke")==CLEAR,
+       f'{shape("#ck4",".eq-check__ring","fill")} / {shape("#ck4",".eq-check__mark","stroke")}')
+    ok("Q5 sized 24px, the 32px export scaled",
+       pg.evaluate(CK,["#ck1","width"])=="24px" and pg.evaluate(CK,["#ck1","height"])=="24px")
+    ok("Q6 ground enforced: an ink check on a dark surface becomes the fill form",
+       shape("#ckd1",".eq-check__ring","fill")==TEALDEF and shape("#ckd1",".eq-check__mark","stroke")==B950,
+       f'{shape("#ckd1",".eq-check__ring","fill")} / {shape("#ckd1",".eq-check__mark","stroke")}')
+    # a card is a light panel even on a dark surface — injected and removed in one step
+    card = pg.evaluate("""()=>{
+        const host=document.querySelector('#ckdark');
+        const c=document.createElement('div'); c.className='eq-card'; c.id='tmpcard';
+        c.innerHTML='<span class="eq-check" id="tmpck"><svg viewBox="0 0 32 32"><circle class="eq-check__ring" cx="16" cy="16" r="13.3333"/><path class="eq-check__mark" d="M21.3334 12L14 19.3333L10.6667 16"/></svg></span>';
+        host.appendChild(c);
+        const r=getComputedStyle(c.querySelector('.eq-check__ring')), m=getComputedStyle(c.querySelector('.eq-check__mark'));
+        const out={ring:r.stroke, fill:r.fill, mark:m.stroke};
+        c.remove(); return out; }""")
+    ok("Q7 a card on a dark surface resets to the light teal outline",
+       card["ring"]==TEAL600 and card["mark"]==TEAL600, f'{card["ring"]} / {card["fill"]}')
+    ok("Q8 absence is a dash in muted grey, not a blank",
+       pseudo("#ck5","::before","backgroundColor")=="rgb(93, 99, 117)"
+       and pseudo("#ck5","::before","content") in ('""',"''","\"\""),
+       pseudo("#ck5","::before","backgroundColor"))
+    ok("Q9 absence on a dark surface lightens to charade-300",
+       pseudo("#ckd2","::before","backgroundColor")=="rgb(177, 183, 200)", pseudo("#ckd2","::before","backgroundColor"))
+    ok("Q10 list: no browser bullets, text indented past a 24px icon + 12px gap",
+       pg.evaluate(CK,["#lst","listStyleType"])=="none" and pg.evaluate(CK,["#li1","paddingLeft"])=="36px",
+       f'{pg.evaluate(CK,["#lst","listStyleType"])} / {pg.evaluate(CK,["#li1","paddingLeft"])}')
+    ok("Q11 list: circle is a teal-600 ring, mark a teal-600 mask",
+       pseudo("#li1","::before","borderTopColor")==TEAL600 and pseudo("#li1","::after","backgroundColor")==TEAL600,
+       f'{pseudo("#li1","::before","borderTopColor")} / {pseudo("#li1","::after","backgroundColor")}')
+    ok("Q12 list: the mark is a masked pseudo-element, so it can take a token",
+       "url(" in pseudo("#li1","::after","webkitMaskImage"),
+       pseudo("#li1","::after","webkitMaskImage")[:40])
+    ok("Q13 list on a dark surface takes the fill form",
+       pseudo("#lid1","::before","backgroundColor")==TEALDEF and pseudo("#lid1","::after","backgroundColor")==B950,
+       f'{pseudo("#lid1","::before","backgroundColor")} / {pseudo("#lid1","::after","backgroundColor")}')
 
     # ---------- stacked card, measured against card-stacked-layout-01.svg
     SC="([s,p])=>getComputedStyle(document.querySelector(s))[p]"

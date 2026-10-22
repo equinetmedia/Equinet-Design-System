@@ -175,3 +175,11 @@ canvas, round caps and joins, never over 48px, a one-line source comment
 (`<!-- lucide/name -->`), and path data fetched from the library rather than
 drawn from memory. The one thing to avoid is drawing a custom glyph by hand —
 Lucide covers almost everything, so there's rarely a reason to.
+
+## `status/` — the check
+
+Four exports of a check in a circle, 32 × 32, the reference geometry for
+`.eq-check`. They carry a signal rather than depict a subject, and their
+colours are hard-coded, so they are not inlined directly — the component reads
+the same geometry with its colours from custom properties so it can follow the
+ground. See `assets/icons/status/README.md`.

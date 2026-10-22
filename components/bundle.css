@@ -2034,3 +2034,197 @@
   font-feature-settings: 'onum' 1, 'pnum' 1;
   text-transform: none !important;   /* theme isolation, as the headings have */
 }
+
+
+/* ============================================================================
+   CHECK — .eq-check, .eq-check--none, .eq-list--check
+   Measured from assets/icons/status/CheckCircle-*.svg (32 x 32, Figma
+   2026-10-19): a 26.67px circle, 2px stroke, and a check drawn as
+   M21.33 12 L14 19.33 L10.67 16 with round caps and joins.
+
+   WHAT IT IS FOR. Marking something as included, approved, achieved or true,
+   in four places: comparison tables, tables, bullet lists, and charts. It is
+   the system's touch of teal, and it is a SIGNAL, never decoration. A list of
+   five neutral facts with checks claims all five are approvals.
+
+   FOUR TREATMENTS, mapped to the four exports:
+     .eq-check--ink       heading-colour outline. Where teal is not wanted.
+     .eq-check            teal-600 outline. The default, and the lightest touch.
+     .eq-check--duotone   teal-200 fill under the teal-600 outline.
+     .eq-check--fill      teal-default fill, blue-950 mark. The dark-ground form.
+
+   THE GROUND DECIDES THE VARIANT, AND IT IS ENFORCED, NOT ASKED FOR. Measured
+   as non-text contrast (needs 3:1, WCAG 1.4.11):
+     teal-600 outline    5.01:1 on white, 4.60:1 on surface--alt, 3.48:1 on a
+                         card over navy  — passes on every light ground
+                         2.10:1 on navy  — FAILS on dark
+     ink                 15.05:1 on white, 1.43:1 on navy  — light grounds only
+     fill                circle 4.96:1 on navy, 8.82:1 on blue-950; the mark is
+                         8.82:1 against its own fill — works on dark
+                         circle 2.12:1 on white — the mark still carries it,
+                         but the edge does not, so fill is a dark-ground form
+   So `.eq-surface--dark` forces the fill treatment whatever variant was
+   named, and a `.eq-card` inside it resets to the light form, because a card
+   is a light panel even on a dark surface (80% white over navy renders
+   #CCD9E2, where the teal-default circle would measure 1.47:1). The same trap
+   as the card-title colours fixed on 2026-10-19.
+
+   ABSENCE IS MARKED, NEVER LEFT BLANK. An empty cell in a comparison table
+   reads as not included, not applicable or not known, and a reader cannot tell
+   which. .eq-check--none is a plain dash with its own accessible name.
+
+   ACCESSIBLE NAME. A check beside visible text is decorative: aria-hidden.
+   A check that is the only indicator — a table cell — carries role="img" and
+   an aria-label, or a screen reader meets an empty cell. This is checkable and
+   tools/check-built-page.py checks it.
+
+     <span class="eq-check" role="img" aria-label="Included"><svg viewBox="0 0 32 32"
+       aria-hidden="true" focusable="false"><circle class="eq-check__ring" cx="16"
+       cy="16" r="13.3333"/><path class="eq-check__mark"
+       d="M21.3334 12L14 19.3333L10.6667 16"/></svg></span>
+
+     <span class="eq-check eq-check--none" role="img" aria-label="Not included"></span>
+   ========================================================================== */
+
+.eq-check,
+.eq-list--check {
+  --eq-check-size: 24px;
+  --eq-check-ring: var(--equinet-color-teal-600, #2A7989);
+  --eq-check-fill: transparent;
+  --eq-check-mark: var(--equinet-color-teal-600, #2A7989);
+}
+
+.eq-check--ink {
+  --eq-check-ring: var(--equinet-color-heading, #242630);
+  --eq-check-mark: var(--equinet-color-heading, #242630);
+}
+
+.eq-check--duotone { --eq-check-fill: var(--equinet-color-teal-200, #BAE4E7); }
+
+.eq-check--fill {
+  --eq-check-ring: transparent;
+  --eq-check-fill: var(--equinet-color-teal-default, #6BBFC6);
+  --eq-check-mark: var(--equinet-color-blue-950, #011420);
+}
+
+/* The ground decides. (0,2,0) beats any single variant class (0,1,0). */
+.eq-surface--dark :is(.eq-check, .eq-list--check) {
+  --eq-check-ring: transparent;
+  --eq-check-fill: var(--equinet-color-teal-default, #6BBFC6);
+  --eq-check-mark: var(--equinet-color-blue-950, #011420);
+}
+
+/* A card is a light panel even on a dark surface. (0,3,0), and the variants
+   below come after it at the same weight so they win over the plain reset. */
+.eq-surface--dark .eq-card :is(.eq-check, .eq-list--check) {
+  --eq-check-ring: var(--equinet-color-teal-600, #2A7989);
+  --eq-check-fill: transparent;
+  --eq-check-mark: var(--equinet-color-teal-600, #2A7989);
+}
+
+.eq-surface--dark .eq-card .eq-check--ink {
+  --eq-check-ring: var(--equinet-color-heading, #242630);
+  --eq-check-mark: var(--equinet-color-heading, #242630);
+}
+
+.eq-surface--dark .eq-card .eq-check--duotone {
+  --eq-check-fill: var(--equinet-color-teal-200, #BAE4E7);
+}
+
+/* ------------------------------------------------------------ the icon -- */
+.eq-check {
+  display: inline-flex;
+  flex: none;
+  width: var(--eq-check-size);
+  height: var(--eq-check-size);
+  vertical-align: middle;
+}
+
+.eq-check svg { display: block; width: 100%; height: 100%; }
+
+.eq-check__ring {
+  fill: var(--eq-check-fill);
+  stroke: var(--eq-check-ring);
+  stroke-width: 2;
+}
+
+.eq-check__mark {
+  fill: none;
+  stroke: var(--eq-check-mark);
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+/* ------------------------------------------------------------- absence -- */
+.eq-check--none { --eq-check-none: var(--equinet-color-muted, #5D6375); }
+
+.eq-check--none::before {
+  content: '';
+  align-self: center;
+  width: 50%;
+  height: max(1.5px, calc(var(--eq-check-size) * 0.0625));
+  margin-inline: auto;
+  border-radius: 999px;
+  background: var(--eq-check-none);
+}
+
+.eq-surface--dark .eq-check--none { --eq-check-none: var(--equinet-color-charade-300, #B1B7C8); }
+.eq-surface--dark .eq-card .eq-check--none { --eq-check-none: var(--equinet-color-muted, #5D6375); }
+
+/* A table cell holding one of these. */
+.eq-cell--check { text-align: center; vertical-align: middle; }
+
+/* --------------------------------------------------------- bullet list -- */
+/* CSS-drawn, so the markup stays a clean <ul><li> with no SVG in each item.
+   The circle is a bordered pseudo-element; the mark is a second one, masked,
+   because a mask carries no colour and so can still take a token. Use for a
+   list where EVERY item is included, achieved or approved. A mixed list is a
+   comparison table with explicit absence, not a check list.
+
+   Put a variant class on the <ul>: <ul class="eq-list--check eq-check--duotone">.
+   The check is decorative here — the list's own heading says what it is. */
+.eq-list--check {
+  display: grid;
+  gap: var(--equinet-space-xs, 12px);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.eq-list--check > li {
+  position: relative;
+  min-height: var(--eq-check-size);
+  padding-left: calc(var(--eq-check-size) + var(--equinet-space-xs, 12px));
+}
+
+.eq-list--check > li::before,
+.eq-list--check > li::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0;
+  /* Centre on the first line of text. `lh` is the line height; a browser
+     without it drops this and keeps top: 0, which is a pixel or two off. */
+  top: calc((1lh - var(--eq-check-size)) / 2);
+}
+
+/* 26.67 / 32 outer = 0.8958 of the box once the 2px stroke is added, inset by
+   half the difference so the circle sits where the icon's does. */
+.eq-list--check > li::before {
+  box-sizing: border-box;
+  width: calc(var(--eq-check-size) * 0.8958);
+  height: calc(var(--eq-check-size) * 0.8958);
+  margin: calc(var(--eq-check-size) * 0.0521);
+  border: calc(var(--eq-check-size) * 0.0625) solid var(--eq-check-ring);
+  border-radius: 50%;
+  background-color: var(--eq-check-fill);
+}
+
+.eq-list--check > li::after {
+  width: var(--eq-check-size);
+  height: var(--eq-check-size);
+  background-color: var(--eq-check-mark);
+  -webkit-mask: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><path d='M21.3334 12L14 19.3333L10.6667 16' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/></svg>") center / 100% 100% no-repeat;
+          mask: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><path d='M21.3334 12L14 19.3333L10.6667 16' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/></svg>") center / 100% 100% no-repeat;
+}

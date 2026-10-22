@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300;0,400;0,600;0,700;0,800;1,400&family=Source+Sans+3:ital,wght@0,400;0,600;0,700;0,900;1,400&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300;0,400;0,600;0,700;0,800;1,400&family=Source+Sans+3:ital,wght@0,300;0,400;0,600;0,700;0,900;1,400&display=swap');
 /* 2026-10-18: added Open Sans 600 + 700 and Source Sans 3 900.
    The previous import loaded Open Sans 300/400/800 only, so every
    --equinet-fontweight-semibold (600), -btn (600), -bold (700) and
@@ -6,6 +6,11 @@
    browser. Source Sans 3 900 backs --equinet-fontweight-black, used by
    the 36px section sub-heading. Open Sans italic 400 is included because
    the Claude Design export shipped it. */
+/* 2026-10-19: added Source Sans 3 300. --equinet-fontweight-light (300) has
+   existed since the original file but the import never loaded a 300 face, so
+   every reference to it was browser-synthesised. Surfaced by hero-form-banner,
+   whose name block sets the "KNIGHT" line at 300 (Figma font-weight="300").
+   Additive: no existing weight was changed or removed. */
 
 /***********************************************/
 /* CSS @imports must be at the top of the file */
@@ -677,4 +682,45 @@
   --equinet-color-caution--pale: #FBEED3; /* · image_resizer · 2026-10-07 */
   --equinet-color-danger: #B3261E;        /* 5.14:1 on danger--pale · image_resizer · 2026-10-07 */
   --equinet-color-danger--pale: #F9DEDB;  /* · image_resizer · 2026-10-07 */
+
+  /* ========================================== FORM FIELDS & GHOST BUTTON · 2026-10-19 --
+     Promoted from the hero-form-banner build. tokens.css held no form-field
+     values at all; these four are the first. Additive only — nothing above is
+     revalued. Shadows transcribed from the Figma filters: offset = feOffset
+     dx/dy, CSS blur = 2 x feGaussianBlur stdDeviation, colour/alpha = feColorMatrix.
+
+     Deliberately NOT added, because the value already exists under another name
+     and a synonym would fork the source of truth. Modules reference the left-hand
+     token directly:
+       --equinet-color-night-300      field border        #D7D9E0
+       --equinet-neutral-600          placeholder text    #616579
+       --equinet-color-orange--pale   error field fill    #FCE9E0
+       --equinet-color-orange--dark   error field border  #D04F14
+       --equinet-btn-height           field height        56px
+       --equinet-radius-card          field radius        7px
+     ========================================================================== */
+  --equinet-shadow-field: -2px 2px 14px rgba(97, 101, 121, 0.15);
+                                   /* resting form control. module__hero-form-banner.svg
+                                      filter4-7: dx-2 dy2 std7, colour (.380392,.396078,.47451)
+                                      = #616579 at alpha .15 · hero-form-banner · 2026-10-19 */
+  --equinet-shadow-field--error: -3px 3px 12px rgba(224, 103, 48, 0.2);
+                                   /* invalid form control. fieldinputError.svg filter0:
+                                      dx-3 dy3 std6, colour (.878431,.403922,.188235)
+                                      = #E06730 at alpha .2. Deeper offset and warmer hue
+                                      than --equinet-shadow-field, so not a scaled variant
+                                      of it · hero-form-banner · 2026-10-19 */
+
+  --equinet-btn-fill--ghost: rgba(246, 247, 249, 0.2);
+                                   /* outline/secondary button resting fill — night-100 at 20%.
+                                      Its HOVER fill is solid --equinet-color-night-100, and its
+                                      border and label are --equinet-neutral-600 resting /
+                                      --equinet-color-heading on hover, all existing tokens.
+                                      Button-Link-Toggle rect + ButtonLink-Hover.svg
+                                      · hero-form-banner · 2026-10-19 */
+
+  --equinet-shadow-heading--name: -1px 1px 2px rgba(0, 0, 0, 0.15);
+                                   /* 36px Open Sans 800 name line. filter3: dx-1 dy1 std1.
+                                      NOT --equinet-shadow-heading--h3 (-1px 1px 1px, std0.5)
+                                      nor --heading--sm (-0.5px 0.5px 2px, alpha .25) — same
+                                      family, distinct blur · hero-form-banner · 2026-10-19 */
 }

@@ -291,6 +291,43 @@ def check_graphics(page):
                         "bundle.css hides the icon, so the page is correct — but move it to "
                         "a plain .eq-eyebrow or drop it")
 
+    # ---- status checks (.eq-check) ----------------------------------------
+    # A check beside visible text is decorative and takes aria-hidden. A check
+    # that is the only indicator, a table cell, carries role="img" and an
+    # aria-label, or a screen reader meets an empty cell. Colour and shape
+    # alone are not an accessible name.
+    checks, unnamed = 0, []
+    for m in re.finditer(r'<([a-z][a-z0-9]*)\b([^>]*)>', page, re.I):
+        attrs = m.group(2)
+        cm = re.search(r'class="([^"]*)"', attrs)
+        if not cm:
+            continue
+        tokens = cm.group(1).split()
+        # the component root, not its parts (eq-check__ring, eq-check__mark)
+        if not any(tk == "eq-check" for tk in tokens):
+            continue
+        checks += 1
+        decorative = re.search(r'aria-hidden="true"', attrs)
+        named = re.search(r'role="img"', attrs) and re.search(r'aria-label="[^"]+"', attrs)
+        if not (decorative or named):
+            unnamed.append(m.group(0)[:70])
+    lists = len(re.findall(r'class="[^"]*\beq-list--check\b', page))
+    nones = len(re.findall(r'class="[^"]*\beq-check--none\b', page))
+    fact("status checks", f"{checks} ({len(unnamed)} with no accessible name — should be 0)")
+    fact("check lists / absence marks", f"{lists} / {nones}")
+    if unnamed:
+        fail("check", f"{len(unnamed)} .eq-check element(s) have neither aria-hidden=\"true\" nor "
+                      "role=\"img\" with an aria-label. A check that is the only indicator in a "
+                      "cell is an empty cell to a screen reader. First: " + unnamed[0])
+    # a table that uses checks but never marks absence leaves blank cells
+    for tbl in re.findall(r'<table\b.*?</table>', page, re.S | re.I):
+        if 'eq-check' in tbl and 'eq-check--none' not in tbl and tbl.count('<td') > 0:
+            blank = len(re.findall(r'<td[^>]*>\s*</td>', tbl))
+            if blank:
+                fail("check", f"a table marks inclusion with checks but has {blank} empty cell(s). "
+                              "Absence must be marked (.eq-check--none), not left blank: a blank "
+                              "cell reads as not included, not applicable or not known")
+
     tabs = len(re.findall(r'role="tab"', page))
     hits = len(re.findall(r'data-role="hit"', page))
     fact("hotspots (role=tab)", tabs)

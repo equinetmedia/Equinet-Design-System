@@ -14,7 +14,7 @@
     "shape": "unclassified (usually invisible bounds)"
   },
   "palette_note": "'unsanctioned' marks a colour found in artwork that is not a token; replace it with nearest_token (by RGB distance \u2014 a suggestion, not a ruling) rather than carrying the raw hex forward.",
-  "count": 123,
+  "count": 127,
   "assets": [
     {
       "name": "draftmans-background-hero-banner",
@@ -1630,6 +1630,90 @@
         "pricing",
         "architecture",
         "offer design"
+      ]
+    },
+    {
+      "name": "CheckCircle-Dutone",
+      "path": "assets/icons/status/CheckCircle-Dutone.svg",
+      "category": "icon",
+      "group": "status",
+      "width": 32.0,
+      "height": 32.0,
+      "aspect": 1.0,
+      "background": "transparent",
+      "live_text": 0,
+      "reworkable": false,
+      "roles": {},
+      "palette": [
+        {
+          "hex": "#2A7989",
+          "token": "--equinet-color-teal-600"
+        },
+        {
+          "hex": "#BAE4E7",
+          "token": "--equinet-color-teal-200"
+        }
+      ]
+    },
+    {
+      "name": "CheckCircle-Fill",
+      "path": "assets/icons/status/CheckCircle-Fill.svg",
+      "category": "icon",
+      "group": "status",
+      "width": 32.0,
+      "height": 32.0,
+      "aspect": 1.0,
+      "background": "transparent",
+      "live_text": 0,
+      "reworkable": false,
+      "roles": {},
+      "palette": [
+        {
+          "hex": "#011420",
+          "token": "--equinet-color-blue-950"
+        },
+        {
+          "hex": "#6BBFC6",
+          "token": "--equinet-color-teal-default"
+        }
+      ]
+    },
+    {
+      "name": "CheckCircle-Outline-600",
+      "path": "assets/icons/status/CheckCircle-Outline-600.svg",
+      "category": "icon",
+      "group": "status",
+      "width": 32.0,
+      "height": 32.0,
+      "aspect": 1.0,
+      "background": "transparent",
+      "live_text": 0,
+      "reworkable": false,
+      "roles": {},
+      "palette": [
+        {
+          "hex": "#2A7989",
+          "token": "--equinet-color-teal-600"
+        }
+      ]
+    },
+    {
+      "name": "CheckCircle-Outline",
+      "path": "assets/icons/status/CheckCircle-Outline.svg",
+      "category": "icon",
+      "group": "status",
+      "width": 32.0,
+      "height": 32.0,
+      "aspect": 1.0,
+      "background": "transparent",
+      "live_text": 0,
+      "reworkable": false,
+      "roles": {},
+      "palette": [
+        {
+          "hex": "#242630",
+          "token": "--equinet-color-night-default"
+        }
       ]
     },
     {

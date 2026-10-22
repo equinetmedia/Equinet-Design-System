@@ -141,11 +141,11 @@ worth restating are now carried by the repo, which is the point of the
   on 2026-10-18: `--equinet-letterspacing-caps` (-0.04em) and
   `--equinet-lineheight-caps` (1.0), because capitals need more air and 0.9
   clips them.
-- **Review.** Phase 3 in the layout skill runs fifteen checks grouped by
+- **Review.** Phase 3 in the layout skill runs sixteen checks grouped by
   NN/g, IxDF and Baymard before a build hands anything back, and a failing
   answer is fixed rather than reported. Asking a prompt for "best practice
   UI/UX" now duplicates it.
-- **Components.** `.eq-eyebrow`, `.eq-tag`, `.eq-price`, `.eq-surface`,
+- **Components.** `.eq-eyebrow`, `.eq-tag`, `.eq-price`, `.eq-check`, `.eq-surface`,
   `.eq-card--stacked` and the pointer and progress motion all postdate this
   template. Name them if a page needs one specifically; otherwise the skill
   reaches for them.
@@ -210,7 +210,7 @@ against the system on 2026-09-24:
 | --- | --- |
 | "Pull updated GitRep from [URL]" | **Can't work either way.** Private repo, read through a configured import. Refresh before prompting; the line does nothing in a prompt and can't be a rule. |
 | "Enhance layout with assets in illustrations and icons" | **Built in** — the digest rules on icons, illustrations, every-section-gets-a-visual and backgrounds, plus `INDEX.md`, `ICON-REFERENCE.md` and the **2159 vendored Lucide glyphs** with their own index. Includes the compose-from-primitives fallback and the 1px/48px icon rule. |
-| "Best practice UI/UX methodologies" | **Built in** — `METHODOLOGY.md` holds the reasoning (NN/g, Baymard, IxDF) and **Phase 3** turns it into fifteen yes/no questions a build answers before handing back. Asking for it in a prompt adds nothing. |
+| "Best practice UI/UX methodologies" | **Built in** — `METHODOLOGY.md` holds the reasoning (NN/g, Baymard, IxDF) and **Phase 3** turns it into sixteen yes/no questions a build answers before handing back. Asking for it in a prompt adds nothing. |
 | "Reorder graphical layouts…" | **Built in** — the kit-of-parts rule plus the `.eq-stagger` pointer. |
 | "AEO principles" | **Not built in, on purpose.** Editorial, not design. Must be in the prompt. |
 

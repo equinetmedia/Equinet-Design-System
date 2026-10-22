@@ -126,6 +126,8 @@ means skipping the planning.
    - sections opening with an eyebrow, out of the total (every one)
    - icons placed: Equinet's own, vendored Lucide, and any you could not
      find (that last number should be 0 — name them if not)
+   - status checks placed — in tables, lists, charts — and how many have no
+     accessible name (must be 0), and any table cell left blank
    - sections carrying a draughtsman's background (2–3 expected; 0 is a fix)
    - does a reader of only the headings get the whole argument? yes/no
    - primary CTAs (one action, repeated) and whether the offer's shape —
@@ -145,7 +147,7 @@ each line yes or no **about the page you just built**, and fix anything that
 answers no before replying. A no you report instead of fixing is a defect you
 noticed and shipped.
 
-Fifteen questions, grouped by where the reasoning comes from. The long form
+Sixteen questions, grouped by where the reasoning comes from. The long form
 is `METHODOLOGY.md`.
 
 **How it is read — NN/g**
@@ -182,7 +184,13 @@ is `METHODOLOGY.md`.
 14. Does every figure carry its source beside it?
 15. Does the page still work with no JavaScript, no pointer and no motion?
 
-Report the numbers you answered no to and what you changed. If all fifteen
+**Meaning that isn't visual — IxDF, and WCAG 1.1.1 / 1.4.1**
+
+16. Does every check that carries meaning have a text equivalent, and is every
+    absence marked rather than left as a blank cell? A reader who cannot see
+    teal must still learn what is included.
+
+Report the numbers you answered no to and what you changed. If all sixteen
 are yes, say so in one line.
 
 ## Built into every page — no prompt needed
@@ -279,6 +287,26 @@ it is a tag. Four variants in ascending weight (`--outline`, `--solid`,
 `--blue`), and **at most one emphasised tag in a group**. A tag is not a
 control: no hover, no cursor change. One that genuinely filters is a
 `<button>`.
+
+**Mark what is included, approved or achieved with a check.** In a
+comparison table, a table, a bullet list or a chart, where something is
+*included, approved, achieved or true*: `.eq-check` in a cell,
+`.eq-list--check` on a list where every item qualifies, and a check in a chart
+legend or annotation for a series that meets a *stated* target. It is the
+system's touch of teal and it is a signal, never decoration — five neutral
+facts with checks claims all five are approvals.
+
+- **Absence is marked, never blank.** A comparison table's "no" is
+  `.eq-check--none`, a dash. A blank cell reads as not included, not
+  applicable or not known.
+- **The ground picks the variant automatically.** Light grounds take the teal
+  outline (default), `--duotone` or `--ink`; a dark surface forces the fill
+  form, and a card on one resets to light. Don't override it.
+- **A check that is the only indicator needs a name**: `role="img"` and an
+  `aria-label`. Beside visible text it is `aria-hidden="true"`.
+
+Markup, contrast figures and the open teal question are in
+`assets/icons/status/README.md`.
 
 **The eyebrow is orange, `#E06730`.** Ruled 2026-10-17. One Figma export
 (`assets/type/eyebrow-fontstyle.svg`) shows it in the heading colour; that

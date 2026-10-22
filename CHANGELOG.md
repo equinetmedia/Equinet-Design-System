@@ -28,6 +28,79 @@ Project. Every entry below represents a manual reconciliation pass — someone
 asked Claude, in that Project, to fold new development work into
 `tokens.css` / `README.md`, then committed the result here.
 
+## 2026-10-19 — `.eq-check`: the system's touch of teal, and the ground decides the variant
+
+Four exports of a check in a circle, added as `assets/icons/status/` and built
+as `.eq-check`, `.eq-check--none` and `.eq-list--check`. **Every colour already
+had a token** — `#2A7989` is `teal-600`, which is what "Outline-600" meant —
+so nothing was added to the palette.
+
+**The trigger is written first, not last.** Six things this month had a
+correct technique and no instruction to reach for it. So the skill opens this
+with *when*: mark what is included, approved, achieved or true in a comparison
+table, a table, a bullet list or a chart. It is a signal, never decoration —
+five neutral facts with checks claims all five are approvals — and Phase 2
+now counts checks placed.
+
+**Four treatments mapped to the four exports.** `--ink` (heading-colour
+outline), the default teal-600 outline as the lightest touch, `--duotone`, and
+`--fill` as the dark-ground form.
+
+**The ground decides, and it is enforced.** Measured as non-text contrast
+against WCAG 1.4.11's 3:1: the teal-600 outline passes on every light ground
+(5.01:1 white, 4.60:1 `surface--alt`, 3.48:1 on a card over navy) and **fails
+on navy at 2.10:1**; the ink variant is 1.43:1 on navy; the fill circle is
+4.96:1 on navy and 8.82:1 on blue-950 but **2.12:1 on white**. So
+`.eq-surface--dark` forces the fill form whatever variant was named, and a
+`.eq-card` inside it resets to the light form — because a card is a light
+panel even on a dark surface, and the fill circle would measure 1.47:1 on
+the `#CCD9E2` an 80% card renders there. That is the same trap as the card
+title colours fixed earlier today, found this time before it shipped, because
+the contrast was measured before the CSS was written.
+
+**Absence is marked, never blank.** A comparison table's "no" is
+`.eq-check--none`, a plain dash. An empty cell is ambiguous between not
+included, not applicable and not known. **This was my addition** — it was not
+in the exports — but a check is unusable in a comparison table without it.
+
+**Accessible names are checkable.** A check beside visible text is
+`aria-hidden`; one that is the only indicator carries `role="img"` and an
+`aria-label`, or a screen reader meets an empty cell. `check-built-page.py`
+now fails a page where a `.eq-check` has neither, and where a table marks
+inclusion with checks but leaves a cell blank. Proved on a good and a bad
+fixture: the good page raised no check failures, the bad one raised both.
+Phase 3 gains a sixteenth question for it, filed under WCAG 1.1.1 and 1.4.1
+rather than forced into one of the three institutes' groups.
+
+**Rendered and looked at**, not just measured: all four variants on white,
+`surface--alt` and the dark surface, and the CSS-drawn list against the inline
+icon. The list circle and mark align and centre on the first line of text,
+including on a two-line item; every variant collapses to the fill form on the
+dark row.
+
+**Thirteen checks added** (84 to 97), one rewritten after it turned out to
+pass on a trivial condition — Q12 asserted a mask with an `or` that let it
+succeed whatever the mask was.
+
+**An open question, recorded rather than resolved.** The chart palette was
+ruled on 2026-10-13 with teal as a plain categorical series colour. A check
+makes teal a status signal, and a reader who has learned teal means good from
+the checks may read a teal bar as a good bar. Until ruled on: in a chart that
+carries a check, don't draw a series in teal unless it is the one that
+achieved the target.
+
+**A gap.** No outline or duotone was supplied for dark grounds, so on dark
+every variant collapses to fill. A quieter dark form needs designing.
+
+**Also installed:** the uploaded `tokens.css`, a strict superset of the
+previous one with four additions unrelated to this work —
+`--equinet-btn-fill--ghost`, `--equinet-shadow-field`,
+`--equinet-shadow-field--error`, `--equinet-shadow-heading--name`. Not
+documented here because nothing in this change uses them and I don't know
+what they were added for. `tokens.json` regenerated.
+
+Manifest at 127.
+
 ## 2026-10-19 — Card ground at 80% white; hover to full white; a dark-surface bug fixed
 
 `.eq-card` ground changes from opaque white to white at 80%, via

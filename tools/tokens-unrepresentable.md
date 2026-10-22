@@ -9,7 +9,7 @@ depends_on: tokens.css
 
 # Tokens that cannot be expressed in tokens.json
 
-`tokens.css` declares **244** variables. **160** are emitted as
+`tokens.css` declares **248** variables. **164** are emitted as
 tokens; **84** have no representation in Claude Design's schema
 and are listed below with the reason.
 
