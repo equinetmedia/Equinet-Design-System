@@ -28,6 +28,24 @@ Project. Every entry below represents a manual reconciliation pass — someone
 asked Claude, in that Project, to fold new development work into
 `tokens.css` / `README.md`, then committed the result here.
 
+## 2026-11-10 — tokens.json regenerated: four dark-ground nav tokens were missing
+
+`tools/build-tokens-json.py --check` failed: `tokens.css` declared 252
+variables, `tokens.json` had been generated at 248. The four added since
+(from the mega-menu build, 2026-11-02) were invisible to anything reading the
+JSON, including the Claude Design system built from it:
+
+- `equinet-color-border--on-dark` `#515A74`
+- `equinet-color-surface--active-on-dark` `#303546`
+- `equinet-color-divider--on-dark` `#8A8A8A`
+- `equinet-shadow-icon--active` `-5.83px 3.33px 19.17px rgba(250, 102, 50, 0.6)`
+
+Regenerated, nothing else changed: no value altered, no token removed, every
+`usage` note carried forward, the `type` block identical.
+`tools/tokens-unrepresentable.md` updated to the new counts (252 declared, 168
+emitted, 84 unrepresentable). `--check` now passes; `check-docs.py` reports 0
+problems.
+
 ## 2026-10-22 — MAINTENANCE.md: the state of the build, and thirteen gaps in keeping it true
 
 A new top-level document recording where the system stands, how a change
