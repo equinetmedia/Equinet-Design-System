@@ -25,14 +25,11 @@
    EQUINET — DESIGN TOKENS
    Reconciled with the deployed /modules/tokens.css on 2026-10-16, which had
    drifted to 76 tokens against this file's 215. Twelve tokens were folded
-   back from the deployment; five conflicts were first resolved by HOLDING THE
-   DEPLOYED VALUE.
-   STATUS OF THE FIVE, as of 2026-10-22: DECISIONS 2, 3, 4 and 5 are RESOLVED
-   by the Figma type specs in assets/type/ (each block below says how).
-   ONLY DECISION 1 — Myriad Pro at the front of --equinet-font-body — is
-   still open. Deploying this file now DOES change live rendering: the h2, h3,
-   body line-height and display tracking values differ from the deployed
-   ones. Check the effect with:
+   back from the deployment; five conflicts were resolved by HOLDING THE
+   DEPLOYED VALUE, so deploying this file moves nothing on the live site.
+   Those five are still open questions, marked DECISION 1-5 below — holding
+   what ships is a safe default, not a ruling. Flip one deliberately when it
+   is decided, and check the result with:
        python tools/check-deployed-tokens.py <deployed file>
    Single source of truth for every reusable Equinet brand value.
    This file owns the ONLY :root block in the system. Modules consume tokens as
@@ -726,4 +723,32 @@
                                       NOT --equinet-shadow-heading--h3 (-1px 1px 1px, std0.5)
                                       nor --heading--sm (-0.5px 0.5px 2px, alpha .25) — same
                                       family, distinct blur · hero-form-banner · 2026-10-19 */
+
+  /* ==========================================================================
+     NAVIGATION — DARK-GROUND CARDS            [Module: mega-menu-build]
+     Added 2026-11-02 from module__mega-menu-build.svg, nav-Link-Hover.png and
+     mobile-navigation-open.svg. Card-title shadow REUSES
+     --equinet-shadow-heading--name (identical -1px 1px 2px α.15, filter2-8);
+     panel drop shadow REUSES --equinet-shadow-card--hover (filter1 is that
+     token × 1.19 at identical alpha). No new font weights required.
+     ========================================================================== */
+  --equinet-color-border--on-dark: #515A74;
+                                   /* resting card stroke on night-700 (#3B3F51) grounds.
+                                      D nav-Link_6-11 rect stroke · M navLink rect stroke.
+                                      Decorative boundary (1.52:1) — the card's text, not
+                                      its border, identifies it · mega-menu-build · 2026-11-02 */
+  --equinet-color-surface--active-on-dark: #303546;
+                                   /* hover / focus / current card fill on night-700 grounds.
+                                      D nav-Link_8 path fill · M navLink_3 · title #F5844D
+                                      on it = 4.81:1, white desc = 12.19:1
+                                      · mega-menu-build · 2026-11-02 */
+  --equinet-color-divider--on-dark: #8A8A8A;
+                                   /* 1px rule above the mobile-menu contact block.
+                                      M About mask fill #8A8A8A · mega-menu-build · 2026-11-02 */
+  --equinet-shadow-icon--active: -5.83px 3.33px 19.17px rgba(250, 102, 50, 0.6);
+                                   /* glow on the orange icon tile of an active nav card.
+                                      D filter4 / M filter2: dx-5.83333 dy3.33333 std9.58333
+                                      (blur 19.17), colour (.980392,.4,.196078) = #FA6632
+                                      (--equinet-color-amber-bright) at alpha .6
+                                      · mega-menu-build · 2026-11-02 */
 }
