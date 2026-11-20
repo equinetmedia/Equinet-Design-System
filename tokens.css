@@ -751,4 +751,52 @@
                                       (blur 19.17), colour (.980392,.4,.196078) = #FA6632
                                       (--equinet-color-amber-bright) at alpha .6
                                       · mega-menu-build · 2026-11-02 */
+
+  /* ==========================================================================
+     PRICING CARDS                             [Module: pricing-hero-banner]
+     Added 2026-11-12 from module__pricing-hero-banner.svg. Additive only —
+     nothing above is revalued. No new font weights required (Source Sans 3
+     400/400i/600/700 and Open Sans 800 were already imported).
+
+     Deliberately NOT added — the value already exists under another name, so
+     the module references the existing token:
+       price tracking −0.04em  → --equinet-letterspacing-caps
+                                 (OPEN: conflicts with --equinet-letterspacing-price
+                                 −0.05em from price-fontstyle.svg. Figma code for
+                                 price-Text (2026-11-13) says letter-spacing −1.92px =
+                                 −0.04em of 48px, and the comp's live <text> and PNG
+                                 agree. Needs a ruling on which price spec is current;
+                                 this file is unchanged.)
+       price shadow            → --equinet-shadow-heading (Figma −2px 2px 4px α.15)
+       mobile lead 18px        → --equinet-fontsize-h6
+
+     LOGGED, no change:
+       - h2 caps tracking: the comp renders −0.07em (PNG ink 683 vs 682.9 shaped)
+         against the 2026-10-18 ruling that uppercase h1/h2 use
+         --equinet-letterspacing-caps (−0.04em, which would render 720.7).
+       - card radius: rect rx 8 (--equinet-border-radius-lg), not
+         --equinet-radius-card (7, from cagr-four-column).
+       - textual button label: SVG fill #242630 again, while
+         --equinet-btn-label--textual resolves to #242530 (existing open decision).
+       - price style, CONFIRMED by Figma code 2026-11-13 (price-Text): Open Sans 800,
+         48px, line-height 120% (57.6px), letter-spacing −1.92px, uppercase,
+         text-shadow −2px 2px 4px α.15, font-variant-numeric: oldstyle-nums
+         proportional-nums. Not tokenised: no line-height token for 120%, and the
+         figures need the font features below.
+       - price figures need onum + pnum, which Google-served / theme copies of
+         "Open Sans" can drop (live render drew lining figures). The module declares
+         its own family "Equinet Figures" = a 3KB self-hosted Open Sans 800 subset
+         (OpenSans-ExtraBold-Figures.woff2, digits and currency only, features kept),
+         falling back to Open Sans. HubL get_asset_url cannot run in this file, so each
+         module that shows prices declares the @font-face itself.
+       - contrast: pill label #E06730 on #FCE9E0 = 2.90:1 and button label white
+         on #E06730 = 3.41:1 both fail WCAG 1.4.3 at their sizes. Shipped as
+         designed by decision 2026-11-12; needs a design-system ruling.
+     ========================================================================== */
+  --equinet-shadow-card--passive: 1px 1px 10px rgba(0, 0, 0, 0.13);
+                                   /* resting card. filter2/4/6: dx1 dy1 std5 → blur 10,
+                                      alpha .13. This is the Figma "Passive Card Shadow"
+                                      effect style (blur 10) that the SHADOWS note above
+                                      says never shipped; --equinet-shadow-card (blur 5)
+                                      is unchanged · pricing-hero-banner · 2026-11-12 */
 }
